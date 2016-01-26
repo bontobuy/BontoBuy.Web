@@ -36,5 +36,6 @@ namespace BontoBuy.Web.Models
         public DbSet<ItemViewModel> Items { get; set; }
         public DbSet<ModelViewModel> Models { get; set; }
         public DbSet<SpecificationViewModel> Specifications { get; set; }
+        public DbSet<TagViewModel> Tags { get; set; }
     }
 }

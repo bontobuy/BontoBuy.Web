@@ -1,7 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
     ViewBag.Title = "Supplier Home Page";
 }
-@using Microsoft.AspNet.Identity
 
 <h3>Welcome @Html.DisplayName(User.Identity.GetUserName())</h3>

@@ -13,6 +13,7 @@ namespace BontoBuy.Web.Models
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+
             // Add custom user claims here
             return userIdentity;
         }
@@ -29,5 +30,9 @@ namespace BontoBuy.Web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<CategoryViewModel> Categories { get; set; }
+        public DbSet<ProductViewModel> Products { get; set; }
+        public DbSet<ItemViewModel> Items { get; set; }
     }
 }

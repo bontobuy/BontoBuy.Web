@@ -26,6 +26,11 @@ namespace BontoBuy.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/AdminCSS").Include(
+                "~/Content/Admin/Site.css",
+                "~/Content/bootstrap.css",
+                "~/content/bootstrap-theme.css"));
         }
     }
 }

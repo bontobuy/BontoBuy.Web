@@ -12,8 +12,11 @@ namespace BontoBuy.Web.Models
     {
         [Key]
         public int ItemId { get; set; }
+        public int ProductId { get; set; }
         public string Description { get; set; }
 
+        public IEnumerable<ModelViewModel> ItemModelNav { get; set; }
+        [ForeignKey("ProductId")]
         public ProductViewModel ItemProductViewModel { get; set; }
     }
 }

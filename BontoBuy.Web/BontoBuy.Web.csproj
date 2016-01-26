@@ -181,13 +181,35 @@
     <Compile Include="Migrations\201601261357376_Add Item.Designer.cs">
       <DependentUpon>201601261357376_Add Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601261412377_Add ItemFKProduct.cs" />
+    <Compile Include="Migrations\201601261412377_Add ItemFKProduct.Designer.cs">
+      <DependentUpon>201601261412377_Add ItemFKProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261418176_Add Model.cs" />
+    <Compile Include="Migrations\201601261418176_Add Model.Designer.cs">
+      <DependentUpon>201601261418176_Add Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261419597_Add ModelFKItem.cs" />
+    <Compile Include="Migrations\201601261419597_Add ModelFKItem.Designer.cs">
+      <DependentUpon>201601261419597_Add ModelFKItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261426070_Add Specification.cs" />
+    <Compile Include="Migrations\201601261426070_Add Specification.Designer.cs">
+      <DependentUpon>201601261426070_Add Specification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261451239_Add Model.Specification ManyToMany.cs" />
+    <Compile Include="Migrations\201601261451239_Add Model.Specification ManyToMany.Designer.cs">
+      <DependentUpon>201601261451239_Add Model.Specification ManyToMany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\ModelViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
+    <Compile Include="Models\ViewModels\SpecificationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -274,6 +296,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601261357376_Add Item.resx">
       <DependentUpon>201601261357376_Add Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261412377_Add ItemFKProduct.resx">
+      <DependentUpon>201601261412377_Add ItemFKProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261418176_Add Model.resx">
+      <DependentUpon>201601261418176_Add Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261419597_Add ModelFKItem.resx">
+      <DependentUpon>201601261419597_Add ModelFKItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261426070_Add Specification.resx">
+      <DependentUpon>201601261426070_Add Specification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261451239_Add Model.Specification ManyToMany.resx">
+      <DependentUpon>201601261451239_Add Model.Specification ManyToMany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

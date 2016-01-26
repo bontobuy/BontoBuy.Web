@@ -200,6 +200,18 @@
     <Compile Include="Migrations\201601261451239_Add Model.Specification ManyToMany.Designer.cs">
       <DependentUpon>201601261451239_Add Model.Specification ManyToMany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601261637155_Add Tag.cs" />
+    <Compile Include="Migrations\201601261637155_Add Tag.Designer.cs">
+      <DependentUpon>201601261637155_Add Tag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261640413_Add SpecificationFkTag.cs" />
+    <Compile Include="Migrations\201601261640413_Add SpecificationFkTag.Designer.cs">
+      <DependentUpon>201601261640413_Add SpecificationFkTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.cs" />
+    <Compile Include="Migrations\201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.Designer.cs">
+      <DependentUpon>201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -209,6 +221,7 @@
     <Compile Include="Models\ViewModels\ModelViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecificationViewModel.cs" />
+    <Compile Include="Models\ViewModels\TagViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -306,6 +319,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601261451239_Add Model.Specification ManyToMany.resx">
       <DependentUpon>201601261451239_Add Model.Specification ManyToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261637155_Add Tag.resx">
+      <DependentUpon>201601261637155_Add Tag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261640413_Add SpecificationFkTag.resx">
+      <DependentUpon>201601261640413_Add SpecificationFkTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.resx">
+      <DependentUpon>201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

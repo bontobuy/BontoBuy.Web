@@ -25,7 +25,10 @@ namespace BontoBuy.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/content/Custom.css",
+                      "~/content/bootstrap-theme.css",
+                      "~/Content/Login.css",
+                      "~/Content/Product.css"));
 
             bundles.Add(new StyleBundle("~/Content/SupplierCSS").Include(
                 "~/Content/Supplier/Site.css",
@@ -36,6 +39,11 @@ namespace BontoBuy.Web
                 "~/Content/Admin/Site.css",
                 "~/Content/bootstrap.css",
                 "~/content/bootstrap-theme.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/CustomJS").Include(
+               "~/Scripts/bootstrap.min.js",
+               "~/Scripts/bootstrap.js",
+               "~/Scripts/Custom.js"));
         }
     }
 }

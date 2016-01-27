@@ -214,12 +214,17 @@
     <Compile Include="Migrations\201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.Designer.cs">
       <DependentUpon>201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601270639483_add modelspec.cs" />
+    <Compile Include="Migrations\201601270639483_add modelspec.Designer.cs">
+      <DependentUpon>201601270639483_add modelspec.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\ModelSpecViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecificationViewModel.cs" />
@@ -337,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.resx">
       <DependentUpon>201601261817083_Add SpecificationProperties Mobile,Tablet,Laptop,Desktop,Printer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601270639483_add modelspec.resx">
+      <DependentUpon>201601270639483_add modelspec.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

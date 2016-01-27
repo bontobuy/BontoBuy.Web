@@ -10,16 +10,12 @@ namespace BontoBuy.Web.Models
     [Table("Specification")]
     public class SpecificationViewModel
     {
-        public SpecificationViewModel()
-        {
-            SpecificationModelNav = new HashSet<ModelViewModel>();
-        }
-
-        #region Mobile
-
         [Key]
         public int SpecificationId { get; set; }
         public int TagId { get; set; }
+
+        #region Mobile
+
         public string BoxContents { get; set; }
         public string Warranty { get; set; }
         public string Brand { get; set; }
@@ -171,8 +167,7 @@ namespace BontoBuy.Web.Models
 
         #endregion Printers
 
-        public ICollection<ModelViewModel> SpecificationModelNav { get; set; }
-
+        public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }
         [ForeignKey("TagId")]
         public TagViewModel SpecificationTagNav { get; set; }
     }

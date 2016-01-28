@@ -11,9 +11,16 @@ namespace BontoBuy.Web.Models
     public class CategoryViewModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CategoryId { get; set; }
         public string Description { get; set; }
-
+        public bool? IsSelected { get; set; }
         public IEnumerable<ProductViewModel> CategoryProductNav { get; set; }
+    }
+
+    public class CatViewModel
+    {
+        public int CategoryId { get; set; }
+        public string Description { get; set; }
     }
 }

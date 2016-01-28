@@ -11,6 +11,7 @@ namespace BontoBuy.Web.Models
     public class ProductViewModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
         public string Description { get; set; }

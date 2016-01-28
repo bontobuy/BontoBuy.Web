@@ -11,6 +11,7 @@ namespace BontoBuy.Web.Models
     public class TagViewModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TagId { get; set; }
         public string Description { get; set; }
 

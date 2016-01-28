@@ -11,8 +11,10 @@ namespace BontoBuy.Web.Models
     public class SpecificationViewModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SpecificationId { get; set; }
         public int TagId { get; set; }
+        public int Price { get; set; }
 
         #region Mobile
 

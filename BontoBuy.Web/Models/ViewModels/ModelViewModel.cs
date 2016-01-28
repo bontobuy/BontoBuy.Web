@@ -14,13 +14,18 @@ namespace BontoBuy.Web.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ModelId { get; set; }
+        public int BrandId { get; set; }
         public string ModelNumber { get; set; }
         public int ItemId { get; set; }
 
         public IEnumerable<ModelSpecViewModel> ModeSpecNav { get; set; }
 
         [ForeignKey("ItemId")]
+        [Column(Order = 0)]
         public ItemViewModel ModelItemNav { get; set; }
+        [ForeignKey("BrandId")]
+        [Column(Order = 1)]
+        public BrandViewModel BrandNav { get; set; }
     }
 
     public class ModelBrandViewModel

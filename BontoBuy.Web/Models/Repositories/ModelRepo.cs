@@ -50,15 +50,15 @@ namespace BontoBuy.Web.Models
         {
         }
 
-        public IEnumerable<ModelViewModel> GetModelsByBrand(int brandId)
-        {
-            var records =
-                from model in db.Models
-                join item in db.Items on model.ItemId equals item.ItemId
-                where item.BrandId == brandId
-                select model;
+        //public IEnumerable<ModelViewModel> GetModelsByBrand(int brandId)
+        //{
+        //    var records =
+        //        from model in db.Models
+        //        join item in db.Items on model.ItemId equals item.ItemId
+        //        where item.BrandId == brandId
+        //        select model;
 
-            return records;
-        }
+        //    return records;
+        //}
     }
 }

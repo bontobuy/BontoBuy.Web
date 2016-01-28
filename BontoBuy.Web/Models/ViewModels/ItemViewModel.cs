@@ -14,7 +14,6 @@ namespace BontoBuy.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ItemId { get; set; }
         public int ProductId { get; set; }
-        public int BrandId { get; set; }
         [MaxLength]
         public string Description { get; set; }
         public string TermsAndConditions { get; set; }
@@ -22,10 +21,6 @@ namespace BontoBuy.Web.Models
         public IEnumerable<ModelViewModel> ItemModelNav { get; set; }
 
         [ForeignKey("ProductId")]
-        [Column(Order = 0)]
         public ProductViewModel ItemProductViewModel { get; set; }
-        [ForeignKey("BrandId")]
-        [Column(Order = 1)]
-        public BrandViewModel BrandNav { get; set; }
     }
 }

@@ -53,15 +53,23 @@
                     <li>
                         <a href=""><i class="glyphicon glyphicon-th-list"></i> Products</a>
                     </li>
-                    <li>
-                        <a href=""><i class="glyphicon glyphicon-expand"></i> Categories</a>
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-expand"></i> Categories</a>
+                        <ul id="demo" class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Retrieve","Category")">List</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Create","Category")">Add New</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href=""><i class="glyphicon glyphicon-book"></i> Orders</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-arrow-down"></i> Returns</a>
-                        <ul id="demo" class=" dropdown-menu">
+                        <ul id="demo" class="dropdown-menu">
                             <li>
                                 <a href="#">View Returns</a>
                             </li>
@@ -74,12 +82,13 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="container-margin">
         @RenderBody()
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/CustomJS")
     @RenderSection("scripts", required: false)
 </body>
 </html>

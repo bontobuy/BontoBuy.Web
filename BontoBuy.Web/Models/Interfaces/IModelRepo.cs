@@ -14,6 +14,6 @@ namespace BontoBuy.Web.Models
         ModelViewModel Update(int id, ModelViewModel item);
         void Remove(int id);
 
-        IEnumerable<ModelViewModel> GetModelsByBrand(int brand);
+        //IEnumerable<ModelViewModel> GetModelsByBrand(int brand);
     }
 }

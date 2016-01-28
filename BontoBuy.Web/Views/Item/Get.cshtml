@@ -1,0 +1,49 @@
+﻿@model BontoBuy.Web.Models.ItemViewModel
+
+@{
+    ViewBag.Title = "Get";
+}
+
+<h2>Get</h2>
+
+<div>
+    <h4>ItemViewModel</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandNav.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrandNav.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemProductViewModel.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemProductViewModel.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TermsAndConditions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TermsAndConditions)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Update", new { id = Model.ItemId }) |
+    @Html.ActionLink("Back to List", "Retrieve")
+</p>

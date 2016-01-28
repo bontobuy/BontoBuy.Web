@@ -1,0 +1,25 @@
+﻿@model BontoBuy.Web.Models.CategoryViewModel
+
+@{
+    ViewBag.Title = "Get";
+}
+
+<h2>Get</h2>
+
+<div>
+    <h4>CategoryViewModel</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Update", new { id = Model.CategoryId }) |
+    @Html.ActionLink("Back to List", "Retrieve")
+</p>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.CategoryViewModel>
+
+@{
+    ViewBag.Title = "Retrieve";
+}
+
+<h2>Retrieve</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Update", new { id = item.CategoryId }) |
+                @Html.ActionLink("Details", "Get", new { id = item.CategoryId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+            </td>
+        </tr>
+    }
+</table>

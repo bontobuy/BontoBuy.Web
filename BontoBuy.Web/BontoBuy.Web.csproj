@@ -40,6 +40,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.4.0.1\lib\net45\Microsoft.Practices.Unity.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -92,6 +112,10 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -153,16 +177,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\ModelController.cs" />
+    <Compile Include="Controllers\ProductCreationController.cs" />
+    <Compile Include="Models\Repositories\BrandRepo.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,15 +252,58 @@
     <Compile Include="Migrations\201601270639483_add modelspec.Designer.cs">
       <DependentUpon>201601270639483_add modelspec.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601271453475_Add Brand.cs" />
+    <Compile Include="Migrations\201601271453475_Add Brand.Designer.cs">
+      <DependentUpon>201601271453475_Add Brand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601271723155_Add ModelNumber.cs" />
+    <Compile Include="Migrations\201601271723155_Add ModelNumber.Designer.cs">
+      <DependentUpon>201601271723155_Add ModelNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601272004254_Add IsSelected.cs" />
+    <Compile Include="Migrations\201601272004254_Add IsSelected.Designer.cs">
+      <DependentUpon>201601272004254_Add IsSelected.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601272012211_Remove IsSelected.cs" />
+    <Compile Include="Migrations\201601272012211_Remove IsSelected.Designer.cs">
+      <DependentUpon>201601272012211_Remove IsSelected.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601272013013_Change IsSelected.cs" />
+    <Compile Include="Migrations\201601272013013_Change IsSelected.Designer.cs">
+      <DependentUpon>201601272013013_Change IsSelected.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601272018272_Change IsSelected to null.cs" />
+    <Compile Include="Migrations\201601272018272_Change IsSelected to null.Designer.cs">
+      <DependentUpon>201601272018272_Change IsSelected to null.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601272021119_Drop byte is selected.cs" />
+    <Compile Include="Migrations\201601272021119_Drop byte is selected.Designer.cs">
+      <DependentUpon>201601272021119_Drop byte is selected.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601272022174_add bool is selected.cs" />
+    <Compile Include="Migrations\201601272022174_add bool is selected.Designer.cs">
+      <DependentUpon>201601272022174_add bool is selected.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Interfaces\IBrandRepo.cs" />
+    <Compile Include="Models\Interfaces\IItemRepo.cs" />
+    <Compile Include="Models\Interfaces\IModelRepo.cs" />
+    <Compile Include="Models\Interfaces\ICategoryRepo.cs" />
+    <Compile Include="Models\Interfaces\IProductRepo.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Repositories\CategoryRepo.cs" />
+    <Compile Include="Models\Repositories\ItemRepo.cs" />
+    <Compile Include="Models\Repositories\ModelRepo.cs" />
+    <Compile Include="Models\Repositories\ProductRepo.cs" />
+    <Compile Include="Models\ViewModels\BrandViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelSpecViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\UpdateViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecificationViewModel.cs" />
     <Compile Include="Models\ViewModels\TagViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -295,9 +372,27 @@
     <Content Include="Views\Supplier\AddProduct.cshtml" />
     <Content Include="Views\Shared\AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Category\Retrieve.cshtml" />
+    <Content Include="Views\Category\Get.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Update.cshtml" />
+    <Content Include="Views\Brand\Retrieve.cshtml" />
+    <Content Include="Views\Brand\Get.cshtml" />
+    <Content Include="Views\Brand\Create.cshtml" />
+    <Content Include="Views\Brand\Update.cshtml" />
+    <Content Include="Views\Product\Retrieve.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Item\Retrieve.cshtml" />
+    <Content Include="Views\Item\Get.cshtml" />
+    <Content Include="Views\Item\Create.cshtml" />
+    <Content Include="Views\Item\Update.cshtml" />
+    <Content Include="Views\ProductCreation\CategorySelection.cshtml" />
+    <Content Include="Views\ProductCreation\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Model\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -345,6 +440,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601270639483_add modelspec.resx">
       <DependentUpon>201601270639483_add modelspec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601271453475_Add Brand.resx">
+      <DependentUpon>201601271453475_Add Brand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601271723155_Add ModelNumber.resx">
+      <DependentUpon>201601271723155_Add ModelNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601272004254_Add IsSelected.resx">
+      <DependentUpon>201601272004254_Add IsSelected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601272012211_Remove IsSelected.resx">
+      <DependentUpon>201601272012211_Remove IsSelected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601272013013_Change IsSelected.resx">
+      <DependentUpon>201601272013013_Change IsSelected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601272018272_Change IsSelected to null.resx">
+      <DependentUpon>201601272018272_Change IsSelected to null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601272021119_Drop byte is selected.resx">
+      <DependentUpon>201601272021119_Drop byte is selected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601272022174_add bool is selected.resx">
+      <DependentUpon>201601272022174_add bool is selected.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

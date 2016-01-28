@@ -10,7 +10,14 @@ namespace BontoBuy.Web.Controllers
 {
     public class ProductCreationController : Controller
     {
+        private readonly IProductCreationRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private IEnumerable<object> records;
+
+        public ProductCreationController(IProductCreationRepo repo)
+        {
+            _repository = repo;
+        }
 
         // GET: ProductCreation
         public ActionResult CategorySelection()
@@ -37,13 +44,14 @@ namespace BontoBuy.Web.Controllers
             {
                 ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description", item.CategoryId);
 
-                //TempData["CategoryData"] = item.CategoryId;
-                TempData["CategoryData"] = new ProductViewModel()
+                TempData["Data"] = new ProductViewModel()
                 {
-                    CategoryId = item.CategoryId
+                    ProductId = 0,
+                    CategoryId = item.CategoryId,
+                    Description = "N/A"
                 };
 
-                return RedirectToAction("Details");
+                return RedirectToAction("ProductSelection");
             }
             catch (Exception ex)
             {
@@ -51,33 +59,60 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        // GET: ProductCreation/Details/5
-        public ActionResult Details(ProductViewModel item)
-        {
-            var cat = TempData["CategoryData"];
-            return View(cat);
-        }
-
-        // GET: ProductCreation/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ProductCreation/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        // GET: ProductCreation/5
+        public ActionResult ProductSelection()
         {
             try
             {
-                // TODO: Add insert logic here
+                ProductViewModel item = TempData["Data"] as ProductViewModel;
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+                records = _repository.RetrieveProductByCategory(item);
 
-                return RedirectToAction("Index");
+                ViewBag.ProductId = new SelectList(records, "ProductId", "Description");
+
+                return View(item);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
+        }
+
+        // POST: ProductSelection
+        [HttpPost]
+        public ActionResult ProductSelection(ProductViewModel item)
+        {
+            try
+            {
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+
+                ViewBag.ProductId = new SelectList(records, "ProductId", "Description", item.ProductId);
+
+                TempData["Data"] = new ItemViewModel()
+                {
+                    ItemId = 0,
+                    ProductId = item.ProductId,
+                    Description = "N/A",
+                    TermsAndConditions = "N/A"
+                };
+
+                return RedirectToAction("ItemSelection");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        public ActionResult ItemSelection(ItemViewModel item)
+        {
+            return Content(item.TermsAndConditions);
         }
 
         // GET: ProductCreation/Edit/5
@@ -103,7 +138,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: ProductCreation/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }

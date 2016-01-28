@@ -69,7 +69,6 @@ namespace BontoBuy.Web.Controllers
             {
                 var newItem = new ItemViewModel();
                 ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Description");
-                ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
 
                 return View(newItem);
             }
@@ -93,7 +92,6 @@ namespace BontoBuy.Web.Controllers
                     return RedirectToAction("Retrieve");
                 }
                 ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Description", item.ProductId);
-                ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", item.BrandId);
 
                 return View(newItem);
             }

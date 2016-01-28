@@ -14,5 +14,6 @@ namespace BontoBuy.Web.Models
 
         IEnumerable<ProductViewModel> RetrieveProductByCategory(ProductViewModel item);
         ProductCreationViewModel AssignProductValue(ProductViewModel item);
+        IEnumerable<ItemViewModel> RetrieveItemByProduct(ItemViewModel item);
     }
 }

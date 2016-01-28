@@ -18,6 +18,13 @@
         width: 225px;
     }
 
+    .side-nav .active a {
+        cursor: default;
+        background-color: #1be6d4;
+        color: #1be6d4;
+        text-shadow: 1px 1px 1px #666;
+    }
+
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
@@ -33,12 +40,18 @@
             padding: 10px 15px 10px 38px;
             text-decoration: none;
             color: #999;
+            background-color: #000;
         }
 
             .side-nav > li > ul > li > a:hover {
-                color: #fff;
+                color: #000;
             }
 
-#container-margin {
+#containerCustom {
     margin-top: 40px;
+    width: auto;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #000;
 }

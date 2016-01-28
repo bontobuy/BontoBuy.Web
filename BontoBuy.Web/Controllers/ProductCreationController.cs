@@ -48,7 +48,7 @@ namespace BontoBuy.Web.Controllers
                 {
                     ProductId = 0,
                     CategoryId = item.CategoryId,
-                    Description = "N/A"
+                    Description = ""
                 };
 
                 return RedirectToAction("ProductSelection");
@@ -70,7 +70,6 @@ namespace BontoBuy.Web.Controllers
                     return HttpNotFound();
                 }
                 records = _repository.RetrieveProductByCategory(item);
-
                 ViewBag.ProductId = new SelectList(records, "ProductId", "Description");
 
                 return View(item);
@@ -92,14 +91,14 @@ namespace BontoBuy.Web.Controllers
                     return HttpNotFound();
                 }
 
+                records = _repository.RetrieveProductByCategory(item);
                 ViewBag.ProductId = new SelectList(records, "ProductId", "Description", item.ProductId);
 
                 TempData["Data"] = new ItemViewModel()
                 {
                     ItemId = 0,
                     ProductId = item.ProductId,
-                    Description = "N/A",
-                    TermsAndConditions = "N/A"
+                    Description = ""
                 };
 
                 return RedirectToAction("ItemSelection");
@@ -110,15 +109,49 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult ItemSelection(ItemViewModel item)
+        public ActionResult ItemSelection()
         {
-            return Content(item.TermsAndConditions);
+            try
+            {
+                ItemViewModel item = TempData["Data"] as ItemViewModel;
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+                records = _repository.RetrieveItemByProduct(item);
+                ViewBag.Item = new SelectList(records, "ItemId", "Description");
+
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
-        // GET: ProductCreation/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPost]
+        public ActionResult ItemSelection(ItemViewModel item)
         {
-            return View();
+            try
+            {
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+
+                records = _repository.RetrieveItemByProduct(item);
+                ViewBag.ItemId = new SelectList(records, "ProductId", "Description", item.ItemId);
+
+                TempData["Data"] = new ModelViewModel()
+                {
+                };
+
+                return RedirectToAction("ItemSelection");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // POST: ProductCreation/Edit/5

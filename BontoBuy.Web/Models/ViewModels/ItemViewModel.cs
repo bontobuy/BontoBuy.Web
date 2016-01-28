@@ -16,7 +16,6 @@ namespace BontoBuy.Web.Models
         public int ProductId { get; set; }
         [MaxLength]
         public string Description { get; set; }
-        public string TermsAndConditions { get; set; }
 
         public IEnumerable<ModelViewModel> ItemModelNav { get; set; }
 

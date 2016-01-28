@@ -12,10 +12,14 @@ namespace BontoBuy.Web.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Item Id")]
         public int ItemId { get; set; }
+        [Display(Name = "Product Id")]
         public int ProductId { get; set; }
         [MaxLength]
+        [Display(Name = "Item Category")]
         public string Description { get; set; }
+        [Display(Name = "Terms And Conditions")]
         public string TermsAndConditions { get; set; }
 
         public IEnumerable<ModelViewModel> ItemModelNav { get; set; }

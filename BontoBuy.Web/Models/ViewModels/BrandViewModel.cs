@@ -12,7 +12,9 @@ namespace BontoBuy.Web.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Brand Id")]
         public int BrandId { get; set; }
+        [Display(Name = "Brand Name")]
         public string Name { get; set; }
 
         public IEnumerable<ItemViewModel> ItemNav { get; set; }

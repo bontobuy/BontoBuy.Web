@@ -12,7 +12,9 @@ namespace BontoBuy.Web.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Category Id")]
         public int CategoryId { get; set; }
+        [Display(Name = "Category Name")]
         public string Description { get; set; }
         public bool? IsSelected { get; set; }
         public IEnumerable<ProductViewModel> CategoryProductNav { get; set; }
@@ -21,6 +23,7 @@ namespace BontoBuy.Web.Models
     public class CatViewModel
     {
         public int CategoryId { get; set; }
+        [Display(Name = "Category Name")]
         public string Description { get; set; }
     }
 }

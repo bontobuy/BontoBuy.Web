@@ -16,7 +16,7 @@ namespace BontoBuy.Web.Models
         public int ProductId { get; set; }
         [Display(Name = "Category Id")]
         public int CategoryId { get; set; }
-        [Display(Name = "Description")]
+        [Display(Name = "Sub Category Name")]
         public string Description { get; set; }
 
         public IEnumerable<ItemViewModel> ProductItemNav { get; set; }

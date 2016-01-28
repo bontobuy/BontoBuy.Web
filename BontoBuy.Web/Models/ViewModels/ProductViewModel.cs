@@ -12,8 +12,11 @@ namespace BontoBuy.Web.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Product Id")]
         public int ProductId { get; set; }
+        [Display(Name = "Category Id")]
         public int CategoryId { get; set; }
+        [Display(Name = "Sub Category Name")]
         public string Description { get; set; }
 
         public IEnumerable<ItemViewModel> ProductItemNav { get; set; }

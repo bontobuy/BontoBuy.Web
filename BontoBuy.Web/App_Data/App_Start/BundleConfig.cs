@@ -44,6 +44,8 @@ namespace BontoBuy.Web
                "~/Scripts/bootstrap.min.js",
                "~/Scripts/bootstrap.js",
                "~/Scripts/Custom.js"));
+
+            bundles.Add(new StyleBundle("~/Content/css/bootstrap").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform()));
         }
     }
 }

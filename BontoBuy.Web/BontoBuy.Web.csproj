@@ -184,6 +184,18 @@
     <Compile Include="Migrations\201601281501503_Remove Brand From Item.Designer.cs">
       <DependentUpon>201601281501503_Remove Brand From Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601281813566_Remove Terms and Conditions.cs" />
+    <Compile Include="Migrations\201601281813566_Remove Terms and Conditions.Designer.cs">
+      <DependentUpon>201601281813566_Remove Terms and Conditions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601281835318_Add Price.cs" />
+    <Compile Include="Migrations\201601281835318_Add Price.Designer.cs">
+      <DependentUpon>201601281835318_Add Price.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601281852423_Add ModelNav.cs" />
+    <Compile Include="Migrations\201601281852423_Add ModelNav.Designer.cs">
+      <DependentUpon>201601281852423_Add ModelNav.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Repositories\BrandRepo.cs" />
     <Compile Include="App_Data\App_Start\BundleConfig.cs" />
@@ -400,6 +412,7 @@
     <Content Include="Views\Item\Update.cshtml" />
     <Content Include="Views\ProductCreation\CategorySelection.cshtml" />
     <Content Include="Views\ProductCreation\ProductSelection.cshtml" />
+    <Content Include="Views\ProductCreation\ItemSelection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Model\" />
@@ -477,6 +490,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601281501503_Remove Brand From Item.resx">
       <DependentUpon>201601281501503_Remove Brand From Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601281813566_Remove Terms and Conditions.resx">
+      <DependentUpon>201601281813566_Remove Terms and Conditions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601281835318_Add Price.resx">
+      <DependentUpon>201601281835318_Add Price.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601281852423_Add ModelNav.resx">
+      <DependentUpon>201601281852423_Add ModelNav.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

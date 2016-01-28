@@ -48,5 +48,16 @@ namespace BontoBuy.Web.Models
 
             return productTransfer;
         }
+
+        public IEnumerable<ItemViewModel> RetrieveItemByProduct(ItemViewModel item)
+        {
+            int productId = item.ProductId;
+
+            var records = from items in db.Items
+                          where item.ProductId == productId
+                          select items;
+
+            return records;
+        }
     }
 }

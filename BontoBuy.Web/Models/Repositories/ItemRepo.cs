@@ -32,20 +32,17 @@ namespace BontoBuy.Web.Models
 
         public ItemViewModel Update(int id, ItemViewModel item)
         {
-            var currentrecord = db.Items
+            var currentRecord = db.Items
                .Where(x => x.ItemId == id)
                .FirstOrDefault();
 
-            if (!(String.IsNullOrWhiteSpace(item.Description)) && !(String.IsNullOrWhiteSpace(item.TermsAndConditions)))
+            if (!(String.IsNullOrWhiteSpace(item.Description)))
             {
-                currentrecord.Description = item.Description;
-                currentrecord.TermsAndConditions = item.TermsAndConditions;
+                currentRecord.Description = item.Description;
                 db.SaveChanges();
-
-                return currentrecord;
+                return currentRecord;
             }
-
-            return currentrecord;
+            return currentRecord;
         }
 
         public void Remove(int id)

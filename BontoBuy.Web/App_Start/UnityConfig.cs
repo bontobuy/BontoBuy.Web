@@ -48,6 +48,7 @@ namespace BontoBuy.Web.App_Start
             container.RegisterType<IItemRepo, ItemRepo>();
             container.RegisterType<IModelRepo, ModelRepo>();
             container.RegisterType<IProductRepo, ProductRepo>();
+            container.RegisterType<IProductCreationRepo, ProductCreationRepo>();
         }
     }
 }

@@ -69,7 +69,9 @@ namespace BontoBuy.Web.Controllers
             try
             {
                 var newItem = new ProductViewModel();
+
                 ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description");
+
                 return View(newItem);
             }
             catch (Exception ex)

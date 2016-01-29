@@ -59,5 +59,23 @@ namespace BontoBuy.Web.Models
 
             return records;
         }
+
+        public IEnumerable<ModelViewModel> RetrieveModelByItemByBrand(ModelViewModel item)
+        {
+            var records = from models in db.Models
+                          where models.BrandId == item.BrandId
+                          && models.ItemId == item.ItemId
+                          select models;
+
+            return records;
+        }
+
+        public IEnumerable<BrandViewModel> RetrieveBrand()
+        {
+            var records = from brands in db.Brands
+                          select brands;
+
+            return records;
+        }
     }
 }

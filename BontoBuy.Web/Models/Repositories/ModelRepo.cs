@@ -25,9 +25,19 @@ namespace BontoBuy.Web.Models
             return record;
         }
 
-        public ModelViewModel Create(ModelViewModel Model)
+        public ModelViewModel Create(ModelViewModel item)
         {
-            return null;
+            var newRecord = new ModelViewModel
+            {
+                BrandId = item.BrandId,
+                ModelNumber = item.ModelNumber,
+                ItemId = item.ItemId,
+                Price = item.Price
+            };
+            db.Models.Add(newRecord);
+            db.SaveChanges();
+
+            return newRecord;
         }
 
         public ModelViewModel Update(int id, ModelViewModel item)
@@ -39,6 +49,7 @@ namespace BontoBuy.Web.Models
             if (!(String.IsNullOrWhiteSpace(item.ModelNumber)))
             {
                 currentrecord.ModelNumber = item.ModelNumber;
+                currentrecord.Price = item.Price;
                 db.SaveChanges();
                 return currentrecord;
             }

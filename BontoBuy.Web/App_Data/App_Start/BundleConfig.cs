@@ -21,19 +21,22 @@ namespace BontoBuy.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/fileinput.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/content/Custom.css",
                       "~/content/bootstrap-theme.css",
                       "~/Content/Login.css",
-                      "~/Content/Product.css"));
+                      "~/Content/Product.css",
+                      "~/Content/fileinput.css"));
 
             bundles.Add(new StyleBundle("~/Content/SupplierCSS").Include(
                 "~/Content/Supplier/Site.css",
                 "~/Content/bootstrap.css",
-                "~/content/bootstrap-theme.css"));
+                "~/content/bootstrap-theme.css",
+                "~/Content/fileinput.css"));
 
             bundles.Add(new StyleBundle("~/Content/AdminCSS").Include(
                 "~/Content/Admin/Site.css",

@@ -5,10 +5,10 @@
     margin-left: -225px;
     border: none;
     border-radius: 0;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     background-color: #222;
     bottom: 0;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     padding-bottom: 40px;
     right: 0;
     left: auto;

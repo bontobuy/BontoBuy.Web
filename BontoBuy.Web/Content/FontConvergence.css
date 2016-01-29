@@ -1,0 +1,52 @@
+﻿h1 {
+    font-family: Convergence;
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
+}
+
+h3 {
+    font-family: Convergence;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 15.4px;
+}
+
+p {
+    font-family: Convergence;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+blockquote {
+    font-family: Convergence;
+    font-size: 21px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+pre {
+    font-family: Convergence;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18.5714px;
+}
+
+Preview Your Fonts Your headline is in Convergence This is a sub heading in Convergence. This paragraph is in Convergence. Keep reading for how to use the buttons to the left. Change your settings, and choose what section you want the font to apply to. Once you are pleased with the settings for that section you can click save. Your selections will remain as you look for another font for another section of this preview. Another sub heading in Convergence. Make other Convergence text stand out! The setting for a paragraph continues down here. There is a blockquote next to it. You may want to make that stand out. The setting for a paragraph continues down here. There is a blockquote next to it. You may want to make that stand out. The setting for a paragraph continues down here. There is a blockquote next to it. You may want to make that stand out.
+/* This text is in Convergence */
+.class {
+    font-family: Convergence;
+}
+
+Reset Golden Ratio Apply Golden Ratio to font sizes and line height based on paragraph font size.

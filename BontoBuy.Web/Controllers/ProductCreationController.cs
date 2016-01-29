@@ -44,7 +44,7 @@ namespace BontoBuy.Web.Controllers
             {
                 ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description", item.CategoryId);
 
-                TempData["Data"] = new ProductViewModel()
+                TempData["CategoryData"] = new ProductViewModel()
                 {
                     ProductId = 0,
                     CategoryId = item.CategoryId,
@@ -64,7 +64,7 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                ProductViewModel item = TempData["Data"] as ProductViewModel;
+                ProductViewModel item = TempData["CategoryData"] as ProductViewModel;
                 if (item == null)
                 {
                     return HttpNotFound();
@@ -94,7 +94,7 @@ namespace BontoBuy.Web.Controllers
                 records = _repository.RetrieveProductByCategory(item);
                 ViewBag.ProductId = new SelectList(records, "ProductId", "Description", item.ProductId);
 
-                TempData["Data"] = new ItemViewModel()
+                TempData["ProductData"] = new ItemViewModel()
                 {
                     ItemId = 0,
                     ProductId = item.ProductId,
@@ -113,14 +113,14 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                ItemViewModel item = TempData["Data"] as ItemViewModel;
+                ItemViewModel item = TempData["ProductData"] as ItemViewModel;
                 if (item == null)
                 {
                     return HttpNotFound();
                 }
                 records = _repository.RetrieveItemByProduct(item);
 
-                ViewBag.Item = new SelectList(records, "ItemId", "Description");
+                ViewBag.ItemId = new SelectList(records, "ItemId", "Description");
 
                 return View(item);
             }
@@ -142,10 +142,12 @@ namespace BontoBuy.Web.Controllers
 
                 records = _repository.RetrieveItemByProduct(item);
 
-                var assignItem = new ModelViewModel();
-                ViewBag.ItemId = new SelectList(records, "ProductId", "Description", assignItem.ItemId);
+                ViewBag.ItemId = new SelectList(records, "ItemId", "Description", item.ItemId);
 
-                TempData["Data"] = assignItem;
+                TempData["ModelData"] = new ModelViewModel()
+                {
+                    ItemId = item.ItemId
+                };
 
                 return RedirectToAction("BrandSelection");
             }
@@ -157,39 +159,60 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult BrandSelection()
         {
-            return View();
+            try
+            {
+                var item = new BrandViewModel();
 
-            //try
-            //{
-            //    ItemViewModel item = TempData["Data"] as ItemViewModel;
-            //    if (item == null)
-            //    {
-            //        return HttpNotFound();
-            //    }
-            //    records = _repository.RetrieveItemByProduct(item);
+                records = _repository.RetrieveBrand();
 
-            //    ViewBag.Item = new SelectList(records, "ItemId", "Description");
+                ViewBag.BrandId = new SelectList(records, "BrandId", "Name");
 
-            //    return View(item);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
-            //}
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult BrandSelection(BrandViewModel item)
+        {
+            try
+            {
+                records = _repository.RetrieveBrand();
+                var itemData = TempData["ModelData"] as ModelViewModel;
+                ViewBag.BrandId = new SelectList(records, "BrandId", "Name", item.BrandId);
+
+                TempData["ModelData"] = new ModelViewModel()
+                {
+                    ModelId = 0,
+                    ItemId = itemData.ItemId,
+                    BrandId = item.BrandId,
+                    ModelNumber = "",
+                    Price = -1
+                };
+
+                return RedirectToAction("ModelSelection");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         public ActionResult ModelSelection()
         {
             try
             {
-                ModelViewModel item = TempData["Data"] as ModelViewModel;
+                ModelViewModel item = TempData["ModelData"] as ModelViewModel;
                 if (item == null)
                 {
                     return HttpNotFound();
                 }
 
                 records = _repository.RetrieveModelByItemByBrand(item);
-                ViewBag.Model = new SelectList(records, "ModelId", "Description");
+                ViewBag.ModelId = new SelectList(records, "ModelId", "ModelNumber");
 
                 return View(item);
             }
@@ -210,7 +233,7 @@ namespace BontoBuy.Web.Controllers
                 }
 
                 records = _repository.RetrieveModelByItemByBrand(item);
-                ViewBag.Model = new SelectList(records, "ModelId", "Description", item.ModelId);
+                ViewBag.ModelId = new SelectList(records, "ModelId", "ModelNumber", item.ModelId);
 
                 TempData["Data"] = new ModelSpecViewModel()
                 {
@@ -231,7 +254,7 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                return View();
+                return Content("Success");
             }
             catch
             {

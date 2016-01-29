@@ -119,6 +119,7 @@ namespace BontoBuy.Web.Controllers
                     return HttpNotFound();
                 }
                 records = _repository.RetrieveItemByProduct(item);
+
                 ViewBag.Item = new SelectList(records, "ItemId", "Description");
 
                 return View(item);
@@ -140,13 +141,13 @@ namespace BontoBuy.Web.Controllers
                 }
 
                 records = _repository.RetrieveItemByProduct(item);
-                ViewBag.ItemId = new SelectList(records, "ProductId", "Description", item.ItemId);
 
-                TempData["Data"] = new ModelViewModel()
-                {
-                };
+                var assignItem = new ModelViewModel();
+                ViewBag.ItemId = new SelectList(records, "ProductId", "Description", assignItem.ItemId);
 
-                return RedirectToAction("ItemSelection");
+                TempData["Data"] = assignItem;
+
+                return RedirectToAction("BrandSelection");
             }
             catch (Exception ex)
             {
@@ -154,37 +155,83 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        // POST: ProductCreation/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductCreation/Delete/5
-        public ActionResult Delete()
+        public ActionResult BrandSelection()
         {
             return View();
+
+            //try
+            //{
+            //    ItemViewModel item = TempData["Data"] as ItemViewModel;
+            //    if (item == null)
+            //    {
+            //        return HttpNotFound();
+            //    }
+            //    records = _repository.RetrieveItemByProduct(item);
+
+            //    ViewBag.Item = new SelectList(records, "ItemId", "Description");
+
+            //    return View(item);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            //}
         }
 
-        // POST: ProductCreation/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult ModelSelection()
         {
             try
             {
-                // TODO: Add delete logic here
+                ModelViewModel item = TempData["Data"] as ModelViewModel;
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
 
-                return RedirectToAction("Index");
+                records = _repository.RetrieveModelByItemByBrand(item);
+                ViewBag.Model = new SelectList(records, "ModelId", "Description");
+
+                return View(item);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModelSelection(ModelViewModel item)
+        {
+            try
+            {
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+
+                records = _repository.RetrieveModelByItemByBrand(item);
+                ViewBag.Model = new SelectList(records, "ModelId", "Description", item.ModelId);
+
+                TempData["Data"] = new ModelSpecViewModel()
+                {
+                    ModelId = item.ModelId,
+                    SpecificationId = 0,
+                    Value = ""
+                };
+
+                return RedirectToAction("ModelSpecSelection");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        public ActionResult ModelSpecSelection()
+        {
+            try
+            {
+                return View();
             }
             catch
             {

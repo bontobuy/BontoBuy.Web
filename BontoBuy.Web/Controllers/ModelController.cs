@@ -18,58 +18,142 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: Model
-        public ActionResult Index()
+        public ActionResult Retrieve()
         {
-            return View();
+            try
+            {
+                var records = _repository.Retrieve();
+
+                if (records == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(records);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // GET: Model/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Get(int id)
         {
-            return View();
+            try
+            {
+                if (id < 1)
+                {
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
+                    RedirectToAction("Retrieve");
+                }
+
+                var profile = _repository.Get(id);
+                if (profile == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(profile);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // GET: Model/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                var newItem = new ModelViewModel();
+
+                ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
+                ViewBag.ItemId = new SelectList(db.Items, "ItemId", "Description");
+
+                return View(newItem);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // POST: Model/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ModelViewModel item)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (item == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
+                }
 
-                return RedirectToAction("Index");
+                // var newItem = _repository.Create(item);
+                if (ModelState.IsValid)
+                {
+                    db.Models.Add(item);
+                    db.SaveChanges();
+                    return RedirectToAction("Retrieve");
+                }
+
+                return RedirectToAction("Retrieve");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
 
         // GET: Model/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Update(int id)
         {
-            return View();
+            try
+            {
+                ModelViewModel itemToUpdate = new ModelViewModel();
+                if (id < 1)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid Identifier");
+                }
+
+                itemToUpdate = _repository.Get(id);
+                if (itemToUpdate == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(itemToUpdate);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // POST: Model/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, ModelViewModel item)
         {
             try
             {
-                // TODO: Add update logic here
+                if (item == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
+                }
 
-                return RedirectToAction("Index");
+                var updatedItem = _repository.Update(id, item);
+                if (updatedItem == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return RedirectToAction("Retrieve");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
 
@@ -94,29 +178,5 @@ namespace BontoBuy.Web.Controllers
                 return View();
             }
         }
-
-        //// GET: Model/GetModelbyBrand
-        //public ActionResult GetModelByBrand()
-        //{
-        //    try
-        //    {
-        //        ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Description");
-        //        ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
-        //        ViewBag.ItemId = new SelectList(db.Items, "ItemId", "Description");
-
-        //        return View();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
-        //    }
-        //}
-
-        //// POST: Model/GetModelbyBrand
-        //[HttpPost]
-        //public ActionResult GetModelByBrand()
-        //{
-        //    return View();
-        //}
     }
 }

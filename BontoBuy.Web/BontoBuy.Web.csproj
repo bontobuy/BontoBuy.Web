@@ -457,6 +457,7 @@
     <Content Include="Views\Specification\Create.cshtml" />
     <Content Include="Views\Product\Update.cshtml" />
     <Content Include="Views\Product\Get.cshtml" />
+    <Content Include="Views\Specification\Update.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -13,7 +13,12 @@ namespace BontoBuy.Web.Models
         ProductCreationViewModel Update(int id, ProductCreationViewModel item);
 
         IEnumerable<ProductViewModel> RetrieveProductByCategory(ProductViewModel item);
-        ProductCreationViewModel AssignProductValue(ProductViewModel item);
+
+        //ProductCreationViewModel AssignProductValue(ProductViewModel item);
         IEnumerable<ItemViewModel> RetrieveItemByProduct(ItemViewModel item);
+        IEnumerable<BrandViewModel> RetrieveBrand();
+        IEnumerable<ModelViewModel> RetrieveModelByItemByBrand(ModelViewModel item);
+
+        //ModelViewModel AssignModelValue(ModelViewModel item);
     }
 }

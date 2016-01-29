@@ -12,17 +12,6 @@
     margin: 0;
 }
 
-/*#full-screen-background-image {
-  z-index: -999;
-  min-height: 100%;
-  min-width: 1024px;
-  width: 100%;
-  height: auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-}*/
-
 .mega-dropdown {
     position: static !important;
 }
@@ -211,4 +200,12 @@
     margin-top: 25px;
     background: #fff;
     max-height: inherit;
+}
+
+.btn-circle {
+    height: 32px;
+    text-emphasis-position: above;
+    padding: 7px 8px;
+    border: 2px solid;
+    border-radius: 20px;
 }

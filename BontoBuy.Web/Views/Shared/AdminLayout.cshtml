@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
 
+    <style type="text/css">
+    </style>
+
     @Styles.Render("~/Content/AdminCSS")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -47,12 +50,6 @@
                     <li class="active">
                         <a href="@Url.Action("Index","Admin")"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="glyphicon glyphicon-user"></i> Users</a>
-                    </li>
-                    <li>
-                        <a href=""><i class="glyphicon glyphicon-th-list"></i> Products</a>
-                    </li>
                     <li class="dropdown">
                         <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-expand"></i> Categories</a>
                         <ul id="demo" class="dropdown-menu">
@@ -63,6 +60,42 @@
                                 <a href="@Url.Action("Create","Category")">Add New</a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i>Product Category</a>
+                        <ul id="demo" class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Retrieve","Product")">List</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Create","Product")">Add New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> Item Category</a>
+                        <ul id="demo" class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Retrieve","Item")">List</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Create","Item")">Add New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-tag"></i> Brand</a>
+                        <ul id="demo" class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Retrieve","Brand")">List</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Create","Brand")">Add New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="glyphicon glyphicon-user"></i> Users</a>
                     </li>
                     <li>
                         <a href=""><i class="glyphicon glyphicon-book"></i> Orders</a>
@@ -82,7 +115,7 @@
             </div>
         </div>
     </div>
-    <div class="container" id="container-margin">
+    <div class="container" id="containerCustom">
         @RenderBody()
     </div>
 

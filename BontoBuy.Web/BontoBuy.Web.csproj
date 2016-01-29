@@ -196,6 +196,18 @@
     <Compile Include="Migrations\201601281852423_Add ModelNav.Designer.cs">
       <DependentUpon>201601281852423_Add ModelNav.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601290242290_Terms and conditions.cs" />
+    <Compile Include="Migrations\201601290242290_Terms and conditions.Designer.cs">
+      <DependentUpon>201601290242290_Terms and conditions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601290252337_Terms and conditions Remove.cs" />
+    <Compile Include="Migrations\201601290252337_Terms and conditions Remove.Designer.cs">
+      <DependentUpon>201601290252337_Terms and conditions Remove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601290310178_Add BrandItem.cs" />
+    <Compile Include="Migrations\201601290310178_Add BrandItem.Designer.cs">
+      <DependentUpon>201601290310178_Add BrandItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Repositories\BrandRepo.cs" />
     <Compile Include="App_Data\App_Start\BundleConfig.cs" />
@@ -412,11 +424,14 @@
     <Content Include="Views\Item\Update.cshtml" />
     <Content Include="Views\ProductCreation\CategorySelection.cshtml" />
     <Content Include="Views\ProductCreation\ProductSelection.cshtml" />
+    <Content Include="Views\Model\Create.cshtml" />
+    <Content Include="Views\Model\Retrieve.cshtml" />
+    <Content Include="Views\Model\Get.cshtml" />
+    <Content Include="Views\Model\Update.cshtml" />
+    <Content Include="Views\ProductCreation\ModelSelection.cshtml" />
     <Content Include="Views\ProductCreation\ItemSelection.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -499,6 +514,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601281852423_Add ModelNav.resx">
       <DependentUpon>201601281852423_Add ModelNav.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601290242290_Terms and conditions.resx">
+      <DependentUpon>201601290242290_Terms and conditions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601290252337_Terms and conditions Remove.resx">
+      <DependentUpon>201601290252337_Terms and conditions Remove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601290310178_Add BrandItem.resx">
+      <DependentUpon>201601290310178_Add BrandItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

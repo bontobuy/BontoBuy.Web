@@ -19,8 +19,7 @@ namespace BontoBuy.Web.Models
         [MaxLength]
         [Display(Name = "Item Category")]
         public string Description { get; set; }
-        [Display(Name = "Terms And Conditions")]
-        public string TermsAndConditions { get; set; }
+        public string Brand { get; set; }
 
         public IEnumerable<ModelViewModel> ItemModelNav { get; set; }
 

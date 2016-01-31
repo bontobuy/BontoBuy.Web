@@ -214,6 +214,14 @@
     <Compile Include="Migrations\201601291749515_Remove obsolete properties in Specification.Designer.cs">
       <DependentUpon>201601291749515_Remove obsolete properties in Specification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601301637135_Edit Model Spec.cs" />
+    <Compile Include="Migrations\201601301637135_Edit Model Spec.Designer.cs">
+      <DependentUpon>201601301637135_Edit Model Spec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601310348113_Add desc to modelSpec.cs" />
+    <Compile Include="Migrations\201601310348113_Add desc to modelSpec.Designer.cs">
+      <DependentUpon>201601310348113_Add desc to modelSpec.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -424,7 +432,6 @@
     <Content Include="Views\Supplier\AddProduct.cshtml" />
     <Content Include="Views\Shared\AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Category\Retrieve.cshtml" />
     <Content Include="Views\Category\Get.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
@@ -458,6 +465,7 @@
     <Content Include="Views\Product\Update.cshtml" />
     <Content Include="Views\Product\Get.cshtml" />
     <Content Include="Views\Specification\Update.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -554,6 +562,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601291749515_Remove obsolete properties in Specification.resx">
       <DependentUpon>201601291749515_Remove obsolete properties in Specification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601301637135_Edit Model Spec.resx">
+      <DependentUpon>201601301637135_Edit Model Spec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601310348113_Add desc to modelSpec.resx">
+      <DependentUpon>201601310348113_Add desc to modelSpec.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,4 @@
-﻿@model BontoBuy.Web.Models.CategoryViewModel
+﻿@model IEnumerable<BontoBuy.Web.Models.ModelSpecViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,5 +6,34 @@
 
 <h2>Index</h2>
 
-@*@Html.DropDownList("CategoryId", String.Empty)*@
-@Html.DropDownList("CategoryId", "[Select]")
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SpecificationId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SpecificationId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SpecificationId })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,39 +1,31 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.ModelSpecViewModel>
-
+﻿@model List<BontoBuy.Web.Models.ModelSpecViewModel>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Value)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+@using (Html.BeginForm("Index", "Test", FormMethod.Post))
+{
+    <table class="table">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.TextBox("ModelSpecViewModel[" + (@i + 10) + "].Description",
+                    Model[i].Description, new { @readonly = "readonly" })
+                </td>
+                <td>
+                    @Html.TextBox("ModelSpecViewModel[" + (@i + 10) + "].Value",
+                    Model[i].Value)
+                </td>
+            </tr>
+        }
 
-    @foreach (var item in Model)
-    {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SpecificationId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.SpecificationId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.SpecificationId })
+            <td colspan="4">
+                <input type="submit" value="Submit"/>
             </td>
         </tr>
-    }
-</table>
+    </table>
+}

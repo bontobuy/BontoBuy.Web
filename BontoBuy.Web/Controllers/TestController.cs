@@ -64,6 +64,21 @@ namespace BontoBuy.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Index(List<ModelSpecViewModel> records)
+        {
+            foreach (ModelSpecViewModel item in records)
+            {
+                ModelSpecViewModel newItem = db.ModelSpecs.Find(item.SpecificationId);
+                newItem.ModelId = item.ModelId;
+                newItem.Value = item.Value;
+                newItem.Description = item.Description;
+            }
+            db.SaveChanges();
+
+            return View();
+        }
+
         // GET: Test/Details/5
         public ActionResult Details(int id)
         {

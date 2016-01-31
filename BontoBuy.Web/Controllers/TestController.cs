@@ -38,14 +38,30 @@ namespace BontoBuy.Web.Controllers
             //ViewBag.Categories = categoryListItems;
 
             //ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description");
+            //return View();
 
-            var records = from modelSpecs in db.ModelSpecs
-                          join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
-                          join tags in db.Tags on specs.TagId equals tags.TagId
-                          where tags.TagId == 1
-                          select modelSpecs;
+            using (ApplicationDbContext myDb = new ApplicationDbContext())
+            {
+                var records = from modelSpecs in db.ModelSpecs
+                              join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
+                              join tags in db.Tags on specs.TagId equals tags.TagId
+                              where tags.TagId == 1
+                              select modelSpecs;
+                if (records != null)
+                {
+                    foreach (var item in records)
+                    {
+                        item.Description = (from specs in db.Specifications
+                                            join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
+                                            where specs.SpecificationId.Equals(item.SpecificationId)
+                                            select specs.Description).FirstOrDefault();
 
-            return View(records.ToList());
+                        return View(records.ToList());
+                    }
+                }
+            }
+
+            return View();
         }
 
         // GET: Test/Details/5

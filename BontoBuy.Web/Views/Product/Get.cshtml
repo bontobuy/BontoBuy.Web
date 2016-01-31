@@ -1,13 +1,14 @@
 ﻿@model BontoBuy.Web.Models.ProductViewModel
 
 @{
-    ViewBag.Title = "Get";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewBag.Title = @Model.Description;
 }
 
-<h2>Get</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>ProductViewModel</h4>
+    <h4>Details</h4>
     <hr/>
     <dl class="dl-horizontal">
 
@@ -22,5 +23,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Retrieve")
 </p>

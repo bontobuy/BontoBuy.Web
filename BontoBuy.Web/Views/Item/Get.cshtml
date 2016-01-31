@@ -2,24 +2,16 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "Get";
+    ViewBag.Title = @Model.Description;
 }
 
 <div class="col-md-9">
-    <h2>Get</h2>
+    <h2>@ViewBag.Title</h2>
 
     <div>
-        <h4>ItemViewModel</h4>
+        <h4>Details</h4>
         <hr/>
         <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.BrandNav.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.BrandNav.Name)
-            </dd>
-
             <dt>
                 @Html.DisplayNameFor(model => model.ItemProductViewModel.Description)
             </dt>
@@ -34,14 +26,6 @@
 
             <dd>
                 @Html.DisplayFor(model => model.Description)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.TermsAndConditions)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TermsAndConditions)
             </dd>
         </dl>
     </div>

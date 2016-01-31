@@ -13,6 +13,7 @@ namespace BontoBuy.Web.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TagId { get; set; }
+        [Display(Name = "Tag Name")]
         public string Description { get; set; }
 
         public ICollection<SpecificationViewModel> TagSpecificationNav { get; set; }

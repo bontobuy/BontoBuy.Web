@@ -16,6 +16,7 @@ namespace BontoBuy.Web.Models
         public int SpecificationId { get; set; }
         [Display(Name = "Tag Id")]
         public int TagId { get; set; }
+        [Display(Name = "Specification Name")]
         public string Description { get; set; }
 
         public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }

@@ -2,13 +2,13 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "Get";
+    ViewBag.Title = @Model.Description;
 }
 
-<h2>Get</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>SpecificationViewModel</h4>
+    <h4>Details</h4>
     <hr/>
     <dl class="dl-horizontal">
 

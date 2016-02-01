@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.ModelSpecViewModel>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        @Html.ValidationSummary(true)
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.EditorFor(modelItem => item.Value)
+                    @Html.ValidationMessageFor(model => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => item.SpecificationId)
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="submit" value="save"/>
+}

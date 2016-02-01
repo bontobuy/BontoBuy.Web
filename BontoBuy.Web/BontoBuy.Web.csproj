@@ -180,6 +180,7 @@
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\ProductCreationController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SpecificationController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Migrations\201601281501503_Remove Brand From Item.cs" />
@@ -214,13 +215,13 @@
     <Compile Include="Migrations\201601291749515_Remove obsolete properties in Specification.Designer.cs">
       <DependentUpon>201601291749515_Remove obsolete properties in Specification.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601301637135_Edit Model Spec.cs" />
-    <Compile Include="Migrations\201601301637135_Edit Model Spec.Designer.cs">
-      <DependentUpon>201601301637135_Edit Model Spec.cs</DependentUpon>
+    <Compile Include="Migrations\201602010823313_Add Application Properties.cs" />
+    <Compile Include="Migrations\201602010823313_Add Application Properties.Designer.cs">
+      <DependentUpon>201602010823313_Add Application Properties.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601310348113_Add desc to modelSpec.cs" />
-    <Compile Include="Migrations\201601310348113_Add desc to modelSpec.Designer.cs">
-      <DependentUpon>201601310348113_Add desc to modelSpec.cs</DependentUpon>
+    <Compile Include="Migrations\201602010917555_Add Admin.cs" />
+    <Compile Include="Migrations\201602010917555_Add Admin.Designer.cs">
+      <DependentUpon>201602010917555_Add Admin.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -345,6 +346,7 @@
     <Compile Include="Models\Repositories\ProductRepo.cs" />
     <Compile Include="Models\Repositories\SpecificationRepo.cs" />
     <Compile Include="Models\Repositories\TagRepo.cs" />
+    <Compile Include="Models\ViewModels\AdminViewModel.cs" />
     <Compile Include="Models\ViewModels\BrandViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
@@ -466,6 +468,10 @@
     <Content Include="Views\Product\Get.cshtml" />
     <Content Include="Views\Specification\Update.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Create.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Retrieve.cshtml" />
+    <Content Include="Views\Account\RegisterAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -563,11 +569,11 @@
     <EmbeddedResource Include="Migrations\201601291749515_Remove obsolete properties in Specification.resx">
       <DependentUpon>201601291749515_Remove obsolete properties in Specification.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601301637135_Edit Model Spec.resx">
-      <DependentUpon>201601301637135_Edit Model Spec.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602010823313_Add Application Properties.resx">
+      <DependentUpon>201602010823313_Add Application Properties.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601310348113_Add desc to modelSpec.resx">
-      <DependentUpon>201601310348113_Add desc to modelSpec.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602010917555_Add Admin.resx">
+      <DependentUpon>201602010917555_Add Admin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

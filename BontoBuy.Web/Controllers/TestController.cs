@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -40,41 +41,39 @@ namespace BontoBuy.Web.Controllers
             //ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description");
             //return View();
 
-            using (ApplicationDbContext myDb = new ApplicationDbContext())
+            var records = from modelSpecs in db.ModelSpecs
+                          join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
+                          join tags in db.Tags on specs.TagId equals tags.TagId
+                          where tags.TagId == 1
+                          select modelSpecs;
+            if (records != null)
             {
-                var records = from modelSpecs in db.ModelSpecs
-                              join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
-                              join tags in db.Tags on specs.TagId equals tags.TagId
-                              where tags.TagId == 1
-                              select modelSpecs;
-                if (records != null)
+                foreach (var item in records)
                 {
-                    foreach (var item in records)
-                    {
-                        item.Description = (from specs in db.Specifications
-                                            join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
-                                            where specs.SpecificationId.Equals(item.SpecificationId)
-                                            select specs.Description).FirstOrDefault();
-
-                        return View(records.ToList());
-                    }
+                    item.Description = (from specs in db.Specifications
+                                        join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
+                                        where specs.SpecificationId.Equals(item.SpecificationId)
+                                        select specs.Description).FirstOrDefault();
                 }
+                return View(records.ToList());
             }
-
             return View();
         }
 
         [HttpPost]
         public ActionResult Index(List<ModelSpecViewModel> records)
         {
-            foreach (ModelSpecViewModel item in records)
+            if (ModelState.IsValid)
             {
-                ModelSpecViewModel newItem = db.ModelSpecs.Find(item.SpecificationId);
-                newItem.ModelId = item.ModelId;
-                newItem.Value = item.Value;
-                newItem.Description = item.Description;
+                foreach (var item in db.ModelSpecs)
+                {
+                    ModelSpecViewModel newItem = db.ModelSpecs.Find(item.SpecificationId);
+                    newItem.ModelId = item.ModelId;
+                    newItem.Value = item.Value;
+                    newItem.Description = item.Description;
+                }
+                db.SaveChanges();
             }
-            db.SaveChanges();
 
             return View();
         }
@@ -88,6 +87,22 @@ namespace BontoBuy.Web.Controllers
         // GET: Test/Create
         public ActionResult Create()
         {
+            var records = from modelSpecs in db.ModelSpecs
+                          join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
+                          join tags in db.Tags on specs.TagId equals tags.TagId
+                          where tags.TagId == 1
+                          select modelSpecs;
+            if (records != null)
+            {
+                foreach (var item in records)
+                {
+                    item.Description = (from specs in db.Specifications
+                                        join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
+                                        where specs.SpecificationId.Equals(item.SpecificationId)
+                                        select specs.Description).FirstOrDefault();
+                }
+                return View(records.ToList());
+            }
             return View();
         }
 
@@ -95,16 +110,22 @@ namespace BontoBuy.Web.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            try
+            int i = 0;
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                var specIdArray = collection.GetValues("item.SpecificationId");
+                var valuesArray = collection.GetValues("item.Value");
 
-                return RedirectToAction("Index");
+                for (i = 0; i < valuesArray.Count(); i++)
+                {
+                    ModelSpecViewModel modelSpec = db.ModelSpecs.Find(Convert.ToInt32(specIdArray[i]));
+                    modelSpec.Value = valuesArray[i];
+                    db.Entry(modelSpec).State = EntityState.Modified;
+                }
+                db.SaveChanges();
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(db.ModelSpecs.ToList());
         }
 
         // GET: Test/Edit/5

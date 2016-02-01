@@ -2,18 +2,18 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "UpdateCategory";
+    ViewBag.Title = "Update "+ @Model.Description;
 }
 
 <div class="col-md-9">
-    <h2>Update</h2>
+    <h2>@ViewBag.Title</h2>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Category</h4>
+            <h4>Edit Details</h4>
             <hr/>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.CategoryId)

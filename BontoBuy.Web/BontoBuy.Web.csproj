@@ -214,13 +214,9 @@
     <Compile Include="Migrations\201601291749515_Remove obsolete properties in Specification.Designer.cs">
       <DependentUpon>201601291749515_Remove obsolete properties in Specification.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601301637135_Edit Model Spec.cs" />
-    <Compile Include="Migrations\201601301637135_Edit Model Spec.Designer.cs">
-      <DependentUpon>201601301637135_Edit Model Spec.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601310348113_Add desc to modelSpec.cs" />
-    <Compile Include="Migrations\201601310348113_Add desc to modelSpec.Designer.cs">
-      <DependentUpon>201601310348113_Add desc to modelSpec.cs</DependentUpon>
+    <Compile Include="Migrations\201601311131176_Test.cs" />
+    <Compile Include="Migrations\201601311131176_Test.Designer.cs">
+      <DependentUpon>201601311131176_Test.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -563,11 +559,8 @@
     <EmbeddedResource Include="Migrations\201601291749515_Remove obsolete properties in Specification.resx">
       <DependentUpon>201601291749515_Remove obsolete properties in Specification.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601301637135_Edit Model Spec.resx">
-      <DependentUpon>201601301637135_Edit Model Spec.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601310348113_Add desc to modelSpec.resx">
-      <DependentUpon>201601310348113_Add desc to modelSpec.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601311131176_Test.resx">
+      <DependentUpon>201601311131176_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

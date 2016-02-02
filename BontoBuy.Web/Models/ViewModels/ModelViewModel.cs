@@ -22,6 +22,7 @@ namespace BontoBuy.Web.Models
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
         public int Price { get; set; }
+        public string Status { get; set; }
         public IEnumerable<ModelSpecViewModel> ModeSpecNav { get; set; }
 
         [ForeignKey("ItemId")]

@@ -16,7 +16,7 @@ namespace BontoBuy.Web.Models
         public int CategoryId { get; set; }
         [Display(Name = "Category Name")]
         public string Description { get; set; }
-        public bool? IsSelected { get; set; }
+        public string Status { get; set; }
         public IEnumerable<ProductViewModel> CategoryProductNav { get; set; }
     }
 

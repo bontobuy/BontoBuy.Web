@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201602010917555_Add Admin.Designer.cs">
       <DependentUpon>201602010917555_Add Admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602020931039_Add Status to VM.cs" />
+    <Compile Include="Migrations\201602020931039_Add Status to VM.Designer.cs">
+      <DependentUpon>201602020931039_Add Status to VM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -440,7 +444,6 @@
     <Content Include="Views\Brand\Retrieve.cshtml" />
     <Content Include="Views\Brand\Get.cshtml" />
     <Content Include="Views\Brand\Create.cshtml" />
-    <Content Include="Views\Brand\Update.cshtml" />
     <Content Include="Views\Product\Retrieve.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Item\Retrieve.cshtml" />
@@ -474,6 +477,8 @@
     <Content Include="Views\Account\LoginAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Account\RegisterAdmin.cshtml" />
+    <Content Include="Views\Brand\RetrieveArchives.cshtml" />
+    <Content Include="Views\Brand\Archive.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -576,6 +581,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602010917555_Add Admin.resx">
       <DependentUpon>201602010917555_Add Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602020931039_Add Status to VM.resx">
+      <DependentUpon>201602020931039_Add Status to VM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -20,7 +20,7 @@ namespace BontoBuy.Web.Models
         [Display(Name = "Item Category")]
         public string Description { get; set; }
         public string Brand { get; set; }
-
+        public string Status { get; set; }
         public IEnumerable<ModelViewModel> ItemModelNav { get; set; }
 
         [ForeignKey("ProductId")]

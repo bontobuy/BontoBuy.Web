@@ -16,7 +16,7 @@ namespace BontoBuy.Web.Models
         public int BrandId { get; set; }
         [Display(Name = "Brand Name")]
         public string Name { get; set; }
-
+        public string Status { get; set; }
         public IEnumerable<ModelViewModel> ModelNav { get; set; }
     }
 }

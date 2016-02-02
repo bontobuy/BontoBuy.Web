@@ -18,7 +18,7 @@ namespace BontoBuy.Web.Models
         public int CategoryId { get; set; }
         [Display(Name = "Product Category Name")]
         public string Description { get; set; }
-
+        public string Status { get; set; }
         public IEnumerable<ItemViewModel> ProductItemNav { get; set; }
 
         [ForeignKey("CategoryId")]

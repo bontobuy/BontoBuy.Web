@@ -12,5 +12,9 @@ namespace BontoBuy.Web.Models
         BrandViewModel Get(int id);
         BrandViewModel Create(BrandViewModel item);
         BrandViewModel Update(int id, BrandViewModel item);
+        void Archive(int id);
+
+        IEnumerable<BrandViewModel> RetrieveArchives();
+        void RevertArchive(int id);
     }
 }

@@ -11,7 +11,9 @@ namespace BontoBuy.Web.Models
 
         public IEnumerable<BrandViewModel> Retrieve()
         {
-            var records = db.Brands.ToList();
+            var records = (from brands in db.Brands
+                           where brands.Status == "Active"
+                           select brands).ToList();
 
             return records;
         }
@@ -50,8 +52,38 @@ namespace BontoBuy.Web.Models
             return currentrecord;
         }
 
-        public void Remove(int id)
+        public void Archive(int id)
         {
+            var record = db.Brands
+                .Where(x => x.BrandId == id && x.Status == "Active")
+                .FirstOrDefault();
+
+            if (record != null)
+            {
+                record.Status = "Archived";
+                db.SaveChanges();
+            }
+        }
+
+        public IEnumerable<BrandViewModel> RetrieveArchives()
+        {
+            var records = (from brands in db.Brands
+                           where brands.Status == "Archived"
+                           select brands).ToList();
+
+            return records;
+        }
+
+        public void RevertArchive(int id)
+        {
+            var record = db.Brands
+                .Where(x => x.BrandId == id && x.Status == "Archived")
+                .FirstOrDefault();
+
+            if (record != null)
+            {
+                record.Status = "Active";
+            }
         }
     }
 }

@@ -479,6 +479,7 @@
     <Content Include="Views\Account\RegisterAdmin.cshtml" />
     <Content Include="Views\Brand\RetrieveArchives.cshtml" />
     <Content Include="Views\Brand\Archive.cshtml" />
+    <Content Include="Views\Brand\Update.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

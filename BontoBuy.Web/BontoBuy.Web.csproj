@@ -179,6 +179,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
+    <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\ProductCreationController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SpecificationController.cs" />
@@ -226,6 +227,10 @@
     <Compile Include="Migrations\201602020931039_Add Status to VM.cs" />
     <Compile Include="Migrations\201602020931039_Add Status to VM.Designer.cs">
       <DependentUpon>201602020931039_Add Status to VM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602021822108_Add Photo.cs" />
+    <Compile Include="Migrations\201602021822108_Add Photo.Designer.cs">
+      <DependentUpon>201602021822108_Add Photo.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -356,6 +361,7 @@
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelSpecViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelViewModel.cs" />
+    <Compile Include="Models\ViewModels\PhotoViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductCreationViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\Product\UpdateViewModel.cs" />
@@ -480,8 +486,11 @@
     <Content Include="Views\Brand\RetrieveArchives.cshtml" />
     <Content Include="Views\Brand\Archive.cshtml" />
     <Content Include="Views\Brand\Update.cshtml" />
+    <Content Include="Views\Photo\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -585,6 +594,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602020931039_Add Status to VM.resx">
       <DependentUpon>201602020931039_Add Status to VM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602021822108_Add Photo.resx">
+      <DependentUpon>201602021822108_Add Photo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

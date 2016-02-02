@@ -181,7 +181,7 @@ namespace BontoBuy.Web.Controllers
             {
                 var brandId = item.BrandId;
 
-                if (brandId < 1 || brandId == null)
+                if (brandId < 1)
                 {
                     RedirectToAction("Retrieve");
                 }

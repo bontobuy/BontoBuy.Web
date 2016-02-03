@@ -487,6 +487,7 @@
     <Content Include="Views\Brand\Archive.cshtml" />
     <Content Include="Views\Brand\Update.cshtml" />
     <Content Include="Views\Photo\Create.cshtml" />
+    <Content Include="Views\Brand\RevertArchive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

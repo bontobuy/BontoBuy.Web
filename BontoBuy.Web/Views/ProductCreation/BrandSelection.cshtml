@@ -2,21 +2,21 @@
 
 @{
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
-    ViewBag.Title = "BrandSelection";
+    ViewBag.Title = "Brand Selection";
 }
 
-<h2>BrandSelection</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>BrandViewModel</h4>
+        <h4>Please select a Brand</h4>
         <hr/>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.BrandId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.BrandId,"Brand", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 @Html.DropDownList("BrandId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.BrandId, "", new { @class = "text-danger" })
@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default"/>
+                <input type="submit" value="Continue" class="btn btn-default"/>
             </div>
         </div>
     </div>

@@ -31,7 +31,7 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.BrandId }) |
+                @Html.ActionLink("Edit", "Update", new { id = item.BrandId }) |
                 @Html.ActionLink("Restore", "RevertArchive", new { id = item.BrandId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.BrandId })
             </td>

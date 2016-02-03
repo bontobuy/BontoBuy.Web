@@ -29,7 +29,8 @@ namespace BontoBuy.Web.Models
         {
             var newRecord = new BrandViewModel
             {
-                Name = item.Name
+                Name = item.Name,
+                Status = "Active"
             };
             db.Brands.Add(newRecord);
             db.SaveChanges();

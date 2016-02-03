@@ -84,6 +84,7 @@ namespace BontoBuy.Web.Models
             if (record != null)
             {
                 record.Status = "Active";
+                db.SaveChanges();
             }
         }
     }

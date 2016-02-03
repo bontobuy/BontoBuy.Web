@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
     public class BrandController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         private readonly IBrandRepo _repository;
 
         public BrandController(IBrandRepo repo)
@@ -22,14 +26,34 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                var records = _repository.Retrieve();
-
-                if (records == null)
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("LoginAdmin", "Account");
                 }
 
-                return View(records);
+                //Check if the "Admin" role exists if not it returns a null value
+                var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
+
+                if (role != null)
+                {
+                    //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
+                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    if (userInRole != null)
+                    {
+                        var records = _repository.Retrieve();
+
+                        if (records == null)
+                        {
+                            return HttpNotFound();
+                        }
+
+                        return View(records);
+                    }
+
+                    return RedirectToAction("LoginAdmin", "Account");
+                }
+                return RedirectToAction("LoginAdmin", "Account");
             }
             catch (Exception ex)
             {
@@ -181,7 +205,7 @@ namespace BontoBuy.Web.Controllers
             {
                 var brandId = item.BrandId;
 
-                if (brandId < 1 || brandId == null)
+                if (brandId < 1)
                 {
                     RedirectToAction("Retrieve");
                 }
@@ -250,7 +274,7 @@ namespace BontoBuy.Web.Controllers
             try
             {
                 var brandId = item.BrandId;
-                if (brandId < 1 || brandId == null)
+                if (brandId < 1)
                 {
                     RedirectToAction("RetrieveArchives");
                 }

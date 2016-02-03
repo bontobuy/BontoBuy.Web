@@ -1,5 +1,37 @@
-﻿@{
-    ViewBag.Title = "Retrieve";
+﻿
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewBag.Title = "List of Roles";
 }
 
-<h2>Retrieve</h2>
+<div class="col-md-9">
+    <h2>@ViewBag.Title</h2>
+    <table class="table">
+        <tr>
+            <th>
+
+                </th>
+            <th>
+
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Update", new { id = item.ItemId }) |
+                    @Html.ActionLink("Details", "Get", new { id = item.ItemId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ItemId })*@
+                </td>
+            </tr>
+        }
+    </table>
+</div>

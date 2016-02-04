@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.ModelSpecCreationViewModel>
 
+@{
+    Layout = "~/Views/Shared/SupplierLayout.cshtml";
+    ViewBag.Title = "Specification Details";
+}
+
 @using (Html.BeginForm())
 {
     <table class="table">

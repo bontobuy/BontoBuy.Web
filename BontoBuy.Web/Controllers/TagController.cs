@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -22,14 +22,18 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                var records = _repository.Retrieve();
-
-                if (records == null)
+                if (User.IsInRole("Admin"))
                 {
-                    return HttpNotFound();
-                }
+                    var records = _repository.Retrieve();
 
-                return View(records);
+                    if (records == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(records);
+                }
+                return RedirectToAction("LoginAdmin", "Account");
             }
             catch (Exception ex)
             {
@@ -42,19 +46,23 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                if (id < 1)
+                if (User.IsInRole("Admin"))
                 {
-                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
-                    RedirectToAction("Retrieve");
-                }
+                    if (id < 1)
+                    {
+                        //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
+                        RedirectToAction("Retrieve");
+                    }
 
-                var profile = _repository.Get(id);
-                if (profile == null)
-                {
-                    return HttpNotFound();
-                }
+                    var profile = _repository.Get(id);
+                    if (profile == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                return View(profile);
+                    return View(profile);
+                }
+                return RedirectToAction("LoginAdmin", "Account");
             }
             catch (Exception ex)
             {
@@ -67,9 +75,13 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                var newItem = new TagViewModel();
+                if (User.IsInRole("Admin"))
+                {
+                    var newItem = new TagViewModel();
 
-                return View(newItem);
+                    return View(newItem);
+                }
+                return RedirectToAction("LoginAdmin", "Account");
             }
             catch (Exception ex)
             {
@@ -83,14 +95,18 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                if (item == null)
+                if (User.IsInRole("Admin"))
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
+                    if (item == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
+                    }
+
+                    var newItem = _repository.Create(item);
+
+                    return RedirectToAction("Retrieve");
                 }
-
-                var newItem = _repository.Create(item);
-
-                return RedirectToAction("Retrieve");
+                return RedirectToAction("LoginAdmin", "Account");
             }
             catch (Exception ex)
             {
@@ -103,19 +119,23 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                TagViewModel itemToUpdate = new TagViewModel();
-                if (id < 1)
+                if (User.IsInRole("Admin"))
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid Identifier");
-                }
+                    TagViewModel itemToUpdate = new TagViewModel();
+                    if (id < 1)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid Identifier");
+                    }
 
-                itemToUpdate = _repository.Get(id);
-                if (itemToUpdate == null)
-                {
-                    return HttpNotFound();
-                }
+                    itemToUpdate = _repository.Get(id);
+                    if (itemToUpdate == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                return View(itemToUpdate);
+                    return View(itemToUpdate);
+                }
+                return RedirectToAction("LoginAdmin", "Account");
             }
             catch (Exception ex)
             {
@@ -129,18 +149,22 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                if (item == null)
+                if (User.IsInRole("Admin"))
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
-                }
+                    if (item == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
+                    }
 
-                var updatedItem = _repository.Update(id, item);
-                if (updatedItem == null)
-                {
-                    return HttpNotFound();
-                }
+                    var updatedItem = _repository.Update(id, item);
+                    if (updatedItem == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve");
+                }
+                return RedirectToAction("LoginAdmin", "Account");
             }
             catch (Exception ex)
             {

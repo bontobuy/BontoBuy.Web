@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -159,20 +159,120 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: Item/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Archive(int id)
         {
-            return View();
+            try
+            {
+                if (id < 1)
+                {
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
+                    RedirectToAction("Retrieve");
+                }
+
+                var profile = _repository.Get(id);
+                if (profile == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(profile);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // POST: Item/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Archive(ItemViewModel item)
         {
             try
             {
-                // TODO: Add delete logic here
+                var itemId = item.ItemId;
 
-                return RedirectToAction("Index");
+                if (itemId < 1)
+                {
+                    RedirectToAction("Retrieve");
+                }
+                if (item == null)
+                {
+                    RedirectToAction("Retrieve");
+                }
+
+                _repository.Archive(itemId);
+
+                //   return RedirectToAction("Retrieve");
+                return RedirectToAction("Retrieve");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult RetrieveArchives()
+        {
+            try
+            {
+                var records = _repository.RetrieveArchives();
+
+                if (records == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(records);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        public ActionResult RevertArchive(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
+                    RedirectToAction("RetrieveArchives");
+                }
+
+                var profile = _repository.Get(id);
+                if (profile == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(profile);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult RevertArchive(ItemViewModel item)
+        {
+            try
+            {
+                var itemId = item.ItemId;
+                if (itemId < 1)
+                {
+                    RedirectToAction("RetrieveArchives");
+                }
+                if (item == null)
+                {
+                    RedirectToAction("RetrieveArchives");
+                }
+
+                _repository.RevertArchive(itemId);
+
+                //   return RedirectToAction("Retrieve");
+                return RedirectToAction("RetrieveArchives");
             }
             catch
             {

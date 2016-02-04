@@ -2,19 +2,19 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "MainCategoryList";
+    ViewBag.Title = "Retrieve Archives";
 }
 
 <div class="col-md-9">
-    <h2>Main Category List</h2>
+    <h2>@ViewBag.Title</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
         </tr>
@@ -26,11 +26,16 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.CategoryId }) |
-                    @Html.ActionLink("Details", "Get", new { id = item.CategoryId }) |
-                    @Html.ActionLink("Archive", "Archive", new { id = item.CategoryId })
+                    @Html.ActionLink("Restore", "RevertArchive", new { id = item.CategoryId })
                 </td>
             </tr>
         }
     </table>
+    <div>
+        @Html.ActionLink("Back to List", "Retrieve")
+    </div>
 </div>

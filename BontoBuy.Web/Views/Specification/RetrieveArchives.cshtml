@@ -2,23 +2,20 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "Retrieve";
+    ViewBag.Title = "Retrieve Archives";
 }
 
 <div class="col-md-9">
-    <h2>List of Specification</h2>
+    <h2>@ViewBag.Title</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.SpecificationTagNav.Description)
-                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
             <th></th>
         </tr>
 
@@ -28,15 +25,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.SpecificationTagNav.Description)
-                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
                 <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.SpecificationId }) |
-                    @Html.ActionLink("Details", "Get", new { id = item.SpecificationId }) |
-                    @Html.ActionLink("Archive", "Archive", new { id = item.SpecificationId })
+                    @Html.ActionLink("Restore", "RevertArchive", new { id = item.SpecificationId })
                 </td>
             </tr>
         }
     </table>
+    <div>
+        @Html.ActionLink("Back to List", "Retrieve")
+    </div>
 </div>

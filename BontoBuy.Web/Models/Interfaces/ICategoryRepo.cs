@@ -12,5 +12,8 @@ namespace BontoBuy.Web.Models
         CategoryViewModel Get(int id);
         CategoryViewModel Create(CategoryViewModel item);
         CategoryViewModel Update(int id, CategoryViewModel item);
+        void Archive(int id);
+        IEnumerable<CategoryViewModel> RetrieveArchives();
+        void RevertArchive(int id);
     }
 }

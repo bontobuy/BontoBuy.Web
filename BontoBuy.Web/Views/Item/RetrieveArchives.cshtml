@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.BrandViewModel>
+﻿@model IEnumerable<BontoBuy.Web.Models.ItemViewModel>
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
@@ -11,7 +11,7 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -23,14 +23,14 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Update", new { id = item.BrandId }) |
-                    @Html.ActionLink("Restore", "RevertArchive", new { id = item.BrandId })
+                    @Html.ActionLink("Edit", "Update", new { id = item.ItemId }) |
+                    @Html.ActionLink("Restore", "RevertArchive", new { id = item.ItemId })
                 </td>
             </tr>
         }

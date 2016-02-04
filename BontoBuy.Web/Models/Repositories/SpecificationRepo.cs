@@ -11,7 +11,9 @@ namespace BontoBuy.Web.Models
 
         public IEnumerable<SpecificationViewModel> Retrieve()
         {
-            var records = db.Specifications.ToList();
+            var records = (from specs in db.Specifications
+                           where specs.Status == "Active"
+                           select specs).ToList();
 
             return records;
         }
@@ -27,7 +29,8 @@ namespace BontoBuy.Web.Models
         {
             var newRecord = new SpecificationViewModel
             {
-                Description = item.Description
+                Description = item.Description,
+                Status = "Active"
             };
             db.Specifications.Add(newRecord);
             db.SaveChanges();
@@ -49,8 +52,39 @@ namespace BontoBuy.Web.Models
             return currentrecord;
         }
 
-        public void Remove(int id)
+        public void Archive(int id)
         {
+            var record = db.Specifications
+                .Where(x => x.SpecificationId == id && x.Status == "Active")
+                .FirstOrDefault();
+
+            if (record != null)
+            {
+                record.Status = "Archived";
+                db.SaveChanges();
+            }
+        }
+
+        public IEnumerable<SpecificationViewModel> RetrieveArchives()
+        {
+            var records = (from specifications in db.Specifications
+                           where specifications.Status == "Archived"
+                           select specifications).ToList();
+
+            return records;
+        }
+
+        public void RevertArchive(int id)
+        {
+            var record = db.Specifications
+                .Where(x => x.SpecificationId == id && x.Status == "Archived")
+                .FirstOrDefault();
+
+            if (record != null)
+            {
+                record.Status = "Active";
+                db.SaveChanges();
+            }
         }
 
         //public IEnumerable<> GetList()

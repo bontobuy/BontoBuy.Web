@@ -1,10 +1,11 @@
 ﻿@model BontoBuy.Web.Models.PhotoViewModel
 
 @{
-    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/SupplierLayout.cshtml";
+    ViewBag.Title = "Add Photos";
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -12,7 +13,3 @@
     <input type="file" name="file" id="file" style="width: 100%;"/>
     <input type="submit" value="Upload" class="submit"/>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

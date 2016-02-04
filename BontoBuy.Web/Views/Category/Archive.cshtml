@@ -1,8 +1,7 @@
-﻿@model BontoBuy.Web.Models.BrandViewModel
-
+﻿@model BontoBuy.Web.Models.CategoryViewModel
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "Archive " + @Model.Name;
+    ViewBag.Title = "Archive " + @Model.Description;
 }
 
 <div class="col-md-9">
@@ -16,13 +15,13 @@
             <h4>Proceed</h4>
             <hr/>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.BrandId)
+            @Html.HiddenFor(model => model.CategoryId)
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-5">
-                    @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">

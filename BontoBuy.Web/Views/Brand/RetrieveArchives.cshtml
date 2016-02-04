@@ -2,39 +2,40 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "RetrieveArchives";
+    ViewBag.Title = "Retrieve Archives";
 }
 
-<h2>RetrieveArchives</h2>
+<div class="col-md-9">
+    <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Update", new { id = item.BrandId }) |
-                @Html.ActionLink("Restore", "RevertArchive", new { id = item.BrandId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.BrandId })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Update", new { id = item.BrandId }) |
+                    @Html.ActionLink("Restore", "RevertArchive", new { id = item.BrandId })
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+        @Html.ActionLink("Back to List", "Retrieve")
+    </div>
+</div>

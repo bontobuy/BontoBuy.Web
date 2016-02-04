@@ -30,7 +30,8 @@ namespace BontoBuy.Web.Models
             var newRecord = new ProductViewModel
             {
                 Description = item.Description,
-                Status = "Active"
+                Status = "Active",
+                CategoryId = item.CategoryId
             };
             db.Products.Add(newRecord);
             db.SaveChanges();

@@ -1,10 +1,10 @@
-﻿using BontoBuy.Web.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -93,14 +93,12 @@ namespace BontoBuy.Web.Controllers
                 }
 
                 //  var newItem = _repository.Create(item);
-
+                ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description", item.CategoryId);
                 if (ModelState.IsValid)
                 {
-                    db.Products.Add(item);
-                    db.SaveChanges();
+                    _repository.Create(item);
                     return RedirectToAction("Retrieve");
                 }
-                ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description", item.CategoryId);
                 return View(item);
             }
             catch (Exception ex)

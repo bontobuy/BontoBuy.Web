@@ -14,6 +14,7 @@ namespace BontoBuy.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TagId { get; set; }
         [Display(Name = "Tag Name")]
+        [Required(ErrorMessage = "Tag name is required")]
         public string Description { get; set; }
         public string Status { get; set; }
         public ICollection<SpecificationViewModel> TagSpecificationNav { get; set; }

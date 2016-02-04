@@ -16,6 +16,7 @@ namespace BontoBuy.Web.Models
         public int ProductId { get; set; }
         [Display(Name = "Category Id")]
         public int CategoryId { get; set; }
+        [Required(ErrorMessage = "Product name is required")]
         [Display(Name = "Product Category Name")]
         public string Description { get; set; }
         public string Status { get; set; }

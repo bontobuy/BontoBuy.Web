@@ -13,6 +13,7 @@ namespace BontoBuy.Web.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PhotoId { get; set; }
+        [Required]
         public string ImagePath { get; set; }
         public string ImageName { get; set; }
 

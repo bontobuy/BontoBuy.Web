@@ -16,6 +16,7 @@ namespace BontoBuy.Web.Models
         public int SpecificationId { get; set; }
         [Display(Name = "Tag Id")]
         public int TagId { get; set; }
+        [Required(ErrorMessage = "Specification name is required")]
         [Display(Name = "Specification Name")]
         public string Description { get; set; }
         public string Status { get; set; }

@@ -19,6 +19,7 @@ namespace BontoBuy.Web.Models
         [Column(Order = 1)]
         public int ModelId { get; set; }
         [Display(Name = "Value")]
+        [Required(ErrorMessage = "Specification value is required")]
         public string Value { get; set; }
 
         //[Column(Order = 2)]

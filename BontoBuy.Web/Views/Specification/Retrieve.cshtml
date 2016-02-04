@@ -17,8 +17,8 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.SpecificationTagNav.Description)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.SpecificationTagNav.Description)
+                </th>*@
             <th></th>
         </tr>
 
@@ -29,12 +29,12 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.SpecificationTagNav.Description)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.SpecificationTagNav.Description)
+                    </td>*@
                 <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.SpecificationId }) |
                     @Html.ActionLink("Details", "Get", new { id = item.SpecificationId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.SpecificationId })
+                    @Html.ActionLink("Archive", "Archive", new { id = item.SpecificationId })
                 </td>
             </tr>
         }

@@ -81,6 +81,9 @@
                             <li>
                                 <a href="@Url.Action("Create","Brand")">Add New</a>
                             </li>
+                            <li>
+                                <a href="@Url.Action("RetrieveArchives","Brand")">List of Archived</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -116,9 +119,21 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#"><i class="glyphicon glyphicon-user"></i> Users</a>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-arrow-down"></i> Users & Roles</a>
+                        <ul id="demo" class="dropdown-menu">
+                            <li>
+                                <a href="#">List of Users</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Retrieve","Roles")">List of Roles</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Create","Roles")">Add new Role</a>
+                            </li>
+                        </ul>
                     </li>
+
                     <li>
                         <a href=""><i class="glyphicon glyphicon-book"></i> Orders</a>
                     </li>

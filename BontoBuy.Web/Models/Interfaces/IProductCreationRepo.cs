@@ -18,7 +18,6 @@ namespace BontoBuy.Web.Models
         IEnumerable<ItemViewModel> RetrieveItemByProduct(ItemViewModel item);
         IEnumerable<BrandViewModel> RetrieveBrand();
         IEnumerable<ModelViewModel> RetrieveModelByItemByBrand(ModelViewModel item);
-
-        //ModelViewModel AssignModelValue(ModelViewModel item);
+        IEnumerable<ModelSpecCreationViewModel> RetrieveSpecification(ModelSpecViewModel item);
     }
 }

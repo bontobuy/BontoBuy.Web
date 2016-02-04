@@ -303,7 +303,7 @@ namespace BontoBuy.Web.Controllers
             return View(model);
         }
 
-        public ActionResult RegisterSupplier(RegisterSupplierViewModel model)
+        public ActionResult RegisterSupplier()
         {
             return View();
         }

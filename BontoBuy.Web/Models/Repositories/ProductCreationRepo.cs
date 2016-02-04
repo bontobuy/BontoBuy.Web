@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BontoBuy.Web.Models
 {
@@ -87,6 +85,11 @@ namespace BontoBuy.Web.Models
 
             if (getItemDesc != null)
             {
+                var getSpec = from specs in db.Specifications
+                              join tags in db.Tags on specs.TagId equals tags.TagId
+                              where tags.Description == getItemDesc
+                              select specs;
+
                 var getModelSpec = from modelSpecs in db.ModelSpecs
                                    join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
                                    join tags in db.Tags on specs.TagId equals tags.TagId
@@ -97,26 +100,24 @@ namespace BontoBuy.Web.Models
 
                 if (getModelSpec != null)
                 {
-                    foreach (var obj in getModelSpec)
+                    foreach (var modSpec in getModelSpec)
                     {
-                        var modelSpec = new ModelSpecCreationViewModel()
+                        var modelSpec = new ModelSpecCreationViewModel();
+                        modelSpec.ModelSpecId = modSpec.ModelSpecId;
+                        modelSpec.SpecificationId = modSpec.SpecificationId;
+                        modelSpec.ModelId = modSpec.ModelId;
+
+                        foreach (var spec in getSpec)
                         {
-                            ModelSpecId = obj.ModelSpecId,
-                            SpecificationId = obj.SpecificationId,
-                            ModelId = obj.ModelId,
-                            Value = "",
-                            Description = (from specs in db.Specifications
-                                           join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
-                                           where specs.SpecificationId.Equals(obj.SpecificationId)
-                                           select specs.Description).FirstOrDefault()
-                        };
-                        modelSpecList.Add(modelSpec);
+                            modelSpec.Description = spec.Description;
+                            modelSpec.Value = "";
+                        }
                     }
 
                     return modelSpecList.ToList();
                 }
+                return null;
             }
-
             return null;
         }
     }

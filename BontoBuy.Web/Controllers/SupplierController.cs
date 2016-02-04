@@ -16,34 +16,34 @@ namespace BontoBuy.Web.Controllers
         // GET: Supplier
         public ActionResult Index()
         {
-            //try
-            //{
-            //    string userId = User.Identity.GetUserId();
-            //    if (userId == null)
-            //    {
-            //        return RedirectToAction("LoginSupplier", "Account");
-            //    }
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("LoginSupplier", "Account");
+                }
 
-            //    //Check if the "Supplier" role exists if not it returns a null value
-            //    var role = db.Roles.SingleOrDefault(m => m.Name == "Supplier");
+                //Check if the "Supplier" role exists if not it returns a null value
+                var role = db.Roles.SingleOrDefault(m => m.Name == "Supplier");
 
-            //    if (role != null)
-            //    {
-            //        //Runs a query to determine if the user is actually an "Supplier" if not it returns a null value
-            //        var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-            //        if (userInRole != null)
-            //        {
-            //                return View();
-            //        }
+                if (role != null)
+                {
+                    //Runs a query to determine if the user is actually an "Supplier" if not it returns a null value
+                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    if (userInRole != null)
+                    {
+                        return View();
+                    }
 
-            //            //return View(records);
-            //            return RedirectToAction("LoginSupplier", "Account");
-            //        }
-
-            //        return RedirectToAction("LoginSupplier", "Account");
-            //    }
-            //}
-            return View();
+                    return RedirectToAction("LoginSupplier", "Account");
+                }
+                return RedirectToAction("LoginSupplier", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         public ActionResult AddProduct()

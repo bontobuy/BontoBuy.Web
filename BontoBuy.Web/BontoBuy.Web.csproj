@@ -232,6 +232,22 @@
     <Compile Include="Migrations\201602021822108_Add Photo.Designer.cs">
       <DependentUpon>201602021822108_Add Photo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602031836363_Add ModelSpecIdentifier.cs" />
+    <Compile Include="Migrations\201602031836363_Add ModelSpecIdentifier.Designer.cs">
+      <DependentUpon>201602031836363_Add ModelSpecIdentifier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602031840256_Remove ModelSpec Description.cs" />
+    <Compile Include="Migrations\201602031840256_Remove ModelSpec Description.Designer.cs">
+      <DependentUpon>201602031840256_Remove ModelSpec Description.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602031852503_Remove Model Price.cs" />
+    <Compile Include="Migrations\201602031852503_Remove Model Price.Designer.cs">
+      <DependentUpon>201602031852503_Remove Model Price.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602040356582_modelSpec Remove Nav.cs" />
+    <Compile Include="Migrations\201602040356582_modelSpec Remove Nav.Designer.cs">
+      <DependentUpon>201602040356582_modelSpec Remove Nav.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -488,6 +504,7 @@
     <Content Include="Views\Brand\Update.cshtml" />
     <Content Include="Views\Photo\Create.cshtml" />
     <Content Include="Views\Brand\RevertArchive.cshtml" />
+    <Content Include="Views\ProductCreation\ModelSpecSelection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
@@ -598,6 +615,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602021822108_Add Photo.resx">
       <DependentUpon>201602021822108_Add Photo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602031836363_Add ModelSpecIdentifier.resx">
+      <DependentUpon>201602031836363_Add ModelSpecIdentifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602031840256_Remove ModelSpec Description.resx">
+      <DependentUpon>201602031840256_Remove ModelSpec Description.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602031852503_Remove Model Price.resx">
+      <DependentUpon>201602031852503_Remove Model Price.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602040356582_modelSpec Remove Nav.resx">
+      <DependentUpon>201602040356582_modelSpec Remove Nav.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

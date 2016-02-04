@@ -101,6 +101,7 @@ namespace BontoBuy.Web.Models
                     {
                         var modelSpec = new ModelSpecCreationViewModel()
                         {
+                            ModelSpecId = obj.ModelSpecId,
                             SpecificationId = obj.SpecificationId,
                             ModelId = obj.ModelId,
                             Value = "",

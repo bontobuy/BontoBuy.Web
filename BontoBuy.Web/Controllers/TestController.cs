@@ -118,6 +118,8 @@ namespace BontoBuy.Web.Controllers
                 var specIdArray = collection.GetValues("item.SpecificationId");
                 var valuesArray = collection.GetValues("item.Value");
 
+                //for the Create in Product Creation
+                //We have to create an object of type modelSpec Creation and change entity state modified to create a new record
                 for (i = 0; i < valuesArray.Count(); i++)
                 {
                     ModelSpecViewModel modelSpec = db.ModelSpecs.Find(Convert.ToInt32(specIdArray[i]));

@@ -11,5 +11,8 @@ namespace BontoBuy.Web.Models
         SpecificationViewModel Get(int id);
         SpecificationViewModel Create(SpecificationViewModel item);
         SpecificationViewModel Update(int id, SpecificationViewModel item);
+        void Archive(int id);
+        IEnumerable<SpecificationViewModel> RetrieveArchives();
+        void RevertArchive(int id);
     }
 }

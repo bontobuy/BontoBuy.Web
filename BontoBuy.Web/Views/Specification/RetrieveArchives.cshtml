@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.SpecificationViewModel>
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewBag.Title = "Retrieve Archives";
+}
+
+<div class="col-md-9">
+    <h2>@ViewBag.Title</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Update", new { id = item.SpecificationId }) |
+                    @Html.ActionLink("Restore", "RevertArchive", new { id = item.SpecificationId })
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+        @Html.ActionLink("Back to List", "Retrieve")
+    </div>
+</div>

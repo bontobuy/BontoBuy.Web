@@ -14,6 +14,7 @@ namespace BontoBuy.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Category Id")]
         public int CategoryId { get; set; }
+        [Required(ErrorMessage = "Category Name is required")]
         [Display(Name = "Category Name")]
         public string Description { get; set; }
         public string Status { get; set; }

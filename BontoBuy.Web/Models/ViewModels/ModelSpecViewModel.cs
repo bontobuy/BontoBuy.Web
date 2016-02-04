@@ -15,6 +15,7 @@ namespace BontoBuy.Web.Models
         [Display(Name = "Model Id")]
         public int ModelId { get; set; }
         [Display(Name = "Value")]
+        [Required(ErrorMessage = "Specification value is required")]
         public string Value { get; set; }
         public string Description { get; set; }
         [ForeignKey("SpecificationId")]

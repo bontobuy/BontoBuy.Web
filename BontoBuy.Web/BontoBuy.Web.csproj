@@ -240,6 +240,10 @@
     <Compile Include="Migrations\201602031808403_Add Required Error Message to Model.Designer.cs">
       <DependentUpon>201602031808403_Add Required Error Message to Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602031952135_Add Required Error Message to all models.cs" />
+    <Compile Include="Migrations\201602031952135_Add Required Error Message to all models.Designer.cs">
+      <DependentUpon>201602031952135_Add Required Error Message to all models.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -612,6 +616,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602031808403_Add Required Error Message to Model.resx">
       <DependentUpon>201602031808403_Add Required Error Message to Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602031952135_Add Required Error Message to all models.resx">
+      <DependentUpon>201602031952135_Add Required Error Message to all models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

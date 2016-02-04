@@ -14,6 +14,7 @@ namespace BontoBuy.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Brand Id")]
         public int BrandId { get; set; }
+        [Required(ErrorMessage = "Brand Name is required")]
         [Display(Name = "Brand Name")]
         public string Name { get; set; }
         public string Status { get; set; }

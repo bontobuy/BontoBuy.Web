@@ -15,17 +15,12 @@ namespace BontoBuy.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Model Id")]
         public int ModelId { get; set; }
-        [Required(ErrorMessage = "Title is required")]
-        [Display(Name = "Title")]
-        public string ModelTitle { get; set; }
         [Display(Name = "Brand Id")]
         public int BrandId { get; set; }
         [Display(Name = "Model Number")]
         public string ModelNumber { get; set; }
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
-        [Required(ErrorMessage = "Price is required")]
-        public int Price { get; set; }
         public string Status { get; set; }
         public IEnumerable<ModelSpecViewModel> ModeSpecNav { get; set; }
 

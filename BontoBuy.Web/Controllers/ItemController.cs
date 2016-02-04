@@ -85,10 +85,17 @@ namespace BontoBuy.Web.Controllers
             try
             {
                 var newItem = new ItemViewModel();
+                var newTag = new TagViewModel();
                 if (ModelState.IsValid)
                 {
                     db.Items.Add(item);
                     db.SaveChanges();
+
+                    //We are adding a Tag matching the description of the Item
+                    newTag.Description = item.Description;
+                    db.Tags.Add(newTag);
+                    db.SaveChanges();
+
                     return RedirectToAction("Retrieve");
                 }
                 ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Description", item.ProductId);

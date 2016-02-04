@@ -63,6 +63,7 @@ namespace BontoBuy.Web.Models
         public IEnumerable<ModelViewModel> RetrieveModelByItemByBrand(ModelViewModel item)
         {
             var records = from models in db.Models
+                          join brands in db.Brands on models.BrandId equals brands.BrandId
                           where models.BrandId == item.BrandId
                           && models.ItemId == item.ItemId
                           select models;
@@ -76,6 +77,46 @@ namespace BontoBuy.Web.Models
                           select brands;
 
             return records;
+        }
+
+        public IEnumerable<ModelSpecCreationViewModel> RetrieveSpecification(ModelSpecViewModel item)
+        {
+            var getItemDesc = (from itemObject in db.Items
+                               join model in db.Models on itemObject.ItemId equals model.ItemId
+                               select itemObject.Description).FirstOrDefault();
+
+            if (getItemDesc != null)
+            {
+                var getModelSpec = from modelSpecs in db.ModelSpecs
+                                   join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
+                                   join tags in db.Tags on specs.TagId equals tags.TagId
+                                   where tags.Description == getItemDesc
+                                   select modelSpecs;
+
+                var modelSpecList = new List<ModelSpecCreationViewModel>();
+
+                if (getModelSpec != null)
+                {
+                    foreach (var obj in getModelSpec)
+                    {
+                        var modelSpec = new ModelSpecCreationViewModel()
+                        {
+                            SpecificationId = obj.SpecificationId,
+                            ModelId = obj.ModelId,
+                            Value = "",
+                            Description = (from specs in db.Specifications
+                                           join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
+                                           where specs.SpecificationId.Equals(obj.SpecificationId)
+                                           select specs.Description).FirstOrDefault()
+                        };
+                        modelSpecList.Add(modelSpec);
+                    }
+
+                    return modelSpecList.ToList();
+                }
+            }
+
+            return null;
         }
     }
 }

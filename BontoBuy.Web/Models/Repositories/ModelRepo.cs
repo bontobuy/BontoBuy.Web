@@ -32,7 +32,6 @@ namespace BontoBuy.Web.Models
                 BrandId = item.BrandId,
                 ModelNumber = item.ModelNumber,
                 ItemId = item.ItemId,
-                Price = item.Price
             };
             db.Models.Add(newRecord);
             db.SaveChanges();
@@ -49,7 +48,6 @@ namespace BontoBuy.Web.Models
             if (!(String.IsNullOrWhiteSpace(item.ModelNumber)))
             {
                 currentrecord.ModelNumber = item.ModelNumber;
-                currentrecord.Price = item.Price;
                 db.SaveChanges();
                 return currentrecord;
             }

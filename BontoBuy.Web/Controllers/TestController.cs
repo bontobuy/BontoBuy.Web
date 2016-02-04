@@ -41,39 +41,41 @@ namespace BontoBuy.Web.Controllers
             //ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description");
             //return View();
 
-            var records = from modelSpecs in db.ModelSpecs
-                          join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
-                          join tags in db.Tags on specs.TagId equals tags.TagId
-                          where tags.TagId == 1
-                          select modelSpecs;
-            if (records != null)
-            {
-                foreach (var item in records)
-                {
-                    item.Description = (from specs in db.Specifications
-                                        join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
-                                        where specs.SpecificationId.Equals(item.SpecificationId)
-                                        select specs.Description).FirstOrDefault();
-                }
-                return View(records.ToList());
-            }
-            return View();
+            //var records = from modelSpecs in db.ModelSpecs
+            //              join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
+            //              join tags in db.Tags on specs.TagId equals tags.TagId
+            //              where tags.TagId == 1
+            //              select modelSpecs;
+            //if (records != null)
+            //{
+            //    foreach (var item in records)
+            //    {
+            //        item.Description = (from specs in db.Specifications
+            //                            join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
+            //                            where specs.SpecificationId.Equals(item.SpecificationId)
+            //                            select specs.Description).FirstOrDefault();
+            //    }
+            //    return View(records.ToList());
+            //}
+            //return View();
+
+            return null;
         }
 
         [HttpPost]
         public ActionResult Index(List<ModelSpecViewModel> records)
         {
-            if (ModelState.IsValid)
-            {
-                foreach (var item in db.ModelSpecs)
-                {
-                    ModelSpecViewModel newItem = db.ModelSpecs.Find(item.SpecificationId);
-                    newItem.ModelId = item.ModelId;
-                    newItem.Value = item.Value;
-                    newItem.Description = item.Description;
-                }
-                db.SaveChanges();
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    foreach (var item in db.ModelSpecs)
+            //    {
+            //        ModelSpecViewModel newItem = db.ModelSpecs.Find(item.SpecificationId);
+            //        newItem.ModelId = item.ModelId;
+            //        newItem.Value = item.Value;
+            //        newItem.Description = item.Description;
+            //    }
+            //    db.SaveChanges();
+            //}
 
             return View();
         }
@@ -87,22 +89,22 @@ namespace BontoBuy.Web.Controllers
         // GET: Test/Create
         public ActionResult Create()
         {
-            var records = from modelSpecs in db.ModelSpecs
-                          join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
-                          join tags in db.Tags on specs.TagId equals tags.TagId
-                          where tags.TagId == 1
-                          select modelSpecs;
-            if (records != null)
-            {
-                foreach (var item in records)
-                {
-                    item.Description = (from specs in db.Specifications
-                                        join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
-                                        where specs.SpecificationId.Equals(item.SpecificationId)
-                                        select specs.Description).FirstOrDefault();
-                }
-                return View(records.ToList());
-            }
+            //var records = from modelSpecs in db.ModelSpecs
+            //              join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
+            //              join tags in db.Tags on specs.TagId equals tags.TagId
+            //              where tags.TagId == 1
+            //              select modelSpecs;
+            //if (records != null)
+            //{
+            //    foreach (var item in records)
+            //    {
+            //        item.Description = (from specs in db.Specifications
+            //                            join modelSpecs in db.ModelSpecs on specs.SpecificationId equals modelSpecs.SpecificationId
+            //                            where specs.SpecificationId.Equals(item.SpecificationId)
+            //                            select specs.Description).FirstOrDefault();
+            //    }
+            //    return View(records.ToList());
+            //}
             return View();
         }
 

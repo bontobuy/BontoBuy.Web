@@ -252,6 +252,10 @@
     <Compile Include="Migrations\201602031952135_Add Required Error Message to all models.Designer.cs">
       <DependentUpon>201602031952135_Add Required Error Message to all models.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602040620506_test.cs" />
+    <Compile Include="Migrations\201602040620506_test.Designer.cs">
+      <DependentUpon>201602040620506_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -509,6 +513,18 @@
     <Content Include="Views\Photo\Create.cshtml" />
     <Content Include="Views\Brand\RevertArchive.cshtml" />
     <Content Include="Views\ProductCreation\ModelSpecSelection.cshtml" />
+    <Content Include="Views\Category\Archive.cshtml" />
+    <Content Include="Views\Category\RetrieveArchives.cshtml" />
+    <Content Include="Views\Category\RevertArchive.cshtml" />
+    <Content Include="Views\Specification\Archive.cshtml" />
+    <Content Include="Views\Specification\RetrieveArchives.cshtml" />
+    <Content Include="Views\Specification\RevertArchive.cshtml" />
+    <Content Include="Views\Item\Archive.cshtml" />
+    <Content Include="Views\Item\RetrieveArchives.cshtml" />
+    <Content Include="Views\Item\RevertArchive.cshtml" />
+    <Content Include="Views\Product\Archive.cshtml" />
+    <Content Include="Views\Product\RetrieveArchives.cshtml" />
+    <Content Include="Views\Product\RevertArchive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
@@ -634,6 +650,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602031952135_Add Required Error Message to all models.resx">
       <DependentUpon>201602031952135_Add Required Error Message to all models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602040620506_test.resx">
+      <DependentUpon>201602040620506_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

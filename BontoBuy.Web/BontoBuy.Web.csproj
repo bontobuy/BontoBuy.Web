@@ -256,10 +256,6 @@
     <Compile Include="Migrations\201602040620506_test.Designer.cs">
       <DependentUpon>201602040620506_test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602041506031_Add Supplier.cs" />
-    <Compile Include="Migrations\201602041506031_Add Supplier.Designer.cs">
-      <DependentUpon>201602041506031_Add Supplier.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -532,6 +528,7 @@
     <Content Include="Views\Product\RevertArchive.cshtml" />
     <Content Include="Views\Account\RegisterSupplier.cshtml" />
     <Content Include="Views\Account\LoginSupplier.cshtml" />
+    <Content Include="Views\Shared\SupplierLoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
@@ -660,9 +657,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602040620506_test.resx">
       <DependentUpon>201602040620506_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602041506031_Add Supplier.resx">
-      <DependentUpon>201602041506031_Add Supplier.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -123,7 +123,7 @@ namespace BontoBuy.Web.Controllers
                     if (userInRole != null)
                     {
                         var newItem = new ProductViewModel();
-                        ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Description");
+                        ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description");
 
                         return View(newItem);
                     }

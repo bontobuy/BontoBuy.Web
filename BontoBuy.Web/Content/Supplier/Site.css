@@ -1,3 +1,9 @@
 ﻿ #sidebar {
             margin-left: -80px;
         }
+
+ #Logo {
+    margin-top: -15px;
+    margin-bottom: -40px;
+    margin-right: -13px;
+}

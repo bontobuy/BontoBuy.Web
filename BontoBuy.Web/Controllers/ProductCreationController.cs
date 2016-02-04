@@ -190,7 +190,6 @@ namespace BontoBuy.Web.Controllers
                     ItemId = itemData.ItemId,
                     BrandId = item.BrandId,
                     ModelNumber = "",
-                    Price = -1
                 };
 
                 return RedirectToAction("ModelSelection");
@@ -235,10 +234,10 @@ namespace BontoBuy.Web.Controllers
                 records = _repository.RetrieveModelByItemByBrand(item);
                 ViewBag.ModelId = new SelectList(records, "ModelId", "ModelNumber", item.ModelId);
 
-                TempData["Data"] = new ModelSpecViewModel()
+                TempData["ModelSpecData"] = new ModelSpecViewModel()
                 {
                     ModelId = item.ModelId,
-                    SpecificationId = 0,
+                    SpecificationId = -1,
                     Value = ""
                 };
 
@@ -254,11 +253,36 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                return Content("Success");
+                ModelSpecViewModel item = TempData["ModelSpecData"] as ModelSpecViewModel;
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+                records = _repository.RetrieveSpecification(item);
+                return View(records);
             }
-            catch
+            catch (Exception ex)
             {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModelSpecSelection(List<ModelSpecCreationViewModel> item)
+        {
+            try
+            {
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+
+                //return View(records);
                 return View();
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
     }

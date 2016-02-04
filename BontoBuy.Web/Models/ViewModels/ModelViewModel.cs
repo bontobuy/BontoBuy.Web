@@ -21,7 +21,6 @@ namespace BontoBuy.Web.Models
         public string ModelNumber { get; set; }
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
-        public int Price { get; set; }
         public string Status { get; set; }
         public IEnumerable<ModelSpecViewModel> ModeSpecNav { get; set; }
 

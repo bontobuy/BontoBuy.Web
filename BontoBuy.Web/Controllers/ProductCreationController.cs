@@ -268,13 +268,26 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModelSpecSelection(List<ModelSpecCreationViewModel> item)
+        public ActionResult ModelSpecSelection(FormCollection collection)
         {
             try
             {
-                if (item == null)
+                int item = 0;
+                if (ModelState.IsValid)
                 {
-                    return HttpNotFound();
+                    var modelSpecIdArray = collection.GetValues("item.ModelSpecId");
+                    var valuesArray = collection.GetValues("item.Value");
+
+                    for (item = 0; item < valuesArray.Count(); item++)
+                    {
+                        ModelSpecViewModel modelSpec = new ModelSpecViewModel();
+
+                        modelSpec = db.ModelSpecs.Find(Convert.ToInt32(modelSpecIdArray[item]));
+                        modelSpec.Value = valuesArray[item];
+                        db.ModelSpecs.Add(modelSpec);
+                        db.SaveChanges();
+                    }
+                    return Content("Success");
                 }
 
                 //return View(records);

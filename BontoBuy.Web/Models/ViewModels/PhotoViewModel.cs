@@ -11,7 +11,11 @@ namespace BontoBuy.Web.Models
     public class PhotoViewModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PhotoId { get; set; }
         public string ImagePath { get; set; }
+        public string ImageName { get; set; }
+
+        //public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }
     }
 }

@@ -11,7 +11,9 @@ namespace BontoBuy.Web.Models
 
         public IEnumerable<CategoryViewModel> Retrieve()
         {
-            var records = db.Categories.ToList();
+            var records = (from categories in db.Categories
+                           where categories.Status == "Active"
+                           select categories).ToList();
 
             return records;
         }
@@ -29,7 +31,8 @@ namespace BontoBuy.Web.Models
         {
             var newRecord = new CategoryViewModel
             {
-                Description = item.Description
+                Description = item.Description,
+                Status = "Active"
             };
             db.Categories.Add(newRecord);
             db.SaveChanges();
@@ -52,8 +55,39 @@ namespace BontoBuy.Web.Models
             return currentrecord;
         }
 
-        public void Remove(int id)
+        public void Archive(int id)
         {
+            var record = db.Categories
+                .Where(x => x.CategoryId == id && x.Status == "Active")
+                .FirstOrDefault();
+
+            if (record != null)
+            {
+                record.Status = "Archived";
+                db.SaveChanges();
+            }
+        }
+
+        public IEnumerable<CategoryViewModel> RetrieveArchives()
+        {
+            var records = (from categories in db.Categories
+                           where categories.Status == "Archived"
+                           select categories).ToList();
+
+            return records;
+        }
+
+        public void RevertArchive(int id)
+        {
+            var record = db.Categories
+                .Where(x => x.CategoryId == id && x.Status == "Archived")
+                .FirstOrDefault();
+
+            if (record != null)
+            {
+                record.Status = "Active";
+                db.SaveChanges();
+            }
         }
     }
 }

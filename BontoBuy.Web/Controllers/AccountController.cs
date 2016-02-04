@@ -1,14 +1,14 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -136,6 +136,44 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
+        [AllowAnonymous]
+        public ActionResult LoginSupplier(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LoginSupplier(LoginViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "Supplier");
+
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+        }
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -235,7 +273,7 @@ namespace BontoBuy.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var admin = new AdminViewModel
+                var admin = new AdminViewModel()
                 {
                     UserName = model.Email,
                     Email = model.Email,
@@ -262,6 +300,47 @@ namespace BontoBuy.Web.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        public ActionResult RegisterSupplier(RegisterSupplierViewModel model)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterSupplier(RegisterSupplierViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var supplier = new SupplierViewModel()
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DtCreated = DateTime.UtcNow,
+                    Name = model.Name,
+                    Website = model.Website
+                };
+                var result = await UserManager.CreateAsync(supplier, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(supplier, isPersistent: false, rememberBrowser: false);
+
+                    ApplicationUser user = db.Users.Where(u => u.Email.Equals(model.Email, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                    if (user != null) UserManager.AddToRole(user.Id, "Supplier");
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Supplier");
+                }
+                AddErrors(result);
+            }
             return View(model);
         }
 

@@ -85,10 +85,10 @@ namespace BontoBuy.Web.Models
 
             if (getItemDesc != null)
             {
-                var getSpec = from specs in db.Specifications
-                              join tags in db.Tags on specs.TagId equals tags.TagId
-                              where tags.Description == getItemDesc
-                              select specs;
+                //var getSpec = from specs in db.Specifications
+                //              join tags in db.Tags on specs.TagId equals tags.TagId
+                //              where tags.Description == getItemDesc
+                //              select specs;
 
                 var getModelSpec = from modelSpecs in db.ModelSpecs
                                    join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
@@ -102,19 +102,19 @@ namespace BontoBuy.Web.Models
                 {
                     foreach (var modSpec in getModelSpec)
                     {
-                        var modelSpec = new ModelSpecCreationViewModel();
-                        modelSpec.ModelSpecId = modSpec.ModelSpecId;
-                        modelSpec.SpecificationId = modSpec.SpecificationId;
-                        modelSpec.ModelId = modSpec.ModelId;
-
-                        foreach (var spec in getSpec)
+                        var modelSpec = new ModelSpecCreationViewModel()
                         {
-                            modelSpec.Description = spec.Description;
-                            modelSpec.Value = "";
-                        }
+                            ModelId = modSpec.ModelId,
+                            SpecificationId = modSpec.SpecificationId,
+                            Description = (from specs in db.Specifications
+                                           where specs.SpecificationId == modSpec.SpecificationId
+                                           select specs.Description).FirstOrDefault(),
+                            Value = ""
+                        };
+                        modelSpecList.Add(modelSpec);
                     }
 
-                    return modelSpecList.ToList();
+                    return modelSpecList.ToList().Distinct();
                 }
                 return null;
             }

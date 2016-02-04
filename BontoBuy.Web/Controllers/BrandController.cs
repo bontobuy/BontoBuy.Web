@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -35,23 +35,20 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+
+                    var records = _repository.Retrieve();
+
+                    if (records == null)
                     {
-                        var records = _repository.Retrieve();
-
-                        if (records == null)
-                        {
-                            return HttpNotFound();
-                        }
-
-                        return View(records);
+                        return HttpNotFound();
                     }
 
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return View(records);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -75,28 +72,25 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    if (id < 1)
                     {
-                        if (id < 1)
-                        {
-                            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
-                            RedirectToAction("Retrieve");
-                        }
-
-                        var profile = _repository.Get(id);
-                        if (profile == null)
-                        {
-                            return HttpNotFound();
-                        }
-
-                        return View(profile);
+                        //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
+                        RedirectToAction("Retrieve");
                     }
 
-                    return RedirectToAction("LoginAdmin", "Account");
+                    var profile = _repository.Get(id);
+                    if (profile == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(profile);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -120,18 +114,15 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
-                    {
-                        var newItem = new BrandViewModel();
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    var newItem = new BrandViewModel();
 
-                        return View(newItem);
-                    }
-
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return View(newItem);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -156,21 +147,18 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    if (item == null)
                     {
-                        if (item == null)
-                        {
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
-                        }
-                        var newItem = _repository.Create(item);
-                        return RedirectToAction("Retrieve");
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
                     }
-
-                    return RedirectToAction("LoginAdmin", "Account");
+                    var newItem = _repository.Create(item);
+                    return RedirectToAction("Retrieve");
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -194,28 +182,25 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    BrandViewModel itemToUpdate = new BrandViewModel();
+                    if (id < 1)
                     {
-                        BrandViewModel itemToUpdate = new BrandViewModel();
-                        if (id < 1)
-                        {
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid Identifier");
-                        }
-
-                        itemToUpdate = _repository.Get(id);
-                        if (itemToUpdate == null)
-                        {
-                            return HttpNotFound();
-                        }
-
-                        return View(itemToUpdate);
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid Identifier");
                     }
 
-                    return RedirectToAction("LoginAdmin", "Account");
+                    itemToUpdate = _repository.Get(id);
+                    if (itemToUpdate == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(itemToUpdate);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -240,27 +225,24 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    if (item == null)
                     {
-                        if (item == null)
-                        {
-                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
-                        }
-
-                        var updatedItem = _repository.Update(id, item);
-                        if (updatedItem == null)
-                        {
-                            return HttpNotFound();
-                        }
-
-                        return RedirectToAction("Retrieve");
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
                     }
 
-                    return RedirectToAction("LoginAdmin", "Account");
+                    var updatedItem = _repository.Update(id, item);
+                    if (updatedItem == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return RedirectToAction("Retrieve");
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -284,28 +266,25 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    if (id < 1)
                     {
-                        if (id < 1)
-                        {
-                            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
-                            RedirectToAction("Retrieve");
-                        }
-
-                        var profile = _repository.Get(id);
-                        if (profile == null)
-                        {
-                            return HttpNotFound();
-                        }
-
-                        return View(profile);
+                        //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
+                        RedirectToAction("Retrieve");
                     }
 
-                    return RedirectToAction("LoginAdmin", "Account");
+                    var profile = _repository.Get(id);
+                    if (profile == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(profile);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -330,30 +309,27 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    var brandId = item.BrandId;
+
+                    if (brandId < 1)
                     {
-                        var brandId = item.BrandId;
-
-                        if (brandId < 1)
-                        {
-                            RedirectToAction("Retrieve");
-                        }
-                        if (item == null)
-                        {
-                            RedirectToAction("Retrieve");
-                        }
-
-                        _repository.Archive(brandId);
-
-                        //   return RedirectToAction("Retrieve");
-                        return RedirectToAction("Retrieve");
+                        RedirectToAction("Retrieve");
+                    }
+                    if (item == null)
+                    {
+                        RedirectToAction("Retrieve");
                     }
 
-                    return RedirectToAction("LoginAdmin", "Account");
+                    _repository.Archive(brandId);
+
+                    //   return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve");
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -376,21 +352,18 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    var records = _repository.RetrieveArchives();
+                    if (records == null)
                     {
-                        var records = _repository.RetrieveArchives();
-                        if (records == null)
-                        {
-                            return HttpNotFound();
-                        }
-                        return View(records);
+                        return HttpNotFound();
                     }
-
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return View(records);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -413,28 +386,25 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    if (id < 1)
                     {
-                        if (id < 1)
-                        {
-                            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
-                            RedirectToAction("RetrieveArchives");
-                        }
-
-                        var profile = _repository.Get(id);
-                        if (profile == null)
-                        {
-                            return HttpNotFound();
-                        }
-
-                        return View(profile);
+                        //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product Id cannot be null or empty!");
+                        RedirectToAction("RetrieveArchives");
                     }
 
-                    return RedirectToAction("LoginAdmin", "Account");
+                    var profile = _repository.Get(id);
+                    if (profile == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(profile);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
@@ -458,29 +428,26 @@ namespace BontoBuy.Web.Controllers
                 //Check if the "Admin" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
-                if (role != null)
+                if (User.IsInRole("Admin"))
                 {
                     //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    if (userInRole != null)
+                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
+                    //if (userInRole != null)
+                    //{
+                    var brandId = item.BrandId;
+                    if (brandId < 1)
                     {
-                        var brandId = item.BrandId;
-                        if (brandId < 1)
-                        {
-                            RedirectToAction("RetrieveArchives");
-                        }
-                        if (item == null)
-                        {
-                            RedirectToAction("RetrieveArchives");
-                        }
-
-                        _repository.RevertArchive(brandId);
-
-                        //   return RedirectToAction("Retrieve");
-                        return RedirectToAction("RetrieveArchives");
+                        RedirectToAction("RetrieveArchives");
+                    }
+                    if (item == null)
+                    {
+                        RedirectToAction("RetrieveArchives");
                     }
 
-                    return RedirectToAction("LoginAdmin", "Account");
+                    _repository.RevertArchive(brandId);
+
+                    //   return RedirectToAction("Retrieve");
+                    return RedirectToAction("RetrieveArchives");
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }

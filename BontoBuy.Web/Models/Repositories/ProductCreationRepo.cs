@@ -85,36 +85,46 @@ namespace BontoBuy.Web.Models
 
             if (getItemDesc != null)
             {
-                //var getSpec = from specs in db.Specifications
-                //              join tags in db.Tags on specs.TagId equals tags.TagId
-                //              where tags.Description == getItemDesc
-                //              select specs;
+                var getSpec = from specs in db.Specifications
+                              join tags in db.Tags on specs.TagId equals tags.TagId
+                              where tags.Description == getItemDesc
+                              select specs;
 
-                var getModelSpec = from modelSpecs in db.ModelSpecs
-                                   join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
-                                   join tags in db.Tags on specs.TagId equals tags.TagId
-                                   where tags.Description == getItemDesc
-                                   select modelSpecs;
+                var getModelSpec = (from modelSpecs in db.ModelSpecs
+                                    join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
+                                    join tags in db.Tags on specs.TagId equals tags.TagId
+                                    where tags.Description == getItemDesc
+                                    select modelSpecs);
 
                 var modelSpecList = new List<ModelSpecCreationViewModel>();
-
-                if (getModelSpec != null)
+                var modelSpec = new ModelSpecCreationViewModel();
+                if (getSpec != null)
                 {
-                    foreach (var modSpec in getModelSpec)
+                    foreach (var spec in getSpec)
                     {
-                        var modelSpec = new ModelSpecCreationViewModel()
-                        {
-                            ModelId = modSpec.ModelId,
-                            SpecificationId = modSpec.SpecificationId,
-                            Description = (from specs in db.Specifications
-                                           where specs.SpecificationId == modSpec.SpecificationId
-                                           select specs.Description).FirstOrDefault(),
-                            Value = ""
-                        };
+                        modelSpec.ModelSpecId = item.ModelSpecId;
+                        modelSpec.ModelId = item.ModelId;
+                        modelSpec.SpecificationId = spec.SpecificationId;
+                        modelSpec.Description = spec.Description;
+                        modelSpec.Value = "";
                         modelSpecList.Add(modelSpec);
                     }
 
-                    return modelSpecList.ToList().Distinct();
+                    return modelSpecList.ToList();
+
+                    //foreach (var modSpec in getModelSpec)
+                    //{
+                    //    var modelSpec = new ModelSpecCreationViewModel()
+                    //    {
+                    //        ModelId = modSpec.ModelId,
+                    //        SpecificationId = spec.SpecificationId,
+                    //        Description = (from specs in db.Specifications
+                    //                       where specs.SpecificationId == spec.SpecificationId
+                    //                       select specs.Description).FirstOrDefault(),
+                    //        Value = ""
+                    //    };
+                    //    modelSpecList.Add(modelSpec);
+                    //}
                 }
                 return null;
             }

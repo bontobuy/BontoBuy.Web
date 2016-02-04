@@ -489,7 +489,7 @@ namespace BontoBuy.Web.Controllers
                 }
                 return RedirectToAction("LoginAdmin", "Account");
             }
-            catch
+            catch (Exception ex)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }

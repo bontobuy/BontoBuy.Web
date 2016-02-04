@@ -11,7 +11,11 @@ namespace BontoBuy.Web.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            return RedirectToAction("LoginAdmin", "Account");
         }
     }
 }

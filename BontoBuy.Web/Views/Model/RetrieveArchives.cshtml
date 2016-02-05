@@ -2,7 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "Retrieve Models";
+    ViewBag.Title = "Retrieve Archives";
 }
 
 <div class="col-md-9">
@@ -30,8 +30,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.ModelId }) |
-                    @Html.ActionLink("Details", "Get", new { id = item.ModelId }) |
-                    @Html.ActionLink("Archive", "Archive", new { id = item.ModelId })
+                    @Html.ActionLink("Restore", "RevertArchive", new { id = item.ModelId })
                 </td>
             </tr>
         }

@@ -1,11 +1,11 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -153,6 +153,7 @@ namespace BontoBuy.Web.Controllers
                     var newTag = new TagViewModel();
                     if (ModelState.IsValid)
                     {
+                        item.Status = "Active";
                         db.Items.Add(item);
                         db.SaveChanges();
 

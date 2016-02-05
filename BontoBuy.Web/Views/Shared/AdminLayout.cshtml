@@ -121,13 +121,16 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-gift"></i> Products</a>
+                        <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-gift"></i> Model</a>
                         <ul id="demo" class="dropdown-menu">
                             <li>
-                                <a href="#">Manage</a>
+                                <a href="@Url.Action("Retrieve","Model")">List</a>
                             </li>
                             <li>
-                                <a href="#">Product Reviews</a>
+                                <a href="@Url.Action("Create","Model")">Add New</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("RetrieveArchives","Model")">List of Archived</a>
                             </li>
                         </ul>
                     </li>

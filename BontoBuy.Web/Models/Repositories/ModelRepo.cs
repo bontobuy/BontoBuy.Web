@@ -11,7 +11,7 @@ namespace BontoBuy.Web.Models
 
         public IEnumerable<ModelViewModel> Retrieve()
         {
-            var records = db.Models.ToList();
+            var records = db.Models.ToList().Where(x => x.Status == "Active");
 
             return records;
         }
@@ -55,19 +55,39 @@ namespace BontoBuy.Web.Models
             return currentrecord;
         }
 
-        public void Remove(int id)
+        public void Archive(int id)
         {
+            var record = db.Models
+                .Where(x => x.ModelId == id && x.Status == "Active")
+                .FirstOrDefault();
+
+            if (record != null)
+            {
+                record.Status = "Archived";
+                db.SaveChanges();
+            }
         }
 
-        //public IEnumerable<ModelViewModel> GetModelsByBrand(int brandId)
-        //{
-        //    var records =
-        //        from model in db.Models
-        //        join item in db.Items on model.ItemId equals item.ItemId
-        //        where item.BrandId == brandId
-        //        select model;
+        public IEnumerable<ModelViewModel> RetrieveArchives()
+        {
+            var records = (from models in db.Models
+                           where models.Status == "Archived"
+                           select models).ToList();
 
-        //    return records;
-        //}
+            return records;
+        }
+
+        public void RevertArchive(int id)
+        {
+            var record = db.Models
+                .Where(x => x.ModelId == id && x.Status == "Archived")
+                .FirstOrDefault();
+
+            if (record != null)
+            {
+                record.Status = "Active";
+                db.SaveChanges();
+            }
+        }
     }
 }

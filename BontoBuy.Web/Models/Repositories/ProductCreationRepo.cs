@@ -52,7 +52,8 @@ namespace BontoBuy.Web.Models
             int productId = item.ProductId;
 
             var records = from items in db.Items
-                          where item.ProductId == productId
+                          join prod in db.Products on items.ProductId equals prod.ProductId
+                          where item.ProductId == prod.ProductId
                           select items;
 
             return records;

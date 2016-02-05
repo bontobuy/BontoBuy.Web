@@ -1,10 +1,10 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -57,9 +57,9 @@ namespace BontoBuy.Web.Controllers
                         return RedirectToAction("Retrieve");
                     }
 
-                    return Content("lol");
+                    return Content("Success");
                 }
-                return Content("Non");
+                return Content("failed");
             }
             catch
             {

@@ -1,5 +1,4 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.ModelSpecCreationViewModel>
-
+﻿@model IEnumerable<BontoBuy.Web.Models.SpecProductViewModel>
 @{
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
     ViewBag.Title = "Specification Details";
@@ -31,11 +30,51 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.HiddenFor(modelItem => item.ModelSpecId)
+                    @Html.HiddenFor(modelItem => item.SpecificationId)
                 </td>
             </tr>
         }
     </table>
     <input type="submit" value="save"/>
-
 }
+@*@model IEnumerable<BontoBuy.Web.Models.ModelSpecCreationViewModel>
+
+    @{
+        Layout = "~/Views/Shared/SupplierLayout.cshtml";
+        ViewBag.Title = "Specification Details";
+    }
+
+    @using (Html.BeginForm())
+    {
+        <table class="table">
+            @Html.ValidationSummary(true)
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.EditorFor(modelItem => item.Value)
+                        @Html.ValidationMessageFor(model => item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.ModelSpecId)
+                    </td>
+                </tr>
+            }
+        </table>
+        <input type="submit" value="save"/>
+
+    }*@

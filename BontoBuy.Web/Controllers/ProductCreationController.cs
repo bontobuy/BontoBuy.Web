@@ -1,11 +1,11 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -163,6 +163,7 @@ namespace BontoBuy.Web.Controllers
                         ProductId = item.ProductId,
                         Description = ""
                     };
+                    Session["Product"] = item;
 
                     return RedirectToAction("ItemSelection");
                 }
@@ -395,6 +396,7 @@ namespace BontoBuy.Web.Controllers
                         Value = ""
                     };
 
+                    //return RedirectToAction("ModelSpecSelection");
                     return RedirectToAction("ModelSpecSelection");
                 }
                 return RedirectToAction("LoginSupplier", "Account");
@@ -420,17 +422,40 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Supplier"))
                 {
+                    ProductViewModel product = Session["Product"] as ProductViewModel;
+
+                    var getSpec = from spec in db.Specifications
+                                  join prodSpec in db.ProductSpecs on spec.SpecificationId equals prodSpec.SpecificationId
+                                  join prod in db.Products on prodSpec.ProductId equals prod.ProductId
+                                  where prod.ProductId == product.ProductId
+                                  select spec;
+
+                    var listSpecProduct = new List<SpecProductViewModel>();
+
+                    foreach (var obj in getSpec)
+                    {
+                        var specProd = new SpecProductViewModel()
+                        {
+                            SpecificationId = obj.SpecificationId,
+                            Description = obj.Description,
+                            TagId = obj.TagId,
+                            Value = ""
+                        };
+                        listSpecProduct.Add(specProd);
+                    }
+                    return View(listSpecProduct);
+
                     //Runs a query to determine if the user is actually an "Supplier" if not it returns a null value
                     //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
                     //if (userInRole != null)
                     //{
-                    ModelSpecViewModel item = TempData["ModelSpecData"] as ModelSpecViewModel;
-                    if (item == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    records = _repository.RetrieveSpecification(item);
-                    return View(records);
+                    //ModelSpecViewModel item = TempData["ModelSpecData"] as ModelSpecViewModel;
+                    //if (item == null)
+                    //{
+                    //    return HttpNotFound();
+                    //}
+                    //records = _repository.RetrieveSpecification(item);
+                    //return View(records);
                 }
                 return RedirectToAction("LoginSupplier", "Account");
             }
@@ -460,23 +485,23 @@ namespace BontoBuy.Web.Controllers
                     //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
                     //if (userInRole != null)
                     //{
-                    int item = 0;
-                    if (ModelState.IsValid)
-                    {
-                        var modelSpecIdArray = collection.GetValues("item.ModelSpecId");
-                        var valuesArray = collection.GetValues("item.Value");
+                    //int item = 0;
+                    //if (ModelState.IsValid)
+                    //{
+                    //    var SpecIdArray = collection.GetValues("item.Specification");
+                    //    var valuesArray = collection.GetValues("item.Value");
 
-                        for (item = 0; item < valuesArray.Count(); item++)
-                        {
-                            ModelSpecViewModel modelSpec = new ModelSpecViewModel();
+                    //    for (item = 0; item < valuesArray.Count(); item++)
+                    //    {
+                    //        ProductSpecViewModel modelSpec = new ProductSpecViewModel();
 
-                            modelSpec = db.ModelSpecs.Find(Convert.ToInt32(modelSpecIdArray[item]));
-                            modelSpec.Value = valuesArray[item];
-                            db.ModelSpecs.Add(modelSpec);
-                            db.SaveChanges();
-                        }
-                        return Content("Success");
-                    }
+                    //        prodSpec = db.Specifications.Find(Convert.ToInt32(SpecIdArray[item]));
+                    //        modelSpec.Value = valuesArray[item];
+                    //        db.ModelSpecs.Add(modelSpec);
+                    //        db.SaveChanges();
+                    //    }
+                    //    return Content("Success");
+                    //}
 
                     //return View(records);
                     return View();

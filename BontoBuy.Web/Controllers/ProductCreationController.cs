@@ -395,6 +395,7 @@ namespace BontoBuy.Web.Controllers
                         SpecificationId = -1,
                         Value = ""
                     };
+                    Session["Model"] = item;
 
                     //return RedirectToAction("ModelSpecSelection");
                     return RedirectToAction("ModelSpecSelection");
@@ -423,7 +424,7 @@ namespace BontoBuy.Web.Controllers
                 if (User.IsInRole("Supplier"))
                 {
                     ProductViewModel product = Session["Product"] as ProductViewModel;
-
+                    ModelViewModel model = Session["Model"] as ModelViewModel;
                     var getSpec = from spec in db.Specifications
                                   join prodSpec in db.ProductSpecs on spec.SpecificationId equals prodSpec.SpecificationId
                                   join prod in db.Products on prodSpec.ProductId equals prod.ProductId
@@ -436,6 +437,7 @@ namespace BontoBuy.Web.Controllers
                     {
                         var specProd = new SpecProductViewModel()
                         {
+                            ModelId = model.ModelId,
                             SpecificationId = obj.SpecificationId,
                             Description = obj.Description,
                             TagId = obj.TagId,
@@ -478,9 +480,30 @@ namespace BontoBuy.Web.Controllers
 
                 //Check if the "Supplier" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Supplier");
-
+                ModelViewModel model = Session["Model"] as ModelViewModel;
                 if (User.IsInRole("Supplier"))
                 {
+                    int item = 0;
+
+                    if (ModelState.IsValid)
+                    {
+                        var specIdArray = collection.GetValues("item.SpecificationId");
+                        var valueArray = collection.GetValues("item.Value");
+
+                        for (item = 0; item < valueArray.Count(); item++)
+                        {
+                            ModelSpecViewModel modelSpec = new ModelSpecViewModel();
+
+                            modelSpec.Value = valueArray[item];
+                            modelSpec.SpecificationId = Convert.ToInt32(specIdArray[item]);
+                            modelSpec.ModelId = model.ModelId;
+
+                            db.ModelSpecs.Add(modelSpec);
+                            db.SaveChanges();
+                        }
+                        return Content("Success");
+                    }
+
                     //Runs a query to determine if the user is actually an "Supplier" if not it returns a null value
                     //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
                     //if (userInRole != null)

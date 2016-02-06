@@ -180,6 +180,7 @@ namespace BontoBuy.Web.Models
 
     public class SpecProductViewModel
     {
+        public int ModelId { get; set; }
         public int SpecificationId { get; set; }
         public int TagId { get; set; }
         public string Description { get; set; }

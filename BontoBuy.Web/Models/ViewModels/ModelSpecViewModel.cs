@@ -18,19 +18,19 @@ namespace BontoBuy.Web.Models
         [Display(Name = "Model Id")]
         [Column(Order = 1)]
         public int ModelId { get; set; }
+        [Column(Order = 3)]
+        public string UserId { get; set; }
+        public int SupplierId { get; set; }
         [Display(Name = "Value")]
         [Required(ErrorMessage = "Specification value is required")]
         public string Value { get; set; }
 
-        //[Column(Order = 2)]
-        //public int PhotoId { get; set; }
+        [ForeignKey("UserId")]
+        public SupplierViewModel SupplierNav { get; set; }
         [ForeignKey("SpecificationId")]
         public SpecificationViewModel SpecificationNav { get; set; }
         [ForeignKey("ModelId")]
         public ModelViewModel ModelNav { get; set; }
-
-        //[ForeignKey("PhotoId")]
-        //public PhotoViewModel PhotoNav { get; set; }
     }
 
     public class ModelSpecCreationViewModel

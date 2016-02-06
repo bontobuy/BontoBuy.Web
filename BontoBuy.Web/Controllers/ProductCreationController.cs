@@ -446,18 +446,6 @@ namespace BontoBuy.Web.Controllers
                         listSpecProduct.Add(specProd);
                     }
                     return View(listSpecProduct);
-
-                    //Runs a query to determine if the user is actually an "Supplier" if not it returns a null value
-                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    //if (userInRole != null)
-                    //{
-                    //ModelSpecViewModel item = TempData["ModelSpecData"] as ModelSpecViewModel;
-                    //if (item == null)
-                    //{
-                    //    return HttpNotFound();
-                    //}
-                    //records = _repository.RetrieveSpecification(item);
-                    //return View(records);
                 }
                 return RedirectToAction("LoginSupplier", "Account");
             }
@@ -478,13 +466,17 @@ namespace BontoBuy.Web.Controllers
                     return RedirectToAction("LoginSupplier", "Account");
                 }
 
+                var getSupplierId = (from supplier in db.Suppliers
+                                     where supplier.Id == userId
+                                     select supplier.SupplierId).FirstOrDefault();
+
                 //Check if the "Supplier" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Supplier");
                 ModelViewModel model = Session["Model"] as ModelViewModel;
                 if (User.IsInRole("Supplier"))
                 {
                     int item = 0;
-
+                    int supplierId = getSupplierId;
                     if (ModelState.IsValid)
                     {
                         var specIdArray = collection.GetValues("item.SpecificationId");
@@ -497,36 +489,14 @@ namespace BontoBuy.Web.Controllers
                             modelSpec.Value = valueArray[item];
                             modelSpec.SpecificationId = Convert.ToInt32(specIdArray[item]);
                             modelSpec.ModelId = model.ModelId;
+                            modelSpec.SupplierId = supplierId;
+                            modelSpec.UserId = userId;
 
                             db.ModelSpecs.Add(modelSpec);
                             db.SaveChanges();
                         }
                         return Content("Success");
                     }
-
-                    //Runs a query to determine if the user is actually an "Supplier" if not it returns a null value
-                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    //if (userInRole != null)
-                    //{
-                    //int item = 0;
-                    //if (ModelState.IsValid)
-                    //{
-                    //    var SpecIdArray = collection.GetValues("item.Specification");
-                    //    var valuesArray = collection.GetValues("item.Value");
-
-                    //    for (item = 0; item < valuesArray.Count(); item++)
-                    //    {
-                    //        ProductSpecViewModel modelSpec = new ProductSpecViewModel();
-
-                    //        prodSpec = db.Specifications.Find(Convert.ToInt32(SpecIdArray[item]));
-                    //        modelSpec.Value = valuesArray[item];
-                    //        db.ModelSpecs.Add(modelSpec);
-                    //        db.SaveChanges();
-                    //    }
-                    //    return Content("Success");
-                    //}
-
-                    //return View(records);
                     return View();
                 }
                 return RedirectToAction("LoginSupplier", "Account");
@@ -535,6 +505,11 @@ namespace BontoBuy.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
+        }
+
+        public ActionResult ProductSummary()
+        {
+            return null;
         }
     }
 }

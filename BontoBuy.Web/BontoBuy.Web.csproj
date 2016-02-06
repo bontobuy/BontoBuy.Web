@@ -268,6 +268,10 @@
     <Compile Include="Migrations\201602060832061_Create Photo VM.Designer.cs">
       <DependentUpon>201602060832061_Create Photo VM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602060833202_Rename Tag to SCat.cs" />
+    <Compile Include="Migrations\201602060833202_Rename Tag to SCat.Designer.cs">
+      <DependentUpon>201602060833202_Rename Tag to SCat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -683,6 +687,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602060832061_Create Photo VM.resx">
       <DependentUpon>201602060832061_Create Photo VM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602060833202_Rename Tag to SCat.resx">
+      <DependentUpon>201602060833202_Rename Tag to SCat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -11,13 +11,13 @@ namespace BontoBuy.Web.Models
 
         public IEnumerable<TagViewModel> Retrieve()
         {
-            var records = db.Tags.ToList();
+            var records = db.SpecialCategories.ToList();
 
             return records;
         }
         public TagViewModel Get(int id)
         {
-            var record = db.Tags
+            var record = db.SpecialCategories
                .Where(x => x.TagId == id)
                .FirstOrDefault();
 
@@ -29,7 +29,7 @@ namespace BontoBuy.Web.Models
             {
                 Description = item.Description
             };
-            db.Tags.Add(newRecord);
+            db.SpecialCategories.Add(newRecord);
             db.SaveChanges();
 
             return newRecord;
@@ -37,7 +37,7 @@ namespace BontoBuy.Web.Models
 
         public TagViewModel Update(int id, TagViewModel item)
         {
-            var currentrecord = db.Tags
+            var currentrecord = db.SpecialCategories
                 .Where(x => x.TagId == id)
                 .FirstOrDefault();
 

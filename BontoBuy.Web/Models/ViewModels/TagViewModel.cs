@@ -7,7 +7,7 @@ using System.Web;
 
 namespace BontoBuy.Web.Models
 {
-    [Table("Tag")]
+    [Table("SpecialCategory")]
     public class TagViewModel
     {
         [Key]

@@ -116,7 +116,7 @@ namespace BontoBuy.Web.Controllers
                     //if (userInRole != null)
                     //{
                     var newItem = new SpecificationViewModel();
-                    ViewBag.TagId = new SelectList(db.Tags, "TagId", "Description");
+                    ViewBag.TagId = new SelectList(db.SpecialCategories, "TagId", "Description");
                     return View(newItem);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
@@ -162,7 +162,7 @@ namespace BontoBuy.Web.Controllers
                         db.SaveChanges();
                         return RedirectToAction("Retrieve");
                     }
-                    ViewBag.TagId = new SelectList(db.Tags, "TagId", "Description", item.TagId);
+                    ViewBag.TagId = new SelectList(db.SpecialCategories, "TagId", "Description", item.TagId);
                     return View(item);
                 }
                 return RedirectToAction("LoginAdmin", "Account");

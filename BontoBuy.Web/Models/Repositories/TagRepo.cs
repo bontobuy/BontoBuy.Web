@@ -9,36 +9,36 @@ namespace BontoBuy.Web.Models
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public IEnumerable<TagViewModel> Retrieve()
+        public IEnumerable<SpecialCategoryViewModel> Retrieve()
         {
-            var records = db.Tags.ToList();
+            var records = db.SpecialCategories.ToList();
 
             return records;
         }
-        public TagViewModel Get(int id)
+        public SpecialCategoryViewModel Get(int id)
         {
-            var record = db.Tags
-               .Where(x => x.TagId == id)
+            var record = db.SpecialCategories
+               .Where(x => x.SpecialCatId == id)
                .FirstOrDefault();
 
             return record;
         }
-        public TagViewModel Create(TagViewModel item)
+        public SpecialCategoryViewModel Create(SpecialCategoryViewModel item)
         {
-            var newRecord = new TagViewModel
+            var newRecord = new SpecialCategoryViewModel
             {
                 Description = item.Description
             };
-            db.Tags.Add(newRecord);
+            db.SpecialCategories.Add(newRecord);
             db.SaveChanges();
 
             return newRecord;
         }
 
-        public TagViewModel Update(int id, TagViewModel item)
+        public SpecialCategoryViewModel Update(int id, SpecialCategoryViewModel item)
         {
-            var currentrecord = db.Tags
-                .Where(x => x.TagId == id)
+            var currentrecord = db.SpecialCategories
+                .Where(x => x.SpecialCatId == id)
                 .FirstOrDefault();
 
             if (!(String.IsNullOrWhiteSpace(item.Description)))

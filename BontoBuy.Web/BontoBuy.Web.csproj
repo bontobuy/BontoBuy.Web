@@ -260,6 +260,22 @@
     <Compile Include="Migrations\201602051237191_Add ProductSpecification.Designer.cs">
       <DependentUpon>201602051237191_Add ProductSpecification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602060825390_Remove Picture.cs" />
+    <Compile Include="Migrations\201602060825390_Remove Picture.Designer.cs">
+      <DependentUpon>201602060825390_Remove Picture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602060832061_Create Photo VM.cs" />
+    <Compile Include="Migrations\201602060832061_Create Photo VM.Designer.cs">
+      <DependentUpon>201602060832061_Create Photo VM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602060833202_Rename Tag to SCat.cs" />
+    <Compile Include="Migrations\201602060833202_Rename Tag to SCat.Designer.cs">
+      <DependentUpon>201602060833202_Rename Tag to SCat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602060837404_Rename tagId to specialCatId.cs" />
+    <Compile Include="Migrations\201602060837404_Rename tagId to specialCatId.Designer.cs">
+      <DependentUpon>201602060837404_Rename tagId to specialCatId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -671,6 +687,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602051237191_Add ProductSpecification.resx">
       <DependentUpon>201602051237191_Add ProductSpecification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602060825390_Remove Picture.resx">
+      <DependentUpon>201602060825390_Remove Picture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602060832061_Create Photo VM.resx">
+      <DependentUpon>201602060832061_Create Photo VM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602060833202_Rename Tag to SCat.resx">
+      <DependentUpon>201602060833202_Rename Tag to SCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602060837404_Rename tagId to specialCatId.resx">
+      <DependentUpon>201602060837404_Rename tagId to specialCatId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

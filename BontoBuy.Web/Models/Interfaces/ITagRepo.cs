@@ -8,9 +8,9 @@ namespace BontoBuy.Web.Models
 {
     public interface ITagRepo
     {
-        IEnumerable<TagViewModel> Retrieve();
-        TagViewModel Get(int id);
-        TagViewModel Create(TagViewModel item);
-        TagViewModel Update(int id, TagViewModel item);
+        IEnumerable<SpecialCategoryViewModel> Retrieve();
+        SpecialCategoryViewModel Get(int id);
+        SpecialCategoryViewModel Create(SpecialCategoryViewModel item);
+        SpecialCategoryViewModel Update(int id, SpecialCategoryViewModel item);
     }
 }

@@ -7,16 +7,12 @@ using System.Web;
 
 namespace BontoBuy.Web.Models
 {
-    [Table("Photo")]
     public class PhotoViewModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PhotoId { get; set; }
-        [Required]
-        public string ImagePath { get; set; }
-        public string ImageName { get; set; }
-
-        //public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

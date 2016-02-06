@@ -49,12 +49,12 @@ namespace BontoBuy.Web.Models
         public DbSet<ItemViewModel> Items { get; set; }
         public DbSet<ModelViewModel> Models { get; set; }
         public DbSet<SpecificationViewModel> Specifications { get; set; }
-        public DbSet<TagViewModel> Tags { get; set; }
+        public DbSet<SpecialCategoryViewModel> SpecialCategories { get; set; }
         public DbSet<ModelSpecViewModel> ModelSpecs { get; set; }
         public DbSet<BrandViewModel> Brands { get; set; }
         public DbSet<AdminViewModel> Admins { get; set; }
-        public DbSet<PhotoViewModel> Photos { get; set; }
         public DbSet<SupplierViewModel> Suppliers { get; set; }
+        public DbSet<PhotoViewModel> Photos { get; set; }
         public DbSet<ProductSpecViewModel> ProductSpecs { get; set; }
     }
 }

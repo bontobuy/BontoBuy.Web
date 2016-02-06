@@ -87,13 +87,13 @@ namespace BontoBuy.Web.Models
             if (getItemDesc != null)
             {
                 var getSpec = from specs in db.Specifications
-                              join tags in db.Tags on specs.TagId equals tags.TagId
+                              join tags in db.SpecialCategories on specs.SpecialCatId equals tags.SpecialCatId
                               where tags.Description == getItemDesc
                               select specs;
 
                 var getModelSpec = (from modelSpecs in db.ModelSpecs
                                     join specs in db.Specifications on modelSpecs.SpecificationId equals specs.SpecificationId
-                                    join tags in db.Tags on specs.TagId equals tags.TagId
+                                    join tags in db.SpecialCategories on specs.SpecialCatId equals tags.SpecialCatId
                                     where tags.Description == getItemDesc
                                     select modelSpecs);
 

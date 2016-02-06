@@ -14,15 +14,15 @@ namespace BontoBuy.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Specification Id")]
         public int SpecificationId { get; set; }
-        [Display(Name = "Tag Id")]
-        public int TagId { get; set; }
+        [Display(Name = "SpecialCat Id")]
+        public int SpecialCatId { get; set; }
         [Required(ErrorMessage = "Specification name is required")]
         [Display(Name = "Specification Name")]
         public string Description { get; set; }
         public string Status { get; set; }
         public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }
-        [ForeignKey("TagId")]
-        public TagViewModel SpecificationTagNav { get; set; }
+        [ForeignKey("SpecialCatId")]
+        public SpecialCategoryViewModel SpecificationCategoryNav { get; set; }
 
         //#region Mobile
 

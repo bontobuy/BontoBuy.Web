@@ -9,7 +9,10 @@ namespace BontoBuy.Web.Models
     [Table("Supplier")]
     public class SupplierViewModel : ApplicationUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SupplierId { get; set; }
         public string Website { get; set; }
+
+        public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }
     }
 }

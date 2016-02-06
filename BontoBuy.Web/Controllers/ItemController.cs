@@ -150,7 +150,7 @@ namespace BontoBuy.Web.Controllers
                     //if (userInRole != null)
                     //{
                     var newItem = new ItemViewModel();
-                    var newTag = new TagViewModel();
+                    var newTag = new SpecialCategoryViewModel();
                     if (ModelState.IsValid)
                     {
                         item.Status = "Active";
@@ -159,7 +159,7 @@ namespace BontoBuy.Web.Controllers
 
                         //We are adding a Tag matching the description of the Item
                         newTag.Description = item.Description;
-                        db.Tags.Add(newTag);
+                        db.SpecialCategories.Add(newTag);
                         db.SaveChanges();
 
                         return RedirectToAction("Retrieve");

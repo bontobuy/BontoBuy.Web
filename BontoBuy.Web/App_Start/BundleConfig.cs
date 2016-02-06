@@ -40,15 +40,14 @@ namespace BontoBuy.Web
 
             bundles.Add(new StyleBundle("~/Content/AdminCSS").Include(
                 "~/Content/Admin/Site.css",
-                "~/Content/bootstrap.css",
-                "~/content/bootstrap-theme.css"));
+                "~/Content/bootstrap.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/CustomJS").Include(
                "~/Scripts/bootstrap.min.js",
                "~/Scripts/bootstrap.js",
                "~/Scripts/Custom.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css/bootstrap").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform()));
+            //    bundles.Add(new StyleBundle("~/Content/css/bootstrap").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform()));
         }
     }
 }

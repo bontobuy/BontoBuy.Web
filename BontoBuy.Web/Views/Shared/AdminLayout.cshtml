@@ -10,8 +10,18 @@
         #demo {
             box-shadow: none;
             -webkit-box-shadow: none;
-            left: -158px;
-            top: -2px;
+            left: 224px;
+            top: -1px;
+        }
+
+        #sideNav > li > a {
+            color: black;
+            font-weight: 100;
+            font-size: 15px;
+        }
+
+        .Dash {
+            background-color: lightskyblue;
         }
     </style>
 
@@ -19,14 +29,15 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <div class="navbar navbardefault navbar-fixed-top">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <a href="@Url.Action("Index","Supplier")"><img id="Logo" class="navbar-brand" height="79" width="236" src="~/Content/Logo2.png" /></a>
                 @Html.ActionLink("Administrator", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
@@ -35,11 +46,11 @@
                 </ul>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                <ul class="nav navbar-nav side-nav" id="sideNav">
+                    <li class="Dash">
                         <a href="@Url.Action("Index","Admin")"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a>
                     </li>
-                    <li class="dropdown" id="demo-sidebar">
+                    <li class="dropdown">
                         <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-expand"></i> Categories</a>
                         <ul id="demo" class="dropdown-menu">
                             <li>
@@ -54,7 +65,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i>Product Category</a>
+                        <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Product Category</a>
                         <ul id="demo" class="dropdown-menu">
                             <li>
                                 <a href="@Url.Action("Retrieve","Product")">List</a>

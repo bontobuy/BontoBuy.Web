@@ -162,7 +162,7 @@ namespace BontoBuy.Web.Controllers
                         db.SaveChanges();
                         return RedirectToAction("Retrieve");
                     }
-                    ViewBag.TagId = new SelectList(db.SpecialCategories, "TagId", "Description", item.TagId);
+                    ViewBag.TagId = new SelectList(db.SpecialCategories, "TagId", "Description", item.SpecialCatId);
                     return View(item);
                 }
                 return RedirectToAction("LoginAdmin", "Account");

@@ -77,7 +77,7 @@ namespace BontoBuy.Web.Controllers
             {
                 if (User.IsInRole("Admin"))
                 {
-                    var newItem = new TagViewModel();
+                    var newItem = new SpecialCategoryViewModel();
 
                     return View(newItem);
                 }
@@ -91,7 +91,7 @@ namespace BontoBuy.Web.Controllers
 
         // POST: Tag/Create
         [HttpPost]
-        public ActionResult Create(TagViewModel item)
+        public ActionResult Create(SpecialCategoryViewModel item)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace BontoBuy.Web.Controllers
             {
                 if (User.IsInRole("Admin"))
                 {
-                    TagViewModel itemToUpdate = new TagViewModel();
+                    SpecialCategoryViewModel itemToUpdate = new SpecialCategoryViewModel();
                     if (id < 1)
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid Identifier");
@@ -145,7 +145,7 @@ namespace BontoBuy.Web.Controllers
 
         // POST: Tag/Edit/5
         [HttpPost]
-        public ActionResult Update(int id, TagViewModel item)
+        public ActionResult Update(int id, SpecialCategoryViewModel item)
         {
             try
             {

@@ -9,23 +9,23 @@ namespace BontoBuy.Web.Models
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public IEnumerable<TagViewModel> Retrieve()
+        public IEnumerable<SpecialCategoryViewModel> Retrieve()
         {
             var records = db.SpecialCategories.ToList();
 
             return records;
         }
-        public TagViewModel Get(int id)
+        public SpecialCategoryViewModel Get(int id)
         {
             var record = db.SpecialCategories
-               .Where(x => x.TagId == id)
+               .Where(x => x.SpecialCatId == id)
                .FirstOrDefault();
 
             return record;
         }
-        public TagViewModel Create(TagViewModel item)
+        public SpecialCategoryViewModel Create(SpecialCategoryViewModel item)
         {
-            var newRecord = new TagViewModel
+            var newRecord = new SpecialCategoryViewModel
             {
                 Description = item.Description
             };
@@ -35,10 +35,10 @@ namespace BontoBuy.Web.Models
             return newRecord;
         }
 
-        public TagViewModel Update(int id, TagViewModel item)
+        public SpecialCategoryViewModel Update(int id, SpecialCategoryViewModel item)
         {
             var currentrecord = db.SpecialCategories
-                .Where(x => x.TagId == id)
+                .Where(x => x.SpecialCatId == id)
                 .FirstOrDefault();
 
             if (!(String.IsNullOrWhiteSpace(item.Description)))

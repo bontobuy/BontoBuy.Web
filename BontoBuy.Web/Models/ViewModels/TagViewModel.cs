@@ -8,11 +8,11 @@ using System.Web;
 namespace BontoBuy.Web.Models
 {
     [Table("SpecialCategory")]
-    public class TagViewModel
+    public class SpecialCategoryViewModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TagId { get; set; }
+        public int SpecialCatId { get; set; }
         [Display(Name = "Tag Name")]
         [Required(ErrorMessage = "Tag name is required")]
         public string Description { get; set; }

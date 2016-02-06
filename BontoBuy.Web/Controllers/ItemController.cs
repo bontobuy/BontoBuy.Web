@@ -150,7 +150,7 @@ namespace BontoBuy.Web.Controllers
                     //if (userInRole != null)
                     //{
                     var newItem = new ItemViewModel();
-                    var newTag = new TagViewModel();
+                    var newTag = new SpecialCategoryViewModel();
                     if (ModelState.IsValid)
                     {
                         item.Status = "Active";

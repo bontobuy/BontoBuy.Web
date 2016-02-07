@@ -177,6 +177,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
@@ -279,6 +280,14 @@
     <Compile Include="Migrations\201602071832312_Rename TagId to Special CategoryId.cs" />
     <Compile Include="Migrations\201602071832312_Rename TagId to Special CategoryId.Designer.cs">
       <DependentUpon>201602071832312_Rename TagId to Special CategoryId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602071940419_Add UserActivationCode.cs" />
+    <Compile Include="Migrations\201602071940419_Add UserActivationCode.Designer.cs">
+      <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602072002572_Add KeySupplierId.cs" />
+    <Compile Include="Migrations\201602072002572_Add KeySupplierId.Designer.cs">
+      <DependentUpon>201602072002572_Add KeySupplierId.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -563,6 +572,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -706,6 +716,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602071832312_Rename TagId to Special CategoryId.resx">
       <DependentUpon>201602071832312_Rename TagId to Special CategoryId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602071940419_Add UserActivationCode.resx">
+      <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602072002572_Add KeySupplierId.resx">
+      <DependentUpon>201602072002572_Add KeySupplierId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

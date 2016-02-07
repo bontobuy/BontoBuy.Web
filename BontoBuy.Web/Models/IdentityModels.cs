@@ -15,7 +15,7 @@ namespace BontoBuy.Web.Models
         public string City { get; set; }
         public string Status { get; set; }
         public string Name { get; set; }
-
+        public string ActivationCode { get; set; }
         [Column(TypeName = "DateTime2")]
         public Nullable<DateTime> DtCreated { get; set; }
 

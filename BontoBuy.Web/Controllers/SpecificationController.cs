@@ -115,8 +115,11 @@ namespace BontoBuy.Web.Controllers
                     //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
                     //if (userInRole != null)
                     //{
-                    var newItem = new SpecificationViewModel();
-                    ViewBag.TagId = new SelectList(db.SpecialCategories, "TagId", "Description");
+                    var newItem = new SpecActionViewModel();
+
+                    ViewBag.SpecialCatId = new SelectList(db.SpecialCategories, "SpecialCatId", "Description");
+                    ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Description");
+
                     return View(newItem);
                 }
                 return RedirectToAction("LoginAdmin", "Account");
@@ -129,7 +132,7 @@ namespace BontoBuy.Web.Controllers
 
         // POST: Specification/Create
         [HttpPost]
-        public ActionResult Create(SpecificationViewModel item)
+        public ActionResult Create(SpecActionViewModel item)
         {
             try
             {
@@ -154,15 +157,29 @@ namespace BontoBuy.Web.Controllers
                     }
 
                     //  var newItem = _repository.Create(item);
+                    var spec = new SpecificationViewModel()
+                    {
+                        SpecialCatId = item.SpecialCatId,
+                        Status = "Active",
+                        Description = item.Description
+                    };
+
+                    var productSpec = new ProductSpecViewModel()
+                    {
+                        ProductId = item.ProductId,
+                        SpecificationId = -1
+                    };
 
                     if (ModelState.IsValid)
                     {
-                        item.Status = "Active";
-                        db.Specifications.Add(item);
+                        db.Specifications.Add(spec);
+                        db.SaveChanges();
+                        productSpec.SpecificationId = spec.SpecificationId;
+                        db.ProductSpecs.Add(productSpec);
                         db.SaveChanges();
                         return RedirectToAction("Retrieve");
                     }
-                    ViewBag.TagId = new SelectList(db.SpecialCategories, "TagId", "Description", item.SpecialCatId);
+                    ViewBag.TagId = new SelectList(db.SpecialCategories, "SpecialCatId", "Description", spec.SpecialCatId);
                     return View(item);
                 }
                 return RedirectToAction("LoginAdmin", "Account");

@@ -33,7 +33,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(records);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(profile);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -81,7 +81,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(newItem);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -106,7 +106,7 @@ namespace BontoBuy.Web.Controllers
 
                     return RedirectToAction("Retrieve");
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(itemToUpdate);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace BontoBuy.Web.Controllers
 
                     return RedirectToAction("Retrieve");
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {

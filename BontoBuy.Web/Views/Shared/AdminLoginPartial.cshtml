@@ -1,12 +1,18 @@
 ﻿@using Microsoft.AspNet.Identity
+@using BontoBuy.Web.Models
+@{
+    Name userName = new Name();
+    var UserId = User.Identity.GetUserId();
+    var name = userName.GetName(UserId.ToString());
+}
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LoginAdmin", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span>Hello @User.Identity.GetUserName() <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span>Hello @name <span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-cart" role="menu">
                     <li>
                         <a href="#"><i class="glyphicon glyphicon-user"></i> Profile</a>
@@ -28,5 +34,5 @@
 }
 else
 {
-    Response.Redirect(Url.Action("LoginAdmin", "Account"));
+    Response.Redirect(Url.Action("Login", "Account"));
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model dynamic
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home";
 }
@@ -80,11 +81,11 @@
             background-color: #99cccc;
         }
 
-        .mega-sidebar-menu .sidebar-header {
-            font-size: 18px;
+        .mega-sidebar-menu .sidebar-header > a {
+            font-size: 16px;
             color: #ff3546;
             padding: 5px 60px 5px 5px;
-            line-height: 30px;
+            line-height: 20px;
         }
 
     .container-fluid {
@@ -106,7 +107,28 @@
             <nav class="navbar  nav-sidebar ">
                 <ul class="nav">
                     <li class="active"><a href="#">Shop By Categories</a></li>
-                    <li class="dropdown mega-sidebar">
+                    @foreach (var category in Model.Category)
+                    {
+                        <li class="dropdown mega-sidebar">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown"> @category.Description <span class="caret"></span></a>
+                            <ul class="dropdown-menu mega-sidebar-menu">
+                                <li class="col-md-4">
+                                    <ul>
+                                        @foreach (var product in Model.Product)
+                                        {
+                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                            foreach (var item in Model.Item)
+                                            {
+                                                <li><a href="#">@item.Description</a></li>
+                                            }
+                                            <li class="divider"></li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @*<li class="dropdown mega-sidebar">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">All Categories <span class="caret"></span></a>
                         <ul class="dropdown-menu mega-sidebar-menu">
                             <li class="col-md-4">
@@ -313,7 +335,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
                 </ul>
             </nav>
         </div>

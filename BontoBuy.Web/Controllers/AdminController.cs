@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +19,15 @@ namespace BontoBuy.Web.Controllers
             {
                 return View();
             }
-            return RedirectToAction("LoginAdmin", "Account");
+            if (User.IsInRole("Supplier"))
+            {
+                return RedirectToAction("Index", "Supplier");
+            }
+            if (User.IsInRole("Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Login", "Account");
         }
     }
 }

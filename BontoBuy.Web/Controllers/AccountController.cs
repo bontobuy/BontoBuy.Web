@@ -1,15 +1,17 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -54,6 +56,16 @@ namespace BontoBuy.Web.Controllers
             }
 
             //return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        }
+
+        public static string CodeGenerator()
+        {
+            int length = 8;
+            const string Chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+            var randomNumber = new Random();
+            return new string(Enumerable.Repeat(Chars, length)
+            .Select(s => s[randomNumber.Next(s.Length)]).ToArray());
         }
 
         //
@@ -369,13 +381,16 @@ namespace BontoBuy.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var activationCode = CodeGenerator();
                 var supplier = new SupplierViewModel()
                 {
                     UserName = model.Email,
                     Email = model.Email,
                     DtCreated = DateTime.UtcNow,
                     Name = model.Name,
-                    Website = model.Website
+                    Website = model.Website,
+                    Status = "Pending",
+                    ActivationCode = activationCode
                 };
                 var result = await UserManager.CreateAsync(supplier, model.Password);
                 if (result.Succeeded)
@@ -384,6 +399,27 @@ namespace BontoBuy.Web.Controllers
 
                     ApplicationUser user = db.Users.Where(u => u.Email.Equals(model.Email, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
                     if (user != null) UserManager.AddToRole(user.Id, "Supplier");
+
+                    var body = "<p>Dear Valued Customer,</p><p>This is the activation code that has been sent to you in order to validate your registration on BontoBuy</p><p>Your activation code: {0}</p>";
+                    var message = new MailMessage();
+                    message.To.Add(new MailAddress(model.Email));
+                    message.From = new MailAddress("bontobuy@gmail.com");
+                    message.Subject = "Register on BontoBuy";
+                    message.Body = string.Format(body, activationCode);
+                    message.IsBodyHtml = true;
+
+                    var smtp = new SmtpClient();
+
+                    var credential = new NetworkCredential()
+                    {
+                        UserName = "bontobuy@gmail.com",
+                        Password = "b0nt0@dmin"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

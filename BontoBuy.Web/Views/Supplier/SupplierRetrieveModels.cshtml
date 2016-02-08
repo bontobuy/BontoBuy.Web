@@ -1,0 +1,35 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.SupplierRetrieveModelsViewModel>
+@{
+    ViewBag.Title = "SupplierRetrieveModels";
+}
+
+<div class="col-md-9">
+    <h2>List of Specification</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModelNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandName)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "SupplierGetModelSpec", new { id = item.ModelId }) |
+                </td>
+            </tr>
+        }
+    </table>
+</div>

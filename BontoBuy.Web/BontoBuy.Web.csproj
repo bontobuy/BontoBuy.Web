@@ -564,6 +564,8 @@
     <Content Include="Views\Model\Archive.cshtml" />
     <Content Include="Views\Model\RetrieveArchives.cshtml" />
     <Content Include="Views\Model\RevertArchive.cshtml" />
+    <Content Include="Views\Supplier\SupplierRetrieveModels.cshtml" />
+    <Content Include="Views\Supplier\SupplierGetModelSpec.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

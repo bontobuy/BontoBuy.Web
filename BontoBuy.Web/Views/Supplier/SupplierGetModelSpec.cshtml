@@ -1,7 +1,7 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.SpecProductViewModel>
+﻿@model IEnumerable<BontoBuy.Web.Models.SupplierGetModelSpecViewModel>
 @{
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
-    ViewBag.Title = "Specification Details";
+    ViewBag.Title = "SupplierGetModelSpec";
 }
 
 @using (Html.BeginForm())
@@ -23,8 +23,7 @@
             <tr>
 
                 <td>
-                    @Html.EditorFor(modelItem => item.Value)
-                    @Html.ValidationMessageFor(model => item.Value)
+                    @Html.DisplayFor(modelItem => item.Value)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
@@ -38,5 +37,5 @@
             </tr>
         }
     </table>
-    <input type="submit" value="save"/>
+
 }

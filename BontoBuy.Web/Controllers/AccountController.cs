@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
@@ -66,6 +67,37 @@ namespace BontoBuy.Web.Controllers
 
         //
         // POST: /Account/Login
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    // This doesn't count login failures towards account lockout
+        //    // To enable password failures to trigger account lockout, change to shouldLockout: true
+        //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            return RedirectToLocal(returnUrl);
+
+        //        case SignInStatus.LockedOut:
+        //            return View("Lockout");
+
+        //        case SignInStatus.RequiresVerification:
+        //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+
+        //        case SignInStatus.Failure:
+        //        default:
+        //            ModelState.AddModelError("", "Invalid login attempt.");
+        //            return View(model);
+        //    }
+        //}
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -79,11 +111,30 @@ namespace BontoBuy.Web.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var UserID = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
+            var RolesForUser = await UserManager.GetRolesAsync(UserID);
+            string password = db.Users.Where(x => x.Email == model.Email)
+                                 .Select(x => x.PasswordHash)
+                                 .Single();
+            bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
+
+            if (UserID != null && passwordMatches == true)
+            {
+                switch (RolesForUser[0].ToString())
+                {
+                    case "Supplier":
+                        return RedirectToAction("Index", "Supplier");
+
+                    case "Admin":
+                        return RedirectToAction("Index", "Admin");
+
+                    case "Customer":
+                        return RedirectToAction("Index", "Home");
+                }
+            }
+
             switch (result)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-
                 case SignInStatus.LockedOut:
                     return View("Lockout");
 
@@ -118,9 +169,11 @@ namespace BontoBuy.Web.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
+
                     return RedirectToAction("Index", "Admin");
 
                 case SignInStatus.LockedOut:

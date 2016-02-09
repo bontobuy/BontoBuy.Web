@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.TagViewModel>
+﻿@model IEnumerable<BontoBuy.Web.Models.SpecialCategoryViewModel>
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
@@ -25,8 +25,8 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Update", new { id = item.TagId }) |
-                @Html.ActionLink("Details", "Get", new { id = item.TagId })
+                @Html.ActionLink("Edit", "Update", new { id = item.SpecialCatId }) |
+                @Html.ActionLink("Details", "Get", new { id = item.SpecialCatId })
             </td>
         </tr>
     }

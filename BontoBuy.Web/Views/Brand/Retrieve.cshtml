@@ -2,10 +2,10 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "Retrieve";
+    ViewBag.Title = "List of Brands";
 }
 <div class="col-md-9">
-    <h2>List Of Brands</h2>
+    <h2>@ViewBag.Title</h2>
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>

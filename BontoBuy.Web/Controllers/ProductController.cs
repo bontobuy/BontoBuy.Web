@@ -119,6 +119,9 @@ namespace BontoBuy.Web.Controllers
                     var newItem = new ProductViewModel();
                     ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description");
 
+                    var records = _repository.Retrieve();
+                    ViewData["ProductList"] = records;
+
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");

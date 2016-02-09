@@ -90,7 +90,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(modelList);
                 }
-                return RedirectToAction("LoginSupplier", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {

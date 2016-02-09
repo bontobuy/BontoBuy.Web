@@ -7,13 +7,13 @@ namespace BontoBuy.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddKeySupplierId : IMigrationMetadata
+    public sealed partial class AddSupplierFKModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddKeySupplierId));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddSupplierFKModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201602072002572_Add KeySupplierId"; }
+            get { return "201602090728376_Add SupplierFKModel"; }
         }
         
         string IMigrationMetadata.Source

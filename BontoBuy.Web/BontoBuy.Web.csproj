@@ -277,21 +277,9 @@
     <Compile Include="Migrations\201602071832312_Rename TagId to Special CategoryId.Designer.cs">
       <DependentUpon>201602071832312_Rename TagId to Special CategoryId.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602071940419_Add UserActivationCode.cs" />
-    <Compile Include="Migrations\201602071940419_Add UserActivationCode.Designer.cs">
-      <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602091028226_Resolve Migration Conflict.cs" />
-    <Compile Include="Migrations\201602091028226_Resolve Migration Conflict.Designer.cs">
-      <DependentUpon>201602091028226_Resolve Migration Conflict.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602091236285_Add RequiredErrorMessage To Model.cs" />
-    <Compile Include="Migrations\201602091236285_Add RequiredErrorMessage To Model.Designer.cs">
-      <DependentUpon>201602091236285_Add RequiredErrorMessage To Model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602091816560_Remove MaxLength From ItemViewModel.cs" />
-    <Compile Include="Migrations\201602091816560_Remove MaxLength From ItemViewModel.Designer.cs">
-      <DependentUpon>201602091816560_Remove MaxLength From ItemViewModel.cs</DependentUpon>
+    <Compile Include="Migrations\201602091841392_Add Required to ModelNumber.cs" />
+    <Compile Include="Migrations\201602091841392_Add Required to ModelNumber.Designer.cs">
+      <DependentUpon>201602091841392_Add Required to ModelNumber.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -723,17 +711,8 @@
     <EmbeddedResource Include="Migrations\201602071832312_Rename TagId to Special CategoryId.resx">
       <DependentUpon>201602071832312_Rename TagId to Special CategoryId.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602071940419_Add UserActivationCode.resx">
-      <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602091028226_Resolve Migration Conflict.resx">
-      <DependentUpon>201602091028226_Resolve Migration Conflict.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602091236285_Add RequiredErrorMessage To Model.resx">
-      <DependentUpon>201602091236285_Add RequiredErrorMessage To Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602091816560_Remove MaxLength From ItemViewModel.resx">
-      <DependentUpon>201602091816560_Remove MaxLength From ItemViewModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602091841392_Add Required to ModelNumber.resx">
+      <DependentUpon>201602091841392_Add Required to ModelNumber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

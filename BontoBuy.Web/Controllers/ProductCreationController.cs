@@ -315,62 +315,22 @@ namespace BontoBuy.Web.Controllers
                         ModelNumber = "",
                     };
 
-                    return RedirectToAction("ModelSelection");
-                }
-                return RedirectToAction("Login", "Account");
-            }
-            catch (Exception ex)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
-            }
-        }
+                    var model = new ModelViewModel();
 
-        public ActionResult ModelSelection()
-        {
-            try
-            {
-                string userId = User.Identity.GetUserId();
-                if (userId == null)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
+                    model.Price = item.Price;
+                    model.Status = specProd.Status;
+                    model.UserId = userId;
+                    model.SupplierId = specProd.SupplierId;
+                    model.ItemId = specProd.ItemId;
+                    model.BrandId = brandId;
+                    model.ModelNumber = item.ModelNumber;
 
                 //Check if the "Supplier" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Supplier");
 
-                if (User.IsInRole("Supplier"))
-                {
-                    //Runs a query to determine if the user is actually an "Supplier" if not it returns a null value
-                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    //if (userInRole != null)
-                    //{
-                    ModelViewModel item = TempData["ModelData"] as ModelViewModel;
-                    if (item == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    records = _repository.RetrieveModelByItemByBrand(item);
-                    ViewBag.ModelId = new SelectList(records, "ModelId", "ModelNumber");
-                    return View(item);
-                }
-                return RedirectToAction("Login", "Account");
-            }
-            catch (Exception ex)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
-            }
-        }
+                    Session["ModelSpecData"] = model;
 
-        [HttpPost]
-        public ActionResult ModelSelection(ModelViewModel item)
-        {
-            try
-            {
-                string userId = User.Identity.GetUserId();
-                if (userId == null)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
+                    return RedirectToAction("ModelSpecCreation");
 
                 //Check if the "Supplier" role exists if not it returns a null value
                 var role = db.Roles.SingleOrDefault(m => m.Name == "Supplier");
@@ -384,22 +344,9 @@ namespace BontoBuy.Web.Controllers
                     if (item == null)
                     {
                         return HttpNotFound();
-                    }
-
-                    records = _repository.RetrieveModelByItemByBrand(item);
-                    ViewBag.ModelId = new SelectList(records, "ModelId", "ModelNumber", item.ModelId);
-
-                    TempData["ModelSpecData"] = new ModelSpecViewModel()
-                    {
-                        ModelId = item.ModelId,
-                        SpecificationId = -1,
-                        Value = ""
-                    };
-                    Session["Model"] = item;
-
-                    //return RedirectToAction("ModelSpecSelection");
-                    return RedirectToAction("ModelSpecSelection");
                 }
+                return RedirectToAction("LoginSupplier", "Account");
+            }
                 return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)

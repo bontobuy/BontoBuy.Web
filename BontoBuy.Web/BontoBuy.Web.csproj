@@ -281,10 +281,6 @@
     <Compile Include="Migrations\201602071940419_Add UserActivationCode.Designer.cs">
       <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602072002572_Add KeySupplierId.cs" />
-    <Compile Include="Migrations\201602072002572_Add KeySupplierId.Designer.cs">
-      <DependentUpon>201602072002572_Add KeySupplierId.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -715,9 +711,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602071940419_Add UserActivationCode.resx">
       <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602072002572_Add KeySupplierId.resx">
-      <DependentUpon>201602072002572_Add KeySupplierId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

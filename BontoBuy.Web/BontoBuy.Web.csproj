@@ -281,6 +281,10 @@
     <Compile Include="Migrations\201602071940419_Add UserActivationCode.Designer.cs">
       <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602091028226_Resolve Migration Conflict.cs" />
+    <Compile Include="Migrations\201602091028226_Resolve Migration Conflict.Designer.cs">
+      <DependentUpon>201602091028226_Resolve Migration Conflict.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -711,6 +715,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602071940419_Add UserActivationCode.resx">
       <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602091028226_Resolve Migration Conflict.resx">
+      <DependentUpon>201602091028226_Resolve Migration Conflict.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

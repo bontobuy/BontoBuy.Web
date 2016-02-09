@@ -123,14 +123,20 @@ namespace BontoBuy.Web.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            var UserID = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
-            var RolesForUser = await UserManager.GetRolesAsync(UserID);
+            var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
+            var userProfile = db.Users.Where(x => x.Email == model.Email).FirstOrDefault();
+            var RolesForUser = await UserManager.GetRolesAsync(userId);
             string password = db.Users.Where(x => x.Email == model.Email)
                                  .Select(x => x.PasswordHash)
                                  .Single();
             bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
 
-            if (UserID != null && passwordMatches == true)
+            if (userProfile != null)
+            {
+                return RedirectToAction("ActivateAccount");
+            }
+
+            if (userId != null && passwordMatches == true)
             {
                 switch (RolesForUser[0].ToString())
                 {
@@ -158,6 +164,32 @@ namespace BontoBuy.Web.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        public ActionResult ActivateAccount()
+        {
+            var account = new AccountViewModel();
+            account.ActivationCode = "";
+            return View(account);
+        }
+
+        [HttpPost]
+        public ActionResult ActivateAccount(AccountViewModel item)
+        {
+            var userId = User.Identity.GetUserId();
+            var userProfile = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+            var userCode = (from u in db.Users
+                            where u.Id == userId
+                            select u.ActivationCode).FirstOrDefault();
+
+            if (userCode == item.ActivationCode)
+            {
+                userProfile.ActivationCode = null;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Supplier");
+            }
+
+            return View();
         }
 
         // GET: /Account/LoginAdmin

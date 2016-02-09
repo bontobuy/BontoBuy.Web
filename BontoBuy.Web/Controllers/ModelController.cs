@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -26,7 +26,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -41,7 +41,7 @@ namespace BontoBuy.Web.Controllers
                     }
                     return View(records);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -79,7 +79,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(profile);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -108,7 +108,7 @@ namespace BontoBuy.Web.Controllers
                     ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description");
                     return View(newItem);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -125,7 +125,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -151,7 +151,7 @@ namespace BontoBuy.Web.Controllers
 
                     return RedirectToAction("Retrieve");
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -167,7 +167,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -189,7 +189,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(itemToUpdate);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -206,7 +206,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -227,7 +227,7 @@ namespace BontoBuy.Web.Controllers
 
                     return RedirectToAction("Retrieve");
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -243,7 +243,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -269,7 +269,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(profile);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -286,7 +286,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -312,7 +312,7 @@ namespace BontoBuy.Web.Controllers
                     //   return RedirectToAction("Retrieve");
                     return RedirectToAction("Retrieve");
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -327,7 +327,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -346,7 +346,7 @@ namespace BontoBuy.Web.Controllers
                     }
                     return View(records);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -361,7 +361,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -387,7 +387,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(profile);
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -403,7 +403,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginAdmin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Admin" role exists if not it returns a null value
@@ -430,7 +430,7 @@ namespace BontoBuy.Web.Controllers
                     //   return RedirectToAction("Retrieve");
                     return RedirectToAction("RetrieveArchives");
                 }
-                return RedirectToAction("LoginAdmin", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {

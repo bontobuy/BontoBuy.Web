@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -21,7 +21,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginSupplier", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 //Check if the "Supplier" role exists if not it returns a null value
@@ -35,7 +35,7 @@ namespace BontoBuy.Web.Controllers
                     //{
                     return View();
                 }
-                return RedirectToAction("LoginSupplier", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginSupplier", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 if (User.IsInRole("Supplier"))
@@ -107,7 +107,7 @@ namespace BontoBuy.Web.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
-                    return RedirectToAction("LoginSupplier", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 if (User.IsInRole("Supplier"))
@@ -141,7 +141,7 @@ namespace BontoBuy.Web.Controllers
 
                     return View(modelSpecVM);
                 }
-                return RedirectToAction("LoginSupplier", "Account");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {

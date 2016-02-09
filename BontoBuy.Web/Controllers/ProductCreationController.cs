@@ -435,7 +435,7 @@ namespace BontoBuy.Web.Controllers
                             db.ModelSpecs.Add(modelSpec);
                             db.SaveChanges();
                         }
-                        return Content("Success");
+                        return RedirectToAction("SupplierRetrieveModels", "Supplier");
                     }
 
                     return View();

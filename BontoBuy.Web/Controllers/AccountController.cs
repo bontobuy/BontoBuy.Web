@@ -124,7 +124,9 @@ namespace BontoBuy.Web.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
-            var userProfile = db.Users.Where(x => x.Email == model.Email).FirstOrDefault();
+            var userProfile = (from u in db.Users
+                               where u.Id == userId
+                               select u.ActivationCode).FirstOrDefault();
             var RolesForUser = await UserManager.GetRolesAsync(userId);
             string password = db.Users.Where(x => x.Email == model.Email)
                                  .Select(x => x.PasswordHash)

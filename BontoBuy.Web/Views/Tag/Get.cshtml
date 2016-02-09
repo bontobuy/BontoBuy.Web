@@ -1,28 +1,28 @@
-﻿@model BontoBuy.Web.Models.TagViewModel
+﻿@model BontoBuy.Web.Models.SpecialCategoryViewModel
 
-@{
-    Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = @Model.Description;
-}
+    @{
+        Layout = "~/Views/Shared/AdminLayout.cshtml";
+        ViewBag.Title = @Model.Description;
+    }
 
-<div class="col-md-9">
-    <h2>@ViewBag.Title</h2>
+    <div class="col-md-9">
+        <h2>@ViewBag.Title</h2>
 
-    <div>
-        <h4>Details</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
+        <div>
+            <h4>Details</h4>
+            <hr/>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-        </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Update", new { id = Model.SpecialCatId }) |
+            @Html.ActionLink("Back to List", "Retrieve")
+        </p>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Update", new { id = Model.TagId }) |
-        @Html.ActionLink("Back to List", "Retrieve")
-    </p>
-</div>

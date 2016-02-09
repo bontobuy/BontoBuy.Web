@@ -18,9 +18,11 @@ namespace BontoBuy.Web.Models
         [Display(Name = "Brand Id")]
         public int BrandId { get; set; }
         [Display(Name = "Model Number")]
+        [Required(ErrorMessage = "Model Number is required")]
         public string ModelNumber { get; set; }
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
+        [Required(ErrorMessage = "Price is required")]
         public int Price { get; set; }
         public string UserId { get; set; }
         public int SupplierId { get; set; }

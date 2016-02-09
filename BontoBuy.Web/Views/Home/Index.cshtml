@@ -114,10 +114,10 @@
                             <ul class="dropdown-menu mega-sidebar-menu">
                                 <li class="col-md-4">
                                     <ul>
-                                        @foreach (var product in Model.Product)
+                                        @foreach (var product in Model.Product1)
                                         {
                                             <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                            foreach (var item in Model.Item)
+                                            foreach (var item in Model.Item1)
                                             {
                                                 <li><a href="#">@item.Description</a></li>
                                             }
@@ -129,213 +129,213 @@
                         </li>
                     }
                     @*<li class="dropdown mega-sidebar">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">All Categories <span class="caret"></span></a>
-                        <ul class="dropdown-menu mega-sidebar-menu">
-                            <li class="col-md-4">
-                                <ul>
-                                    <li class="sidebar-header">Men</li>
-                                    <li><a href="#">Jean</a></li>
-                                    <li><a href="#">Tshirt</a></li>
-                                    <li><a href="#">Footwear</a></li>
-                                    <li><a href="#">Trouser</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Women</li>
-                                    <li><a href="#">Jean</a></li>
-                                    <li><a href="#">Tshirt</a></li>
-                                    <li><a href="#">Footwear</a></li>
-                                    <li><a href="#">Trouser</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-md-3">
-                                <ul>
-                                    <li class="sidebar-header">Computers/Laptops</li>
-                                    <li><a href="#">Computer</a></li>
-                                    <li><a href="#">Laptop</a></li>
-                                    <li><a href="#">Notebook</a></li>
-                                    <li><a href="#">UltraBook</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Mobile/Tablets</li>
-                                    <li><a href="#">Smartphone</a></li>
-                                    <li><a href="#">Tablets</a></li>
-                                    <li><a href="#">Fablets</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-md-3">
-                                <ul>
-                                    <li class="sidebar-header">Appliance</li>
-                                    <li><a href="#">TV</a></li>
-                                    <li><a href="#">Blender</a></li>
-                                    <li><a href="#">Washing Machine</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Other</li>
-                                    <li><a href="#">Wall-Clock</a></li>
-                                    <li><a href="#">House Decoration</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown mega-sidebar">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Men's Fashion<span class="caret"></span></a>
-                        <ul class="dropdown-menu mega-sidebar-menu">
-                            <li class="col-md-4">
-                                <ul>
-                                    <li class="sidebar-header">Clothing</li>
-                                    <li><a href="#">Jean</a></li>
-                                    <li><a href="#">Tshirt</a></li>
-                                    <li><a href="#">Sweaters</a></li>
-                                    <li><a href="#">Trouser</a></li>
-                                    <li><a href="#">Sportwear</a></li>
-                                    <li><a href="#">Suits & Blazers</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Footwear</li>
-                                    <li><a href="#">Sport Shoes</a></li>
-                                    <li><a href="#">Casual Shoes</a></li>
-                                    <li><a href="#">Running Shoes</a></li>
-                                    <li><a href="#">Boots</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-md-3">
-                                <ul>
-                                    <li class="sidebar-header">Watches</li>
-                                    <li><a href="#">Smart Watches</a></li>
-                                    <li><a href="#">Casual Watches</a></li>
-                                    <li><a href="#">Luxury Watches</a></li>
-                                    <li><a href="#">Couple Watches</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Accessories</li>
-                                    <li><a href="#">Wallets</a></li>
-                                    <li><a href="#">Belts</a></li>
-                                    <li><a href="#">Socks</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-md-3">
-                                <ul>
-                                    <li class="sidebar-header">Perfume</li>
-                                    <li><a href="#">Deodorants</a></li>
-                                    <li><a href="#">Body Mist</a></li>
-                                    <li><a href="#">Gift Sets</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Sunglasses</li>
-                                    <li><a href="#">Ray-Ban</a></li>
-                                    <li><a href="#">Fastrack</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown mega-sidebar">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Women's Fashion<span class="caret"></span></a>
-                        <ul class="dropdown-menu mega-sidebar-menu">
-                            <li class="col-md-4">
-                                <ul>
-                                    <li class="sidebar-header">Ethnic Wear</li>
-                                    <li><a href="#">Sarees</a></li>
-                                    <li><a href="#">Kurtis</a></li>
-                                    <li><a href="#">Lehengas</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Western Wear</li>
-                                    <li><a href="#">Dresses</a></li>
-                                    <li><a href="#">Top Wear</a></li>
-                                    <li><a href="#">Bottom Wear</a></li>
-                                    <li><a href="#">Winter Wear</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-md-3">
-                                <ul>
-                                    <li class="sidebar-header">Watches</li>
-                                    <li><a href="#">Smart Watches</a></li>
-                                    <li><a href="#">Casual Watches</a></li>
-                                    <li><a href="#">Luxury Watches</a></li>
-                                    <li><a href="#">Couple Watches</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Accessories</li>
-                                    <li><a href="#">Wallets</a></li>
-                                    <li><a href="#">Belts</a></li>
-                                    <li><a href="#">Socks</a></li>
-                                    <li><a href="#">Key Chains</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-md-3">
-                                <ul>
-                                    <li class="sidebar-header">Perfume</li>
-                                    <li><a href="#">Deodorants</a></li>
-                                    <li><a href="#">Body Mist</a></li>
-                                    <li><a href="#">Gift Sets</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Sunglasses</li>
-                                    <li><a href="#">Ray-Ban</a></li>
-                                    <li><a href="#">Fastrack</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown mega-sidebar">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appliances<span class="caret"></span></a>
-                        <ul class="dropdown-menu mega-sidebar-menu">
-                            <li class="col-md-4">
-                                <ul>
-                                    <li class="sidebar-header">Kitchenware</li>
-                                    <li><a href="#">Microwave Cooking</a></li>
-                                    <li><a href="#">Cookware</a></li>
-                                    <li><a href="#">Pressure Cooker</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Home Decor</li>
-                                    <li><a href="#">Lamps & Lightings</a></li>
-                                    <li><a href="#">Wall Decor</a></li>
-                                    <li><a href="#">Clocks</a></li>
-                                    <li><a href="#">Wall Stickers</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-md-3">
-                                <ul>
-                                    <li class="sidebar-header">Furniture</li>
-                                    <li><a href="#">Sofa Beds</a></li>
-                                    <li><a href="#">Coffee Tables</a></li>
-                                    <li><a href="#">Computer Tables</a></li>
-                                    <li><a href="#">Beds</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Accessories</li>
-                                    <li><a href="#">Juicer</a></li>
-                                    <li><a href="#">gas Stoves</a></li>
-                                    <li><a href="#">Air Fryers</a></li>
-                                    <li><a href="#">Electric Cooker</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown mega-sidebar">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Computer/Laptop<span class="caret"></span></a>
-                        <ul class="dropdown-menu mega-sidebar-menu">
-                            <li class="col-md-4">
-                                <ul>
-                                    <li class="sidebar-header">Computer Desktop</li>
-                                    <li><a href="#">Lenovo</a></li>
-                                    <li><a href="#">Acer</a></li>
-                                    <li><a href="#">HP</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Laptops</li>
-                                    <li><a href="#">Samsung</a></li>
-                                    <li><a href="#">HP</a></li>
-                                    <li><a href="#">Dell</a></li>
-                                    <li><a href="#">Toshiba</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-md-3">
-                                <ul>
-                                    <li class="sidebar-header">Computer Accessories</li>
-                                    <li><a href="#">Software</a></li>
-                                    <li><a href="#">Keyboard</a></li>
-                                    <li><a href="#">Mouse</a></li>
-                                    <li><a href="#">Webcam</a></li>
-                                    <li class="divider"></li>
-                                    <li class="sidebar-header">Laptop Accessories</li>
-                                    <li><a href="#">Cooling Pads</a></li>
-                                    <li><a href="#">External DVD Writers</a></li>
-                                    <li><a href="#">Laptop Adapters</a></li>
-                                    <li><a href="#">Batteries</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>*@
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">All Categories <span class="caret"></span></a>
+                            <ul class="dropdown-menu mega-sidebar-menu">
+                                <li class="col-md-4">
+                                    <ul>
+                                        <li class="sidebar-header">Men</li>
+                                        <li><a href="#">Jean</a></li>
+                                        <li><a href="#">Tshirt</a></li>
+                                        <li><a href="#">Footwear</a></li>
+                                        <li><a href="#">Trouser</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Women</li>
+                                        <li><a href="#">Jean</a></li>
+                                        <li><a href="#">Tshirt</a></li>
+                                        <li><a href="#">Footwear</a></li>
+                                        <li><a href="#">Trouser</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3">
+                                    <ul>
+                                        <li class="sidebar-header">Computers/Laptops</li>
+                                        <li><a href="#">Computer</a></li>
+                                        <li><a href="#">Laptop</a></li>
+                                        <li><a href="#">Notebook</a></li>
+                                        <li><a href="#">UltraBook</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Mobile/Tablets</li>
+                                        <li><a href="#">Smartphone</a></li>
+                                        <li><a href="#">Tablets</a></li>
+                                        <li><a href="#">Fablets</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3">
+                                    <ul>
+                                        <li class="sidebar-header">Appliance</li>
+                                        <li><a href="#">TV</a></li>
+                                        <li><a href="#">Blender</a></li>
+                                        <li><a href="#">Washing Machine</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Other</li>
+                                        <li><a href="#">Wall-Clock</a></li>
+                                        <li><a href="#">House Decoration</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown mega-sidebar">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Men's Fashion<span class="caret"></span></a>
+                            <ul class="dropdown-menu mega-sidebar-menu">
+                                <li class="col-md-4">
+                                    <ul>
+                                        <li class="sidebar-header">Clothing</li>
+                                        <li><a href="#">Jean</a></li>
+                                        <li><a href="#">Tshirt</a></li>
+                                        <li><a href="#">Sweaters</a></li>
+                                        <li><a href="#">Trouser</a></li>
+                                        <li><a href="#">Sportwear</a></li>
+                                        <li><a href="#">Suits & Blazers</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Footwear</li>
+                                        <li><a href="#">Sport Shoes</a></li>
+                                        <li><a href="#">Casual Shoes</a></li>
+                                        <li><a href="#">Running Shoes</a></li>
+                                        <li><a href="#">Boots</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3">
+                                    <ul>
+                                        <li class="sidebar-header">Watches</li>
+                                        <li><a href="#">Smart Watches</a></li>
+                                        <li><a href="#">Casual Watches</a></li>
+                                        <li><a href="#">Luxury Watches</a></li>
+                                        <li><a href="#">Couple Watches</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Accessories</li>
+                                        <li><a href="#">Wallets</a></li>
+                                        <li><a href="#">Belts</a></li>
+                                        <li><a href="#">Socks</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3">
+                                    <ul>
+                                        <li class="sidebar-header">Perfume</li>
+                                        <li><a href="#">Deodorants</a></li>
+                                        <li><a href="#">Body Mist</a></li>
+                                        <li><a href="#">Gift Sets</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Sunglasses</li>
+                                        <li><a href="#">Ray-Ban</a></li>
+                                        <li><a href="#">Fastrack</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown mega-sidebar">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Women's Fashion<span class="caret"></span></a>
+                            <ul class="dropdown-menu mega-sidebar-menu">
+                                <li class="col-md-4">
+                                    <ul>
+                                        <li class="sidebar-header">Ethnic Wear</li>
+                                        <li><a href="#">Sarees</a></li>
+                                        <li><a href="#">Kurtis</a></li>
+                                        <li><a href="#">Lehengas</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Western Wear</li>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Top Wear</a></li>
+                                        <li><a href="#">Bottom Wear</a></li>
+                                        <li><a href="#">Winter Wear</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3">
+                                    <ul>
+                                        <li class="sidebar-header">Watches</li>
+                                        <li><a href="#">Smart Watches</a></li>
+                                        <li><a href="#">Casual Watches</a></li>
+                                        <li><a href="#">Luxury Watches</a></li>
+                                        <li><a href="#">Couple Watches</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Accessories</li>
+                                        <li><a href="#">Wallets</a></li>
+                                        <li><a href="#">Belts</a></li>
+                                        <li><a href="#">Socks</a></li>
+                                        <li><a href="#">Key Chains</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3">
+                                    <ul>
+                                        <li class="sidebar-header">Perfume</li>
+                                        <li><a href="#">Deodorants</a></li>
+                                        <li><a href="#">Body Mist</a></li>
+                                        <li><a href="#">Gift Sets</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Sunglasses</li>
+                                        <li><a href="#">Ray-Ban</a></li>
+                                        <li><a href="#">Fastrack</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown mega-sidebar">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appliances<span class="caret"></span></a>
+                            <ul class="dropdown-menu mega-sidebar-menu">
+                                <li class="col-md-4">
+                                    <ul>
+                                        <li class="sidebar-header">Kitchenware</li>
+                                        <li><a href="#">Microwave Cooking</a></li>
+                                        <li><a href="#">Cookware</a></li>
+                                        <li><a href="#">Pressure Cooker</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Home Decor</li>
+                                        <li><a href="#">Lamps & Lightings</a></li>
+                                        <li><a href="#">Wall Decor</a></li>
+                                        <li><a href="#">Clocks</a></li>
+                                        <li><a href="#">Wall Stickers</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3">
+                                    <ul>
+                                        <li class="sidebar-header">Furniture</li>
+                                        <li><a href="#">Sofa Beds</a></li>
+                                        <li><a href="#">Coffee Tables</a></li>
+                                        <li><a href="#">Computer Tables</a></li>
+                                        <li><a href="#">Beds</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Accessories</li>
+                                        <li><a href="#">Juicer</a></li>
+                                        <li><a href="#">gas Stoves</a></li>
+                                        <li><a href="#">Air Fryers</a></li>
+                                        <li><a href="#">Electric Cooker</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown mega-sidebar">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Computer/Laptop<span class="caret"></span></a>
+                            <ul class="dropdown-menu mega-sidebar-menu">
+                                <li class="col-md-4">
+                                    <ul>
+                                        <li class="sidebar-header">Computer Desktop</li>
+                                        <li><a href="#">Lenovo</a></li>
+                                        <li><a href="#">Acer</a></li>
+                                        <li><a href="#">HP</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Laptops</li>
+                                        <li><a href="#">Samsung</a></li>
+                                        <li><a href="#">HP</a></li>
+                                        <li><a href="#">Dell</a></li>
+                                        <li><a href="#">Toshiba</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3">
+                                    <ul>
+                                        <li class="sidebar-header">Computer Accessories</li>
+                                        <li><a href="#">Software</a></li>
+                                        <li><a href="#">Keyboard</a></li>
+                                        <li><a href="#">Mouse</a></li>
+                                        <li><a href="#">Webcam</a></li>
+                                        <li class="divider"></li>
+                                        <li class="sidebar-header">Laptop Accessories</li>
+                                        <li><a href="#">Cooling Pads</a></li>
+                                        <li><a href="#">External DVD Writers</a></li>
+                                        <li><a href="#">Laptop Adapters</a></li>
+                                        <li><a href="#">Batteries</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>*@
                 </ul>
             </nav>
         </div>

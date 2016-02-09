@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Dynamic;
 using System.Linq;
 using System.Net;
@@ -33,28 +34,31 @@ namespace BontoBuy.Web.Controllers
                 return HttpNotFound();
             }
 
-            var productRecords = from prod in db.Products
-                                 join cat in db.Categories on prod.CategoryId equals cat.CategoryId
-                                 where prod.Status == "Active"
-                                 select prod;
-            if (productRecords == null)
+            var productRecords1 = from prod in db.Products
+                                  join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                  where cat.CategoryId == 1
+                                  where prod.Status == "Active"
+                                  select prod;
+
+            if (productRecords1 == null)
             {
                 return HttpNotFound();
             }
 
-            var itemRecords = from item in db.Items
-                              join prod in db.Products on item.ProductId equals prod.ProductId
-                              where item.Status == "Active"
-                              select item;
-            if (itemRecords == null)
+            var itemRecords1 = from item in db.Items
+                               join prod in db.Products on item.ProductId equals prod.ProductId
+                               where prod.ProductId == 1
+                               where item.Status == "Active"
+                               select item;
+            if (itemRecords1 == null)
             {
                 return HttpNotFound();
             }
 
             dynamic model = new ExpandoObject();
             model.Category = categoryRecords;
-            model.Product = productRecords;
-            model.Item = itemRecords;
+            model.Product1 = productRecords1;
+            model.Item1 = itemRecords1;
 
             return View(model);
         }

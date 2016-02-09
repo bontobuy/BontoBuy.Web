@@ -285,6 +285,14 @@
     <Compile Include="Migrations\201602091028226_Resolve Migration Conflict.Designer.cs">
       <DependentUpon>201602091028226_Resolve Migration Conflict.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602091236285_Add RequiredErrorMessage To Model.cs" />
+    <Compile Include="Migrations\201602091236285_Add RequiredErrorMessage To Model.Designer.cs">
+      <DependentUpon>201602091236285_Add RequiredErrorMessage To Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602091816560_Remove MaxLength From ItemViewModel.cs" />
+    <Compile Include="Migrations\201602091816560_Remove MaxLength From ItemViewModel.Designer.cs">
+      <DependentUpon>201602091816560_Remove MaxLength From ItemViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -720,6 +728,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602091028226_Resolve Migration Conflict.resx">
       <DependentUpon>201602091028226_Resolve Migration Conflict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602091236285_Add RequiredErrorMessage To Model.resx">
+      <DependentUpon>201602091236285_Add RequiredErrorMessage To Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602091816560_Remove MaxLength From ItemViewModel.resx">
+      <DependentUpon>201602091816560_Remove MaxLength From ItemViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

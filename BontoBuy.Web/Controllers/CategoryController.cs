@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -119,6 +120,10 @@ namespace BontoBuy.Web.Controllers
                     //if (userInRole != null)
                     //{
                     var newItem = new CategoryViewModel();
+
+                    var records = _repository.Retrieve();
+
+                    ViewData["CategoryList"] = records;
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");

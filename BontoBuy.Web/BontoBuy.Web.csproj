@@ -281,21 +281,9 @@
     <Compile Include="Migrations\201602071940419_Add UserActivationCode.Designer.cs">
       <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602090728376_Add SupplierFKModel.cs" />
-    <Compile Include="Migrations\201602090728376_Add SupplierFKModel.Designer.cs">
-      <DependentUpon>201602090728376_Add SupplierFKModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602090732589_Add SupplierPropPrice.cs" />
-    <Compile Include="Migrations\201602090732589_Add SupplierPropPrice.Designer.cs">
-      <DependentUpon>201602090732589_Add SupplierPropPrice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602090802512_Remove SupplierId in Model.cs" />
-    <Compile Include="Migrations\201602090802512_Remove SupplierId in Model.Designer.cs">
-      <DependentUpon>201602090802512_Remove SupplierId in Model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602090803308_Edit SupplierId to Int.cs" />
-    <Compile Include="Migrations\201602090803308_Edit SupplierId to Int.Designer.cs">
-      <DependentUpon>201602090803308_Edit SupplierId to Int.cs</DependentUpon>
+    <Compile Include="Migrations\201602072002572_Add KeySupplierId.cs" />
+    <Compile Include="Migrations\201602072002572_Add KeySupplierId.Designer.cs">
+      <DependentUpon>201602072002572_Add KeySupplierId.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -579,8 +567,6 @@
     <Content Include="Views\Model\RevertArchive.cshtml" />
     <Content Include="Views\Supplier\SupplierRetrieveModels.cshtml" />
     <Content Include="Views\Supplier\SupplierGetModelSpec.cshtml" />
-    <Content Include="Views\ProductCreation\ModelSpecCreation.cshtml" />
-    <Content Include="Views\ProductCreation\ModelCreation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -730,17 +716,8 @@
     <EmbeddedResource Include="Migrations\201602071940419_Add UserActivationCode.resx">
       <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602090728376_Add SupplierFKModel.resx">
-      <DependentUpon>201602090728376_Add SupplierFKModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602090732589_Add SupplierPropPrice.resx">
-      <DependentUpon>201602090732589_Add SupplierPropPrice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602090802512_Remove SupplierId in Model.resx">
-      <DependentUpon>201602090802512_Remove SupplierId in Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602090803308_Edit SupplierId to Int.resx">
-      <DependentUpon>201602090803308_Edit SupplierId to Int.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602072002572_Add KeySupplierId.resx">
+      <DependentUpon>201602072002572_Add KeySupplierId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

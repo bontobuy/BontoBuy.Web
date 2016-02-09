@@ -29,8 +29,15 @@ namespace BontoBuy.Web.Models
     {
         public int ModelId { get; set; }
         public int SpecificationId { get; set; }
-        public int TagId { get; set; }
-        public string Description { get; set; }
+        public int SpecialCatId { get; set; }
+        public string UserId { get; set; }
+        public int SupplierId { get; set; }
+        public int ItemId { get; set; }
+        public string BrandName { get; set; }
+        public string ModelNumber { get; set; }
+        public string Status { get; set; }
+        public int Price { get; set; }
+        public string SpecDescription { get; set; }
         public string Value { get; set; }
     }
 

@@ -21,6 +21,9 @@ namespace BontoBuy.Web.Models
         public string ModelNumber { get; set; }
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
+        public int Price { get; set; }
+        public string UserId { get; set; }
+        public int SupplierId { get; set; }
         public string Status { get; set; }
         public IEnumerable<ModelSpecViewModel> ModeSpecNav { get; set; }
 
@@ -30,6 +33,9 @@ namespace BontoBuy.Web.Models
         [ForeignKey("BrandId")]
         [Column(Order = 1)]
         public BrandViewModel BrandNav { get; set; }
+        [ForeignKey("UserId")]
+        [Column(Order = 2)]
+        public SupplierViewModel SupplierNav { get; set; }
     }
 
     public class ModelBrandViewModel

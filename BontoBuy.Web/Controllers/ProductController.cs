@@ -1,11 +1,11 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -207,7 +207,7 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
-
+                    ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description");
                     return View(itemToUpdate);
                 }
                 return RedirectToAction("Login", "Account");
@@ -243,6 +243,7 @@ namespace BontoBuy.Web.Controllers
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
                     }
+                    ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description", item.CategoryId);
 
                     var updatedItem = _repository.Update(id, item);
                     if (updatedItem == null)

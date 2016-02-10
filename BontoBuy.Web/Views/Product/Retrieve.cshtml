@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.ProductViewModel>
+﻿@model IEnumerable<BontoBuy.Web.Models.AdminRetrieveProduct>
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
@@ -14,9 +14,11 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.ProductName)
             </th>
-
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
             <th></th>
         </tr>
 
@@ -24,7 +26,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.ProductId }) |

@@ -9,13 +9,29 @@ namespace BontoBuy.Web.Models
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public IEnumerable<ProductViewModel> Retrieve()
+        public IEnumerable<AdminRetrieveProduct> Retrieve()
         {
             var records = (from products in db.Products
                            where products.Status == "Active"
                            select products).ToList();
+            var newList = new List<AdminRetrieveProduct>();
 
-            return records;
+            foreach (var item in records)
+            {
+                var product = new AdminRetrieveProduct()
+                {
+                    CategoryId = item.CategoryId,
+                    CategoryName = (from c in db.Categories
+                                    join p in db.Products on c.CategoryId equals p.CategoryId
+                                    where c.CategoryId == item.CategoryId
+                                    select c.Description).FirstOrDefault(),
+                    ProductId = item.ProductId,
+                    ProductName = item.Description
+                };
+                newList.Add(product);
+            }
+
+            return newList;
         }
         public ProductViewModel Get(int id)
         {
@@ -47,6 +63,7 @@ namespace BontoBuy.Web.Models
             if (!(String.IsNullOrWhiteSpace(item.Description)))
             {
                 currentrecord.Description = item.Description;
+                currentrecord.CategoryId = item.CategoryId;
             }
             db.SaveChanges();
 

@@ -25,4 +25,12 @@ namespace BontoBuy.Web.Models
         [ForeignKey("CategoryId")]
         public CategoryViewModel ProductCategoryNav { get; set; }
     }
+
+    public class AdminRetrieveProduct
+    {
+        public string ProductName { get; set; }
+        public int ProductId { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+    }
 }

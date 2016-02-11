@@ -15,6 +15,5 @@ namespace BontoBuy.Web.Models
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string PhysicalPath { get; set; }
-        public IEnumerable<ModelViewModel> ModelNav { get; set; }
     }
 }

@@ -24,6 +24,10 @@ namespace BontoBuy.Web.Models
         public int ModelId { get; set; }
         public string ModelNumber { get; set; }
         public string BrandName { get; set; }
+        public int PhotoId { get; set; }
+        public string PhotoName { get; set; }
+        public string ImageUrl { get; set; }
+        public string PhysicalPath { get; set; }
     }
 
     public class SupplierGetModelSpecViewModel

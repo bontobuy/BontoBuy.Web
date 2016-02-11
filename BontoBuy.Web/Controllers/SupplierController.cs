@@ -84,7 +84,12 @@ namespace BontoBuy.Web.Controllers
                             BrandName = (from b in db.Brands
                                          join m in db.Models on b.BrandId equals m.BrandId
                                          where b.BrandId == obj.BrandId
-                                         select b.Name).FirstOrDefault()
+                                         select b.Name).FirstOrDefault(),
+                            ImageUrl = (from ph in db.Photos
+                                        join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                        join m in db.Models on pm.ModelId equals m.ModelId
+                                        where pm.ModelId == obj.ModelId
+                                        select ph.ImageUrl).FirstOrDefault()
                         };
 
                         modelList.Add(model);

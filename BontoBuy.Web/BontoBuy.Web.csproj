@@ -281,6 +281,14 @@
     <Compile Include="Migrations\201602091841392_Add Required to ModelNumber.Designer.cs">
       <DependentUpon>201602091841392_Add Required to ModelNumber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602110646135_Add PhotoId to Model.cs" />
+    <Compile Include="Migrations\201602110646135_Add PhotoId to Model.Designer.cs">
+      <DependentUpon>201602110646135_Add PhotoId to Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602110646584_Add PhotoIdFK to Model.cs" />
+    <Compile Include="Migrations\201602110646584_Add PhotoIdFK to Model.Designer.cs">
+      <DependentUpon>201602110646584_Add PhotoIdFK to Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -713,6 +721,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602091841392_Add Required to ModelNumber.resx">
       <DependentUpon>201602091841392_Add Required to ModelNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602110646135_Add PhotoId to Model.resx">
+      <DependentUpon>201602110646135_Add PhotoId to Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602110646584_Add PhotoIdFK to Model.resx">
+      <DependentUpon>201602110646584_Add PhotoIdFK to Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

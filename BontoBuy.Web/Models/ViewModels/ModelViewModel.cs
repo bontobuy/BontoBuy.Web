@@ -22,6 +22,7 @@ namespace BontoBuy.Web.Models
         public string ModelNumber { get; set; }
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
+        public int PhotoId { get; set; }
         [Required(ErrorMessage = "Price is required")]
         public int Price { get; set; }
         public string UserId { get; set; }
@@ -38,6 +39,10 @@ namespace BontoBuy.Web.Models
         [ForeignKey("UserId")]
         [Column(Order = 2)]
         public SupplierViewModel SupplierNav { get; set; }
+
+        [ForeignKey("PhotoId")]
+        [Column(Order = 3)]
+        public PhotoViewModel PhotoNav { get; set; }
     }
 
     public class ModelBrandViewModel

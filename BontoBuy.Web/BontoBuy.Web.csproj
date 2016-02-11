@@ -517,7 +517,6 @@
     <Content Include="Views\Model\Retrieve.cshtml" />
     <Content Include="Views\Model\Get.cshtml" />
     <Content Include="Views\Model\Update.cshtml" />
-    <Content Include="Views\ProductCreation\ModelSelection.cshtml" />
     <Content Include="Views\ProductCreation\ItemSelection.cshtml" />
     <Content Include="Views\ProductCreation\BrandSelection.cshtml" />
     <Content Include="Views\Tag\Retrieve.cshtml" />
@@ -543,7 +542,6 @@
     <Content Include="Views\Brand\Update.cshtml" />
     <Content Include="Views\Photo\Create.cshtml" />
     <Content Include="Views\Brand\RevertArchive.cshtml" />
-    <Content Include="Views\ProductCreation\ModelSpecSelection.cshtml" />
     <Content Include="Views\Category\Archive.cshtml" />
     <Content Include="Views\Category\RetrieveArchives.cshtml" />
     <Content Include="Views\Category\RevertArchive.cshtml" />
@@ -565,6 +563,8 @@
     <Content Include="Views\Supplier\SupplierRetrieveModels.cshtml" />
     <Content Include="Views\Supplier\SupplierGetModelSpec.cshtml" />
     <Content Include="Views\Account\ActivateAccount.cshtml" />
+    <Content Include="Views\ProductCreation\ModelCreation.cshtml" />
+    <Content Include="Views\ProductCreation\ModelSpecCreation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

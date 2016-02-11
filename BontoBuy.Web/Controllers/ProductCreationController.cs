@@ -1,11 +1,12 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -308,35 +309,35 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Supplier"))
                 {
-                    SpecProductViewModel specProd = Session["SpecProd"] as SpecProductViewModel;
-                    int brandId;
-
-                    var brand = new BrandViewModel()
+                    var photo = UploadPhoto(item);
+                    if (photo != null)
                     {
-                        Name = item.BrandName
-                    };
-                    db.Brands.Add(brand);
-                    db.SaveChanges();
-                    brandId = brand.BrandId;
+                        SpecProductViewModel specProd = Session["SpecProd"] as SpecProductViewModel;
+                        int brandId;
+                        var brand = new BrandViewModel()
+                        {
+                            Name = item.BrandName
+                        };
+                        db.Brands.Add(brand);
+                        db.SaveChanges();
+                        brandId = brand.BrandId;
+                        var model = new ModelViewModel();
+                        model.PhotoId = photo.PhotoId;
+                        model.Price = item.Price;
+                        model.Status = specProd.Status;
+                        model.UserId = userId;
+                        model.SupplierId = specProd.SupplierId;
+                        model.ItemId = specProd.ItemId;
+                        model.BrandId = brandId;
+                        model.ModelNumber = item.ModelNumber;
+                        db.Models.Add(model);
+                        db.SaveChanges();
+                        Session["ModelSpecData"] = model;
 
-                    var model = new ModelViewModel();
+                        return RedirectToAction("ModelSpecCreation");
 
-                    model.Price = item.Price;
-                    model.Status = specProd.Status;
-                    model.UserId = userId;
-                    model.SupplierId = specProd.SupplierId;
-                    model.ItemId = specProd.ItemId;
-                    model.BrandId = brandId;
-                    model.ModelNumber = item.ModelNumber;
-
-                    db.Models.Add(model);
-                    db.SaveChanges();
-
-                    Session["ModelSpecData"] = model;
-
-                    return RedirectToAction("ModelSpecCreation");
-
-                    //return RedirectToAction("ModelSpecCreation");
+                        //return RedirectToAction("ModelSpecCreation");on("ModelSpecCreation");
+                    }
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -446,6 +447,29 @@ namespace BontoBuy.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
+        }
+
+        private PhotoViewModel UploadPhoto(SpecProductViewModel item)
+        {
+            if (item.File != null && item.File.ContentLength < 1 * 1024 * 1024)
+            {
+                string imageName = Path.GetFileName(item.File.FileName);
+                string physicalPath = Server.MapPath("~/Images/" + imageName);
+
+                //Save the Image in the Images Folder
+                item.File.SaveAs(physicalPath);
+
+                //Save the record in the database
+                var photo = new PhotoViewModel()
+                {
+                    Name = item.PhotoName,
+                    ImageUrl = imageName,
+                    PhysicalPath = physicalPath
+                };
+                db.Photos.Add(photo);
+                db.SaveChanges();
+            }
+            return null;
         }
     }
 }

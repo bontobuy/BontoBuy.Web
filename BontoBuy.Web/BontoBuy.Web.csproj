@@ -277,6 +277,14 @@
     <Compile Include="Migrations\201602071832312_Rename TagId to Special CategoryId.Designer.cs">
       <DependentUpon>201602071832312_Rename TagId to Special CategoryId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602071940419_Add UserActivationCode.cs" />
+    <Compile Include="Migrations\201602071940419_Add UserActivationCode.Designer.cs">
+      <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602090728376_Add SupplierFKModel.cs" />
+    <Compile Include="Migrations\201602090728376_Add SupplierFKModel.Designer.cs">
+      <DependentUpon>201602090728376_Add SupplierFKModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201602091841392_Add Required to ModelNumber.cs" />
     <Compile Include="Migrations\201602091841392_Add Required to ModelNumber.Designer.cs">
       <DependentUpon>201602091841392_Add Required to ModelNumber.cs</DependentUpon>
@@ -288,6 +296,10 @@
     <Compile Include="Migrations\201602110646584_Add PhotoIdFK to Model.cs" />
     <Compile Include="Migrations\201602110646584_Add PhotoIdFK to Model.Designer.cs">
       <DependentUpon>201602110646584_Add PhotoIdFK to Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602110759000_Add PhysicalPath to PhotoVM.cs" />
+    <Compile Include="Migrations\201602110759000_Add PhysicalPath to PhotoVM.Designer.cs">
+      <DependentUpon>201602110759000_Add PhysicalPath to PhotoVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -719,6 +731,12 @@
     <EmbeddedResource Include="Migrations\201602071832312_Rename TagId to Special CategoryId.resx">
       <DependentUpon>201602071832312_Rename TagId to Special CategoryId.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602071940419_Add UserActivationCode.resx">
+      <DependentUpon>201602071940419_Add UserActivationCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602090728376_Add SupplierFKModel.resx">
+      <DependentUpon>201602090728376_Add SupplierFKModel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602091841392_Add Required to ModelNumber.resx">
       <DependentUpon>201602091841392_Add Required to ModelNumber.cs</DependentUpon>
     </EmbeddedResource>
@@ -727,6 +745,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602110646584_Add PhotoIdFK to Model.resx">
       <DependentUpon>201602110646584_Add PhotoIdFK to Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602110759000_Add PhysicalPath to PhotoVM.resx">
+      <DependentUpon>201602110759000_Add PhysicalPath to PhotoVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -39,6 +39,10 @@ namespace BontoBuy.Web.Models
         public int Price { get; set; }
         public string SpecDescription { get; set; }
         public string Value { get; set; }
+        public HttpPostedFileBase File { get; set; }
+        public int PhotoId { get; set; }
+        public string PhotoName { get; set; }
+        public string ImageUrl { get; set; }
     }
 
     public class SpecActionViewModel

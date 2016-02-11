@@ -261,6 +261,10 @@
     <Compile Include="Migrations\201602051237191_Add ProductSpecification.Designer.cs">
       <DependentUpon>201602051237191_Add ProductSpecification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602060719149_Add Supplier to ModelSpec.cs" />
+    <Compile Include="Migrations\201602060719149_Add Supplier to ModelSpec.Designer.cs">
+      <DependentUpon>201602060719149_Add Supplier to ModelSpec.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201602060832061_Create Photo VM.cs" />
     <Compile Include="Migrations\201602060832061_Create Photo VM.Designer.cs">
       <DependentUpon>201602060832061_Create Photo VM.cs</DependentUpon>
@@ -312,6 +316,14 @@
     <Compile Include="Migrations\201602111417395_Add PhotoModel.cs" />
     <Compile Include="Migrations\201602111417395_Add PhotoModel.Designer.cs">
       <DependentUpon>201602111417395_Add PhotoModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602111755166_Remove Supplier in Model.cs" />
+    <Compile Include="Migrations\201602111755166_Remove Supplier in Model.Designer.cs">
+      <DependentUpon>201602111755166_Remove Supplier in Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602111757024_Added Supplier in Model.cs" />
+    <Compile Include="Migrations\201602111757024_Added Supplier in Model.Designer.cs">
+      <DependentUpon>201602111757024_Added Supplier in Model.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -732,6 +744,9 @@
     <EmbeddedResource Include="Migrations\201602051237191_Add ProductSpecification.resx">
       <DependentUpon>201602051237191_Add ProductSpecification.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602060719149_Add Supplier to ModelSpec.resx">
+      <DependentUpon>201602060719149_Add Supplier to ModelSpec.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602060832061_Create Photo VM.resx">
       <DependentUpon>201602060832061_Create Photo VM.cs</DependentUpon>
     </EmbeddedResource>
@@ -770,6 +785,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602111417395_Add PhotoModel.resx">
       <DependentUpon>201602111417395_Add PhotoModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602111755166_Remove Supplier in Model.resx">
+      <DependentUpon>201602111755166_Remove Supplier in Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602111757024_Added Supplier in Model.resx">
+      <DependentUpon>201602111757024_Added Supplier in Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

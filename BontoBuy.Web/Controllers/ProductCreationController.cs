@@ -327,6 +327,7 @@ namespace BontoBuy.Web.Controllers
                         model.Price = item.Price;
                         model.Status = specProd.Status;
                         model.UserId = userId;
+
                         model.SupplierId = specProd.SupplierId;
                         model.ItemId = specProd.ItemId;
                         model.BrandId = brandId;

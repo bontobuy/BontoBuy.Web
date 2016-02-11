@@ -1,11 +1,11 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -64,10 +64,12 @@ namespace BontoBuy.Web.Controllers
                                        where s.Id == userId
                                        select s).FirstOrDefault();
 
+                    int supplierId = getSupplier.SupplierId;
+
                     var retrieveModels = (from m in db.Models
                                           join ms in db.ModelSpecs on m.ModelId equals ms.ModelId
                                           join s in db.Suppliers on ms.SupplierId equals s.SupplierId
-                                          where ms.SupplierId == getSupplier.SupplierId
+                                          where ms.SupplierId == supplierId
                                           select m).Distinct();
 
                     var modelList = new List<SupplierRetrieveModelsViewModel>();
@@ -76,7 +78,7 @@ namespace BontoBuy.Web.Controllers
                     {
                         var model = new SupplierRetrieveModelsViewModel()
                         {
-                            SupplierId = getSupplier.SupplierId,
+                            SupplierId = supplierId,
                             ModelId = obj.ModelId,
                             ModelNumber = obj.ModelNumber,
                             BrandName = (from b in db.Brands

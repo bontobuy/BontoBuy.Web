@@ -23,6 +23,7 @@ namespace BontoBuy.Web.Models
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
         public int PhotoId { get; set; }
+        [Range(0, 99999, ErrorMessage = "Please enter a number")]
         [Required(ErrorMessage = "Price is required")]
         public int Price { get; set; }
         public string UserId { get; set; }

@@ -294,7 +294,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModelCreation(SpecProductViewModel item)
+        public ActionResult ModelCreation(SpecProductViewModel item, HttpPostedFileBase modelPhoto)
         {
             try
             {
@@ -309,7 +309,7 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Supplier"))
                 {
-                    var photo = UploadPhoto(item);
+                    var photo = UploadPhoto(modelPhoto, item);
                     if (photo != null)
                     {
                         SpecProductViewModel specProd = Session["SpecProd"] as SpecProductViewModel;
@@ -320,9 +320,10 @@ namespace BontoBuy.Web.Controllers
                         };
                         db.Brands.Add(brand);
                         db.SaveChanges();
+
                         brandId = brand.BrandId;
                         var model = new ModelViewModel();
-                        model.PhotoId = photo.PhotoId;
+
                         model.Price = item.Price;
                         model.Status = specProd.Status;
                         model.UserId = userId;
@@ -332,6 +333,15 @@ namespace BontoBuy.Web.Controllers
                         model.ModelNumber = item.ModelNumber;
                         db.Models.Add(model);
                         db.SaveChanges();
+
+                        var photoModel = new PhotoModelViewModel()
+                        {
+                            PhotoId = photo.PhotoId,
+                            ModelId = model.ModelId
+                        };
+                        db.PhotoModels.Add(photoModel);
+                        db.SaveChanges();
+
                         Session["ModelSpecData"] = model;
 
                         return RedirectToAction("ModelSpecCreation");
@@ -449,25 +459,27 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        private PhotoViewModel UploadPhoto(SpecProductViewModel item)
+        private PhotoViewModel UploadPhoto(HttpPostedFileBase file, SpecProductViewModel item)
         {
-            if (item.File != null && item.File.ContentLength < 1 * 1024 * 1024)
+            if (file != null && file.ContentLength < 1 * 1024 * 1024)
             {
-                string imageName = Path.GetFileName(item.File.FileName);
+                string imageName = Path.GetFileName(file.FileName);
                 string physicalPath = Server.MapPath("~/Images/" + imageName);
 
                 //Save the Image in the Images Folder
-                item.File.SaveAs(physicalPath);
+                file.SaveAs(physicalPath);
 
                 //Save the record in the database
                 var photo = new PhotoViewModel()
                 {
-                    Name = item.PhotoName,
+                    Name = item.ModelNumber,
                     ImageUrl = imageName,
                     PhysicalPath = physicalPath
                 };
                 db.Photos.Add(photo);
                 db.SaveChanges();
+
+                return photo;
             }
             return null;
         }

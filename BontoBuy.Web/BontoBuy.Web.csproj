@@ -285,6 +285,10 @@
     <Compile Include="Migrations\201602090728376_Add SupplierFKModel.Designer.cs">
       <DependentUpon>201602090728376_Add SupplierFKModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602090732589_Add SupplierPropPrice.cs" />
+    <Compile Include="Migrations\201602090732589_Add SupplierPropPrice.Designer.cs">
+      <DependentUpon>201602090732589_Add SupplierPropPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201602091841392_Add Required to ModelNumber.cs" />
     <Compile Include="Migrations\201602091841392_Add Required to ModelNumber.Designer.cs">
       <DependentUpon>201602091841392_Add Required to ModelNumber.cs</DependentUpon>
@@ -300,6 +304,14 @@
     <Compile Include="Migrations\201602110759000_Add PhysicalPath to PhotoVM.cs" />
     <Compile Include="Migrations\201602110759000_Add PhysicalPath to PhotoVM.Designer.cs">
       <DependentUpon>201602110759000_Add PhysicalPath to PhotoVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602111408463_Remove Ref PhotoModel.cs" />
+    <Compile Include="Migrations\201602111408463_Remove Ref PhotoModel.Designer.cs">
+      <DependentUpon>201602111408463_Remove Ref PhotoModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602111417395_Add PhotoModel.cs" />
+    <Compile Include="Migrations\201602111417395_Add PhotoModel.Designer.cs">
+      <DependentUpon>201602111417395_Add PhotoModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
@@ -432,6 +444,7 @@
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelSpecViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelViewModel.cs" />
+    <Compile Include="Models\ViewModels\PhotoModelViewModel.cs" />
     <Compile Include="Models\ViewModels\PhotoViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductCreationViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductSpecViewModel.cs" />
@@ -583,8 +596,8 @@
     <Content Include="Views\Supplier\SupplierRetrieveModels.cshtml" />
     <Content Include="Views\Supplier\SupplierGetModelSpec.cshtml" />
     <Content Include="Views\Account\ActivateAccount.cshtml" />
-    <Content Include="Views\ProductCreation\ModelCreation.cshtml" />
     <Content Include="Views\ProductCreation\ModelSpecCreation.cshtml" />
+    <Content Include="Views\ProductCreation\ModelCreation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -737,6 +750,9 @@
     <EmbeddedResource Include="Migrations\201602090728376_Add SupplierFKModel.resx">
       <DependentUpon>201602090728376_Add SupplierFKModel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602090732589_Add SupplierPropPrice.resx">
+      <DependentUpon>201602090732589_Add SupplierPropPrice.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602091841392_Add Required to ModelNumber.resx">
       <DependentUpon>201602091841392_Add Required to ModelNumber.cs</DependentUpon>
     </EmbeddedResource>
@@ -748,6 +764,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602110759000_Add PhysicalPath to PhotoVM.resx">
       <DependentUpon>201602110759000_Add PhysicalPath to PhotoVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602111408463_Remove Ref PhotoModel.resx">
+      <DependentUpon>201602111408463_Remove Ref PhotoModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602111417395_Add PhotoModel.resx">
+      <DependentUpon>201602111417395_Add PhotoModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

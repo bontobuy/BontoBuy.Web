@@ -79,6 +79,8 @@ namespace BontoBuy.Web.Controllers
                 {
                     var newItem = new SpecialCategoryViewModel();
 
+                    var records = _repository.Retrieve();
+                    ViewData["TagList"] = records;
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");

@@ -11,7 +11,7 @@ namespace BontoBuy.Web.Models
 
         public IEnumerable<ModelViewModel> Retrieve()
         {
-            var records = db.Models.ToList().Where(x => x.Status == "Active");
+            var records = db.Models.ToList();
 
             return records;
         }

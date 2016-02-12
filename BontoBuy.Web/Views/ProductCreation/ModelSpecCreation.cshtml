@@ -4,39 +4,42 @@
     ViewBag.Title = "Model Specification";
 }
 
-<h2>@ViewBag.Title</h2>
-@using (Html.BeginForm())
-{
-    <table class="table">
-        @Html.ValidationSummary(true)
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SpecDescription)
-            </th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
+<div class="col-md-9">
+    <h2>@ViewBag.Title</h2>
+    @using (Html.BeginForm())
+    {
+        <table class="table">
             <tr>
-
-                <td>
-                    @Html.EditorFor(modelItem => item.Value)
-                    @Html.ValidationMessageFor(model => item.Value)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SpecDescription)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.SpecificationId)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.ModelId)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.SpecDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
             </tr>
-        }
-    </table>
-    <input type="submit" value="save"/>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SpecDescription)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => item.Value, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => item.Value)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.SpecificationId)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.ModelId)
+                    </td>
+                </tr>
+            }
+        </table>
+        <input type="submit" value="save" class="btn btn-success"/>
+
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

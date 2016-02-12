@@ -33,9 +33,13 @@ namespace BontoBuy.Web.Models
         public string UserId { get; set; }
         public int SupplierId { get; set; }
         public int ItemId { get; set; }
+        [Required]
         public string BrandName { get; set; }
+        [Required]
         public string ModelNumber { get; set; }
         public string Status { get; set; }
+        [Required]
+        [RegularExpression(@"^[+]?[0-9]{1,9}(?:\.[0-9]{1,2})?$", ErrorMessage = "Please enter a correct price!")]
         public int Price { get; set; }
         public string SpecDescription { get; set; }
         public string Value { get; set; }

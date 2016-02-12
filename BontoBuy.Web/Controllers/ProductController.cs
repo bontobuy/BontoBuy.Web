@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -120,8 +120,8 @@ namespace BontoBuy.Web.Controllers
                     ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description");
 
                     var records = _repository.Retrieve();
-                    ViewData["ProductList"] = records;
 
+                    ViewData["ProductList"] = records;
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");

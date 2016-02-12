@@ -325,6 +325,10 @@
     <Compile Include="Migrations\201602111757024_Added Supplier in Model.Designer.cs">
       <DependentUpon>201602111757024_Added Supplier in Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602121349209_Resolve Conflict.cs" />
+    <Compile Include="Migrations\201602121349209_Resolve Conflict.Designer.cs">
+      <DependentUpon>201602121349209_Resolve Conflict.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -791,6 +795,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602111757024_Added Supplier in Model.resx">
       <DependentUpon>201602111757024_Added Supplier in Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121349209_Resolve Conflict.resx">
+      <DependentUpon>201602121349209_Resolve Conflict.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

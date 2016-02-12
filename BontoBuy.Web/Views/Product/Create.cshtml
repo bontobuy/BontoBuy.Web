@@ -53,28 +53,26 @@
                     <thead>
                         <tr>
                             <th>
-                                Name
+                                Product Name
                             </th>
                             <th class="text-center">
-                                Status
+                                Category Name
                             </th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @{
-                            foreach (var item in ViewData["ProductList"] as IEnumerable<BontoBuy.Web.Models.ProductViewModel>)
-                            {
-                                <tr>
-                                    <td>
-                                        @item.Description
-                                    </td>
+                        @foreach (var item in ViewData["ProductList"] as IEnumerable<BontoBuy.Web.Models.AdminRetrieveProduct>)
+                        {
+                            <tr>
+                                <td>
+                                    @item.ProductName
+                                </td>
 
-                                    <td class="text-center">
-                                        @item.Status
-                                    </td>
-                                </tr>
-                            }
+                                <td class="text-center">
+                                    @item.CategoryName
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

@@ -1,41 +1,46 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.SupplierGetModelSpecViewModel>
 @{
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
-    ViewBag.Title = "SupplierGetModelSpec";
+    ViewBag.Title = "Specifications of " + ViewBag.ModelSpec;
 }
 
-@using (Html.BeginForm())
-{
-    <table class="table">
-        @Html.ValidationSummary(true)
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+<div class="col-md-9">
+    <h2>@ViewBag.Title</h2>
+    @using (Html.BeginForm())
+    {
+        <table class="table">
+            @Html.ValidationSummary(true)
             <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Value)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.SpecificationId)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.ModelId)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>
 
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.SpecificationId)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.ModelId)
+                    </td>
+                </tr>
+            }
+        </table>
+        <div>
+            @Html.ActionLink("Back to List", "SupplierRetrieveModels")
+            <hr/>
+        </div>
+    }
+</div>

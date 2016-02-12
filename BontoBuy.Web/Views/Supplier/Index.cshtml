@@ -1,7 +1,11 @@
 ﻿@using Microsoft.AspNet.Identity
+@using BontoBuy.Web.Models
 @{
+    Name userName = new Name();
+    var UserId = User.Identity.GetUserId();
+    var name = userName.GetName(UserId.ToString());
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
     ViewBag.Title = "Supplier Home Page";
 }
 
-<h3>Welcome</h3>
+<h3>Welcome @name</h3>

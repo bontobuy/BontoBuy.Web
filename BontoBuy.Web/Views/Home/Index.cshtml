@@ -151,8 +151,8 @@
                 //        //    });
                 //        //});
 
-                    });
-                });
+            });
+        });
     </script>
 
 }
@@ -171,19 +171,20 @@
                                     <ul id="ProductList">
                                         @*@foreach (var product in Model.Product.where(Model.Product.CategoryId == Model.Category.CategoryId))
                                             {
-                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                                @*foreach (var item in Model.Item1)
-                                                    {
-                                                        <li><a href="#">@item.Description</a></li>
-                                                    }*@
-                                        @*<li class="divider"></li>*@
-
+                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                            @*foreach (var item in Model.Item1)
+                                            {
+                                            <li><a href="#">@item.Description</a></li>
+                                            }*@
+                                        @*
+                                            <li class="divider"></li>*@
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                     }
-                    @*<li class="dropdown mega-sidebar">
+                    @*
+                        <li class="dropdown mega-sidebar">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">All Categories <span class="caret"></span></a>
                             <ul class="dropdown-menu mega-sidebar-menu">
                                 <li class="col-md-4">
@@ -406,14 +407,17 @@
                     <!-- Wrapper for carousel items -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img src="../images/slide1.png" alt="First Slide">
+                            <img src="~/images/slide1.png" alt="First Slide">
                         </div>
-                        <div class="item">
-                            <img src="../images/slide2.png" alt="Second Slide">
-                        </div>
-                        <div class="item">
-                            <img src="../images/slide3.png" alt="Third Slide">
-                        </div>
+                        @foreach (var item in Model.SlideShow)
+                        {
+                            <div class="item">
+                                <img src="~/images/@item.ImageUrl" alt="@item.ModelNumber" width="500" height="250">
+                            </div>
+                        }
+                        @*<div class="item">
+                                <img src="../images/slide3.png" alt="Third Slide">
+                            </div>*@
                     </div>
                     <!-- Carousel controls -->
                     <a class="carousel-control left" href="#myCarousel" data-slide="prev">
@@ -426,6 +430,90 @@
             </div>
         </div>
     </div>
+    <div class="row style_featured">
+        <h3>Featured Items<i class="glyphicon glyphicon-star"></i></h3>
+        @foreach (var item in Model.FeaturedList)
+        {
+            <div class="col-md-4" data-id="@item.ModelId">
+                <div>
+                    <img src="~/images/@item.ImageUrl" alt="" class="img-rounded img-thumbnail" width="250" height="250"/>
+                    <h2>@item.ModelNumber</h2>
+                    <p style="text-align: left;">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        @item.BrandName
+                    </p>
+                    <p style="text-align: left;">
+                        <span class="glyphicon glyphicon-euro "></span>
+                        @item.Price
+                    </p>
+                    <p style="text-align: left;">
+                        <span class="glyphicon glyphicon-calendar "></span>
+                        Some concatenated specifications go here.
+                    </p>
+                    @Html.ActionLink("Details »", "ModelDetails", new { id = item.ModelId }, new { @class = "btn btn-info" })
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-md-9">
+                <h3>New Launches</h3>
+            </div>
+            <div class="col-md-3">
+                <!-- Controls -->
+                <div class="controls pull-right hidden-xs">
+                    <a class="btn glyphicon glyphicon-chevron-left" href="#carousel-new-launches"
+                       data-slide="prev"></a><a class="btn glyphicon glyphicon-chevron-right" href="#carousel-new-launches"
+                                                data-slide="next"></a>
+                </div>
+            </div>
+        </div>
+        <div id="carousel-new-launches" class="carousel slide hidden-xs" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="row">
+                        @foreach (var item in Model.NewLaunchList)
+                        {
+                            <div class="col-sm-3">
+                                <div class="col-item">
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="price col-md-6">
+                                                <h5>@item.ModelNumber</h5>
+                                                <h5 class="price-text-color">@item.Price</h5>
+                                            </div>
+                                            <div class="rating hidden-sm col-md-6">
+                                                <i class="price-text-color glyphicon glyphicon-star"></i>
+                                                <i class="price-text-color glyphicon glyphicon-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo">
+                                        <img src="~/images/@item.ImageUrl" class="img-responsive" width="360" height="250" alt="@item.ModelNumber"/>
+                                    </div>
+                                    <div class="info">
+                                        <div class="separator clear-left">
+                                            <p class="btn-add">
+                                                <i class="glyphicon glyphicon-shopping-cart"></i>@Html.ActionLink("AddToCart", "#", new { id = item.ModelId }, new { @class = "btn btn-primary" })
+                                            </p>
+                                            <p class="btn-details">
+                                                <i class="glyphicon glyphicon-list"></i>@Html.ActionLink("Details»", "ModelDetails", new { id = item.ModelId }, new { @class = "btn btn-info" })
+                                            </p>
+                                        </div>
+                                        <div class="clearfix">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
     <div class="row" id="row-eq-height">
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">

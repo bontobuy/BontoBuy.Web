@@ -14,20 +14,24 @@ namespace BontoBuy.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ICategoryRepo _categoryRepository;
+        private readonly IModelRepo _modelRepository;
 
         //private readonly IProductRepo _productRepository;
         //private readonly IItemRepo _itemRepository;
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public HomeController(ICategoryRepo catRepo)
+        public HomeController(ICategoryRepo catRepo, IModelRepo modelRepo)
         {
             _categoryRepository = catRepo;
+            _modelRepository = modelRepo;
 
             //_productRepository = prodRepo;
             //_itemRepository = iteRepo;
         }
         public ActionResult Index()
         {
+            dynamic model = new ExpandoObject();
+
             var categoryRecords = _categoryRepository.Retrieve();
             if (categoryRecords == null)
             {
@@ -69,11 +73,68 @@ namespace BontoBuy.Web.Controllers
             //    return HttpNotFound();
             //}
 
-            dynamic model = new ExpandoObject();
             model.Category = categoryRecords;
 
             //model.Product = productRecords;
             //model.Item1 = itemRecords1;
+
+            var modelRecords = _modelRepository.Retrieve();
+            var FeaturedList = new List<HomeCatalogViewModel>();
+            foreach (var item in modelRecords.Take(3))
+            {
+                var modelItem = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                };
+                FeaturedList.Add(modelItem);
+            }
+
+            model.FeaturedList = FeaturedList;
+
+            var SlideShowList = new List<HomeCatalogViewModel>();
+            foreach (var item in modelRecords)
+            {
+                var modelImage = new HomeCatalogViewModel()
+                {
+                    ModelNumber = item.ModelNumber,
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                select ph.ImageUrl).FirstOrDefault()
+                };
+                SlideShowList.Add(modelImage);
+            }
+            model.SlideShow = SlideShowList;
+
+            var NewLaunchesList = new List<HomeCatalogViewModel>();
+            foreach (var item in modelRecords.Take(4))
+            {
+                var modelNewLaunch = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                };
+                NewLaunchesList.Add(modelNewLaunch);
+            }
+
+            model.NewLaunchList = NewLaunchesList;
 
             return View(model);
         }

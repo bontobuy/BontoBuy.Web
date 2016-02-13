@@ -459,6 +459,7 @@
     <Compile Include="Models\ViewModels\BrandViewModel.cs" />
     <Compile Include="Models\ViewModels\CartViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\HomeCatalogViewModel.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelSpecViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelViewModel.cs" />

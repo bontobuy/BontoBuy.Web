@@ -1,12 +1,10 @@
 ﻿@using Microsoft.AspNet.Identity
 @using BontoBuy.Web.Models
-@{
+@if (Request.IsAuthenticated)
+{
     Name userName = new Name();
     var UserId = User.Identity.GetUserId();
     var name = userName.GetName(UserId.ToString());
-}
-@if (Request.IsAuthenticated)
-{
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()

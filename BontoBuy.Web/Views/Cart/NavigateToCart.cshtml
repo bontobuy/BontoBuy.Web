@@ -1,0 +1,35 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.CartViewModel>
+@{
+    ViewBag.Title = "NavigateToCart";
+}
+
+<h2>NavigateToCart</h2>
+
+<div class="col-md-12">
+    <h2>@ViewBag.Title</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierId)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModelId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierId)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

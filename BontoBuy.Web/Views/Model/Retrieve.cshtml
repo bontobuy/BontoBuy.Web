@@ -1,42 +1,69 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.ModelViewModel>
 
 @{
-    Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "Retrieve Models";
+    ViewBag.Title = "Retrieve";
 }
 
-<div class="col-md-9">
-    <h2>@ViewBag.Title</h2>
+<h2>Retrieve</h2>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ModelNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandNav.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModelItemNav.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierNav.Street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModelNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModelNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Update", new { id = item.ModelId }) |
-                    @Html.ActionLink("Details", "Get", new { id = item.ModelId }) |
-                    @Html.ActionLink("Archive", "Archive", new { id = item.ModelId })
-                </td>
-            </tr>
-        }
-    </table>
-    <div>
-        @Html.ActionLink("Back to List", "Retrieve")
-    </div>
-</div>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandNav.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModelItemNav.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierNav.Street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModelNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ModelId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ModelId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ModelId })
+        </td>
+    </tr>
+}
+
+</table>

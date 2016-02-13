@@ -14,6 +14,7 @@ namespace BontoBuy.Web.Models
             var records = (from products in db.Products
                            where products.Status == "Active"
                            select products).ToList();
+
             var newList = new List<AdminRetrieveProduct>();
 
             foreach (var item in records)

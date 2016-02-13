@@ -34,31 +34,46 @@ namespace BontoBuy.Web.Controllers
                 return HttpNotFound();
             }
 
-            var productRecords1 = from prod in db.Products
-                                  join cat in db.Categories on prod.CategoryId equals cat.CategoryId
-                                  where cat.CategoryId == 1
-                                  where prod.Status == "Active"
-                                  select prod;
+            //var productList = new List<ProductViewModel>();
 
-            if (productRecords1 == null)
-            {
-                return HttpNotFound();
-            }
+            //foreach (var category in categoryRecords)
+            //{
+            //    var product = new ProductViewModel()
+            //    {
+            //        Description = (from p in db.Products
+            //                       join c in db.Categories on p.CategoryId equals c.CategoryId
+            //                       where p.CategoryId == category.CategoryId
+            //                       select p.Description).FirstOrDefault()
+            //    };
+            //    productList.Add(product);
+            //}
 
-            var itemRecords1 = from item in db.Items
-                               join prod in db.Products on item.ProductId equals prod.ProductId
-                               where prod.ProductId == 1
-                               where item.Status == "Active"
-                               select item;
-            if (itemRecords1 == null)
-            {
-                return HttpNotFound();
-            }
+            //var productRecords = from prod in db.Products
+            //                     join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+            //                     where cat.CategoryId == 1
+            //                     where prod.Status == "Active"
+            //                     select prod;
+
+            //if (productRecords == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            //var itemRecords1 = from item in db.Items
+            //                   join prod in db.Products on item.ProductId equals prod.ProductId
+            //                   where prod.ProductId == 1
+            //                   where item.Status == "Active"
+            //                   select item;
+            //if (itemRecords1 == null)
+            //{
+            //    return HttpNotFound();
+            //}
 
             dynamic model = new ExpandoObject();
             model.Category = categoryRecords;
-            model.Product1 = productRecords1;
-            model.Item1 = itemRecords1;
+
+            //model.Product = productRecords;
+            //model.Item1 = itemRecords1;
 
             return View(model);
         }
@@ -75,6 +90,34 @@ namespace BontoBuy.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetProductsForCategory(int id)
+        {
+            try
+            {
+                var productList = db.Products.Where(p => p.CategoryId == id).ToList();
+                return Json(productList);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetItemsForProduct(int id)
+        {
+            try
+            {
+                var ItemList = db.Items.Where(i => i.ProductId == id).ToList();
+                return Json(ItemList);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message });
+            }
         }
     }
 }

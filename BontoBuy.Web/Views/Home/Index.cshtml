@@ -101,6 +101,61 @@
     }
 </style>
 
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var hasBeenAppended = false;
+            $('.dropdown-toggle').mouseover(function () {
+                var CategoryId = $(this).attr('data-id');
+                var ProductId = [];
+                //alert(id);
+                $.ajax({
+                    url: '/Home/GetProductsForCategory/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { id: CategoryId },
+                    success: function (data) {
+                        //alert('Data is on javascript!')
+                        if (!hasBeenAppended) {
+                            $(data).each(function (Index, item) {
+                                hasBeenAppended = true;
+                                //$('ProductList').append($(document.createElement("a")).attr({
+                                //    href: '',
+                                //    'data-id': item.ProductId
+                                //}))
+                                $('#ProductList').append($('<li></li>').val(item.ProductId).html(item.Description)).addClass('sidebar-header');
+                                //ProductId[Index] = item.ProductId;
+                                //$('#ProductList').append("<li>" + item.Description + "</li>").addClass('sidebar-header');
+                            });
+                        }
+                    }
+                });
+
+                //        //$('.ProductList').mouseover(function () {
+                //        //    $.ajax({
+                //        //        url: '/Home/GetItemsForProduct/',
+                //        //        type: 'POST',
+                //        //        dataType: 'json',
+                //        //        data: { id: ProductId },
+                //        //        success: function (data) {
+                //        //            //alert('Data is on javascript!')
+                //        //            if (!hasBeenAppended) {
+                //        //                $(data).each(function (Index, item) {
+                //        //                    hasBeenAppended = true;
+                //        //                    $('#ItemList').append($('<li></li>').val(item.ItemId).html(item.Description));
+                //        //                    //$('#ProductList').append("<li>" + item.Description + "</li>").addClass('sidebar-header');
+                //        //                });
+                //        //            }
+                //        //        }
+                //        //    });
+                //        //});
+
+                    });
+                });
+    </script>
+
+}
 <div class="container">
     <div class="row">
         <div class="col-sm-2">
@@ -110,19 +165,19 @@
                     @foreach (var category in Model.Category)
                     {
                         <li class="dropdown mega-sidebar">
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown"> @category.Description <span class="caret"></span></a>
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown" data-id="@category.CategoryId"> @category.Description <span class="caret"></span></a>
                             <ul class="dropdown-menu mega-sidebar-menu">
                                 <li class="col-md-4">
-                                    <ul>
-                                        @foreach (var product in Model.Product1)
-                                        {
-                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                            foreach (var item in Model.Item1)
+                                    <ul id="ProductList">
+                                        @*@foreach (var product in Model.Product.where(Model.Product.CategoryId == Model.Category.CategoryId))
                                             {
-                                                <li><a href="#">@item.Description</a></li>
-                                            }
-                                            <li class="divider"></li>
-                                        }
+                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                                @*foreach (var item in Model.Item1)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }*@
+                                        @*<li class="divider"></li>*@
+
                                     </ul>
                                 </li>
                             </ul>

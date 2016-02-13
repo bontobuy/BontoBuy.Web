@@ -1,11 +1,11 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -175,6 +175,7 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Admin"))
                 {
+                    ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description");
                     ModelViewModel itemToUpdate = new ModelViewModel();
                     if (id < 1)
                     {
@@ -214,6 +215,7 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Admin"))
                 {
+                    ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description", item.ItemId);
                     if (item == null)
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");

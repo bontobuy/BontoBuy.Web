@@ -41,4 +41,10 @@ namespace BontoBuy.Web.Models
         public string Value { get; set; }
         public string Description { get; set; }
     }
+
+    public class ModelToCartViewModel
+    {
+        public int ModelId { get; set; }
+        public int SupplierId { get; set; }
+    }
 }

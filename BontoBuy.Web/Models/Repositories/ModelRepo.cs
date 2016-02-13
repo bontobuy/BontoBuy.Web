@@ -48,6 +48,7 @@ namespace BontoBuy.Web.Models
             if (!(String.IsNullOrWhiteSpace(item.ModelNumber)))
             {
                 currentrecord.ModelNumber = item.ModelNumber;
+                currentrecord.Price = item.Price;
                 db.SaveChanges();
                 return currentrecord;
             }

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.SupplierGetModelSpecViewModel>
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="col-md-9">
+    <h2>@ViewBag.Title</h2>
+    @using (Html.BeginForm())
+    {
+        <table class="table">
+            @Html.ValidationSummary(true)
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.SpecificationId)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.ModelId)
+                    </td>
+                </tr>
+            }
+        </table>
+        <div>
+            <input type="submit" value="Create" class="btn btn-default"/>
+        </div>
+        <div>
+            @Html.ActionLink("Back to List", "SupplierRetrieveModels")
+            <hr/>
+        </div>
+    }
+</div>

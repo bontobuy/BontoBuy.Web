@@ -2,11 +2,11 @@
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    ViewBag.Title = "Retrieve";
+    ViewBag.Title = "List Of Item";
 }
 
 <div class="col-md-9">
-    <h2>List Of Item Category</h2>
+    <h2>@ViewBag.Title</h2>
 
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -36,7 +36,7 @@
                 <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.ItemId }) |
                     @Html.ActionLink("Details", "Get", new { id = item.ItemId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ItemId })
+                    @Html.ActionLink("Archive", "Archive", new { id = item.ItemId })
                 </td>
             </tr>
         }

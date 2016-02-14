@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.SupplierRetrieveModelsViewModel>
 @{
-    Layout = "~/Views/Shared/SupplierLayout.cshtml";
+    //Layout = "~/Views/Shared/SupplierLayout.cshtml";
     ViewBag.Title = "List of your Models";
 }
 
@@ -31,7 +31,7 @@
                     @Html.DisplayFor(modelItem => item.BrandName)
                 </td>
                 <td>
-                    <img src="~/images/@item.ImageUrl" width="200" height="200"/>
+                    <img src="~/Images/@item.ImageUrl" width="200" height="200"/>
                 </td>
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.ModelId }) |

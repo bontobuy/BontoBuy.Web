@@ -115,7 +115,28 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult NavigateToCart()
         {
+            string userId = User.Identity.GetUserId();
+
             List<CartViewModel> cartList = Session["Cart"] as List<CartViewModel>;
+
+            foreach (var item in cartList)
+            {
+                item.ModelName = (from m in db.Models
+                                  where m.ModelId == item.ModelId
+                                  select m.ModelNumber).FirstOrDefault();
+
+                item.ImageUrl = (from p in db.Photos
+                                 join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                                 join m in db.Models on pm.ModelId equals m.ModelId
+                                 where m.ModelId == item.ModelId
+                                 select p.ImageUrl).FirstOrDefault();
+
+                item.UnitPrice = (from m in db.Models
+                                  where m.ModelId == item.ModelId
+                                  select m.Price).FirstOrDefault();
+                item.Quantity = 1;
+                item.SubTotal = (item.Quantity * item.UnitPrice);
+            }
 
             return View(cartList);
         }

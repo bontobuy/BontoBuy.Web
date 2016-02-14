@@ -7,13 +7,14 @@ namespace BontoBuy.Web.Models
 {
     public class CartViewModel
     {
-        public int SpecificationId { get; set; }
         public int SupplierId { get; set; }
         public int ModelId { get; set; }
-        public string Value { get; set; }
-        public int ModelSpecId { get; set; }
-        public string Description { get; set; }
         public string UserId { get; set; }
+        public string ModelName { get; set; }
+        public string ImageUrl { get; set; }
+        public int UnitPrice { get; set; }
+        public int SubTotal { get; set; }
+        public int Quantity { get; set; }
 
         //  public int CustomerId { get; set; }
     }

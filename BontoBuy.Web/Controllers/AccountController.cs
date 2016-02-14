@@ -123,33 +123,36 @@ namespace BontoBuy.Web.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
-            var userProfile = (from u in db.Users
-                               where u.Id == userId
-                               select u.ActivationCode).FirstOrDefault();
-            var RolesForUser = await UserManager.GetRolesAsync(userId);
-            string password = db.Users.Where(x => x.Email == model.Email)
-                                 .Select(x => x.PasswordHash)
-                                 .Single();
-            bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
-
-            if (userProfile != null)
+            if (result.ToString() == "Success")
             {
-                return RedirectToAction("ActivateAccount");
-            }
+                var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
+                var userProfile = (from u in db.Users
+                                   where u.Id == userId
+                                   select u.ActivationCode).FirstOrDefault();
+                var RolesForUser = await UserManager.GetRolesAsync(userId);
+                string password = db.Users.Where(x => x.Email == model.Email)
+                                     .Select(x => x.PasswordHash)
+                                     .Single();
+                bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
 
-            if (userId != null && passwordMatches == true)
-            {
-                switch (RolesForUser[0].ToString())
+                if (userProfile != null)
                 {
-                    case "Supplier":
-                        return RedirectToAction("Index", "Supplier");
+                    return RedirectToAction("ActivateAccount");
+                }
 
-                    case "Admin":
-                        return RedirectToAction("Index", "Admin");
+                if (userId != null && passwordMatches == true)
+                {
+                    switch (RolesForUser[0].ToString())
+                    {
+                        case "Supplier":
+                            return RedirectToAction("Index", "Supplier");
 
-                    case "Customer":
-                        return RedirectToAction("Index", "Home");
+                        case "Admin":
+                            return RedirectToAction("Index", "Admin");
+
+                        case "Customer":
+                            return RedirectToAction("Index", "Home");
+                    }
                 }
             }
 

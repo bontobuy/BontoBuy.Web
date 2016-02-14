@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, intial scale=1.0"/>
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/SupplierCSS")
+    @Styles.Render("~/Content/JAlert")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">
@@ -71,6 +73,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/CustomJS")
+    @Scripts.Render("~/bundles/JAlert")
     @RenderSection("scripts", required: false)
 </body>
 </html>

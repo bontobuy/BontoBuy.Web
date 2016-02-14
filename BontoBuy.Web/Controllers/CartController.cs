@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -134,8 +134,9 @@ namespace BontoBuy.Web.Controllers
                 item.UnitPrice = (from m in db.Models
                                   where m.ModelId == item.ModelId
                                   select m.Price).FirstOrDefault();
-                item.Quantity = 1;
-                item.SubTotal = (item.Quantity * item.UnitPrice);
+
+                //item.Quantity = 1;
+                //item.SubTotal = (item.Quantity * item.UnitPrice);
             }
 
             return View(cartList);

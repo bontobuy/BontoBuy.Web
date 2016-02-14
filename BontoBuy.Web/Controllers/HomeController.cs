@@ -89,10 +89,12 @@ namespace BontoBuy.Web.Controllers
                     Price = item.Price,
                     BrandName = (from m in db.Models
                                  join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
                                  select b.Name).FirstOrDefault(),
                     ImageUrl = (from ph in db.Photos
                                 join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
                                 join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
                                 select ph.ImageUrl).FirstOrDefault(),
                 };
                 FeaturedList.Add(modelItem);
@@ -109,6 +111,7 @@ namespace BontoBuy.Web.Controllers
                     ImageUrl = (from ph in db.Photos
                                 join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
                                 join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
                                 select ph.ImageUrl).FirstOrDefault()
                 };
                 SlideShowList.Add(modelImage);
@@ -125,10 +128,12 @@ namespace BontoBuy.Web.Controllers
                     Price = item.Price,
                     BrandName = (from m in db.Models
                                  join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
                                  select b.Name).FirstOrDefault(),
                     ImageUrl = (from ph in db.Photos
                                 join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
                                 join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
                                 select ph.ImageUrl).FirstOrDefault(),
                 };
                 NewLaunchesList.Add(modelNewLaunch);

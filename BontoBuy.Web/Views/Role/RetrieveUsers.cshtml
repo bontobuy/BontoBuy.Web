@@ -1,38 +1,42 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.UserRoleViewModel>
 
 @{
-    ViewBag.Title = "RetrieveUsers";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "List of Users";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>RetrieveUsers</h2>
+<div class="col-md-9">
+    <div class="container">
+        <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditUser", new { id = item.UserId }) |
-            </td>
-        </tr>
-    }
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditUser", new { id = item.UserId }) |
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

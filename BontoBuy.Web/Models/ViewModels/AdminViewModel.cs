@@ -11,4 +11,10 @@ namespace BontoBuy.Web.Models
     {
         public int AdminId { get; set; }
     }
+
+    public class AdminModelStatusViewModel
+    {
+        public int ModelId { get; set; }
+        public string Status { get; set; }
+    }
 }

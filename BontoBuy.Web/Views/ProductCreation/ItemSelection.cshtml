@@ -5,6 +5,26 @@
     ViewBag.Title = "Item Category";
 }
 
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.Alert').click(function (e) {
+                e.preventDefault(5);
+                var url = '@Url.Action("CategorySelection", "ProductCreation")';
+
+                $.jAlert({
+                    'title': 'Warning! You will have to start again from Category Selection!',
+                    'closeOnClick': true,
+                    'onClose': function (alert) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script>
+}
+
 <h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
@@ -32,5 +52,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Product Selection", "ProductSelection")
+    <a href="@Url.Action("CategorySelection","ProductCreation")" class="Alert">Back</a>
 </div>

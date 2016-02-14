@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
     ViewBag.Title = "Model Creation";
 }
-
 <h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("ModelCreation", "ProductCreation", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -50,9 +49,33 @@
         </div>
     </div>
 }
+<div>
+    <a href="@Url.Action("CategorySelection","ProductCreation")" class="Alert">Back</a>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(window).on('beforeunload', function () {
+            return "All data will be discarded if you go!";
+        });
+
+        $(document).ready(function () {
+            $('.Alert').click(function (e) {
+                e.preventDefault(5);
+                var url = '@Url.Action("CategorySelection", "ProductCreation")';
+
+                $.jAlert({
+                    'title': 'Warning! You will have to start again from Category Selection!',
+                    'closeOnClick': true,
+                    'onClose': function (alert) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script>
 
 }
 

@@ -493,6 +493,7 @@
     <Content Include="Content\fileinput.css" />
     <Content Include="Content\fileinput.min.css" />
     <Content Include="Content\FontConvergence.css" />
+    <Content Include="Content\jAlert-v3.css" />
     <Content Include="Content\Logo2.png" />
     <Content Include="Content\Supplier\Site.css" />
     <Content Include="favicon.ico" />
@@ -503,8 +504,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
+    <Content Include="Scripts\eModal.js" />
+    <Content Include="Scripts\eModal.min.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
+    <Content Include="Scripts\jAlert-functions.js" />
+    <Content Include="Scripts\jAlert-v3.js" />
+    <Content Include="Scripts\jAlert-v3.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

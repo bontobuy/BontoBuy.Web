@@ -330,6 +330,10 @@
     <Compile Include="Migrations\201602121349209_Resolve Conflict.Designer.cs">
       <DependentUpon>201602121349209_Resolve Conflict.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602131840025_Add Status.cs" />
+    <Compile Include="Migrations\201602131840025_Add Status.Designer.cs">
+      <DependentUpon>201602131840025_Add Status.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -469,6 +473,7 @@
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\Product\UpdateViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecificationViewModel.cs" />
+    <Compile Include="Models\ViewModels\StatusViewModel.cs" />
     <Compile Include="Models\ViewModels\SupplierViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecialCategoryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -803,6 +808,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602121349209_Resolve Conflict.resx">
       <DependentUpon>201602121349209_Resolve Conflict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602131840025_Add Status.resx">
+      <DependentUpon>201602131840025_Add Status.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

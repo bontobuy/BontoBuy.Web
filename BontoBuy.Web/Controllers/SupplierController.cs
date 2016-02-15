@@ -95,8 +95,6 @@ namespace BontoBuy.Web.Controllers
                         modelList.Add(model);
                     }
 
-                    modelList.Sort();
-
                     return View(modelList);
                 }
                 return RedirectToAction("Login", "Account");

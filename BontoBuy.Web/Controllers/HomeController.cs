@@ -1,6 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -8,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -96,8 +96,12 @@ namespace BontoBuy.Web.Controllers
                                 join m in db.Models on pm.ModelId equals m.ModelId
                                 where pm.ModelId == item.ModelId
                                 select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
                 };
                 FeaturedList.Add(modelItem);
+                FeaturedList.OrderByDescending(x => x.DtCreated);
             }
 
             model.FeaturedList = FeaturedList;
@@ -135,10 +139,14 @@ namespace BontoBuy.Web.Controllers
                                 join m in db.Models on pm.ModelId equals m.ModelId
                                 where pm.ModelId == item.ModelId
                                 select ph.ImageUrl).FirstOrDefault(),
+
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
                 };
                 NewLaunchesList.Add(modelNewLaunch);
             }
-
+            NewLaunchesList.OrderByDescending(x => x.DtCreated);
             model.NewLaunchList = NewLaunchesList;
 
             return View(model);

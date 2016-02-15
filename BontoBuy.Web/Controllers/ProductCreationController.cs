@@ -278,7 +278,7 @@ namespace BontoBuy.Web.Controllers
                                       select s.SupplierId).FirstOrDefault(),
                         BrandName = "",
                         UserId = userId,
-                        ModelNumber = ""
+                        ModelNumber = "",
                     };
                     Session["SpecProd"] = specProd;
                     return View(specProd);
@@ -332,6 +332,7 @@ namespace BontoBuy.Web.Controllers
                         model.ItemId = specProd.ItemId;
                         model.BrandId = brandId;
                         model.ModelNumber = item.ModelNumber;
+                        model.DtCreated = DateTime.UtcNow;
                         db.Models.Add(model);
                         db.SaveChanges();
 

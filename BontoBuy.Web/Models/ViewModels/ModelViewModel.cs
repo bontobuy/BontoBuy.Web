@@ -30,6 +30,7 @@ namespace BontoBuy.Web.Models
         public int Price { get; set; }
         public string UserId { get; set; }
         public int SupplierId { get; set; }
+        public DateTime DtCreated { get; set; }
         public string Status { get; set; }
         public IEnumerable<ModelSpecViewModel> ModeSpecNav { get; set; }
 

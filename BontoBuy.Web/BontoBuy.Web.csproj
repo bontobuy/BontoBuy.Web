@@ -335,6 +335,10 @@
     <Compile Include="Migrations\201602131840025_Add Status.Designer.cs">
       <DependentUpon>201602131840025_Add Status.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602151815291_Add DtCreated Model.cs" />
+    <Compile Include="Migrations\201602151815291_Add DtCreated Model.Designer.cs">
+      <DependentUpon>201602151815291_Add DtCreated Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -824,6 +828,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602131840025_Add Status.resx">
       <DependentUpon>201602131840025_Add Status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602151815291_Add DtCreated Model.resx">
+      <DependentUpon>201602151815291_Add DtCreated Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

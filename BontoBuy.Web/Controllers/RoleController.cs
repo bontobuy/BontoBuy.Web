@@ -58,20 +58,24 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult RetrieveUsers()
         {
-            var records = db.Users.ToList();
-
-            var userAccountList = new List<UserRoleViewModel>();
-            foreach (var item in records)
+            if (User.IsInRole("Admin"))
             {
-                var userAccount = new UserRoleViewModel()
+                var records = db.Users.ToList();
+
+                var userAccountList = new List<UserRoleViewModel>();
+                foreach (var item in records)
                 {
-                    UserId = item.Id,
-                    Email = item.Email,
-                    Status = item.Status
-                };
-                userAccountList.Add(userAccount);
+                    var userAccount = new UserRoleViewModel()
+                    {
+                        UserId = item.Id,
+                        Email = item.Email,
+                        Status = item.Status
+                    };
+                    userAccountList.Add(userAccount);
+                }
+                return View(userAccountList);
             }
-            return View(userAccountList);
+            return RedirectToAction("Login", "Account");
         }
 
         public async Task<ActionResult> EditUser(string id)
@@ -80,58 +84,59 @@ namespace BontoBuy.Web.Controllers
             {
                 return RedirectToAction("RetrieveUsers");
             }
+            if (User.IsInRole("Admin"))
+            {
+                string userId = id;
+                var user = (from u in db.Users
+                            where u.Id == userId
+                            select u).FirstOrDefault();
+                var userRole = new UserRoleViewModel();
+                userRole.UserId = userId;
+                userRole.Email = user.Email;
+                userRole.Status = user.Status;
+                userRole.UserRoles = db.Roles.OrderBy(x => x.Name).ToList();
+                var roles = await UserManager.GetRolesAsync(user.Id);
+                userRole.CurrentRoles = new List<string>(roles);
+                userRole.CurrentRoles.Sort();
+                ViewBag.UserRoles = userRole.UserRoles
+                    .Select(r => new SelectListItem { Value = r.Name, Text = r.Name });
+                ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name");
 
-            string userId = id;
-
-            var user = (from u in db.Users
-                        where u.Id == userId
-                        select u).FirstOrDefault();
-
-            var userRole = new UserRoleViewModel();
-
-            userRole.UserId = userId;
-            userRole.Email = user.Email;
-            userRole.Status = user.Status;
-            userRole.UserRoles = db.Roles.OrderBy(x => x.Name).ToList();
-
-            var roles = await UserManager.GetRolesAsync(user.Id);
-            userRole.CurrentRoles = new List<string>(roles);
-            userRole.CurrentRoles.Sort();
-
-            ViewBag.UserRoles = userRole.UserRoles
-                .Select(r => new SelectListItem { Value = r.Name, Text = r.Name });
-            ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name");
-
-            return View(userRole);
+                return View(userRole);
+            }
+            return RedirectToAction("RetrieveUsers");
         }
 
         [HttpPost]
         public async Task<ActionResult> EditUser(UserRoleViewModel item, string roleName)
         {
-            int statusId = 1;
-            ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name", statusId);
-
-            string status = (from s in db.Statuses
-                             where s.StatusId == statusId
-                             select s.Name).FirstOrDefault();
-
-            var user = (from u in db.Users
-                        where u.Id == item.UserId
-                        select u).FirstOrDefault();
-
-            user.Status = status;
-            db.SaveChanges();
-            await UserManager.AddToRoleAsync(item.UserId, roleName);
-
-            return RedirectToAction("RetrieveUsers");
+            if (User.IsInRole("Admin"))
+            {
+                int statusId = 1;
+                ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name", statusId);
+                string status = (from s in db.Statuses
+                                 where s.StatusId == statusId
+                                 select s.Name).FirstOrDefault();
+                var user = (from u in db.Users
+                            where u.Id == item.UserId
+                            select u).FirstOrDefault();
+                user.Status = status;
+                db.SaveChanges();
+                await UserManager.AddToRoleAsync(item.UserId, roleName);
+                return RedirectToAction("RetrieveUsers");
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: Role
         public ActionResult Retrieve()
         {
-            var records = db.Roles.ToList();
-
-            return View(records);
+            if (User.IsInRole("Admin"))
+            {
+                var records = db.Roles.ToList();
+                return View(records);
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: Role/Details/5
@@ -143,7 +148,11 @@ namespace BontoBuy.Web.Controllers
         // GET: Role/Create
         public ActionResult Create()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         // POST: Role/Create
@@ -188,9 +197,13 @@ namespace BontoBuy.Web.Controllers
         // GET: Role/Edit/5
         public ActionResult Edit(string roleName)
         {
-            var role = db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            if (User.IsInRole("Admin"))
+            {
+                var role = db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                return View(role);
+            }
 
-            return View(role);
+            return RedirectToAction("Login", "Account");
         }
 
         // POST: Role/Edit/5
@@ -200,16 +213,20 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-                db.Entry(role).State = EntityState.Modified;
-                db.SaveChanges();
+                if (User.IsInRole("Admin"))
+                {
+                    // TODO: Add update logic here
+                    db.Entry(role).State = EntityState.Modified;
+                    db.SaveChanges();
 
-                return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve");
+                }
             }
             catch
             {
                 return View();
             }
+            return RedirectToAction("Login", "Account");
         }
 
         //// GET: Role/Delete/5
@@ -224,17 +241,21 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-                var role = db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-                db.Roles.Remove(role);
-                db.SaveChanges();
+                if (User.IsInRole("Admin"))
+                {
+                    // TODO: Add delete logic here
+                    var role = db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                    db.Roles.Remove(role);
+                    db.SaveChanges();
 
-                return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve");
+                }
             }
             catch (Exception ex)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
+            return RedirectToAction("Login", "Account");
         }
 
         public ActionResult ManageUserRoles()

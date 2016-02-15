@@ -19,6 +19,7 @@ namespace BontoBuy.Web.Models
         [Required]
         [RegularExpression(@"^[+]?[0-9]{1,9}(?:\.[0-9]{1,2})?$", ErrorMessage = "Please enter a correct quantity!")]
         public int Quantity { get; set; }
+        public int GrandTotal { get; set; }
 
         //  public int CustomerId { get; set; }
     }

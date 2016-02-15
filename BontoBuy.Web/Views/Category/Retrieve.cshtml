@@ -26,6 +26,7 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
+
                         @Html.ActionLink("Edit", "Update", new { id = item.CategoryId }) |
                         @Html.ActionLink("Details", "Get", new { id = item.CategoryId }) |
                         @Html.ActionLink("Archive", "Archive", new { id = item.CategoryId })

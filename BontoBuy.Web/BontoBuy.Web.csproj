@@ -632,12 +632,13 @@
     <Content Include="Views\Cart\Details.cshtml" />
     <Content Include="Views\Cart\RetrieveModels.cshtml" />
     <Content Include="Views\Model\Retrieve.cshtml" />
-    <Content Include="Views\Cart\NavigateToCart.cshtml" />
+    <Content Include="Views\Cart\NavigateToCart1.cshtml" />
     <Content Include="Views\Role\RetrieveUsers.cshtml" />
     <Content Include="Views\Role\EditUser.cshtml" />
     <Content Include="Views\Role\Retrieve.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Cart\NavigateToCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

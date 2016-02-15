@@ -1,0 +1,87 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.CartViewModel>
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<div class="col-md-12">
+    <h2>@ViewBag.Title</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubTotal)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModelId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModelName)
+                </td>
+                <td>
+                    <img src="~/images/@item.ImageUrl" width="200" height="200"/>
+                </td>
+                <td>
+                    <div class="UnitPrice" data-id="@item.UnitPrice">@item.UnitPrice</div>
+                    @*@Html.EditorFor(modelItem => item.UnitPrice, new { htmlAttributes = new { @class = "UnitPrice", @data-id="@category.CategoryId" } })*@
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.Quantity, new { htmlAttributes = new { @class = "form-control quantity" } })
+                    @Html.ValidationMessageFor(modelItem => item.Quantity, "", new { @class = "text-danger" })
+                </td>
+                @*You need to add a JS code in order to make the price appear dynamically!!*@
+                <td>
+                    @Html.EditorFor(modelItem => item.SubTotal, new { htmlAttributes = new { @class = "form-control SubTotal" } })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.quantity').blur(function () {
+                var quantity = $(this).val();
+                var unitPrice = $('.UnitPrice').attr('data-id');
+                var subTotal = (quantity * unitPrice);
+                $('.SubTotal').val(subTotal);
+                $('.SubTotal').attr('readonly', 'true');
+            });
+        });
+    </script>
+}

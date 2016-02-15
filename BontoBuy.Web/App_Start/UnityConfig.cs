@@ -43,6 +43,8 @@ namespace BontoBuy.Web.App_Start
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
+            container.RegisterType<RoleController>(new InjectionConstructor());
+            container.RegisterType<RoleController>(new InjectionConstructor());
             container.RegisterType<IBrandRepo, BrandRepo>();
             container.RegisterType<ICategoryRepo, CategoryRepo>();
             container.RegisterType<IItemRepo, ItemRepo>();

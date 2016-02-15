@@ -595,8 +595,6 @@
     <Content Include="Views\Specification\Update.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Create.cshtml" />
-    <Content Include="Views\Roles\Create.cshtml" />
-    <Content Include="Views\Roles\Retrieve.cshtml" />
     <Content Include="Views\Shared\AdminLoginPartial.cshtml" />
     <Content Include="Views\Account\LoginAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />

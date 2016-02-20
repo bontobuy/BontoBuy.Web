@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
 using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
 
@@ -313,15 +314,34 @@ namespace BontoBuy.Web.Controllers
                     if (photo != null)
                     {
                         SpecProductViewModel specProd = Session["SpecProd"] as SpecProductViewModel;
-                        int brandId;
-                        var brand = new BrandViewModel()
-                        {
-                            Name = item.BrandName
-                        };
-                        db.Brands.Add(brand);
-                        db.SaveChanges();
+                        int brandId = 0;
 
-                        brandId = brand.BrandId;
+                        //This object will allow us to use the convert to ConvertToTitleCase method
+                        var helper = new Helper();
+
+                        //Convert to Title Case
+                        item.BrandName = helper.ConvertToTitleCase(item.BrandName);
+
+                        //Check if brand name exists
+                        var brand = (from b in db.Brands
+                                     where b.Name == item.BrandName
+                                     select b).FirstOrDefault();
+
+                        if (brand == null)
+                        {
+                            var newBrand = new BrandViewModel()
+                            {
+                                Name = item.BrandName
+                            };
+                            db.Brands.Add(newBrand);
+                            db.SaveChanges();
+                            brandId = newBrand.BrandId;
+                        }
+                        if (brand != null)
+                        {
+                            brandId = brand.BrandId;
+                        }
+
                         var model = new ModelViewModel();
 
                         model.Price = item.Price;
@@ -439,7 +459,10 @@ namespace BontoBuy.Web.Controllers
                         for (item = 0; item < valueArray.Count(); item++)
                         {
                             ModelSpecViewModel modelSpec = new ModelSpecViewModel();
-
+                            if (String.IsNullOrWhiteSpace(valueArray[item]))
+                            {
+                                valueArray[item] = "n/a";
+                            }
                             modelSpec.Value = valueArray[item];
                             modelSpec.SpecificationId = Convert.ToInt32(specIdArray[item]);
                             modelSpec.ModelId = model.ModelId;

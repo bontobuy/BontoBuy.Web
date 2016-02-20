@@ -506,6 +506,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Acer E15 E5-573G-380S.jpg" />
+    <Content Include="Images\Ideapad G50-70.jpg" />
+    <Content Include="Images\Inspiron 15 3521-TS.jpg" />
+    <Content Include="Images\Inspiron 15 5558.jpg" />
+    <Content Include="Migrations\Xperia T3.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -644,7 +649,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
     <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>

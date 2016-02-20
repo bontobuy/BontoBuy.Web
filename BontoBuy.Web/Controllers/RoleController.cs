@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -122,6 +123,31 @@ namespace BontoBuy.Web.Controllers
                             select u).FirstOrDefault();
                 user.Status = status;
                 db.SaveChanges();
+
+                if (user.Status == "Active" && user.ActivationCode != null)
+                {
+                    var body = "<p>Dear Valued Customer,</p><p>This is the activation code that has been sent to you in order to validate your registration on BontoBuy</p><p>Your activation code: {0}</p>";
+                    var message = new MailMessage();
+                    message.To.Add(new MailAddress(user.Email));
+                    message.From = new MailAddress("bontobuy@gmail.com");
+                    message.Subject = "Register on BontoBuy";
+                    message.Body = string.Format(body, user.ActivationCode);
+                    message.IsBodyHtml = true;
+
+                    var smtp = new SmtpClient();
+
+                    var credential = new NetworkCredential()
+                    {
+                        UserName = "bontobuy@gmail.com",
+                        Password = "b0nt0@dmin"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
+
                 await UserManager.AddToRoleAsync(item.UserId, roleName);
                 return RedirectToAction("RetrieveUsers");
             }

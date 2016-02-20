@@ -1,8 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -12,6 +8,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -135,22 +135,25 @@ namespace BontoBuy.Web.Controllers
                                      .Single();
                 bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
 
-                if (userProfile != null)
-                {
-                    return RedirectToAction("ActivateAccount");
-                }
-
                 if (userId != null && passwordMatches == true)
                 {
                     switch (RolesForUser[0].ToString())
                     {
                         case "Supplier":
+                            if (userProfile != null)
+                            {
+                                return RedirectToAction("ActivateAccount");
+                            }
                             return RedirectToAction("Index", "Supplier");
 
                         case "Admin":
                             return RedirectToAction("Index", "Admin");
 
                         case "Customer":
+                            if (userProfile != null)
+                            {
+                                return RedirectToAction("ActivateAccount");
+                            }
                             return RedirectToAction("Index", "Home");
                     }
                 }
@@ -334,21 +337,53 @@ namespace BontoBuy.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterCustomerViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var activationCode = CodeGenerator();
+                var user = new CustomerViewModel()
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    ActivationCode = activationCode,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Name = model.FirstName + " " + model.LastName,
+                    Status = "Pending",
+                    DtCreated = DateTime.UtcNow,
+                    Street = model.Street,
+                    City = model.City,
+                    PhoneNumber = model.PhoneNumber
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var body = "<p>Dear Valued Customer,</p><p>This is the activation code that has been sent to you in order to validate your registration on BontoBuy</p><p>Your activation code: {0}</p>";
+                    var message = new MailMessage();
+                    message.To.Add(new MailAddress(model.Email));
+                    message.From = new MailAddress("bontobuy@gmail.com");
+                    message.Subject = "Register on BontoBuy";
+                    message.Body = string.Format(body, activationCode);
+                    message.IsBodyHtml = true;
+
+                    var smtp = new SmtpClient();
+
+                    var credential = new NetworkCredential()
+                    {
+                        UserName = "bontobuy@gmail.com",
+                        Password = "b0nt0@dmin"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+
+                    ApplicationUser currentUser = db.Users.Where(u => u.Email.Equals(model.Email, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                    if (user != null) UserManager.AddToRole(user.Id, "Customer");
 
                     return RedirectToAction("Index", "Manage");
                 }
@@ -425,8 +460,11 @@ namespace BontoBuy.Web.Controllers
                     Email = model.Email,
                     DtCreated = DateTime.UtcNow,
                     Name = model.Name,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     Website = model.Website,
                     Status = "Pending",
+                    PhoneNumber = model.PhoneNumber,
                     ActivationCode = activationCode
                 };
                 var result = await UserManager.CreateAsync(supplier, model.Password);
@@ -436,27 +474,6 @@ namespace BontoBuy.Web.Controllers
 
                     ApplicationUser user = db.Users.Where(u => u.Email.Equals(model.Email, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
                     if (user != null) UserManager.AddToRole(user.Id, "Supplier");
-
-                    var body = "<p>Dear Valued Customer,</p><p>This is the activation code that has been sent to you in order to validate your registration on BontoBuy</p><p>Your activation code: {0}</p>";
-                    var message = new MailMessage();
-                    message.To.Add(new MailAddress(model.Email));
-                    message.From = new MailAddress("bontobuy@gmail.com");
-                    message.Subject = "Register on BontoBuy";
-                    message.Body = string.Format(body, activationCode);
-                    message.IsBodyHtml = true;
-
-                    var smtp = new SmtpClient();
-
-                    var credential = new NetworkCredential()
-                    {
-                        UserName = "bontobuy@gmail.com",
-                        Password = "b0nt0@dmin"
-                    };
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(message);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

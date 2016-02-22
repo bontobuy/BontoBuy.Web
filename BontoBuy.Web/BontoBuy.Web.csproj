@@ -514,6 +514,8 @@
     <Content Include="Content\FontConvergence.css" />
     <Content Include="Content\jAlert-v3.css" />
     <Content Include="Content\Logo2.png" />
+    <Content Include="Content\Menu\Computers.jpg" />
+    <Content Include="Content\Menu\mobilephones-tablets.jpg" />
     <Content Include="Content\Supplier\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

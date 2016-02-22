@@ -108,11 +108,12 @@
             $('.dropdown-toggle').mouseover(function () {
                 var CategoryName = $(this).attr('data-name').toString();
                 if (CategoryName == 'Mobiles & Tablets') {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Admin/sidebar-4.jpg)')
+                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/mobilephones-tablets.jpg)')
                 }
                 else if (CategoryName == 'Computers') {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Admin/sidebar-5.jpg)')
+                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Computers.jpg)')
                 }
+                else $('.mega-sidebar-menu').css('background', 'Transparent)');
             });
         });
     </script>
@@ -201,7 +202,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-id="@category.CategoryId" data-name="@category.Description"> @category.Description <span class="caret"></span></a>
                             <ul class="dropdown-menu mega-sidebar-menu">
                                 <li class="col-md-6">
-                                    @if (category.CategoryId == 1)
+                                    @if (category.Description == "Mobiles & Tablets")
                                     {
                                         <ul id="ProductList">
                                             @foreach (var product in Model.ProductRecordsC1)
@@ -226,6 +227,128 @@
                                                 if (product.ProductId == 3)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP3)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 4)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP4)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 5)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP5)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 6)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP6)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 7)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP7)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+                                                <li class="divider"></li>
+                                            }
+                                        </ul>
+                                    }
+
+                                    @if (category.Description == "Computers")
+                                    {
+                                        <ul id="ProductList">
+                                            @foreach (var product in Model.ProductRecordsC2)
+                                            {
+                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                                if (product.ProductId == 8)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP8)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 9)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP9)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 10)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP10)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 11)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP11)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 12)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP12)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 13)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP13)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 14)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP14)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 15)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP15)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 16)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP16)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 17)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP17)
                                                     {
                                                         <li><a href="#">@item.Description</a></li>
                                                     }

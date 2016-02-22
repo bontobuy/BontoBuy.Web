@@ -120,7 +120,7 @@ namespace BontoBuy.Web.Controllers
             //Products for CategoryId = 1
             var productRecordsC1 = (from prod in db.Products
                                     join cat in db.Categories on prod.CategoryId equals cat.CategoryId
-                                    where cat.CategoryId == 1
+                                    where cat.Description == "Mobiles & Tablets"
                                     where prod.Status == "Active"
                                     select prod).ToList();
 
@@ -157,6 +157,42 @@ namespace BontoBuy.Web.Controllers
 
             model.ItemRecordsP3 = itemList3;
 
+            //Items for ProductId = 4
+            var itemList4 = (from i in db.Items
+                             join p in db.Products on i.ProductId equals p.ProductId
+                             where i.ProductId == 4
+                             where i.Status == "Active"
+                             select i).ToList();
+
+            model.ItemRecordsP4 = itemList4;
+
+            //Items for ProductId = 5
+            var itemList5 = (from i in db.Items
+                             join p in db.Products on i.ProductId equals p.ProductId
+                             where i.ProductId == 5
+                             where i.Status == "Active"
+                             select i).ToList();
+
+            model.ItemRecordsP5 = itemList5;
+
+            //Items for ProductId = 6
+            var itemList6 = (from i in db.Items
+                             join p in db.Products on i.ProductId equals p.ProductId
+                             where i.ProductId == 6
+                             where i.Status == "Active"
+                             select i).ToList();
+
+            model.ItemRecordsP6 = itemList6;
+
+            //Items for ProductId = 7
+            var itemList7 = (from i in db.Items
+                             join p in db.Products on i.ProductId equals p.ProductId
+                             where i.ProductId == 7
+                             where i.Status == "Active"
+                             select i).ToList();
+
+            model.ItemRecordsP7 = itemList7;
+
             //Products for CategoryId = 2
             var productRecordsC2 = (from prod in db.Products
                                     join cat in db.Categories on prod.CategoryId equals cat.CategoryId
@@ -170,34 +206,97 @@ namespace BontoBuy.Web.Controllers
             }
             model.ProductRecordsC2 = productRecordsC2;
 
-            //Items for ProductId = 1
-            var itemListC2P2 = (from i in db.Items
-                                join p in db.Products on i.ProductId equals p.ProductId
-                                join c in db.Categories on p.CategoryId equals c.CategoryId
-                                where c.CategoryId == 2
-                                where i.ProductId == 1
-                                where i.Status == "Active"
-                                select i).ToList();
+            //Items for ProductId = 8
+            var itemListP8 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              join c in db.Categories on p.CategoryId equals c.CategoryId
+                              where i.ProductId == 8
+                              where i.Status == "Active"
+                              select i).ToList();
 
-            model.ItemRecordsP1 = itemList1;
+            model.ItemRecordsP8 = itemListP8;
 
-            ////Items for ProductId = 2
-            //var itemList2 = (from i in db.Items
-            //                 join p in db.Products on i.ProductId equals p.ProductId
-            //                 where i.ProductId == 2
-            //                 where i.Status == "Active"
-            //                 select i).ToList();
+            //Items for ProductId = 9
+            var itemListP9 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              join c in db.Categories on p.CategoryId equals c.CategoryId
+                              where i.ProductId == 9
+                              where i.Status == "Active"
+                              select i).ToList();
 
-            //model.ItemRecordsP2 = itemList2;
+            model.ItemRecordsP9 = itemListP9;
 
-            ////Items for ProductId = 3
-            //var itemList3 = (from i in db.Items
-            //                 join p in db.Products on i.ProductId equals p.ProductId
-            //                 where i.ProductId == 3
-            //                 where i.Status == "Active"
-            //                 select i).ToList();
+            //Items for ProductId = 10
+            var itemList10 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 10
+                              where i.Status == "Active"
+                              select i).ToList();
 
-            //model.ItemRecordsP3 = itemList3;
+            model.ItemRecordsP10 = itemList10;
+
+            //Items for ProductId = 11
+            var itemList11 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 11
+                              where i.Status == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP11 = itemList11;
+
+            //Items for ProductId = 12
+            var itemList12 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 12
+                              where i.Status == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP12 = itemList12;
+
+            //Items for ProductId = 13
+            var itemList13 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 13
+                              where i.Status == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP13 = itemList13;
+
+            //Items for ProductId = 14
+            var itemList14 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 14
+                              where i.Status == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP14 = itemList14;
+
+            //Items for ProductId = 15
+            var itemList15 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 15
+                              where i.Status == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP15 = itemList15;
+
+            //Items for ProductId = 16
+            var itemList16 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 16
+                              where i.Status == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP16 = itemList16;
+
+            //Items for ProductId = 17
+            var itemList17 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 17
+                              where i.Status == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP17 = itemList17;
 
             var modelRecords = _modelRepository.Retrieve();
             var FeaturedList = new List<HomeCatalogViewModel>();

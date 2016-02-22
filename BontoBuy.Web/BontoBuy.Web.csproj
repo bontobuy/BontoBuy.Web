@@ -523,7 +523,6 @@
     <Content Include="Images\Ideapad G50-70.jpg" />
     <Content Include="Images\Inspiron 15 3521-TS.jpg" />
     <Content Include="Images\Inspiron 15 5558.jpg" />
-    <Content Include="Migrations\Xperia T3.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -659,6 +658,9 @@
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\Cart\NavigateToCart.cshtml" />
+    <Content Include="Views\Role\RetrieveSuppliers.cshtml" />
+    <Content Include="Views\Role\RetrieveCustomers.cshtml" />
+    <Content Include="Views\Role\ManageRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

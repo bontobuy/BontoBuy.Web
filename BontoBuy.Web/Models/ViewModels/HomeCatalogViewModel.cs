@@ -19,4 +19,10 @@ namespace BontoBuy.Web.Models
         public string PhysicalPath { get; set; }
         public DateTime DtCreated { get; set; }
     }
+
+    public class ModelFullDetails : HomeCatalogViewModel
+    {
+        public int SpecialCategoryId { get; set; }
+        public string SpecialCategoryName { get; set; }
+    }
 }

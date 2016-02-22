@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -6,8 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -28,6 +28,65 @@ namespace BontoBuy.Web.Controllers
             //_productRepository = prodRepo;
             //_itemRepository = iteRepo;
         }
+
+        public ActionResult Error404()
+        {
+            return View();
+        }
+
+        public ActionResult ModelDetails(int id)
+        {
+            dynamic model = new ExpandoObject();
+
+            if (id < 0)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            var modelDetails = new HomeCatalogViewModel()
+            {
+                ModelId = id,
+                ModelNumber = db.Models.Find(id).ModelNumber,
+                Price = db.Models.Find(id).Price,
+                BrandName = (from m in db.Models
+                             join b in db.Brands on m.BrandId equals b.BrandId
+                             where m.ModelId == id
+                             select b.Name).FirstOrDefault(),
+                ImageUrl = (from ph in db.Photos
+                            join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                            join m in db.Models on pm.ModelId equals m.ModelId
+                            where pm.ModelId == id
+                            select ph.ImageUrl).FirstOrDefault()
+            };
+            model.Info = modelDetails;
+
+            var OverviewSpec = (from spec in db.Specifications
+                                join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                where specialCat.Description == "Overview"
+                                select spec).ToList();
+
+            var modelOverviewSpec = new List<ModelFullDetails>();
+            foreach (var spec in OverviewSpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelOverviewSpec.Add(modelSpec);
+                ViewBag.Overview = (from special in db.SpecialCategories
+                                    where special.Description == "Overview"
+                                    select special.Description).FirstOrDefault();
+            }
+            model.Overview = modelOverviewSpec;
+            return View(model);
+        }
+
         public ActionResult Index()
         {
             dynamic model = new ExpandoObject();
@@ -37,6 +96,7 @@ namespace BontoBuy.Web.Controllers
             {
                 return HttpNotFound();
             }
+            model.Category = categoryRecords;
 
             //var productList = new List<ProductViewModel>();
 
@@ -46,37 +106,94 @@ namespace BontoBuy.Web.Controllers
             //    {
             //        Description = (from p in db.Products
             //                       join c in db.Categories on p.CategoryId equals c.CategoryId
-            //                       where p.CategoryId == category.CategoryId
-            //                       select p.Description).FirstOrDefault()
+            //                       where p.Status == "Active"
+            //                       select p.Description).FirstOrDefault(),
+            //        CategoryId = category.CategoryId
             //    };
             //    productList.Add(product);
             //}
 
-            //var productRecords = from prod in db.Products
-            //                     join cat in db.Categories on prod.CategoryId equals cat.CategoryId
-            //                     where cat.CategoryId == 1
-            //                     where prod.Status == "Active"
-            //                     select prod;
+            //Products for CategoryId = 1
+            var productRecordsC1 = (from prod in db.Products
+                                    join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                    where cat.CategoryId == 1
+                                    where prod.Status == "Active"
+                                    select prod).ToList();
 
-            //if (productRecords == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            if (productRecordsC1 == null)
+            {
+                return HttpNotFound();
+            }
+            model.ProductRecordsC1 = productRecordsC1;
 
-            //var itemRecords1 = from item in db.Items
-            //                   join prod in db.Products on item.ProductId equals prod.ProductId
-            //                   where prod.ProductId == 1
-            //                   where item.Status == "Active"
-            //                   select item;
-            //if (itemRecords1 == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            //Items for ProductId = 1
+            var itemList1 = (from i in db.Items
+                             join p in db.Products on i.ProductId equals p.ProductId
+                             where i.ProductId == 1
+                             where i.Status == "Active"
+                             select i).ToList();
 
-            model.Category = categoryRecords;
+            model.ItemRecordsP1 = itemList1;
 
-            //model.Product = productRecords;
-            //model.Item1 = itemRecords1;
+            //Items for ProductId = 2
+            var itemList2 = (from i in db.Items
+                             join p in db.Products on i.ProductId equals p.ProductId
+                             where i.ProductId == 2
+                             where i.Status == "Active"
+                             select i).ToList();
+
+            model.ItemRecordsP2 = itemList2;
+
+            //Items for ProductId = 3
+            var itemList3 = (from i in db.Items
+                             join p in db.Products on i.ProductId equals p.ProductId
+                             where i.ProductId == 3
+                             where i.Status == "Active"
+                             select i).ToList();
+
+            model.ItemRecordsP3 = itemList3;
+
+            //Products for CategoryId = 2
+            var productRecordsC2 = (from prod in db.Products
+                                    join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                    where cat.CategoryId == 2
+                                    where prod.Status == "Active"
+                                    select prod).ToList();
+
+            if (productRecordsC2 == null)
+            {
+                return HttpNotFound();
+            }
+            model.ProductRecordsC2 = productRecordsC2;
+
+            //Items for ProductId = 1
+            var itemListC2P2 = (from i in db.Items
+                                join p in db.Products on i.ProductId equals p.ProductId
+                                join c in db.Categories on p.CategoryId equals c.CategoryId
+                                where c.CategoryId == 2
+                                where i.ProductId == 1
+                                where i.Status == "Active"
+                                select i).ToList();
+
+            model.ItemRecordsP1 = itemList1;
+
+            ////Items for ProductId = 2
+            //var itemList2 = (from i in db.Items
+            //                 join p in db.Products on i.ProductId equals p.ProductId
+            //                 where i.ProductId == 2
+            //                 where i.Status == "Active"
+            //                 select i).ToList();
+
+            //model.ItemRecordsP2 = itemList2;
+
+            ////Items for ProductId = 3
+            //var itemList3 = (from i in db.Items
+            //                 join p in db.Products on i.ProductId equals p.ProductId
+            //                 where i.ProductId == 3
+            //                 where i.Status == "Active"
+            //                 select i).ToList();
+
+            //model.ItemRecordsP3 = itemList3;
 
             var modelRecords = _modelRepository.Retrieve();
             var FeaturedList = new List<HomeCatalogViewModel>();
@@ -116,7 +233,8 @@ namespace BontoBuy.Web.Controllers
                                 join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
                                 join m in db.Models on pm.ModelId equals m.ModelId
                                 where pm.ModelId == item.ModelId
-                                select ph.ImageUrl).FirstOrDefault()
+                                select ph.ImageUrl).FirstOrDefault(),
+                    ModelId = item.ModelId
                 };
                 SlideShowList.Add(modelImage);
             }
@@ -187,6 +305,43 @@ namespace BontoBuy.Web.Controllers
             {
                 var ItemList = db.Items.Where(i => i.ProductId == id).ToList();
                 return Json(ItemList);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message });
+            }
+        }
+
+        public JsonResult GetNewModels()
+        {
+            try
+            {
+                var ModelRecords = _modelRepository.Retrieve().OrderByDescending(i => i.DtCreated).Take(4);
+                var NewModelList = new List<HomeCatalogViewModel>().ToList();
+                foreach (var item in ModelRecords)
+                {
+                    var NewModel = new HomeCatalogViewModel()
+                    {
+                        ModelId = item.ModelId,
+                        ModelNumber = item.ModelNumber,
+                        Price = item.Price,
+                        BrandName = (from m in db.Models
+                                     join b in db.Brands on m.BrandId equals b.BrandId
+                                     where m.ModelId == item.ModelId
+                                     select b.Name).FirstOrDefault(),
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == item.ModelId
+                                    select ph.ImageUrl).FirstOrDefault(),
+
+                        DtCreated = (from m in db.Models
+                                     where m.ModelId == item.ModelId
+                                     select m.DtCreated).FirstOrDefault()
+                    };
+                    NewModelList.Add(NewModel);
+                }
+                return Json(NewModelList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

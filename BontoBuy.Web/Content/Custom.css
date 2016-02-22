@@ -79,12 +79,14 @@
 }
 
 #myCarousel {
-    background: #2f4357;
+    background: transparent;
     margin-top: 20px;
 }
 
     #myCarousel .item img {
         margin: 0 auto;
+        width: 600px;
+        height: 250px;
     }
 
 .slideshow {

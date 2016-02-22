@@ -102,58 +102,91 @@
 </style>
 
 @section scripts{
+
     <script type="text/javascript">
-
         $(document).ready(function () {
-            var hasBeenAppended = false;
             $('.dropdown-toggle').mouseover(function () {
-                var CategoryId = $(this).attr('data-id');
-                var ProductId = [];
-                //alert(id);
-                $.ajax({
-                    url: '/Home/GetProductsForCategory/',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: { id: CategoryId },
-                    success: function (data) {
-                        //alert('Data is on javascript!')
-                        if (!hasBeenAppended) {
-                            $(data).each(function (Index, item) {
-                                hasBeenAppended = true;
-                                //$('ProductList').append($(document.createElement("a")).attr({
-                                //    href: '',
-                                //    'data-id': item.ProductId
-                                //}))
-                                $('#ProductList').append($('<li></li>').val(item.ProductId).html(item.Description)).addClass('sidebar-header');
-                                //ProductId[Index] = item.ProductId;
-                                //$('#ProductList').append("<li>" + item.Description + "</li>").addClass('sidebar-header');
-                            });
-                        }
-                    }
-                });
-
-                //        //$('.ProductList').mouseover(function () {
-                //        //    $.ajax({
-                //        //        url: '/Home/GetItemsForProduct/',
-                //        //        type: 'POST',
-                //        //        dataType: 'json',
-                //        //        data: { id: ProductId },
-                //        //        success: function (data) {
-                //        //            //alert('Data is on javascript!')
-                //        //            if (!hasBeenAppended) {
-                //        //                $(data).each(function (Index, item) {
-                //        //                    hasBeenAppended = true;
-                //        //                    $('#ItemList').append($('<li></li>').val(item.ItemId).html(item.Description));
-                //        //                    //$('#ProductList').append("<li>" + item.Description + "</li>").addClass('sidebar-header');
-                //        //                });
-                //        //            }
-                //        //        }
-                //        //    });
-                //        //});
-
+                var CategoryName = $(this).attr('data-name').toString();
+                if (CategoryName == 'Mobiles & Tablets') {
+                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Admin/sidebar-4.jpg)')
+                }
+                else if (CategoryName == 'Computers') {
+                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Admin/sidebar-5.jpg)')
+                }
             });
         });
     </script>
+
+    @*<script type="text/javascript">
+
+            $(document).ready(function () {
+                var hasBeenAppended = false;
+                $('.dropdown-toggle').mouseover(function () {
+                    var CategoryId = $(this).attr('data-id');
+                    var ProductId;
+                    //alert(id);
+                    $.ajax({
+                        url: '/Home/GetProductsForCategory/',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { id: CategoryId },
+                        success: function (data) {
+                            //alert('Data is on javascript!')
+                            if (!hasBeenAppended) {
+                                $(data).each(function (Index, item) {
+                                    hasBeenAppended = true;
+                                    //$('ProductList').append($(document.createElement("a")).attr({
+                                    //    href: '',
+                                    //    'data-id': item.ProductId
+                                    //}))
+                                    $('#ProductList').append($('<li class="sidebar-header"></li>').val(item.ProductId).html(item.Description));
+                                    //$('#ProductList').append("<li>" + item.Description + "</li>").addClass('sidebar-header');
+                                    ProductId = item.ProductId;
+                                    //alert(ProductId);
+
+                                    $.ajax({
+                                        url: '/Home/GetItemsForProduct/',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: { id: ProductId },
+                                        success: function (data) {
+                                            alert('Data is on javascript!')
+                                            if (true) {
+                                                $(data).each(function (Index, item) {
+                                                    hasBeenAppended = true;
+                                                    if (ProductId = item.ProductId) {
+                                                        $('#ProductList').append($('<li></li>').val(item.ItemId).html(item.Description));
+                                                    }
+
+                                                    //$('#ProductList').append("<li>" + item.Description + "</li>").addClass('sidebar-header');
+                                                });
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    });
+                });
+
+                //$('#newLaunchNext').click(function () {
+
+                //    $.ajax({
+                //        url: '/Home/GetNewModels/',
+                //        type: 'GET',
+                //        dataType: 'json',
+                //        success: function (data) {
+                //            $(data).each(function (index, item) {
+                //                alert('Warning!' + item.ModelNumber);
+
+                //                $('.carousel-inner').append($('<div class="item"><div class="row"><div class="col-sm-3"><div class="col-item"><div class="info"><div class="row"> <div class="price col-md-6"><h5>' + item.ModelNumber + '</h5><h5 class="price-text-color">' + item.Price + '</h5></div><div class="rating hidden-sm col-md-6"><i class="price-text-color glyphicon glyphicon-star"></i><i class="price-text-color glyphicon glyphicon-star"></i></div></div></div><div class="photo"><img src="~/images/' + item.ImageUrl + '" class="img-responsive" width="360" height="250" alt="' + item.ModelNumber + '"/></div><div class="info"><div class="separator clear-left"><p class="btn-add"><i class="glyphicon glyphicon-shopping-cart"></i></div><div class="clearfix"></div></div></div></div></div></div>'));
+
+                //            });
+                //        }
+                //    });
+                //});
+            });
+        </script>*@
 
 }
 <div class="container">
@@ -165,20 +198,42 @@
                     @foreach (var category in Model.Category)
                     {
                         <li class="dropdown mega-sidebar">
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown" data-id="@category.CategoryId"> @category.Description <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-id="@category.CategoryId" data-name="@category.Description"> @category.Description <span class="caret"></span></a>
                             <ul class="dropdown-menu mega-sidebar-menu">
-                                <li class="col-md-4">
-                                    <ul id="ProductList">
-                                        @*@foreach (var product in Model.Product.where(Model.Product.CategoryId == Model.Category.CategoryId))
+                                <li class="col-md-6">
+                                    @if (category.CategoryId == 1)
+                                    {
+                                        <ul id="ProductList">
+                                            @foreach (var product in Model.ProductRecordsC1)
                                             {
-                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                            @*foreach (var item in Model.Item1)
-                                            {
-                                            <li><a href="#">@item.Description</a></li>
-                                            }*@
-                                        @*
-                                            <li class="divider"></li>*@
-                                    </ul>
+                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                                if (product.ProductId == 1)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP1)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 2)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP2)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+
+                                                if (product.ProductId == 3)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP3)
+                                                    {
+                                                        <li><a href="#">@item.Description</a></li>
+                                                    }
+                                                }
+                                                <li class="divider"></li>
+                                            }
+                                        </ul>
+                                    }
                                 </li>
                             </ul>
                         </li>
@@ -412,7 +467,7 @@
                         @foreach (var item in Model.SlideShow)
                         {
                             <div class="item">
-                                <img src="~/images/@item.ImageUrl" alt="@item.ModelNumber" width="500" height="250">
+                                <a href="~/Home/ModelDetails/@item.ModelId"><img src="~/images/@item.ImageUrl" alt="@item.ModelNumber" /></a>
                             </div>
                         }
                         @*<div class="item">
@@ -436,7 +491,7 @@
         {
             <div class="col-md-4" data-id="@item.ModelId">
                 <div>
-                    <img src="~/images/@item.ImageUrl" alt="" class="img-rounded img-thumbnail" width="250" height="250"/>
+                    <img src="~/images/@item.ImageUrl" alt="" class="img-rounded" width="200" height="200"/>
                     <h2>@item.ModelNumber</h2>
                     <p style="text-align: left;">
                         <span class="glyphicon glyphicon-info-sign"></span>
@@ -461,17 +516,17 @@
                 <h3>New Launches</h3>
             </div>
             <div class="col-md-3">
-                <!-- Controls -->
+                <!--Controls-->
                 <div class="controls pull-right hidden-xs">
                     <a class="btn glyphicon glyphicon-chevron-left" href="#carousel-new-launches"
-                       data-slide="prev"></a><a class="btn glyphicon glyphicon-chevron-right" href="#carousel-new-launches"
+                       data-slide="prev"></a><a class="btn glyphicon glyphicon-chevron-right" id="newLaunchNext" href="#carousel-new-launches"
                                                 data-slide="next"></a>
                 </div>
             </div>
         </div>
         <div id="carousel-new-launches" class="carousel slide hidden-xs" data-ride="carousel">
             <!-- Wrapper for slides -->
-            <div class="carousel-inner">
+            <div class="carousel-inner" id="ProductSlider">
                 <div class="item active">
                     <div class="row">
                         @foreach (var item in Model.NewLaunchList)
@@ -491,7 +546,45 @@
                                         </div>
                                     </div>
                                     <div class="photo">
-                                        <img src="~/images/@item.ImageUrl" class="img-responsive" width="360" height="250" alt="@item.ModelNumber"/>
+                                        <img src="~/images/@item.ImageUrl" width="360" height="100" alt="@item.ModelNumber"/>
+                                    </div>
+                                    <div class="info">
+                                        <div class="separator clear-left">
+                                            <p class="btn-add">
+                                                <i class="glyphicon glyphicon-shopping-cart"></i>@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { id = item.ModelId }, new { @class = "btn btn-primary" })
+                                            </p>
+                                            <p class="btn-details">
+                                                <i class="glyphicon glyphicon-list"></i>@Html.ActionLink("Details»", "ModelDetails", new { id = item.ModelId }, new { @class = "btn btn-info" })
+                                            </p>
+                                        </div>
+                                        <div class="clearfix">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="row">
+                        @foreach (var item in Model.NewLaunchList)
+                        {
+                            <div class="col-sm-3">
+                                <div class="col-item">
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="price col-md-6">
+                                                <h5>@item.ModelNumber</h5>
+                                                <h5 class="price-text-color">@item.Price</h5>
+                                            </div>
+                                            <div class="rating hidden-sm col-md-6">
+                                                <i class="price-text-color glyphicon glyphicon-star"></i>
+                                                <i class="price-text-color glyphicon glyphicon-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo">
+                                        <img src="~/images/@item.ImageUrl" width="360" height="100" alt="@item.ModelNumber"/>
                                     </div>
                                     <div class="info">
                                         <div class="separator clear-left">

@@ -61,7 +61,7 @@ namespace BontoBuy.Web.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                var records = db.Users.ToList();
+                var records = db.Suppliers.ToList();
 
                 var userAccountList = new List<UserRoleViewModel>();
                 foreach (var item in records)
@@ -77,6 +77,55 @@ namespace BontoBuy.Web.Controllers
                 return View(userAccountList);
             }
             return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult RetrieveSuppliers()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                var records = db.Suppliers.ToList();
+
+                var userAccountList = new List<UserRoleViewModel>();
+                foreach (var item in records)
+                {
+                    var userAccount = new UserRoleViewModel()
+                    {
+                        UserId = item.Id,
+                        Email = item.Email,
+                        Status = item.Status
+                    };
+                    userAccountList.Add(userAccount);
+                }
+                return View(userAccountList);
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult RetrieveCustomers()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                var records = db.Customers.ToList();
+
+                var userAccountList = new List<UserRoleViewModel>();
+                foreach (var item in records)
+                {
+                    var userAccount = new UserRoleViewModel()
+                    {
+                        UserId = item.Id,
+                        Email = item.Email,
+                        Status = item.Status
+                    };
+                    userAccountList.Add(userAccount);
+                }
+                return View(userAccountList);
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult ManageRoles()
+        {
+            return View();
         }
 
         public async Task<ActionResult> EditUser(string id)

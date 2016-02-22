@@ -245,7 +245,7 @@ namespace BontoBuy.Web.Controllers
             model.SlideShow = SlideShowList;
 
             var NewLaunchesList = new List<HomeCatalogViewModel>();
-            foreach (var item in modelRecords.Take(4))
+            foreach (var item in modelRecords.OrderByDescending(x => x.DtCreated).Take(4))
             {
                 var modelNewLaunch = new HomeCatalogViewModel()
                 {
@@ -268,7 +268,7 @@ namespace BontoBuy.Web.Controllers
                 };
                 NewLaunchesList.Add(modelNewLaunch);
             }
-            NewLaunchesList.OrderByDescending(x => x.DtCreated);
+
             model.NewLaunchList = NewLaunchesList;
 
             return View(model);

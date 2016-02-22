@@ -149,10 +149,13 @@
                         <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-arrow-down"></i> Users & Roles</a>
                         <ul id="demo" class="dropdown-menu">
                             <li>
-                                <a href="@Url.Action("RetrieveUsers","Role")">List of Roles</a>
+                                <a href="@Url.Action("RetrieveSuppliers","Role")">List of Suppliers</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Create","Role")">Add new Role</a>
+                                <a href="@Url.Action("RetrieveCustomers","Role")">List of Customers</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ManageRoles", "Role")">Manage Roles</a>
                             </li>
                         </ul>
                     </li>

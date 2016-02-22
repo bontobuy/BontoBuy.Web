@@ -1,4 +1,4 @@
-﻿@model BontoBuy.Web.Models.RegisterViewModel
+﻿@model BontoBuy.Web.Models.RegisterCustomerViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -139,6 +139,20 @@
         @Html.AntiForgeryToken()
         <h4>Create a new account.</h4>
         <hr/>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-3 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "enter valid email" })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName, new { @class = "col-md-3 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "enter valid email" })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
             <div class="col-md-5">

@@ -339,6 +339,18 @@
     <Compile Include="Migrations\201602151815291_Add DtCreated Model.Designer.cs">
       <DependentUpon>201602151815291_Add DtCreated Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602200749083_Edit ApplicationUser FirstandLastName.cs" />
+    <Compile Include="Migrations\201602200749083_Edit ApplicationUser FirstandLastName.Designer.cs">
+      <DependentUpon>201602200749083_Edit ApplicationUser FirstandLastName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602200819212_Add CustomerVM.cs" />
+    <Compile Include="Migrations\201602200819212_Add CustomerVM.Designer.cs">
+      <DependentUpon>201602200819212_Add CustomerVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602200927138_Add IdentityToCustomerId.cs" />
+    <Compile Include="Migrations\201602200927138_Add IdentityToCustomerId.Designer.cs">
+      <DependentUpon>201602200927138_Add IdentityToCustomerId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IProductCreationRepo.cs" />
     <Compile Include="Models\Interfaces\ISpecificationRepo.cs" />
     <Compile Include="Models\Interfaces\ITagRepo.cs" />
@@ -468,6 +480,7 @@
     <Compile Include="Models\ViewModels\BrandViewModel.cs" />
     <Compile Include="Models\ViewModels\CartViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\CustomerViewModel.cs" />
     <Compile Include="Models\ViewModels\HomeCatalogViewModel.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelSpecViewModel.cs" />
@@ -487,7 +500,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\404.png" />
     <Content Include="Content\Admin\sidebar-4.jpg" />
     <Content Include="Content\Admin\sidebar-5.jpg" />
     <Content Include="Content\Admin\Site.css" />
@@ -507,6 +519,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Acer E15 E5-573G-380S.jpg" />
+    <Content Include="Images\Ideapad G50-70.jpg" />
+    <Content Include="Images\Inspiron 15 3521-TS.jpg" />
+    <Content Include="Images\Inspiron 15 5558.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -642,12 +658,12 @@
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\Cart\NavigateToCart.cshtml" />
-    <Content Include="Views\Home\Error404.cshtml" />
-    <Content Include="Views\Home\ModelDetails.cshtml" />
+    <Content Include="Views\Role\RetrieveSuppliers.cshtml" />
+    <Content Include="Views\Role\RetrieveCustomers.cshtml" />
+    <Content Include="Views\Role\ManageRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
     <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>
@@ -834,6 +850,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602151815291_Add DtCreated Model.resx">
       <DependentUpon>201602151815291_Add DtCreated Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602200749083_Edit ApplicationUser FirstandLastName.resx">
+      <DependentUpon>201602200749083_Edit ApplicationUser FirstandLastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602200819212_Add CustomerVM.resx">
+      <DependentUpon>201602200819212_Add CustomerVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602200927138_Add IdentityToCustomerId.resx">
+      <DependentUpon>201602200927138_Add IdentityToCustomerId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

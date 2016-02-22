@@ -87,12 +87,27 @@ namespace BontoBuy.Web.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class RegisterCustomerViewModel : RegisterViewModel
+    {
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+    }
+
     public class RegisterSupplierViewModel : RegisterViewModel
     {
         [Required]
         [Display(Name = "Organization Name")]
         public string Name { get; set; }
-
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
         public string Website { get; set; }
     }
 

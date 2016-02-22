@@ -15,6 +15,9 @@ namespace BontoBuy.Web.Models
         public string City { get; set; }
         public string Status { get; set; }
         public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
         public string ActivationCode { get; set; }
         [Column(TypeName = "DateTime2")]
         public Nullable<DateTime> DtCreated { get; set; }
@@ -45,6 +48,7 @@ namespace BontoBuy.Web.Models
         }
 
         public DbSet<CategoryViewModel> Categories { get; set; }
+        public DbSet<CustomerViewModel> Customers { get; set; }
         public DbSet<ProductViewModel> Products { get; set; }
         public DbSet<ItemViewModel> Items { get; set; }
         public DbSet<ModelViewModel> Models { get; set; }

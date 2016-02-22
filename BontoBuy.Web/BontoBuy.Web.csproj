@@ -661,6 +661,8 @@
     <Content Include="Views\Role\RetrieveSuppliers.cshtml" />
     <Content Include="Views\Role\RetrieveCustomers.cshtml" />
     <Content Include="Views\Role\ManageRoles.cshtml" />
+    <Content Include="Views\Home\Error404.cshtml" />
+    <Content Include="Views\Home\ModelDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

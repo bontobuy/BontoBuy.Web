@@ -1,10 +1,10 @@
 namespace BontoBuy.Web.Migrations
 {
-    using BontoBuy.Web.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using BontoBuy.Web.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<BontoBuy.Web.Models.ApplicationDbContext>
     {
@@ -33,96 +33,96 @@ namespace BontoBuy.Web.Migrations
             //Do one table at a time!!!
             //Codes are placed in region for convenience
 
-            //#region Category
+            #region Category
 
-            //context.Categories.AddOrUpdate(
-            //    p => p.CategoryId,
-            //    new CategoryViewModel { Description = "Mobiles & Tablets", Status = "Active" },
-            //    new CategoryViewModel { Description = "Computers", Status = "Active" },
-            //    new CategoryViewModel { Description = "Gaming", Status = "Active" },
-            //    new CategoryViewModel { Description = "Electronics", Status = "Active" },
-            //    new CategoryViewModel { Description = "Women's Fashion", Status = "Active" },
-            //    new CategoryViewModel { Description = "Men's Fashion", Status = "Active" },
-            //    new CategoryViewModel { Description = "Kids' Fashion", Status = "Active" },
-            //    new CategoryViewModel { Description = "Home & Kitchen", Status = "Active" },
-            //    new CategoryViewModel { Description = "Sport, Fitness & Outdoor", Status = "Active" }
-            //    );
+            context.Categories.AddOrUpdate(
+                p => p.CategoryId,
+                new CategoryViewModel { Description = "Mobiles & Tablets", Status = "Active" },
+                new CategoryViewModel { Description = "Computers", Status = "Active" },
+                new CategoryViewModel { Description = "Gaming", Status = "Active" },
+                new CategoryViewModel { Description = "Electronics", Status = "Active" },
+                new CategoryViewModel { Description = "Women's Fashion", Status = "Active" },
+                new CategoryViewModel { Description = "Men's Fashion", Status = "Active" },
+                new CategoryViewModel { Description = "Kids' Fashion", Status = "Active" },
+                new CategoryViewModel { Description = "Home & Kitchen", Status = "Active" },
+                new CategoryViewModel { Description = "Sport, Fitness & Outdoor", Status = "Active" }
+                );
 
-            //#endregion Category
+            #endregion Category
 
-            //#region Product
+            #region Product
 
-            //context.Products.AddOrUpdate(
-            //    p => p.ProductId,
-            //    new ProductViewModel() { CategoryId = 1, Description = "Mobile Phones", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Mobile Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Mobile Case & Covers", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Power Banks", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Mobile Memory Cards", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Tablets", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Tablet Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Laptops", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Desktops", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Computer Components", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Printers & Inks", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Storage", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Routers & Data Cards", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Monitors", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Software", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Computer Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Office Equipment", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 3, Description = "Gaming Equipment", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Televisions", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Audio & Video", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Large Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Home Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Grooming Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Cameras", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Kitchen Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Western Wear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Footwear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Handbags", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Eyewear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Watches", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Precious Jewellery", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Fashion Jewellery", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Perfumes", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Footwear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Bags & Luggages", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Clothing", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Watches", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Men's Grooming", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Men's Jewellery", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Eyewear", Status = "Active" }
+            context.Products.AddOrUpdate(
+                p => p.ProductId,
+                new ProductViewModel() { CategoryId = 1, Description = "Mobile Phones", Status = "Active" },
+                new ProductViewModel() { CategoryId = 1, Description = "Mobile Accessories", Status = "Active" },
+                new ProductViewModel() { CategoryId = 1, Description = "Mobile Case & Covers", Status = "Active" },
+                new ProductViewModel() { CategoryId = 1, Description = "Power Banks", Status = "Active" },
+                new ProductViewModel() { CategoryId = 1, Description = "Mobile Memory Cards", Status = "Active" },
+                new ProductViewModel() { CategoryId = 1, Description = "Tablets", Status = "Active" },
+                new ProductViewModel() { CategoryId = 1, Description = "Tablet Accessories", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Laptops", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Desktops", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Computer Components", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Printers & Inks", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Storage", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Routers & Data Cards", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Monitors", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Software", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Computer Accessories", Status = "Active" },
+                new ProductViewModel() { CategoryId = 2, Description = "Office Equipment", Status = "Active" },
+                new ProductViewModel() { CategoryId = 3, Description = "Gaming Equipment", Status = "Active" },
+                new ProductViewModel() { CategoryId = 4, Description = "Televisions", Status = "Active" },
+                new ProductViewModel() { CategoryId = 4, Description = "Audio & Video", Status = "Active" },
+                new ProductViewModel() { CategoryId = 4, Description = "Large Appliances", Status = "Active" },
+                new ProductViewModel() { CategoryId = 4, Description = "Home Appliances", Status = "Active" },
+                new ProductViewModel() { CategoryId = 4, Description = "Grooming Appliances", Status = "Active" },
+                new ProductViewModel() { CategoryId = 4, Description = "Cameras", Status = "Active" },
+                new ProductViewModel() { CategoryId = 4, Description = "Kitchen Appliances", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Western Wear", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Footwear", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Handbags", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Eyewear", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Watches", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Precious Jewellery", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Fashion Jewellery", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Perfumes", Status = "Active" },
+                new ProductViewModel() { CategoryId = 5, Description = "Accessories", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Footwear", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Bags & Luggages", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Clothing", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Watches", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Accessories", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Men's Grooming", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Men's Jewellery", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Eyewear", Status = "Active" }
 
-            //    //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (2-8 Yrs.)", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 7, Description = "Boys Clothing (2-8 Yrs.)", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 7, Description = "Boyss Clothing (8-14 Yrs.)", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 7, Description = "Baby Clothing", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 7, Description = "Kids Footwear", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 7, Description = "Watches & Accessories", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 8, Description = "Kitchen Appliances", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 8, Description = "Kitchenware", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 8, Description = "Home Furnishing", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 8, Description = "Home Décor", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 8, Description = "Home Improvement", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 8, Description = "Tools & Hardware", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 8, Description = "Pet Supplies", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 9, Description = "Sports", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 9, Description = "Fitness Equipment", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 9, Description = "Fitness Accessories", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 9, Description = "Fitness Gadgets", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 9, Description = "Nutrition & Supplements", Status = "Active" },
-            //        //new ProductViewModel() { CategoryId = 9, Description = "Bags & Luggages", Status = "Active" }
-            //);
+                //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (2-8 Yrs.)", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 7, Description = "Boys Clothing (2-8 Yrs.)", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 7, Description = "Boyss Clothing (8-14 Yrs.)", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 7, Description = "Baby Clothing", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 7, Description = "Kids Footwear", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 7, Description = "Watches & Accessories", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 8, Description = "Kitchen Appliances", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 8, Description = "Kitchenware", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 8, Description = "Home Furnishing", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 8, Description = "Home Décor", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 8, Description = "Home Improvement", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 8, Description = "Tools & Hardware", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 8, Description = "Pet Supplies", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 9, Description = "Sports", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 9, Description = "Fitness Equipment", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 9, Description = "Fitness Accessories", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 9, Description = "Fitness Gadgets", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 9, Description = "Nutrition & Supplements", Status = "Active" },
+                //new ProductViewModel() { CategoryId = 9, Description = "Bags & Luggages", Status = "Active" }
+                );
 
-            //#endregion Product
+            #endregion Product
 
-            //    //Do not use!! Not Complete
+            //Do not use!! Not Complete
             context.Items.AddOrUpdate(
                 p => p.ItemId,
                 new ItemViewModel() { ProductId = 1, Description = "Smartphones", Status = "Active" },
@@ -281,6 +281,24 @@ namespace BontoBuy.Web.Migrations
                 new ItemViewModel() { ProductId = 38, Description = "Shaving Cream", Status = "Active" },
                 new ItemViewModel() { ProductId = 39, Description = "Necklaces", Status = "Active" },
                 new ItemViewModel() { ProductId = 40, Description = "Sunglasses", Status = "Active" }
+                );
+
+            context.SpecialCategories.AddOrUpdate(
+                p => p.SpecialCatId,
+                new SpecialCategoryViewModel() { Description = "Box Content", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "General", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Display", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Software", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Camera", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Connectivity", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Processor", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Memory & Storage", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Hardware", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Guarantee", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Hardware Connectivity", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Battery & Power", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Warranty", Status = "Active" }
+
                 );
         }
     }

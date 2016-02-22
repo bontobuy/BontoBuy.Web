@@ -83,6 +83,10 @@ namespace BontoBuy.Web.Controllers
                                     where special.Description == "Overview"
                                     select special.Description).FirstOrDefault();
             }
+            if (modelOverviewSpec == null)
+            {
+                model.Overview = new EmptyResult();
+            }
             model.Overview = modelOverviewSpec;
             return View(model);
         }

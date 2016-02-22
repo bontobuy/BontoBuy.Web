@@ -280,7 +280,7 @@ namespace BontoBuy.Web.Migrations
                 new ItemViewModel() { ProductId = 38, Description = "Razor", Status = "Active" },
                 new ItemViewModel() { ProductId = 38, Description = "Shaving Cream", Status = "Active" },
                 new ItemViewModel() { ProductId = 39, Description = "Necklaces", Status = "Active" },
-                new ItemViewModel() { ProductId = 40, Description = "Sunglasses", Status = "Active" },
+                new ItemViewModel() { ProductId = 40, Description = "Sunglasses", Status = "Active" }
                 );
         }
     }

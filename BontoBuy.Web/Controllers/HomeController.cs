@@ -61,7 +61,7 @@ namespace BontoBuy.Web.Controllers
 
             var OverviewSpec = (from spec in db.Specifications
                                 join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
-                                where specialCat.Description == "Overview"
+                                where specialCat.Description == "General"
                                 select spec).ToList();
 
             var modelOverviewSpec = new List<ModelFullDetails>();

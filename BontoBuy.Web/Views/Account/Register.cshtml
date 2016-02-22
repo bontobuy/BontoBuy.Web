@@ -2,6 +2,134 @@
 @{
     ViewBag.Title = "Register";
 }
+<style type="text/css">
+    .popover.primary {
+        border-color: #337ab7;
+    }
+
+        .popover.primary > .arrow {
+            border-top-color: #337ab7;
+        }
+
+        .popover.primary > .popover-title {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #337ab7;
+        }
+
+    .popover.success {
+        border-color: #d6e9c6;
+    }
+
+        .popover.success > .arrow {
+            border-top-color: #d6e9c6;
+        }
+
+        .popover.success > .popover-title {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+    .popover.info {
+        border-color: #bce8f1;
+    }
+
+        .popover.info > .arrow {
+            border-top-color: #bce8f1;
+        }
+
+        .popover.info > .popover-title {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+    .popover.warning {
+        border-color: #faebcc;
+    }
+
+        .popover.warning > .arrow {
+            border-top-color: #faebcc;
+        }
+
+        .popover.warning > .popover-title {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+    .popover.danger {
+        border-color: #ebccd1;
+    }
+
+        .popover.danger > .arrow {
+            border-top-color: #ebccd1;
+        }
+
+        .popover.danger > .popover-title {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var required = "Minimum 6 characters and must contain at least one upper case letter, one lower case letter and (one number AND one special char).";
+            //minimum 6 characters
+            //var bad = /(?=.{6,}).*/;
+            //Alpha Numeric plus minimum 6
+            //var good = /^(?=\S*?[a-z])(?=\S*?[0-9])\S{6,}$/;
+            //Must contain at least one upper case letter, one lower case letter and (one number OR one special char).
+            //var better = /^(?=\S*?[A-Z])(?=\S*?[a-z])((?=\S*?[0-9])|(?=\S*?[^\w\*]))\S{6,}$/;
+
+            //Must contain at least one upper case letter, one lower case letter and (one number AND one special char).
+            var best = /^(?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9])(?=\S*?[^\w\*])\S{6,}$/;
+
+            $('#password').on('keyup', function () {
+                var password = $(this);
+                var pass = password.val();
+                var passLabel = $('[for="password"]');
+                var strength = 'Weak';
+                var pclass = 'danger';
+                if (best.test(pass) == true) {
+                    strength = 'Very Strong';
+                    pclass = 'success';
+                } else {
+                    strength = required;
+                    pclass = 'warning';
+                }
+                //} else if (better.test(pass) == true) {
+                //    strength = 'Strong';
+                //    pclass = 'warning';
+                //} else if (good.test(pass) == true) {
+                //    strength = 'Almost Strong';
+                //    pclass = 'warning';
+                //} else if (bad.test(pass) == true) {
+                //    strength = 'Weak';
+                //} else {
+                //    strength = 'Very Weak';
+                //}
+
+                var popover = password.attr('data-content', strength).data('bs.popover');
+                popover.setContent();
+                popover.$tip.addClass(popover.options.placement).removeClass('danger success info warning primary').addClass(pclass);
+
+            });
+
+            $('input[data-toggle="popover"]').popover({
+                placement: 'top',
+                trigger: 'focus'
+            });
+
+        })
+    </script>
+}
 
 <div class="col-md-9">
     <h2>@ViewBag.Title.</h2>
@@ -42,17 +170,24 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
             <div class="col-md-5">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "lowercase and uppercase letter and, special character" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "lowercase and uppercase letter and, special character", @id = "password", @data_toggle = "popover", @title = "Password Strength", @data_content = "Password must be of atleast 6 characters consisting of one lowercase and uppercase letter and, a special character!" })
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-3 control-label" })
             <div class="col-md-5">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "lowercase and uppercase letter and, special character" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password" })
                 @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
             </div>
         </div>
+        @*<div class="form-group">
+                <label>Password</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                    <input type="text" class="form-control" name="password" id="password" placeholder="Password" required data-toggle="popover" title="Password Strength" data-content="Enter Password...">
+                </div>
+            </div>*@
         <div class="form-group">
             <div class="col-md-offset-6 col-md-10">
                 <input type="submit" class="btn btn-default" value="Register"/>
@@ -60,6 +195,3 @@
         </div>
     }
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -95,7 +95,7 @@ namespace BontoBuy.Web.Migrations
                 new ProductViewModel() { CategoryId = 6, Description = "Accessories", Status = "Active" },
                 new ProductViewModel() { CategoryId = 6, Description = "Men's Grooming", Status = "Active" },
                 new ProductViewModel() { CategoryId = 6, Description = "Men's Jewellery", Status = "Active" },
-                new ProductViewModel() { CategoryId = 6, Description = "Eyewear", Status = "Active" },
+                new ProductViewModel() { CategoryId = 6, Description = "Eyewear", Status = "Active" }
 
                 //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (2-8 Yrs.)", Status = "Active" },
                 //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
@@ -281,6 +281,24 @@ namespace BontoBuy.Web.Migrations
                 new ItemViewModel() { ProductId = 38, Description = "Shaving Cream", Status = "Active" },
                 new ItemViewModel() { ProductId = 39, Description = "Necklaces", Status = "Active" },
                 new ItemViewModel() { ProductId = 40, Description = "Sunglasses", Status = "Active" }
+                );
+
+            context.SpecialCategories.AddOrUpdate(
+                p => p.SpecialCatId,
+                new SpecialCategoryViewModel() { Description = "Box Content", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "General", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Display", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Software", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Camera", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Connectivity", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Processor", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Memory & Storage", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Hardware", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Guarantee", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Hardware Connectivity", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Battery & Power", Status = "Active" },
+                new SpecialCategoryViewModel() { Description = "Warranty", Status = "Active" }
+
                 );
         }
     }

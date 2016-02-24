@@ -6,7 +6,13 @@
 
 <div class="col-md-12">
     <h2>@ViewBag.Title</h2>
-
+    @using (Html.BeginForm("SupplierRetrieveModels", "Supplier", FormMethod.Get))
+    {
+        <p>
+            Search by Model: @Html.TextBox("SearchString") <br/>
+            <input type="submit" value="Filter"/>
+        </p>
+    }
     <table class="table">
         <tr>
             <th>

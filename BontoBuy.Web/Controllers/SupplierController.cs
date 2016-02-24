@@ -48,7 +48,7 @@ namespace BontoBuy.Web.Controllers
             return View();
         }
 
-        public ActionResult SupplierRetrieveModels()
+        public ActionResult SupplierRetrieveModels(string searchString)
         {
             try
             {
@@ -60,42 +60,85 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Supplier"))
                 {
-                    var getSupplier = (from s in db.Suppliers
-                                       where s.Id == userId
-                                       select s).FirstOrDefault();
-
-                    int supplierId = getSupplier.SupplierId;
-
-                    var retrieveModels = (from m in db.Models
-                                          join ms in db.ModelSpecs on m.ModelId equals ms.ModelId
-                                          join s in db.Suppliers on ms.SupplierId equals s.SupplierId
-                                          where ms.SupplierId == supplierId
-                                          select m).Distinct();
-
-                    var modelList = new List<SupplierRetrieveModelsViewModel>();
-
-                    foreach (var obj in retrieveModels)
+                    if (!String.IsNullOrEmpty(searchString))
                     {
-                        var model = new SupplierRetrieveModelsViewModel()
+                        var getSupplier = (from s in db.Suppliers
+                                           where s.Id == userId
+                                           select s).FirstOrDefault();
+
+                        int supplierId = getSupplier.SupplierId;
+
+                        var retrieveModels = (from m in db.Models
+                                              join ms in db.ModelSpecs on m.ModelId equals ms.ModelId
+                                              join s in db.Suppliers on ms.SupplierId equals s.SupplierId
+                                              where ms.SupplierId == supplierId
+                                              where m.ModelNumber.Contains(searchString)
+                                              select m).Distinct();
+
+                        var modelList = new List<SupplierRetrieveModelsViewModel>();
+
+                        foreach (var obj in retrieveModels)
                         {
-                            SupplierId = supplierId,
-                            ModelId = obj.ModelId,
-                            ModelNumber = obj.ModelNumber,
-                            BrandName = (from b in db.Brands
-                                         join m in db.Models on b.BrandId equals m.BrandId
-                                         where b.BrandId == obj.BrandId
-                                         select b.Name).FirstOrDefault(),
-                            ImageUrl = (from ph in db.Photos
-                                        join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
-                                        join m in db.Models on pm.ModelId equals m.ModelId
-                                        where pm.ModelId == obj.ModelId
-                                        select ph.ImageUrl).FirstOrDefault()
-                        };
+                            var model = new SupplierRetrieveModelsViewModel()
+                            {
+                                SupplierId = supplierId,
+                                ModelId = obj.ModelId,
+                                ModelNumber = obj.ModelNumber,
+                                BrandName = (from b in db.Brands
+                                             join m in db.Models on b.BrandId equals m.BrandId
+                                             where b.BrandId == obj.BrandId
+                                             select b.Name).FirstOrDefault(),
+                                ImageUrl = (from ph in db.Photos
+                                            join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                            join m in db.Models on pm.ModelId equals m.ModelId
+                                            where pm.ModelId == obj.ModelId
+                                            select ph.ImageUrl).FirstOrDefault()
+                            };
 
-                        modelList.Add(model);
+                            modelList.Add(model);
+                        }
+
+                        return View(modelList);
                     }
+                    if (String.IsNullOrEmpty(searchString))
+                    {
+                        var getSupplier = (from s in db.Suppliers
+                                           where s.Id == userId
+                                           select s).FirstOrDefault();
 
-                    return View(modelList);
+                        int supplierId = getSupplier.SupplierId;
+
+                        var retrieveModels = (from m in db.Models
+                                              join ms in db.ModelSpecs on m.ModelId equals ms.ModelId
+                                              join s in db.Suppliers on ms.SupplierId equals s.SupplierId
+                                              where ms.SupplierId == supplierId
+                                              select m).Distinct();
+
+                        var modelList = new List<SupplierRetrieveModelsViewModel>();
+
+                        foreach (var obj in retrieveModels)
+                        {
+                            var model = new SupplierRetrieveModelsViewModel()
+                            {
+                                SupplierId = supplierId,
+                                ModelId = obj.ModelId,
+                                ModelNumber = obj.ModelNumber,
+                                BrandName = (from b in db.Brands
+                                             join m in db.Models on b.BrandId equals m.BrandId
+                                             where b.BrandId == obj.BrandId
+                                             select b.Name).FirstOrDefault(),
+                                ImageUrl = (from ph in db.Photos
+                                            join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                            join m in db.Models on pm.ModelId equals m.ModelId
+                                            where pm.ModelId == obj.ModelId
+                                            select ph.ImageUrl).FirstOrDefault()
+                            };
+
+                            modelList.Add(model);
+                        }
+
+                        return View(modelList);
+                    }
                 }
                 return RedirectToAction("Login", "Account");
             }

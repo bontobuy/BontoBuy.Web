@@ -50,4 +50,29 @@ namespace BontoBuy.Web.Models
         public int ModelId { get; set; }
         public string ModelNumber { get; set; }
     }
+
+    public class ModelAdminViewModel
+    {
+        public int ModelId { get; set; }
+        public string SupplierName { get; set; }
+        public string SupplierEmail { get; set; }
+        public int SupplierId { get; set; }
+        public int Price { get; set; }
+        public string Status { get; set; }
+        public DateTime DtCreated { get; set; }
+        public string ModelNumber { get; set; }
+        public string BrandName { get; set; }
+        public string ItemName { get; set; }
+    }
+
+    public class ModelAdminRetrieveViewModel
+    {
+        public int ModelId { get; set; }
+        public string ModelNumber { get; set; }
+        public DateTime DtCreated { get; set; }
+        public string Status { get; set; }
+        public string ImageUrl { get; set; }
+        public int Price { get; set; }
+        public int SupplierId { get; set; }
+    }
 }

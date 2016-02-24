@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using BontoBuy.Web.Models;
@@ -34,12 +36,34 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Admin"))
                 {
-                    var records = _repository.Retrieve();
-                    if (records == null)
+                    //var records = _repository.Retrieve();
+                    var records = db.Models.ToList();
+                    var modelList = new List<ModelAdminRetrieveViewModel>();
+                    foreach (var item in records)
                     {
-                        return HttpNotFound();
+                        var modelItem = new ModelAdminRetrieveViewModel()
+                        {
+                            ModelId = item.ModelId,
+                            ModelNumber = item.ModelNumber,
+                            DtCreated = item.DtCreated,
+                            Status = item.Status,
+                            ImageUrl = (from ph in db.Photos
+                                        join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                        join m in db.Models on pm.ModelId equals m.ModelId
+                                        where pm.ModelId == item.ModelId
+                                        select ph.ImageUrl).FirstOrDefault(),
+                            Price = item.Price,
+                            SupplierId = item.SupplierId
+                        };
+                        modelList.Add(modelItem);
                     }
-                    return View(records);
+
+                    //if (records == null)
+                    //{
+                    //    return HttpNotFound();
+                    //}
+
+                    return View(modelList);
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -143,6 +167,7 @@ namespace BontoBuy.Web.Controllers
                     {
                         ViewBag.BrandId = new SelectList(db.Brands.Where(x => x.Status == "Active"), "BrandId", "Name", item.BrandId);
                         ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description", item.ItemId);
+
                         item.Status = "Active";
                         db.Models.Add(item);
                         db.SaveChanges();
@@ -175,7 +200,7 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Admin"))
                 {
-                    ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description");
+                    //  ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description");
                     ModelViewModel itemToUpdate = new ModelViewModel();
                     if (id < 1)
                     {
@@ -187,8 +212,30 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+                    var model = new ModelAdminViewModel()
+                    {
+                        ModelNumber = itemToUpdate.ModelNumber,
+                        ModelId = itemToUpdate.ModelId,
+                        DtCreated = itemToUpdate.DtCreated,
+                        Price = itemToUpdate.Price,
+                        Status = itemToUpdate.Status,
+                        BrandName = (from b in db.Brands
+                                     where b.BrandId == itemToUpdate.BrandId
+                                     select b.Name).FirstOrDefault(),
+                        ItemName = (from i in db.Items
+                                    where i.ItemId == itemToUpdate.ItemId
+                                    select i.Description).FirstOrDefault(),
+                        SupplierName = (from s in db.Suppliers
+                                        where s.SupplierId == itemToUpdate.SupplierId
+                                        select s.Name).FirstOrDefault(),
+                        SupplierEmail = (from s in db.Suppliers
+                                         where s.SupplierId == itemToUpdate.SupplierId
+                                         select s.Email).FirstOrDefault(),
+                        SupplierId = itemToUpdate.SupplierId
+                    };
 
-                    return View(itemToUpdate);
+                    Session["Model"] = model;
+                    return View(model);
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -200,10 +247,11 @@ namespace BontoBuy.Web.Controllers
 
         // POST: Model/Edit/5
         [HttpPost]
-        public ActionResult Update(int id, ModelViewModel item)
+        public async Task<ActionResult> Update(int id, ModelAdminViewModel model)
         {
             try
             {
+                var item = Session["Model"] as ModelAdminViewModel;
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
@@ -215,16 +263,49 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Admin"))
                 {
-                    ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description", item.ItemId);
+                    // ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description", item.ItemId);
                     if (item == null)
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
                     }
 
-                    var updatedItem = _repository.Update(id, item);
-                    if (updatedItem == null)
+                    ////var updatedItem = _repository.Update(id, item);
+                    //if (updatedItem == null)
+                    //{
+                    //    return HttpNotFound();
+                    //}
+
+                    var itemToUpdate = db.Models.Where(x => x.ModelId == item.ModelId).FirstOrDefault();
+                    itemToUpdate.Status = "Active";
+
+                    db.SaveChanges();
+
+                    if (itemToUpdate.Status == "Active")
                     {
-                        return HttpNotFound();
+                        var supplierEmail = (from s in db.Suppliers
+                                             where s.SupplierId == item.SupplierId
+                                             select s.Email).FirstOrDefault();
+
+                        var body = "<p>Dear Valued Supplier,</p><p>Your product with reference {0} has been validated</p><p>Best Regards</p><p>The BontoBuy Team</p>";
+                        var message = new MailMessage();
+                        message.To.Add(new MailAddress(supplierEmail));
+                        message.From = new MailAddress("bontobuy@gmail.com");
+                        message.Subject = "Register on BontoBuy";
+                        message.Body = string.Format(body, item.ModelNumber);
+                        message.IsBodyHtml = true;
+
+                        var smtp = new SmtpClient();
+
+                        var credential = new NetworkCredential()
+                        {
+                            UserName = "bontobuy@gmail.com",
+                            Password = "b0nt0@dmin"
+                        };
+                        smtp.Credentials = credential;
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 587;
+                        smtp.EnableSsl = true;
+                        await smtp.SendMailAsync(message);
                     }
 
                     return RedirectToAction("Retrieve");

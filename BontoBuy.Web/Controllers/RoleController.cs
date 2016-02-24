@@ -79,45 +79,82 @@ namespace BontoBuy.Web.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult RetrieveSuppliers()
+        public ActionResult RetrieveSuppliers(string searchString)
         {
             if (User.IsInRole("Admin"))
             {
-                var records = db.Suppliers.ToList();
-
                 var userAccountList = new List<UserRoleViewModel>();
-                foreach (var item in records)
+                if (!String.IsNullOrEmpty(searchString))
                 {
-                    var userAccount = new UserRoleViewModel()
+                    var records = db.Suppliers.Where(x => x.Email.Contains(searchString)).ToList();
+
+                    foreach (var item in records)
                     {
-                        UserId = item.Id,
-                        Email = item.Email,
-                        Status = item.Status
-                    };
-                    userAccountList.Add(userAccount);
+                        var userAccount = new UserRoleViewModel()
+                        {
+                            UserId = item.Id,
+                            Email = item.Email,
+                            Status = item.Status
+                        };
+                        userAccountList.Add(userAccount);
+                    }
                 }
+                if (String.IsNullOrEmpty(searchString))
+                {
+                    var records = db.Suppliers.ToList();
+
+                    foreach (var item in records)
+                    {
+                        var userAccount = new UserRoleViewModel()
+                        {
+                            UserId = item.Id,
+                            Email = item.Email,
+                            Status = item.Status
+                        };
+                        userAccountList.Add(userAccount);
+                    }
+                }
+
                 return View(userAccountList);
             }
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult RetrieveCustomers()
+        public ActionResult RetrieveCustomers(string searchString)
         {
             if (User.IsInRole("Admin"))
             {
-                var records = db.Customers.ToList();
-
                 var userAccountList = new List<UserRoleViewModel>();
-                foreach (var item in records)
+
+                if (!String.IsNullOrEmpty(searchString))
                 {
-                    var userAccount = new UserRoleViewModel()
+                    var records = db.Customers.Where(x => x.Email.Contains(searchString)).ToList();
+                    foreach (var item in records)
                     {
-                        UserId = item.Id,
-                        Email = item.Email,
-                        Status = item.Status
-                    };
-                    userAccountList.Add(userAccount);
+                        var userAccount = new UserRoleViewModel()
+                        {
+                            UserId = item.Id,
+                            Email = item.Email,
+                            Status = item.Status
+                        };
+                        userAccountList.Add(userAccount);
+                    }
                 }
+                if (String.IsNullOrEmpty(searchString))
+                {
+                    var records = db.Customers.ToList();
+                    foreach (var item in records)
+                    {
+                        var userAccount = new UserRoleViewModel()
+                        {
+                            UserId = item.Id,
+                            Email = item.Email,
+                            Status = item.Status
+                        };
+                        userAccountList.Add(userAccount);
+                    }
+                }
+
                 return View(userAccountList);
             }
             return RedirectToAction("Login", "Account");

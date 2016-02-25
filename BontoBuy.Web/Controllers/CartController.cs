@@ -1,10 +1,10 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -102,14 +102,28 @@ namespace BontoBuy.Web.Controllers
             var cartData = Session["cartData"] as ModelToCartViewModel;
             string userId = User.Identity.GetUserId();
             var cartList = new List<CartViewModel>();
-            var cartItem = new CartViewModel()
+            List<CartViewModel> updatedCartList = Session["Cart"] as List<CartViewModel>;
+            if (updatedCartList == null)
             {
-                ModelId = cartData.ModelId,
-                SupplierId = cartData.SupplierId
-            };
-            cartList.Add(cartItem);
-            Session["Cart"] = cartList;
-
+                var cartItem = new CartViewModel()
+                {
+                    ModelId = cartData.ModelId,
+                    SupplierId = cartData.SupplierId
+                };
+                cartList.Add(cartItem);
+                Session["Cart"] = cartList;
+            }
+            if (updatedCartList != null)
+            {
+                var cartItem = new CartViewModel()
+              {
+                  ModelId = cartData.ModelId,
+                  SupplierId = cartData.SupplierId
+              };
+                updatedCartList.Add(cartItem);
+                Session.Remove("Cart");
+                Session["Cart"] = updatedCartList;
+            }
             return RedirectToAction("NavigateToCart");
         }
 

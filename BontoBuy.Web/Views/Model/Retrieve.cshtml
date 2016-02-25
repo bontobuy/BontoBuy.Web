@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.ModelViewModel>
+﻿@model IEnumerable<BontoBuy.Web.Models.ModelAdminRetrieveViewModel>
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
@@ -14,15 +14,6 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BrandNav.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModelItemNav.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SupplierNav.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ModelNumber)
             </th>
             <th>
@@ -34,21 +25,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BrandNav.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModelItemNav.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SupplierNav.Id)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.ModelNumber)
                 </td>
@@ -62,12 +48,14 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
+                    <img src="~/images/@item.ImageUrl" width="200" height="200"/>
+                </td>
+                <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.ModelId }) |
                     @Html.ActionLink("Details", "Get", new { id = item.ModelId }) |
                     @Html.ActionLink("Archive", "Archive", new { id = item.ModelId })
                 </td>
             </tr>
         }
-
     </table>
 </div>

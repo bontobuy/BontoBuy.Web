@@ -1,10 +1,10 @@
 namespace BontoBuy.Web.Migrations
 {
-    using BontoBuy.Web.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using BontoBuy.Web.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<BontoBuy.Web.Models.ApplicationDbContext>
     {
@@ -283,23 +283,23 @@ namespace BontoBuy.Web.Migrations
             //    new ItemViewModel() { ProductId = 40, Description = "Sunglasses", Status = "Active" }
             //    );
 
-            context.SpecialCategories.AddOrUpdate(
-                p => p.SpecialCatId,
-                new SpecialCategoryViewModel() { Description = "Box Content", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "General", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Display", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Software", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Camera", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Connectivity", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Processor", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Memory & Storage", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Hardware", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Guarantee", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Hardware Connectivity", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Battery & Power", Status = "Active" },
-                new SpecialCategoryViewModel() { Description = "Warranty", Status = "Active" }
+            //context.SpecialCategories.AddOrUpdate(
+            //    p => p.SpecialCatId,
+            //    new SpecialCategoryViewModel() { Description = "Box Content", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "General", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Display", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Software", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Camera", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Connectivity", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Processor", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Memory & Storage", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Hardware", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Guarantee", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Hardware Connectivity", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Battery & Power", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Warranty", Status = "Active" }
 
-                );
+            //    );
         }
     }
 }

@@ -181,6 +181,7 @@
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\ProductCreationController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -674,6 +675,7 @@
     <Content Include="Views\Role\ManageRoles.cshtml" />
     <Content Include="Views\Home\Error404.cshtml" />
     <Content Include="Views\Home\ModelDetails.cshtml" />
+    <Content Include="Views\Order\Invoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -62,5 +62,6 @@ namespace BontoBuy.Web.Models
         public DbSet<ProductSpecViewModel> ProductSpecs { get; set; }
         public DbSet<PhotoModelViewModel> PhotoModels { get; set; }
         public DbSet<StatusViewModel> Statuses { get; set; }
+        public DbSet<OrderViewModel> Orders { get; set; }
     }
 }

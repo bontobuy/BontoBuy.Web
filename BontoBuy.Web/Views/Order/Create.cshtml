@@ -1,0 +1,13 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.CartViewModel>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default"/>
+        </div>
+    </div>
+
+}

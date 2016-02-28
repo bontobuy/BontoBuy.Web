@@ -37,7 +37,8 @@
                                     <h6 class="UnitPrice" data-id="@item.UnitPrice"><strong>@item.UnitPrice <span class="text-muted">x</span></strong></h6>
                                 </div>
                                 <div class="col-xs-2">
-                                    @Html.EditorFor(modelItem => item.Quantity, new { htmlAttributes = new { @class = "form-control quantity" } })
+                                    <input id="@item.ModelId" type="text" class="form-control quantity" />
+                                    @*@Html.EditorFor(modelItem => item.Quantity, new { htmlAttributes = new { @class = "form-control quantity" } })*@
                                     @Html.ValidationMessageFor(modelItem => item.Quantity, "", new { @class = "text-danger" })
                                     @*<input type="text" class="form-control input-sm" value="1">*@
                                 </div>
@@ -67,7 +68,7 @@
                 <div class="panel-footer">
                     <div class="row text-center">
                         <div class="col-xs-9">
-                            <h4 class="text-right">Total <strong>@Html.TextBox("Name"@*, new { htmlAttributes = new { @class = "form-control SubTotal" } }*@)</strong></h4>
+                            <h4 class="text-right Total">Total: <strong>@ViewBag.Total</strong></h4>
                         </div>
                         <div class="col-xs-3">
                             <button type="button" class="btn btn-success btn-block">
@@ -79,19 +80,20 @@
             </div>
         </div>
     </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('.quantity').blur(function () {
-                    var quantity = $(this).val();
-                    var unitPrice = $('.UnitPrice').attr('data-id');
-                    var subTotal = (quantity * unitPrice);
-                    $('.SubTotal').val(subTotal);
-                    $('.SubTotal').attr('readonly', 'true');
-                });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.quantity').blur(function () {
+                var quantity = $(this).val();
+                var unitPrice = $('.UnitPrice').attr('data-id');
+                var subTotal = (quantity * unitPrice);
+                $('.SubTotal').val(subTotal);
+                $('.SubTotal').attr('readonly', 'true');
+                $('.Total').text('Total: ');
             });
-        </script>
-    }
+        });
+    </script>
+}

@@ -373,6 +373,68 @@ namespace BontoBuy.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public JsonResult AddCartItem(int id)
+        {
+            try
+            {
+                var cartList = new List<CartViewModel>();
+                List<CartViewModel> updatedCartList = Session["Cart"] as List<CartViewModel>;
+                if (updatedCartList == null)
+                {
+                    var cartItem = new CartViewModel()
+                    {
+                        ModelId = id,
+                        ModelName = (from m in db.Models
+                                     where m.ModelId == id
+                                     select m.ModelNumber).FirstOrDefault(),
+                        ImageUrl = (from p in db.Photos
+                                    join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where m.ModelId == id
+                                    select p.ImageUrl).FirstOrDefault(),
+
+                        UnitPrice = (from m in db.Models
+                                     where m.ModelId == id
+                                     select m.Price).FirstOrDefault()
+                    };
+                    cartList.Add(cartItem);
+                    Session["Cart"] = cartList;
+                }
+                if (updatedCartList != null)
+                {
+                    var cartItem = new CartViewModel()
+                    {
+                        ModelId = id,
+                        ModelName = (from m in db.Models
+                                     where m.ModelId == id
+                                     select m.ModelNumber).FirstOrDefault(),
+                        ImageUrl = (from p in db.Photos
+                                    join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where m.ModelId == id
+                                    select p.ImageUrl).FirstOrDefault(),
+
+                        UnitPrice = (from m in db.Models
+                                     where m.ModelId == id
+                                     select m.Price).FirstOrDefault()
+                    };
+                    updatedCartList.Add(cartItem);
+                    Session.Remove("Cart");
+                    Session["Cart"] = updatedCartList;
+                }
+
+                List<CartViewModel> Cart = Session["Cart"] as List<CartViewModel>;
+
+                //var productList = db.Products.Where(p => p.CategoryId == id).ToList();
+                return Json(Cart);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message });
+            }
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

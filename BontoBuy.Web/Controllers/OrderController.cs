@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -77,7 +77,7 @@ namespace BontoBuy.Web.Controllers
                 new CartViewModel()
                 {
                     SupplierId=2,
-                    ModelId=1005,
+                    ModelId=1,
                     UserId= userId,
                     ModelName="Sony Xperia M",
                     UnitPrice=8000,
@@ -88,7 +88,7 @@ namespace BontoBuy.Web.Controllers
                  new CartViewModel()
                 {
                     SupplierId=2,
-                    ModelId=1005,
+                    ModelId=1,
                     UserId= userId,
                     ModelName="Xperia T3",
                     UnitPrice=10939,
@@ -132,7 +132,7 @@ namespace BontoBuy.Web.Controllers
 
                 //Just for testing purposes
                 string numberOfItems = cartList.Count.ToString();
-                return Content("Success {0} Added to Database!!", numberOfItems);
+                return Content("Success {" + numberOfItems + "} Added to Database!!");
             }
 
             return null;

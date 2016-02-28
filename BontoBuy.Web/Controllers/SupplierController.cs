@@ -198,5 +198,70 @@ namespace BontoBuy.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        public ActionResult SupplierRetrieveOrders()
+        {
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if (User.IsInRole("Supplier"))
+                {
+                    var orderList = new List<SupplierRetrieveOrdersViewModel>();
+                    var records = from o in db.Orders
+                                  where o.SupplierUserId == userId
+                                  select o;
+                    foreach (var item in records)
+                    {
+                        var orderItem = new SupplierRetrieveOrdersViewModel()
+                        {
+                            OrderId = item.OrderId,
+                            ModelId = item.ModelId,
+                            ModelNumber = (from m in db.Models
+                                           where m.ModelId == item.ModelId
+                                           select m.ModelNumber).FirstOrDefault(),
+                            CustomerName = (from c in db.Customers
+                                            where c.CustomerId == item.CustomerId
+                                            select c.Name).FirstOrDefault(),
+                            Status = item.Status,
+                            DtCreated = item.DtCreated
+                        };
+                        orderList.Add(orderItem);
+                    }
+                    return View(orderList);
+                }
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        public ActionResult SupplierGetOrder(int id)
+        {
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                if (User.IsInRole("Supplier"))
+                {
+                    var record = db.Orders.Where(x => x.OrderId == id);
+                    return View(record);
+                }
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
     }
 }

@@ -154,7 +154,12 @@ namespace BontoBuy.Web.Controllers
                             {
                                 return RedirectToAction("ActivateAccount");
                             }
-                            return RedirectToAction("Index", "Home");
+                            string requestedUrl = Session["InitialRequest"] as string;
+                            if (String.IsNullOrWhiteSpace(requestedUrl))
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
+                            return Redirect(requestedUrl);
                     }
                 }
             }

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -81,9 +83,32 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: Test/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
-            return View();
+            try
+            {
+                var initialRequest = Request.Url.AbsoluteUri.ToString();
+                if (!String.IsNullOrWhiteSpace(initialRequest))
+                    Session["InitialRequest"] = initialRequest;
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                //Check if the "Admin" role exists if not it returns a null value
+                //var role = db.roles.singleordefault(m => m.name == "admin");
+
+                if (User.IsInRole("Customer"))
+                {
+                    return View();
+                }
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // GET: Test/Create

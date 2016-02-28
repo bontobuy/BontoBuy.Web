@@ -16,6 +16,7 @@ namespace BontoBuy.Web.Models
         public string Website { get; set; }
 
         public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }
+        public IEnumerable<OrderViewModel> OrderNav { get; set; }
     }
 
     public class SupplierRetrieveModelsViewModel

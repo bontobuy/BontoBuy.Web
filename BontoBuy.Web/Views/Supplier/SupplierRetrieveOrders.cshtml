@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.SupplierRetrieveOrdersViewModel>
+@{
+    Layout = "~/Views/Shared/SupplierLayout.cshtml";
+    ViewBag.Title = "List of your Orders";
+}
+
+<div class="col-md-12">
+    <h2>@ViewBag.Title</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DtCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModelNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DtCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "SupplierGetOrder", new { id = item.OrderId }) |
+                </td>
+            </tr>
+        }
+    </table>
+</div>

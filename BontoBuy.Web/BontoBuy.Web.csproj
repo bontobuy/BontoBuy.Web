@@ -693,6 +693,8 @@
     <Content Include="Views\Order\Invoice.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Test\Details.cshtml" />
+    <Content Include="Views\Supplier\SupplierRetrieveOrders.cshtml" />
+    <Content Include="Views\Supplier\SupplierGetOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

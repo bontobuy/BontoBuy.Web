@@ -1,0 +1,23 @@
+﻿@*@model BontoBuy.Web.Models.OrderViewModel
+
+    @{
+        Layout = "~/Views/Shared/SupplierLayout.cshtml";
+    }
+    <div>
+        <h4>Details</h4>
+        <hr/>
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.SpecificationId }) |
+        @Html.ActionLink("Back to List", "Retrieve")
+    </p>*@

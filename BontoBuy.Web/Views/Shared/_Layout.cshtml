@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using BontoBuy.Web.Models
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -39,24 +41,35 @@
                 <ul class="nav navbar-nav navbar-right">
                     @Html.Partial("_LoginPartial")
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span>Shopping Cart(1)<span class="caret"></span></a>
+                        @{
+                            var Cart = new List<CartViewModel>();
+                            Cart = Session["Cart"] as List<CartViewModel>;
+                            string numberOfItems;
+                            if (Cart == null)
+                            {
+                                numberOfItems = "Empty";
+                            }
+                            else { numberOfItems = Cart.Count.ToString(); }
+                        }
+                        <a href="#" id="cart" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span>Shopping Cart(@numberOfItems)<span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-cart" role="menu">
-                            <li>
-                                <span class="item">
-                                    <span class="item-left">
-                                        <img src="50/50/" alt=""/>
-                                        <span class="item-info">
-                                            <span>Item name</span>
-                                            <span>Rs25</span>
+                            @*<li class="cartlist">
+                                    <span class="item">
+                                        <span class="item-left">
+                                            <img src="50/50/" alt=""/>
+                                            <span class="item-info">
+                                                <span>Item name</span>
+                                                <span>Rs25</span>
+                                            </span>
+                                        </span>
+                                        <span class="item-right">
+                                            <button class="btn btn-xs btn-danger pull-right">x</button>
                                         </span>
                                     </span>
-                                    <span class="item-right">
-                                        <button class="btn btn-xs btn-danger pull-right">x</button>
-                                    </span>
-                                </span>
-                            </li>
+                                </li>*@
                             <li class="divider"></li>
                             <li>@Html.ActionLink("View Cart", "NavigateTocart", "Cart")</li>
+                            <li class="divider"></li>
                         </ul>
                     </li>
                 </ul>

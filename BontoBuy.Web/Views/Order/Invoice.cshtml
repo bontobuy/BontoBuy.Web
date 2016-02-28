@@ -32,6 +32,15 @@
         .table > tbody > tr > .thick-line {
             border-top: 2px solid;
         }
+
+        #InvoiceTitle {
+            margin-left: -222px;
+        }
+
+        #LogoInvoice {
+            margin-top: -15px;
+            margin-left: -17px;
+        }
     </style>
     <title>@ViewBag.Title</title>
 </head>
@@ -40,7 +49,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="invoice-title">
-                    <h2>Invoice</h2><h3 class="pull-right">Order # 12345</h3>
+                    <img id="LogoInvoice" class="navbar-brand" height="79" width="236" src="~/Content/Logo2.png"/>
+                    <br>
+                    <h2 id="InvoiceTitle">Invoice</h2><h3 class="pull-right">Order # 12345</h3>
                 </div>
                 <hr>
                 <div class="row">
@@ -55,7 +66,7 @@
                     </div>
                     <div class="col-xs-6 text-right">
                         <address>
-                            <strong>Shipped To:</strong><br>
+                            <strong>Deliver To:</strong><br>
                             Jane Smith<br>
                             1234 Main<br>
                             Apt. 4B<br>
@@ -145,7 +156,7 @@
         </div>
     </div>
     <div>
-        @Html.ActionLink("View as PDF", "ViewPdf");
+        @Html.ActionLink("View as PDF", "ViewPdf")
     </div>
 </body>
 </html>

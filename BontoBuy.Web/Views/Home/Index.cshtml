@@ -115,6 +115,25 @@
                 }
                 else $('.mega-sidebar-menu').css('background', 'Transparent)');
             });
+
+            $('.AddToCart').click(function () {
+                var modelId = $(this).attr('data-id');
+
+                $.ajax({
+                    url: '/Home/AddCartItem/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { id: modelId },
+                    success: function (data) {
+                        var count = 0;
+                        $(data).each(function (index, item) {
+                            $('.dropdown-cart').append('<li class="cartlist"><span class="item"><span class="item-left"><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"><button class="btn btn-xs btn-danger pull-right">x</button></span></span></li><li class="divider"></li>');
+                            count++;
+                        });
+                        $("#cart").text('Shopping Cart(' + count + ')');
+                    }
+                });
+            });
         });
     </script>
 
@@ -212,7 +231,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP1)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -220,7 +239,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP2)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -228,7 +247,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP3)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -236,7 +255,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP4)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -244,7 +263,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP5)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -252,7 +271,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP6)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -260,7 +279,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP7)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
                                                 <li class="divider"></li>
@@ -278,7 +297,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP8)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -286,7 +305,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP9)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -294,7 +313,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP10)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -302,7 +321,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP11)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -310,7 +329,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP12)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -318,7 +337,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP13)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -326,7 +345,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP14)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -334,7 +353,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP15)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -342,7 +361,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP16)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
@@ -350,7 +369,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP17)
                                                     {
-                                                <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
                                                 <li class="divider"></li>
@@ -674,7 +693,7 @@
                                     <div class="info">
                                         <div class="separator clear-left">
                                             <p class="btn-add">
-                                                <i class="glyphicon glyphicon-shopping-cart"></i>@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { id = item.ModelId }, new { @class = "btn btn-primary" })
+                                                <i class="glyphicon glyphicon-shopping-cart"></i><input class="btn btn-primary AddToCart" type="button" value="AddToCart" data-id="@item.ModelId" /> @*@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { id = item.ModelId }, new { @class = "btn btn-primary" })*@
                                             </p>
                                             <p class="btn-details">
                                                 <i class="glyphicon glyphicon-list"></i>@Html.ActionLink("Details»", "ModelDetails", new { id = item.ModelId }, new { @class = "btn btn-info" })

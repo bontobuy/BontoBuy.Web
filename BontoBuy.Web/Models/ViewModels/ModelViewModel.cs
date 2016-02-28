@@ -33,7 +33,7 @@ namespace BontoBuy.Web.Models
         public DateTime DtCreated { get; set; }
         public string Status { get; set; }
         public IEnumerable<ModelSpecViewModel> ModeSpecNav { get; set; }
-
+        public IEnumerable<OrderViewModel> OrderNav { get; set; }
         [ForeignKey("ItemId")]
         [Column(Order = 0)]
         public ItemViewModel ModelItemNav { get; set; }

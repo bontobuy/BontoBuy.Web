@@ -1,0 +1,15 @@
+﻿@using BontoBuy.Web.Models
+@using Microsoft.AspNet.Identity
+@{
+    Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
+    Name userName = new Name();
+    var UserId = User.Identity.GetUserId();
+    var name = userName.GetName(UserId.ToString());
+    ViewBag.Title = "Welcome";
+}
+
+<div class="well">
+    <h2>
+        Welcome @name
+    </h2>
+</div>

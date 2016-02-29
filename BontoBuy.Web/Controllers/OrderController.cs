@@ -137,5 +137,75 @@ namespace BontoBuy.Web.Controllers
 
             return null;
         }
+
+        public ActionResult ReviewOrder()
+        {
+            List<CartViewModel> orderList = Session["Order"] as List<CartViewModel>;
+
+            if (orderList != null)
+            {
+                foreach (var item in orderList)
+                {
+                    item.ModelName = (from m in db.Models
+                                      where m.ModelId == item.ModelId
+                                      select m.ModelNumber).FirstOrDefault();
+
+                    item.ImageUrl = (from p in db.Photos
+                                     join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                                     join m in db.Models on pm.ModelId equals m.ModelId
+                                     where m.ModelId == item.ModelId
+                                     select p.ImageUrl).FirstOrDefault();
+
+                    item.UnitPrice = (from m in db.Models
+                                      where m.ModelId == item.ModelId
+                                      select m.Price).FirstOrDefault();
+
+                    item.Quantity = item.Quantity;
+
+                    ViewBag.orderTotal += item.SubTotal;
+                }
+            }
+
+            return View(orderList);
+        }
+
+        [HttpPost]
+        public ActionResult ReviewOrder(List<CartViewModel> orders)
+        {
+            var orderList = Session["Order"] as List<CartViewModel>;
+            var orderItems = new List<OrderViewModel>();
+            if (orderList != null)
+            {
+                foreach (var item in orderList)
+                {
+                    var newOrder = new OrderViewModel()
+                    {
+                        DtCreated = DateTime.UtcNow,
+                        ExpectedDeliveryDate = DateTime.UtcNow,
+                        RealDeliveryDate = DateTime.UtcNow,
+                        Status = "Active",
+                        Total = item.SubTotal,
+                        GrandTotal = item.GrandTotal,
+                        SupplierId = item.SupplierId,
+                        CustomerId = (from c in db.Customers
+                                      where c.Id == item.UserId
+                                      select c.CustomerId).FirstOrDefault(),
+                        ModelId = item.ModelId,
+                        CustomerUserId = item.UserId,
+                        SupplierUserId = (from s in db.Suppliers
+                                          where s.SupplierId == item.SupplierId
+                                          select s.Id).FirstOrDefault()
+                    };
+                    orderItems.Add(newOrder);
+                    db.Orders.Add(newOrder);
+                    db.SaveChanges();
+                    Session.Remove("Order");
+                }
+
+                //return RedirectToAction("Invoice", "Order", orderItems);
+                return View("../Order/Invoice", orderItems);
+            }
+            return View("Error404", "Home");
+        }
     }
 }

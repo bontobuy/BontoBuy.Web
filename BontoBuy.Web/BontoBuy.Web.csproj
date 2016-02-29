@@ -182,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
@@ -703,6 +704,11 @@
     <Content Include="Views\Supplier\SupplierEditOrder.cshtml" />
     <Content Include="Views\Order\ReviewOrder.cshtml" />
     <Content Include="Views\Supplier\SupplierViewOrderPdf.cshtml" />
+    <Content Include="Views\Shared\CustomerDashboardLayout.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\CustomerRetrieveOrders.cshtml" />
+    <Content Include="Views\Customer\CustomerGetOrder.cshtml" />
+    <Content Include="Views\Customer\ViewOrderPdf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

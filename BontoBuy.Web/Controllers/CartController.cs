@@ -133,7 +133,39 @@ namespace BontoBuy.Web.Controllers
 
             List<CartViewModel> cartList = Session["Cart"] as List<CartViewModel>;
 
-            foreach (var item in cartList)
+            if (cartList != null)
+            {
+                foreach (var item in cartList)
+                {
+                    item.ModelName = (from m in db.Models
+                                      where m.ModelId == item.ModelId
+                                      select m.ModelNumber).FirstOrDefault();
+
+                    item.ImageUrl = (from p in db.Photos
+                                     join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                                     join m in db.Models on pm.ModelId equals m.ModelId
+                                     where m.ModelId == item.ModelId
+                                     select p.ImageUrl).FirstOrDefault();
+
+                    item.UnitPrice = (from m in db.Models
+                                      where m.ModelId == item.ModelId
+                                      select m.Price).FirstOrDefault();
+
+                    //item.Quantity = 1;
+                    //item.SubTotal = (item.Quantity * item.UnitPrice);
+                }
+            }
+
+            return View(cartList);
+        }
+
+        [HttpPost]
+        public ActionResult NavigateToCart(CartViewModel order)
+        {
+            //var quantity = order.Quantity;
+            List<CartViewModel> orderList = Session["Cart"] as List<CartViewModel>;
+
+            foreach (var item in orderList)
             {
                 item.ModelName = (from m in db.Models
                                   where m.ModelId == item.ModelId
@@ -149,10 +181,18 @@ namespace BontoBuy.Web.Controllers
                                   where m.ModelId == item.ModelId
                                   select m.Price).FirstOrDefault();
 
+                item.Quantity = order.Quantity;
+
+                item.SubTotal = order.SubTotal;
+
+                item.GrandTotal += order.SubTotal;
+
                 //item.Quantity = 1;
                 //item.SubTotal = (item.Quantity * item.UnitPrice);
             }
-            return View(cartList);
+
+            Session["Order"] = orderList;
+            return RedirectToAction("ReviewOrder", "Order");
         }
 
         // GET: Cart/Create

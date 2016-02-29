@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -272,7 +272,10 @@ namespace BontoBuy.Web.Controllers
                         GrandTotal = record.Total,
                         DtCreated = record.DtCreated,
                         ExpectedDeliveryDate = record.ExpectedDeliveryDate,
-                        RealDeliveryDate = record.RealDeliveryDate
+                        RealDeliveryDate = record.RealDeliveryDate,
+                        SupplierName = (from u in db.Users
+                                        where u.Id == userId
+                                        select u.Name).FirstOrDefault()
                     };
                     Session["SupplierOrder"] = supplierOrder;
                     return View(supplierOrder);
@@ -294,7 +297,7 @@ namespace BontoBuy.Web.Controllers
         {
             var supplierOrder = Session["SupplierOrder"] as SupplierGetOrderViewModel;
             Session.Remove("SupplierOrder");
-            return new ViewAsPdf("SupplierGetOrder", supplierOrder);
+            return new ViewAsPdf("SupplierViewOrderPdf", supplierOrder);
         }
 
         public ActionResult SupplierEditOrder(int id)

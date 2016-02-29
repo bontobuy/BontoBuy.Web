@@ -118,7 +118,7 @@
 
             $('.AddToCart').click(function () {
                 var modelId = $(this).attr('data-id');
-
+                var hasBeenAppended = false;
                 $.ajax({
                     url: '/Home/AddCartItem/',
                     type: 'POST',
@@ -131,6 +131,8 @@
                             count++;
                         });
                         $("#cart").text('Shopping Cart(' + count + ')');
+                        hasBeenAppended = true;
+                        $('#viewCart').removeClass('hide');
                     }
                 });
             });

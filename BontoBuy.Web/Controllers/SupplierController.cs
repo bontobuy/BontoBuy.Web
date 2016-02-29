@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
+using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -273,6 +274,7 @@ namespace BontoBuy.Web.Controllers
                         ExpectedDeliveryDate = record.ExpectedDeliveryDate,
                         RealDeliveryDate = record.RealDeliveryDate
                     };
+                    Session["SupplierOrder"] = supplierOrder;
                     return View(supplierOrder);
                 }
                 return RedirectToAction("Login", "Account");
@@ -281,6 +283,13 @@ namespace BontoBuy.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
+        }
+
+        public ActionResult SupplierViewOrderPdf()
+        {
+            var supplierOrder = Session["SupplierOrder"] as SupplierGetOrderViewModel;
+            Session.Remove("SupplierOrder");
+            return new ViewAsPdf("SupplierGetOrder", supplierOrder);
         }
 
         public ActionResult SupplierEditOrder(int id)

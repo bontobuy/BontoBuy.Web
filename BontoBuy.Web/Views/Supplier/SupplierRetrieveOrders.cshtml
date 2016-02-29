@@ -41,6 +41,7 @@
 
                 <td>
                     @Html.ActionLink("Details", "SupplierGetOrder", new { id = item.OrderId }) |
+                    @Html.ActionLink("Edit", "SupplierEditOrder", new { id = item.OrderId })
                 </td>
             </tr>
         }

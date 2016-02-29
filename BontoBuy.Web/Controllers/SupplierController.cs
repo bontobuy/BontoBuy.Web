@@ -283,27 +283,57 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        //public ActionResult SupplierEditOrder(int id)
-        //{
-        //    try
-        //    {
-        //        string userId = User.Identity.GetUserId();
-        //        if (userId == null)
-        //        {
-        //            return RedirectToAction("Login", "Account");
-        //        }
-        //        if (User.IsInRole("Supplier"))
-        //        {
-        //            var record = (from o in db.Orders
-        //                          where o.OrderId == id
-        //                          select o).FirstOrDefault();
+        public ActionResult SupplierEditOrder(int id)
+        {
+            try
+            {
+                var statusList = new List<OrderStatusViewModel>()
+                {
+                    new OrderStatusViewModel()
+                    {
+                        OrderStatusId=1,
+                        Status="Processing"
+                    },
+                    new OrderStatusViewModel()
+                    {
+                        OrderStatusId=2,
+                        Status="Delivered"
+                    }
+                };
 
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
-        //    }
-        //}
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                if (User.IsInRole("Supplier"))
+                {
+                    var record = (from o in db.Orders
+                                  where o.OrderId == id
+                                  select o).FirstOrDefault();
+                    var order = new SupplierUpdateOrderViewModel()
+                    {
+                        OrderId = record.OrderId,
+                        DtCreated = record.DtCreated,
+                        ExpectedDeliveryDate = record.ExpectedDeliveryDate,
+                        RealDeliveryDate = record.RealDeliveryDate,
+                        Total = record.Total,
+                        GrandTotal = record.GrandTotal,
+                        CustomerName = (from c in db.Customers
+                                        where c.CustomerId == record.CustomerId
+                                        select c.Name).FirstOrDefault()
+                    };
+
+                    ViewBag.OrderStatusId = new SelectList(statusList, "OrderStatusId", "Status");
+
+                    return View(order);
+                }
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
     }
 }

@@ -695,6 +695,7 @@
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Supplier\SupplierRetrieveOrders.cshtml" />
     <Content Include="Views\Supplier\SupplierGetOrder.cshtml" />
+    <Content Include="Views\Supplier\SupplierEditOrder.cshtml" />
     <Content Include="Views\Order\ReviewOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>

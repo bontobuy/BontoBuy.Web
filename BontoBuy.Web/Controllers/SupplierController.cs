@@ -287,20 +287,6 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                var statusList = new List<OrderStatusViewModel>()
-                {
-                    new OrderStatusViewModel()
-                    {
-                        OrderStatusId=1,
-                        Status="Processing"
-                    },
-                    new OrderStatusViewModel()
-                    {
-                        OrderStatusId=2,
-                        Status="Delivered"
-                    }
-                };
-
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
@@ -324,11 +310,42 @@ namespace BontoBuy.Web.Controllers
                                         select c.Name).FirstOrDefault()
                     };
 
-                    ViewBag.OrderStatusId = new SelectList(statusList, "OrderStatusId", "Status");
+                    ViewBag.OrderStatusId = new SelectList(db.OrderStatuses, "OrderStatusId", "Name");
 
                     return View(order);
                 }
                 return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SupplierEditOrder(SupplierUpdateOrderViewModel item)
+        {
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                if (User.IsInRole("Supplier"))
+                {
+                    var order = (from o in db.Orders
+                                 where o.OrderId == item.OrderId
+                                 select o).FirstOrDefault();
+
+                    ViewBag.OrderStatusId = new SelectList(db.OrderStatuses, "OrderStatusId", "Name", item.OrderStatusId);
+
+                    order.Status = (from os in db.OrderStatuses
+                                    where os.OrderStatusId == item.OrderStatusId
+                                    select os.Name).FirstOrDefault();
+                    db.SaveChanges();
+                }
+                return RedirectToAction("SupplierRetrieveOrders", "Supplier");
             }
             catch (Exception ex)
             {

@@ -199,13 +199,14 @@ namespace BontoBuy.Web.Controllers
                     orderItems.Add(newOrder);
                     db.Orders.Add(newOrder);
                     db.SaveChanges();
-                    Session.Remove("Order");
                 }
+                Session.Remove("Order");
+                Session.Remove("Cart");
 
                 //return RedirectToAction("Invoice", "Order", orderItems);
                 return View("../Order/Invoice", orderItems);
             }
-            return View("Error404", "Home");
+            return View("../Home/Error404");
         }
     }
 }

@@ -34,10 +34,4 @@ namespace BontoBuy.Web.Models
         [Column(Order = 2)]
         public ModelViewModel ModelNav { get; set; }
     }
-
-    public class OrderStatusViewModel
-    {
-        public int OrderStatusId { get; set; }
-        public string Status { get; set; }
-    }
 }

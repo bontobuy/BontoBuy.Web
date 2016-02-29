@@ -285,6 +285,11 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
+        public ActionResult Test()
+        {
+            return Content("TExt");
+        }
+
         public ActionResult SupplierViewOrderPdf()
         {
             var supplierOrder = Session["SupplierOrder"] as SupplierGetOrderViewModel;

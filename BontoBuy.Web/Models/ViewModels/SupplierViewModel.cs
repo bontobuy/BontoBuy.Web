@@ -64,6 +64,7 @@ namespace BontoBuy.Web.Models
         public DateTime ExpectedDeliveryDate { get; set; }
         public DateTime RealDeliveryDate { get; set; }
         public string DeliveryAddress { get; set; }
+        public string SupplierName { get; set; }
     }
 
     public class SupplierUpdateOrderViewModel

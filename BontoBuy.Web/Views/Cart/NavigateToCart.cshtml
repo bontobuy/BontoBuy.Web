@@ -96,6 +96,18 @@
                 $('.SubTotal').val(subTotal);
                 $('.SubTotal').attr('readonly', 'true');
                 $('.Total').text('Total: ');
+
+                $.ajax({
+                    url: '/Cart/GetModelDetails/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { quantity: quantity },
+                    success: function (data) {
+                        $(data).each(function (index, item) {
+                            //alert(item);
+                        });
+                    }
+                });
             });
         });
     </script>

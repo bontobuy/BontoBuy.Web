@@ -1,10 +1,10 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -165,6 +165,7 @@ namespace BontoBuy.Web.Controllers
             //var quantity = order.Quantity;
             List<CartViewModel> orderList = Session["Cart"] as List<CartViewModel>;
 
+            //var quantity = ViewData["Quantity"].ToString();
             foreach (var item in orderList)
             {
                 item.ModelName = (from m in db.Models
@@ -187,12 +188,20 @@ namespace BontoBuy.Web.Controllers
 
                 item.GrandTotal += order.SubTotal;
 
-                //item.Quantity = 1;
+                //item.Quantity = Convert.ToInt32(quantity);
+
                 //item.SubTotal = (item.Quantity * item.UnitPrice);
             }
 
             Session["Order"] = orderList;
             return RedirectToAction("ReviewOrder", "Order");
+        }
+
+        public JsonResult GetModelDetails(int quantity)
+        {
+            var quantityValue = quantity;
+            ViewData["Quantity"] = quantityValue;
+            return Json(quantityValue);
         }
 
         // GET: Cart/Create

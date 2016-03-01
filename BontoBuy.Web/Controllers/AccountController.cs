@@ -1,8 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -12,6 +8,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -134,7 +134,7 @@ namespace BontoBuy.Web.Controllers
                                      .Select(x => x.PasswordHash)
                                      .Single();
                 bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
-
+                string requestedUrl = Session["InitialRequest"] as string;
                 if (userId != null && passwordMatches == true)
                 {
                     switch (RolesForUser[0].ToString())
@@ -144,7 +144,11 @@ namespace BontoBuy.Web.Controllers
                             {
                                 return RedirectToAction("ActivateAccount");
                             }
-                            return RedirectToAction("Index", "Supplier");
+                            if (String.IsNullOrWhiteSpace(requestedUrl))
+                            {
+                                return RedirectToAction("Index", "Supplier");
+                            }
+                            return Redirect(requestedUrl);
 
                         case "Admin":
                             return RedirectToAction("Index", "Admin");
@@ -154,7 +158,7 @@ namespace BontoBuy.Web.Controllers
                             {
                                 return RedirectToAction("ActivateAccount");
                             }
-                            string requestedUrl = Session["InitialRequest"] as string;
+
                             if (String.IsNullOrWhiteSpace(requestedUrl))
                             {
                                 return RedirectToAction("Index", "Customer");

@@ -1,11 +1,14 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -128,14 +131,22 @@ namespace BontoBuy.Web.Controllers
                     };
                     db.Orders.Add(newOrder);
                     db.SaveChanges();
-                }
 
-                //Just for testing purposes
-                string numberOfItems = cartList.Count.ToString();
-                return Content("Success {" + numberOfItems + "} Added to Database!!");
+                    string supplierEmail = (from s in db.Suppliers
+                                            where s.SupplierId == newOrder.SupplierId
+                                            select s.Email).FirstOrDefault();
+
+                    string customerEmail = (from c in db.Customers
+                                            where c.CustomerId == newOrder.CustomerId
+                                            select c.Email).FirstOrDefault();
+
+                    SendNotification(supplierEmail, "Supplier");
+                    SendNotification(customerEmail, "Customer");
+                }
+                return RedirectToAction("CustomerRetrieveOrders", "Customer");
             }
 
-            return null;
+            return RedirectToAction("Login", "Acccount");
         }
 
         public ActionResult ReviewOrder()
@@ -162,6 +173,10 @@ namespace BontoBuy.Web.Controllers
 
                     item.Quantity = item.Quantity;
 
+                    item.SupplierId = (from m in db.Models
+                                       where m.ModelId == item.ModelId
+                                       select m.SupplierId).FirstOrDefault();
+
                     ViewBag.orderTotal += item.SubTotal;
                 }
             }
@@ -173,6 +188,7 @@ namespace BontoBuy.Web.Controllers
         public ActionResult ReviewOrder(List<CartViewModel> orders)
         {
             var orderList = Session["Order"] as List<CartViewModel>;
+            string userId = User.Identity.GetUserId();
             var orderItems = new List<OrderViewModel>();
             if (orderList != null)
             {
@@ -188,10 +204,11 @@ namespace BontoBuy.Web.Controllers
                         GrandTotal = item.GrandTotal,
                         SupplierId = item.SupplierId,
                         CustomerId = (from c in db.Customers
-                                      where c.Id == item.UserId
+                                      where c.Id == userId
                                       select c.CustomerId).FirstOrDefault(),
                         ModelId = item.ModelId,
-                        CustomerUserId = item.UserId,
+                        CustomerUserId = userId,
+
                         SupplierUserId = (from s in db.Suppliers
                                           where s.SupplierId == item.SupplierId
                                           select s.Id).FirstOrDefault()
@@ -199,14 +216,79 @@ namespace BontoBuy.Web.Controllers
                     orderItems.Add(newOrder);
                     db.Orders.Add(newOrder);
                     db.SaveChanges();
+
+                    string supplierEmail = (from s in db.Suppliers
+                                            where s.SupplierId == newOrder.SupplierId
+                                            select s.Email).FirstOrDefault();
+
+                    string customerEmail = (from c in db.Customers
+                                            where c.CustomerId == newOrder.CustomerId
+                                            select c.Email).FirstOrDefault();
+
+                    new Task(() => { SendNotification(supplierEmail, "Supplier"); }).Start();
+                    new Task(() => { SendNotification(customerEmail, "Customer"); }).Start();
                 }
+
                 Session.Remove("Order");
                 Session.Remove("Cart");
 
                 //return RedirectToAction("Invoice", "Order", orderItems);
-                return View("../Order/Invoice", orderItems);
+                //return View("../Order/Invoice", orderItems);
+                return RedirectToAction("CustomerRetrieveOrders", "Customer");
             }
             return View("../Home/Error404");
+        }
+
+        private static async void SendNotification(string email, string role)
+        {
+            if (role == "Supplier")
+            {
+                string baseUri = "http://localhost:62204/Supplier/SupplierRetrieveOrders";
+                var body = "<p>Dear Valued Customer,</p><p>A product has been recently been ordered please take a look<a href=" + baseUri + ">" + baseUri + "</a></p><p>Cheers</p><p>The BontoBuyTeam</p>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(email));
+                message.From = new MailAddress("bontobuy@gmail.com");
+                message.Subject = "PDF";
+                message.Body = string.Format(body, baseUri);
+                message.IsBodyHtml = true;
+
+                var smtp = new SmtpClient();
+
+                var credential = new NetworkCredential()
+                {
+                    UserName = "bontobuy@gmail.com",
+                    Password = "b0nt0@dmin"
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(message);
+            }
+            if (role == "Customer")
+            {
+                string baseUri = "http://localhost:62204/Customer/CustomerRetrieveOrders";
+                var body = "<p>Dear Valued Customer,</p><p>Your order is being processed and we will comeback to you shortly. To check you ordere details.Please take a look<a href=" + baseUri + ">" + baseUri + "</a></p><p>Cheers</p><p>The BontoBuyTeam</p>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(email));
+                message.From = new MailAddress("bontobuy@gmail.com");
+                message.Subject = "PDF";
+                message.Body = string.Format(body, baseUri);
+                message.IsBodyHtml = true;
+
+                var smtp = new SmtpClient();
+
+                var credential = new NetworkCredential()
+                {
+                    UserName = "bontobuy@gmail.com",
+                    Password = "b0nt0@dmin"
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(message);
+            }
         }
     }
 }

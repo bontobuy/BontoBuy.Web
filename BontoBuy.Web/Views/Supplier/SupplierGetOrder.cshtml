@@ -71,6 +71,6 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "SupplierEditOrder", new { id = Model.OrderId }) |
-    @Html.ActionLink("View As Pdf", "SupplierViewOrderPdf") |
+    @Html.ActionLink("View As Pdf", "SupplierViewOrderPdf", new { controller = "Supplier" }, new { target = "_blank" }) |
     @Html.ActionLink("Back to List", "SupplierRetrieveOrders")
 </p>

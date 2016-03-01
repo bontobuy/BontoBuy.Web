@@ -70,6 +70,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("View As Pdf", "ViewOrderPdf") |
+    @Html.ActionLink("View As Pdf", "ViewOrderPdf", new { controller = "Customer" }, new { target = "_blank" }) |
     @Html.ActionLink("Back to List", "CustomerRetrieveOrders")
 </p>

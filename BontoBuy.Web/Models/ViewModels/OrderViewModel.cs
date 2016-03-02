@@ -23,7 +23,8 @@ namespace BontoBuy.Web.Models
         public int ModelId { get; set; }
         public string CustomerUserId { get; set; }
         public string SupplierUserId { get; set; }
-
+        public IEnumerable<DeliveryViewModel> DeliveryNav { get; set; }
+        public IEnumerable<PaymentViewModel> PaymentNav { get; set; }
         [ForeignKey("SupplierUserId")]
         [Column(Order = 0)]
         public SupplierViewModel SupplierNav { get; set; }

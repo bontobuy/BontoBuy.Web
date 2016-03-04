@@ -122,5 +122,91 @@ namespace BontoBuy.Web.Controllers
 
             return new ViewAsPdf("ViewOrderPdf", customerOrder);
         }
+
+        public ActionResult CustomerRetrieveDeliveryAddress()
+        {
+            var userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (User.IsInRole("Customer"))
+            {
+                var records = db.DeliveryAddresses.Where(x => x.UserId == userId);
+                var addressList = new List<DeliveryAddressActionViewModel>();
+                foreach (var item in records)
+                {
+                    var addressItem = new DeliveryAddressActionViewModel()
+                    {
+                        DeliveryAddressId = item.DeliveryAddressId,
+                        UserId = item.UserId,
+                        CustomerId = item.CustomerId,
+                        Street = item.Street,
+                        City = item.City,
+                        Zipcode = item.Zipcode,
+                        Status = item.Status
+                    };
+                    addressList.Add(addressItem);
+                }
+                return View(addressList);
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult CustomerCreateDeliveryAddress()
+        {
+            var userId = User.Identity.GetUserId();
+            if (userId == null || !User.IsInRole("Customer"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var deliveryAddress = new DeliveryAddressActionViewModel();
+            ViewBag.DeliveryAddressStatusId = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status");
+            return View(deliveryAddress);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CustomerCreateDeliveryAddress(DeliveryAddressActionViewModel item)
+        {
+            var userId = User.Identity.GetUserId();
+            if (userId == null || !User.IsInRole("Customer"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (ModelState.IsValid)
+            {
+                ViewBag.DeliveryAddressStatusId = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status", item.DeliveryAddressStatusId);
+                var deliveryAddress = new DeliveryAddressViewModel()
+                {
+                    UserId = userId,
+                    CustomerId = (from c in db.Customers
+                                  where c.Id == userId
+                                  select c.CustomerId).FirstOrDefault(),
+                    Street = item.Street,
+                    City = item.City,
+                    Zipcode = item.Zipcode,
+                    Status = (from ds in db.DeliveryAddressStatuses
+                              where ds.DeliveryAddressStatusId == item.DeliveryAddressStatusId
+                              select ds.Status).FirstOrDefault()
+                };
+                if (deliveryAddress.Status == "Default")
+                {
+                    var otherAddresses = db.DeliveryAddresses.Where(x => x.UserId == userId).ToList();
+                    if (otherAddresses != null)
+                    {
+                        foreach (var obj in otherAddresses)
+                        {
+                            obj.Status = "Other";
+                        }
+                    }
+                }
+                db.DeliveryAddresses.Add(deliveryAddress);
+                db.SaveChanges();
+
+                return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer");
+            }
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

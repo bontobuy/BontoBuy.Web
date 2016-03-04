@@ -15,6 +15,7 @@ namespace BontoBuy.Web.Models
         public string UserId { get; set; }
         public int CustomerId { get; set; }
         public string Street { get; set; }
+        public string City { get; set; }
         public string Zipcode { get; set; }
 
         [ForeignKey("UserId")]

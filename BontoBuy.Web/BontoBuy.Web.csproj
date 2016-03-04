@@ -181,6 +181,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\InitializeRoles.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
@@ -400,6 +401,14 @@
     <Compile Include="Migrations\201603031730072_Add Wishlist.cs" />
     <Compile Include="Migrations\201603031730072_Add Wishlist.Designer.cs">
       <DependentUpon>201603031730072_Add Wishlist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603031755245_Remove AddressColumns in User.cs" />
+    <Compile Include="Migrations\201603031755245_Remove AddressColumns in User.Designer.cs">
+      <DependentUpon>201603031755245_Remove AddressColumns in User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603031759460_Add City Column to DeliveryAddress.cs" />
+    <Compile Include="Migrations\201603031759460_Add City Column to DeliveryAddress.Designer.cs">
+      <DependentUpon>201603031759460_Add City Column to DeliveryAddress.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
     <Compile Include="Models\ViewModels\CommissionViewModel.cs" />
@@ -980,6 +989,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603031730072_Add Wishlist.resx">
       <DependentUpon>201603031730072_Add Wishlist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603031755245_Remove AddressColumns in User.resx">
+      <DependentUpon>201603031755245_Remove AddressColumns in User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603031759460_Add City Column to DeliveryAddress.resx">
+      <DependentUpon>201603031759460_Add City Column to DeliveryAddress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

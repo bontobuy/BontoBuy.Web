@@ -184,6 +184,7 @@
     <Compile Include="App_Start\InitializeRoles.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\DeliveryAddressController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
@@ -410,6 +411,15 @@
     <Compile Include="Migrations\201603031759460_Add City Column to DeliveryAddress.Designer.cs">
       <DependentUpon>201603031759460_Add City Column to DeliveryAddress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603040800399_Add Status to DeliveryAddress.cs" />
+    <Compile Include="Migrations\201603040800399_Add Status to DeliveryAddress.Designer.cs">
+      <DependentUpon>201603040800399_Add Status to DeliveryAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603040830528_Add DeliveryAddressStatus.cs" />
+    <Compile Include="Migrations\201603040830528_Add DeliveryAddressStatus.Designer.cs">
+      <DependentUpon>201603040830528_Add DeliveryAddressStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
     <Compile Include="Models\ViewModels\CommissionViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentViewModel.cs" />
@@ -757,6 +767,9 @@
     <Content Include="Views\Customer\CustomerRetrieveOrders.cshtml" />
     <Content Include="Views\Customer\CustomerGetOrder.cshtml" />
     <Content Include="Views\Customer\ViewOrderPdf.cshtml" />
+    <Content Include="Views\DeliveryAddress\Retrieve.cshtml" />
+    <Content Include="Views\Customer\CustomerRetrieveDeliveryAddress.cshtml" />
+    <Content Include="Views\Customer\CustomerCreateDeliveryAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -995,6 +1008,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603031759460_Add City Column to DeliveryAddress.resx">
       <DependentUpon>201603031759460_Add City Column to DeliveryAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603040800399_Add Status to DeliveryAddress.resx">
+      <DependentUpon>201603040800399_Add Status to DeliveryAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603040830528_Add DeliveryAddressStatus.resx">
+      <DependentUpon>201603040830528_Add DeliveryAddressStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

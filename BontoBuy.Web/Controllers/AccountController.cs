@@ -378,7 +378,8 @@ namespace BontoBuy.Web.Controllers
                         City = model.City,
                         UserId = customer.Id,
                         CustomerId = customer.CustomerId,
-                        Zipcode = model.ZipCode
+                        Zipcode = model.ZipCode,
+                        Status = "Default"
                     };
                     db.DeliveryAddresses.Add(customerAddress);
                     db.SaveChanges();

@@ -403,6 +403,10 @@
     <Compile Include="Migrations\201603031730072_Add Wishlist.Designer.cs">
       <DependentUpon>201603031730072_Add Wishlist.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603031739245_Add CustomerIdentity.cs" />
+    <Compile Include="Migrations\201603031739245_Add CustomerIdentity.Designer.cs">
+      <DependentUpon>201603031739245_Add CustomerIdentity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201603031755245_Remove AddressColumns in User.cs" />
     <Compile Include="Migrations\201603031755245_Remove AddressColumns in User.Designer.cs">
       <DependentUpon>201603031755245_Remove AddressColumns in User.cs</DependentUpon>
@@ -1002,6 +1006,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603031730072_Add Wishlist.resx">
       <DependentUpon>201603031730072_Add Wishlist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603031739245_Add CustomerIdentity.resx">
+      <DependentUpon>201603031739245_Add CustomerIdentity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603031755245_Remove AddressColumns in User.resx">
       <DependentUpon>201603031755245_Remove AddressColumns in User.cs</DependentUpon>

@@ -95,6 +95,10 @@ namespace BontoBuy.Web.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Zip Code")]
+        public string ZipCode { get; set; }
     }
 
     public class RegisterSupplierViewModel : RegisterViewModel

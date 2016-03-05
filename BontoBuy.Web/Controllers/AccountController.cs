@@ -1,8 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -12,6 +8,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -38,7 +38,7 @@ namespace BontoBuy.Web.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set
+            set
             {
                 _signInManager = value;
             }
@@ -50,7 +50,7 @@ namespace BontoBuy.Web.Controllers
             {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
-            private set
+            set
             {
                 _userManager = value;
             }
@@ -134,7 +134,7 @@ namespace BontoBuy.Web.Controllers
                                      .Select(x => x.PasswordHash)
                                      .Single();
                 bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
-
+                string requestedUrl = Session["InitialRequest"] as string;
                 if (userId != null && passwordMatches == true)
                 {
                     switch (RolesForUser[0].ToString())
@@ -144,7 +144,11 @@ namespace BontoBuy.Web.Controllers
                             {
                                 return RedirectToAction("ActivateAccount");
                             }
-                            return RedirectToAction("Index", "Supplier");
+                            if (String.IsNullOrWhiteSpace(requestedUrl))
+                            {
+                                return RedirectToAction("Index", "Supplier");
+                            }
+                            return Redirect(requestedUrl);
 
                         case "Admin":
                             return RedirectToAction("Index", "Admin");
@@ -154,7 +158,7 @@ namespace BontoBuy.Web.Controllers
                             {
                                 return RedirectToAction("ActivateAccount");
                             }
-                            string requestedUrl = Session["InitialRequest"] as string;
+
                             if (String.IsNullOrWhiteSpace(requestedUrl))
                             {
                                 return RedirectToAction("Index", "Customer");
@@ -350,7 +354,7 @@ namespace BontoBuy.Web.Controllers
             if (ModelState.IsValid)
             {
                 var activationCode = CodeGenerator();
-                var user = new CustomerViewModel()
+                var customer = new CustomerViewModel()
                 {
                     UserName = model.Email,
                     Email = model.Email,
@@ -360,14 +364,25 @@ namespace BontoBuy.Web.Controllers
                     Name = model.FirstName + " " + model.LastName,
                     Status = "Pending",
                     DtCreated = DateTime.UtcNow,
-                    Street = model.Street,
-                    City = model.City,
+
                     PhoneNumber = model.PhoneNumber
                 };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(customer, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
+
+                    var customerAddress = new DeliveryAddressViewModel()
+                    {
+                        Street = model.Street,
+                        City = model.City,
+                        UserId = customer.Id,
+                        CustomerId = customer.CustomerId,
+                        Zipcode = model.ZipCode,
+                        Status = "Default"
+                    };
+                    db.DeliveryAddresses.Add(customerAddress);
+                    db.SaveChanges();
 
                     var body = "<p>Dear Valued Customer,</p><p>This is the activation code that has been sent to you in order to validate your registration on BontoBuy</p><p>Your activation code: {0}</p>";
                     var message = new MailMessage();
@@ -391,7 +406,7 @@ namespace BontoBuy.Web.Controllers
                     await smtp.SendMailAsync(message);
 
                     ApplicationUser currentUser = db.Users.Where(u => u.Email.Equals(model.Email, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-                    if (user != null) UserManager.AddToRole(user.Id, "Customer");
+                    if (customer != null) UserManager.AddToRole(customer.Id, "Customer");
 
                     return RedirectToAction("Index", "Manage");
                 }

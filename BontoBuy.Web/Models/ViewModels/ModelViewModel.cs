@@ -22,6 +22,7 @@ namespace BontoBuy.Web.Models
         public string ModelNumber { get; set; }
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
+        public int RatingId { get; set; }
 
         [RegularExpression(@"^[+-]?[0-9]{1,9}(?:\.[0-9]{1,2})?$", ErrorMessage = "Please enter a correct price!")]
 
@@ -43,6 +44,9 @@ namespace BontoBuy.Web.Models
         [ForeignKey("UserId")]
         [Column(Order = 2)]
         public SupplierViewModel SupplierNav { get; set; }
+        [ForeignKey("RatingId")]
+        [Column(Order = 3)]
+        public RatingViewModel RatingNav { get; set; }
     }
 
     public class ModelBrandViewModel

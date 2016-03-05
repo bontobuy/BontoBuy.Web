@@ -1,12 +1,12 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -204,9 +204,14 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
+                Session.Remove("InitialRequest");
+
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
+                    var initialRequest = Request.Url.AbsoluteUri.ToString();
+                    if (!String.IsNullOrWhiteSpace(initialRequest))
+                        Session["InitialRequest"] = initialRequest;
                     return RedirectToAction("Login", "Account");
                 }
 

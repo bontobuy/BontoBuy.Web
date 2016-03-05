@@ -160,39 +160,54 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult NavigateToCart(CartViewModel order)
+        public ActionResult NavigateToCart(FormCollection collection)
         {
             //var quantity = order.Quantity;
             List<CartViewModel> orderList = Session["Cart"] as List<CartViewModel>;
+            string userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else { userId = User.Identity.GetUserId(); }
+
+            int quantity = 0;
+            int total = 0;
+            var quantityArray = collection.GetValues("item.Quantity");
 
             foreach (var item in orderList)
             {
-                item.ModelName = (from m in db.Models
-                                  where m.ModelId == item.ModelId
-                                  select m.ModelNumber).FirstOrDefault();
+                //item.ModelName = (from m in db.Models
+                //                  where m.ModelId == item.ModelId
+                //                  select m.ModelNumber).FirstOrDefault();
 
-                item.ImageUrl = (from p in db.Photos
-                                 join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
-                                 join m in db.Models on pm.ModelId equals m.ModelId
-                                 where m.ModelId == item.ModelId
-                                 select p.ImageUrl).FirstOrDefault();
+                //item.ImageUrl = (from p in db.Photos
+                //                 join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                //                 join m in db.Models on pm.ModelId equals m.ModelId
+                //                 where m.ModelId == item.ModelId
+                //                 select p.ImageUrl).FirstOrDefault();
 
                 item.UnitPrice = (from m in db.Models
                                   where m.ModelId == item.ModelId
                                   select m.Price).FirstOrDefault();
 
-                item.Quantity = order.Quantity;
+                item.Quantity = Convert.ToInt32(quantityArray[quantity]);
 
-                item.SubTotal = order.SubTotal;
+                item.SubTotal = (item.Quantity * item.UnitPrice);
 
-                item.GrandTotal += order.SubTotal;
+                //item.GrandTotal += item.SubTotal;
+                total += item.SubTotal;
+
+                item.UserId = userId;
+                item.SupplierId = db.Models.Find(item.ModelId).SupplierId;
 
                 //item.Quantity = 1;
-                //item.SubTotal = (item.Quantity * item.UnitPrice);
+
+                quantity++;
             }
 
             Session["Order"] = orderList;
-            return RedirectToAction("ReviewOrder", "Order");
+            return RedirectToAction("ReviewOrder", "Order", new { total = total });
         }
 
         // GET: Cart/Create

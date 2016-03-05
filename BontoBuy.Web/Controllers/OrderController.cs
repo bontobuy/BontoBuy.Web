@@ -142,17 +142,17 @@ namespace BontoBuy.Web.Controllers
 
                     SendNotification(supplierEmail, "Supplier");
                     SendNotification(customerEmail, "Customer");
-                }
+            }
                 return RedirectToAction("CustomerRetrieveOrders", "Customer");
             }
 
             return RedirectToAction("Login", "Acccount");
         }
 
-        public ActionResult ReviewOrder()
+        public ActionResult ReviewOrder(int total)
         {
             List<CartViewModel> orderList = Session["Order"] as List<CartViewModel>;
-
+            int grandTotal = total;
             if (orderList != null)
             {
                 foreach (var item in orderList)
@@ -171,15 +171,10 @@ namespace BontoBuy.Web.Controllers
                                       where m.ModelId == item.ModelId
                                       select m.Price).FirstOrDefault();
 
-                    item.Quantity = item.Quantity;
-
-                    item.SupplierId = (from m in db.Models
-                                       where m.ModelId == item.ModelId
-                                       select m.SupplierId).FirstOrDefault();
-
-                    ViewBag.orderTotal += item.SubTotal;
+                    item.GrandTotal = grandTotal;
                 }
             }
+            ViewData["GrandTotal"] = grandTotal;
 
             return View(orderList);
         }

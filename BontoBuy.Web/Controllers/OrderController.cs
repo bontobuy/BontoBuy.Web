@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,9 +9,6 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -142,7 +142,7 @@ namespace BontoBuy.Web.Controllers
 
                     SendNotification(supplierEmail, "Supplier");
                     SendNotification(customerEmail, "Customer");
-            }
+                }
                 return RedirectToAction("CustomerRetrieveOrders", "Customer");
             }
 
@@ -175,6 +175,15 @@ namespace BontoBuy.Web.Controllers
                 }
             }
             ViewData["GrandTotal"] = grandTotal;
+
+            string userId = User.Identity.GetUserId();
+            var userAddress = (from d in db.DeliveryAddresses
+                               join u in db.Users on d.UserId equals u.Id
+                               where d.UserId == userId && d.Status == "Default"
+                               select d).FirstOrDefault();
+            ViewBag.Street = userAddress.Street;
+            ViewBag.City = userAddress.City;
+            ViewBag.ZipCode = userAddress.Zipcode;
 
             return View(orderList);
         }

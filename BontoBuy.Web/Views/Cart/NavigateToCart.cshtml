@@ -92,7 +92,7 @@
         $(document).ready(function () {
             var quantityId;
             var priceId;
-            $('.quantity').keyup(function () {
+            $('.quantity').blur(function () {
                 quantityId = $(this).attr('data-id');
                 priceId = $('.UnitPrice').attr('data-priceid');
                 //alert('qua id ' + quantityId + 'and p id ' + priceId);

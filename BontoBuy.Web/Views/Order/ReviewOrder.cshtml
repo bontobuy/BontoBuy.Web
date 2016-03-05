@@ -3,65 +3,112 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Review Order";
 }
+<style type="text/css">
+    #Delivery {
+        border: 1px solid #ddd;
+    }
+
+    #cart {
+        border: 1px solid #ddd;
+    }
+</style>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div class="container">
-        <h2>@ViewBag.Title</h2>
-        <table id="cart" class="table table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th style="width:50%">Product</th>
-                    <th style="width:10%">Price</th>
-                    <th style="width:8%">Quantity</th>
-                    <th style="width:8%">SubTotal</th>
-                    <th style="width:10%"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <div class="row">
-                    <div class="col-xs-4">
-                        <h5><span class="glyphicon glyphicon-shopping-cart"></span> Step 1: Review Order</h5>
-                    </div>
-                    <div class="col-xs-4">
-                        <h5><span class="glyphicon glyphicon-shopping-cart"></span> Step 2: Choose Delivery </h5>
-                    </div>
-                    <div class="col-xs-4">
-                        <h5><span class="glyphicon glyphicon-shopping-cart"></span> Step 3: Finished </h5>
-                    </div>
-                </div>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td data-th="Product">
-                            <div class="row">
-                                <div class="col-sm-2 hidden-xs"><img src="~/images/@item.ImageUrl" height="100" width="100" alt="..." class="img-responsive" /></div>
-                                <div class="col-sm-10">
-                                    <h4 class="nomargin">@item.ModelName</h4>
-                                </div>
-                            </div>
-                        </td>
-                        <td data-th="Price">Rs @item.UnitPrice</td>
-                        <td data-th="Quantity">@item.Quantity</td>
-                        <td data-th="Sub Total">@item.SubTotal</td>
-                        <td class="actions" data-th="">
-                            <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr class="visible-xs">
-                    <td class="text-center"><strong>Total: </strong></td>
-                </tr>
-                <tr>
 
-                    <td colspan="2" class="hidden-xs"></td>
-                    <td class="hidden-xs text-center"><strong>Total: Rs @ViewData["GrandTotal"]</strong></td>
-                    <td> <button id="createOrder" class="btn btn-success btn-block " type="submit">Checkout <i class="glyphicon glyphicon-arrow-right"></i></button>@*<a href="#" class="btn btn-success btn-block">Checkout <i class="glyphicon glyphicon-arrow-right"></i>*@</td>
-                </tr>
-            </tfoot>
-        </table>
+    <h2>@ViewBag.Title</h2>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-8">
+                <table id="cart" class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:50%">Product</th>
+                            <th style="width:10%">Price</th>
+                            <th style="width:8%">Quantity</th>
+                            <th style="width:8%">SubTotal</th>
+                            <th style="width:10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h5><span class="glyphicon glyphicon-shopping-cart"></span> Step 1: Review Order</h5>
+                            </div>
+                            <div class="col-xs-4">
+                                <h5><span class="glyphicon glyphicon-shopping-cart"></span> Step 2: Choose Delivery </h5>
+                            </div>
+                            <div class="col-xs-4">
+                                <h5><span class="glyphicon glyphicon-shopping-cart"></span> Step 3: Finished </h5>
+                            </div>
+                        </div>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-sm-2 hidden-xs"><img src="~/images/@item.ImageUrl" height="100" width="100" alt="..." class="img-responsive" /></div>
+                                        <div class="col-sm-10">
+                                            <h4 class="nomargin">@item.ModelName</h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Price">Rs @item.UnitPrice</td>
+                                <td data-th="Quantity">@item.Quantity</td>
+                                <td data-th="Sub Total">@item.SubTotal</td>
+                                <td class="actions" data-th="">
+                                    <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="visible-xs">
+                            <td class="text-center"><strong>Total: </strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="hidden-xs"></td>
+                            <td colspan="2" class="hidden-xs"></td>
+                            <td class="hidden-xs text-center"><strong>Total: Rs @ViewData["GrandTotal"]</strong></td>
+                            <td> <button id="createOrder" class="btn btn-success btn-block " type="submit">Checkout <i class="glyphicon glyphicon-arrow-right"></i></button>@*<a href="#" class="btn btn-success btn-block">Checkout <i class="glyphicon glyphicon-arrow-right"></i>*@</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table id="Delivery" class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                Delivery Address
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="delivery">
+                            <td>
+
+                                        Street: @ViewBag.Street
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                        City: @ViewBag.City
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                        ZipCode: @ViewBag.ZipCode
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <input class="btn btn-primary" value="Change Delivery Address"/>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
     </div>
 }

@@ -347,7 +347,8 @@ namespace BontoBuy.Web.Controllers
                         model.Price = item.Price;
                         model.Status = specProd.Status;
                         model.UserId = userId;
-
+                        //Need to address this rating
+                        model.RatingId = 1;
                         model.SupplierId = specProd.SupplierId;
                         model.ItemId = specProd.ItemId;
                         model.BrandId = brandId;

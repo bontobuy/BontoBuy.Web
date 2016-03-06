@@ -14,7 +14,6 @@ namespace BontoBuy.Web.Models
         public int PaymentId { get; set; }
         public int OrderId { get; set; }
         public int CommissionId { get; set; }
-        public int PaymentDate { get; set; }
         public DateTime DtCreated { get; set; }
         public DateTime DtUpdated { get; set; }
         public int DiscountAllowed { get; set; }

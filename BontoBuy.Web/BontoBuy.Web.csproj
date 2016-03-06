@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ProductCreationController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SalesClerkController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SpecificationController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="HelperMethods\Helper.cs" />
@@ -785,6 +786,8 @@
     <Content Include="Views\Customer\CustomerCreateDeliveryAddress.cshtml" />
     <Content Include="Views\Shared\ClerkLayout.cshtml" />
     <Content Include="Views\SalesClerk\Index.cshtml" />
+    <Content Include="Views\Search\SearchResult.cshtml" />
+    <Content Include="Views\Search\AdvancedSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

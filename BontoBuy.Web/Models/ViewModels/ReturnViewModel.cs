@@ -22,4 +22,17 @@ namespace BontoBuy.Web.Models
         [ForeignKey("OrderId")]
         public OrderViewModel OrderNav { get; set; }
     }
+
+    public class ReturnActionViewModel
+    {
+        public int ReturnStatusId { get; set; }
+        public int ReturnId { get; set; }
+        public int OrderId { get; set; }
+        public DateTime ReturnDate { get; set; }
+        public string ReturnMethod { get; set; }
+        public string Reason { get; set; }
+        public string Status { get; set; }
+        public DateTime DtCreated { get; set; }
+        public DateTime DtUpdated { get; set; }
+    }
 }

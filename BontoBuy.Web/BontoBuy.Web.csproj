@@ -613,6 +613,7 @@
     <Compile Include="Models\ViewModels\ReturnStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\ReturnViewModel.cs" />
     <Compile Include="Models\ViewModels\RoleViewModel.cs" />
+    <Compile Include="Models\ViewModels\SearchViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecificationViewModel.cs" />
     <Compile Include="Models\ViewModels\StatusViewModel.cs" />
     <Compile Include="Models\ViewModels\SupplierViewModel.cs" />

@@ -153,6 +153,15 @@ namespace BontoBuy.Web.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        public ActionResult CustomerGetDeliveryAddress(int id)
+        {
+            var record = db.DeliveryAddresses.Where(x => x.DeliveryAddressId == id).FirstOrDefault();
+            if (record == null)
+                return RedirectToAction("Home", "Error404");
+
+            return View(record);
+        }
+
         public ActionResult CustomerCreateDeliveryAddress()
         {
             var userId = User.Identity.GetUserId();
@@ -207,6 +216,89 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer");
             }
             return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult CustomerUpdateDeliveryAddress(int id = 1)
+        {
+            var userId = User.Identity.GetUserId();
+            if (userId == null || !User.IsInRole("Customer"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var record = db.DeliveryAddresses.Where(x => x.UserId == userId).FirstOrDefault();
+            if (record == null)
+                return RedirectToAction("Home", "Error404");
+
+            var recordToUpdate = new DeliveryAddressActionViewModel()
+            {
+                City = record.City,
+                CustomerId = record.CustomerId,
+                DeliveryAddressId = record.DeliveryAddressId,
+                Status = record.Status,
+                Street = record.Street,
+                Zipcode = record.Zipcode,
+                DeliveryAddressStatusId = 2,
+                UserId = record.UserId
+            };
+
+            //Need to test !!
+            ViewBag.DeliveryAddressStatus = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status");
+            Session["Data"] = recordToUpdate;
+            return View(recordToUpdate);
+        }
+
+        [HttpPost]
+
+        // public ActionResult CustomerUpdateDeliveryAddress(DeliveryAddressActionViewModel item)
+        public ActionResult CustomerUpdateDeliveryAddress()
+        {
+            var recordToUpdate = Session["Data"] as DeliveryAddressActionViewModel;
+            var userId = User.Identity.GetUserId();
+            if (userId == null || !User.IsInRole("Customer"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (ModelState.IsValid && recordToUpdate != null)
+            {
+                ViewBag.DeliveryAddressStatus = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status", recordToUpdate.DeliveryAddressStatusId);
+
+                var updatedRecord = db.DeliveryAddresses.Where(x => x.DeliveryAddressId == recordToUpdate.DeliveryAddressId).FirstOrDefault();
+                updatedRecord.CustomerId = updatedRecord.CustomerId;
+                updatedRecord.UserId = updatedRecord.UserId;
+                updatedRecord.Zipcode = updatedRecord.Zipcode;
+                updatedRecord.City = updatedRecord.City;
+                updatedRecord.Street = updatedRecord.Street;
+                updatedRecord.Status = (from da in db.DeliveryAddressStatuses
+                                        where da.DeliveryAddressStatusId == recordToUpdate.DeliveryAddressStatusId
+                                        select da.Status).FirstOrDefault();
+                if (updatedRecord.Status == "Default")
+                {
+                    var allDelAddress = db.DeliveryAddresses.Where(x => x.Status == "Default" && x.UserId == userId);
+                    foreach (var obj in allDelAddress)
+                    {
+                        obj.Status = "Other";
+                    }
+                }
+                if (updatedRecord.Status == "Other")
+                {
+                    var allDelAddress = db.DeliveryAddresses.Where(x => x.Status == "Default" && x.UserId == userId && x.DeliveryAddressId != updatedRecord.DeliveryAddressId);
+                    if (!allDelAddress.Any())
+                    {
+                        var firstDelAddress = db.DeliveryAddresses.OrderByDescending(x => x.DeliveryAddressId).FirstOrDefault();
+                        firstDelAddress.Status = "Default";
+                    }
+                }
+                db.SaveChanges();
+
+                return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer");
+            }
+
+            return RedirectToAction("Home", "Error404");
+        }
+        public ActionResult CustomerCreateReturns()
+        {
+            //Refer to ReturnController Create
+            return null;
         }
     }
 }

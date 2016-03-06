@@ -433,6 +433,14 @@
     <Compile Include="Migrations\201603061058115_Add Column Street,City,Zipcode TO DeliveryVM.Designer.cs">
       <DependentUpon>201603061058115_Add Column Street,City,Zipcode TO DeliveryVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603061402376_Add Column Quantity To OrderVM.cs" />
+    <Compile Include="Migrations\201603061402376_Add Column Quantity To OrderVM.Designer.cs">
+      <DependentUpon>201603061402376_Add Column Quantity To OrderVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603061404431_Add Column UnitPrice To OrderVM.cs" />
+    <Compile Include="Migrations\201603061404431_Add Column UnitPrice To OrderVM.Designer.cs">
+      <DependentUpon>201603061404431_Add Column UnitPrice To OrderVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
     <Compile Include="Models\ViewModels\CommissionViewModel.cs" />
@@ -1041,6 +1049,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603061058115_Add Column Street,City,Zipcode TO DeliveryVM.resx">
       <DependentUpon>201603061058115_Add Column Street,City,Zipcode TO DeliveryVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603061402376_Add Column Quantity To OrderVM.resx">
+      <DependentUpon>201603061402376_Add Column Quantity To OrderVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603061404431_Add Column UnitPrice To OrderVM.resx">
+      <DependentUpon>201603061404431_Add Column UnitPrice To OrderVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

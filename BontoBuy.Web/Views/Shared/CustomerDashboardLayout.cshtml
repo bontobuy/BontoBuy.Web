@@ -12,7 +12,6 @@
     @Styles.Render("~/Content/css/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
-
         .glyphicon {
             margin-right: 10px;
         }
@@ -28,6 +27,20 @@
             .panel-body .table {
                 margin-bottom: 0px;
             }
+
+        body {
+            background-image: none;
+        }
+
+        #accordion {
+            margin-top: 40px;
+            /*margin-left:-80px;
+                margin-right:100px;*/
+        }
+
+        .border {
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -82,8 +95,8 @@
 
     <div class="container body-content">
         <div class="row">
-            <div class="col-sm-3 col-md-3">
-                <div class="panel-group" id="accordion">
+            <div class="col-md-3 ">
+                <div class="panel-group well" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -98,7 +111,7 @@
                                 <table class="table">
                                     <tr>
                                         <td>
-                                            <span class="glyphicon glyphicon-pencil text-primary"></span><a href="">Summary</a>
+                                            <span class="glyphicon glyphicon-pencil text-primary"></span><a href="@Url.Action("Index","Customer")">Summary</a>
                                         </td>
                                     </tr>
                                     @*<tr>
@@ -116,7 +129,7 @@
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                     <span class="glyphicon glyphicon-user">
-                                    </span>Account
+                                    </span>Manage Account
                                 </a>
                             </h4>
                         </div>
@@ -126,6 +139,16 @@
                                     <tr>
                                         <td>
                                             <a href="@Url.Action("ChangePassword","Manage")">Change Password</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("CustomerCreateDeliveryAddress", "Customer")">Add new Delivery Address</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("CustomerRetrieveDeliveryAddress", "Customer")">View Delivery Address List</a>
                                         </td>
                                     </tr>
                                     @*<tr>
@@ -160,7 +183,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 col-md-9">
+            <div class="col-md-9 body-content border">
                 @RenderBody()
             </div>
         </div>

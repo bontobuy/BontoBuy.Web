@@ -456,6 +456,12 @@
     <Compile Include="Migrations\201603061404431_Add Column UnitPrice To OrderVM.Designer.cs">
       <DependentUpon>201603061404431_Add Column UnitPrice To OrderVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603061632192_ResolveMigration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migrations\201603061632192_ResolveMigration.Designer.cs">
+      <DependentUpon>201603061632192_ResolveMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
     <Compile Include="Models\ViewModels\CommissionViewModel.cs" />
@@ -1085,6 +1091,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603060619562_Remove PaymentDate in Payment.resx">
       <DependentUpon>201603060619562_Remove PaymentDate in Payment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603061632192_ResolveMigration.resx">
+      <DependentUpon>201603061632192_ResolveMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

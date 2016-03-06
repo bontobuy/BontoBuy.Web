@@ -1,46 +1,52 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.DeliveryAddressActionViewModel>
-
-<p>
-    @Html.ActionLink("Create New", "CustomerCreateDeliveryAddress")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Street)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Zipcode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@{
+    Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
+    ViewBag.Title = "Delivery Address List";
+}
+<div class="container">
+    <h4>@ViewBag.Title</h4>
+    <p>
+        @Html.ActionLink("Add New", "CustomerCreateDeliveryAddress")
+    </p>
+    <table class="table">
         <tr>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Street)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Zipcode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.DeliveryAddressId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.DeliveryAddressId }) |
-                @Html.ActionLink("Delete", "Archive", new { id = item.DeliveryAddressId })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zipcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zipcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DeliveryAddressId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.DeliveryAddressId }) |
+                    @Html.ActionLink("Delete", "Archive", new { id = item.DeliveryAddressId })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

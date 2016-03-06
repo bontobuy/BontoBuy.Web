@@ -60,9 +60,9 @@
                         <address>
                             <strong>Billed To:</strong><br>
                             @Model.CustomerFName @Model.CustomerLName<br>
-                            1234 Main<br>
-                            Apt. 4B<br>
-                            Springfield, ST 54321
+                            @Model.Street<br>
+                            @Model.City<br>
+                            @Model.Zipcode
                         </address>
                     </div>
                     <div class="col-xs-6 text-right">
@@ -113,28 +113,10 @@
                                 <tbody>
                                     <tr>
                                         <td>@Model.ModelNumber</td>
-                                        <td class="text-center">Rs @Model.Total</td>
+                                        <td class="text-center">Rs @Model.UnitPrice</td>
                                         <td class="text-center">@Model.Quantity</td>
                                         <td class="text-right">Rs @Model.GrandTotal</td>
                                     </tr>
-                                    @*<tr>
-                                            <td class="thick-line"></td>
-                                            <td class="thick-line"></td>
-                                            <td class="thick-line text-center"><strong>Grand Total</strong></td>
-                                            <td class="thick-line text-right">Rs </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="no-line"></td>
-                                            <td class="no-line"></td>
-                                            <td class="no-line text-center"><strong>Delivery Cost</strong></td>
-                                            <td class="no-line text-right">Rs</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="no-line"></td>
-                                            <td class="no-line"></td>
-                                            <td class="no-line text-center"><strong>Total</strong></td>
-                                            <td class="no-line text-right">Rs</td>
-                                        </tr>*@
                                 </tbody>
                             </table>
                         </div>

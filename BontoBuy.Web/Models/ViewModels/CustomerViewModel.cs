@@ -39,5 +39,9 @@ namespace BontoBuy.Web.Models
         public string DeliveryAddress { get; set; }
         public string CustomerFName { get; set; }
         public string CustomerLName { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Zipcode { get; set; }
+        public int UnitPrice { get; set; }
     }
 }

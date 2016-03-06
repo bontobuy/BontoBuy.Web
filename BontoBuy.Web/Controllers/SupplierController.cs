@@ -374,5 +374,107 @@ namespace BontoBuy.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        public ActionResult SupplierRetrieveReturns()
+        {
+            //View ReturnViewModel
+
+            string userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var records = from r in db.Returns
+                          join o in db.Orders on r.OrderId equals o.OrderId
+                          where o.SupplierUserId == userId
+                          select r;
+            if (records == null)
+                return RedirectToAction("Home", "Error404");
+
+            return View(records);
+        }
+
+        public ActionResult SupplierGetReturn(int id)
+        {
+            //View ReturnViewModel
+
+            string userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var record = (from r in db.Returns
+                          join o in db.Orders on r.OrderId equals o.OrderId
+                          where o.SupplierUserId == userId &&
+                          r.ReturnId == id
+                          select r);
+
+            if (record == null)
+                return RedirectToAction("Home", "Error404");
+
+            return View(record);
+        }
+
+        public ActionResult SupplierEditReturn(int id)
+        {
+            string userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            //View ReturnActionViewModel
+            var record = (from r in db.Returns
+                          join o in db.Orders on r.OrderId equals o.OrderId
+                          where o.SupplierUserId == userId &&
+                          r.ReturnId == id
+                          select r).FirstOrDefault();
+
+            var itemToUpdate = new ReturnActionViewModel()
+            {
+                ReturnId = record.ReturnId,
+                OrderId = record.OrderId,
+                ReturnDate = record.ReturnDate,
+                ReturnMethod = record.ReturnMethod,
+                Reason = record.Reason,
+                Status = record.Status,
+                DtCreated = record.DtCreated,
+                DtUpdated = record.DtUpdated
+            };
+
+            //Refer to Product Controller for View
+            ViewBag.ReturnStatusId = new SelectList(db.ReturnStatuses, "ReturnStatusId", "Status");
+            return View(itemToUpdate);
+        }
+
+        public ActionResult SupplierEditReturn(ReturnActionViewModel item)
+        {
+            try
+            {
+                //Refer to Product Controller for View
+                ViewBag.ReturnStatusId = new SelectList(db.ReturnStatuses, "ReturnStatusId", "Status", item.ReturnStatusId);
+                var itemToUpdate = new ReturnViewModel()
+                {
+                    ReturnId = item.ReturnId,
+                    OrderId = item.OrderId,
+                    ReturnDate = item.ReturnDate,
+                    ReturnMethod = item.ReturnMethod,
+                    Reason = item.Reason,
+                    Status = (from rs in db.ReturnStatuses
+                              where rs.ReturnStatusId == item.ReturnStatusId
+                              select rs.Status).FirstOrDefault(),
+                    DtCreated = item.DtCreated,
+                    DtUpdated = item.DtUpdated
+                };
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

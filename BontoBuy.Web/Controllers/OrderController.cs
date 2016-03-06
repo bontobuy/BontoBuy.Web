@@ -142,7 +142,7 @@ namespace BontoBuy.Web.Controllers
 
                     SendNotification(supplierEmail, "Supplier");
                     SendNotification(customerEmail, "Customer");
-            }
+                }
                 return RedirectToAction("CustomerRetrieveOrders", "Customer");
             }
 
@@ -212,6 +212,7 @@ namespace BontoBuy.Web.Controllers
                     db.Orders.Add(newOrder);
                     db.SaveChanges();
 
+                    GeneratePayment(newOrder.OrderId);
                     string supplierEmail = (from s in db.Suppliers
                                             where s.SupplierId == newOrder.SupplierId
                                             select s.Email).FirstOrDefault();
@@ -232,6 +233,23 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("CustomerRetrieveOrders", "Customer");
             }
             return View("../Home/Error404");
+        }
+
+        private void GeneratePayment(int orderId)
+        {
+            if (orderId > 1)
+            {
+                var newPayment = new PaymentViewModel()
+                {
+                    OrderId = orderId,
+                    CommissionId = 1,
+                    DtCreated = DateTime.UtcNow,
+                    DtUpdated = DateTime.UtcNow,
+                    DiscountAllowed = 10
+                };
+                db.Payments.Add(newPayment);
+                db.SaveChanges();
+            }
         }
 
         private static async void SendNotification(string email, string role)

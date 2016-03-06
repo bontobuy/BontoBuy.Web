@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -102,7 +102,26 @@ namespace BontoBuy.Web.Controllers
                                          select u.FirstName).FirstOrDefault(),
                         CustomerLName = (from u in db.Users
                                          where u.Id == userId
-                                         select u.LastName).FirstOrDefault()
+                                         select u.LastName).FirstOrDefault(),
+                        Street = (from d in db.Deliveries
+                                  where d.OrderId == id
+                                  select d.Street).FirstOrDefault(),
+
+                        City = (from d in db.Deliveries
+                                where d.OrderId == id
+                                select d.City).FirstOrDefault(),
+
+                        Zipcode = (from d in db.Deliveries
+                                   where d.OrderId == id
+                                   select d.Zipcode).FirstOrDefault(),
+
+                        Quantity = (from o in db.Orders
+                                    where o.OrderId == id
+                                    select o.Quantity).FirstOrDefault(),
+
+                        UnitPrice = (from o in db.Orders
+                                     where o.OrderId == id
+                                     select o.UnitPrice).FirstOrDefault()
                     };
                     Session["CustomerOrder"] = customerOrder;
                     return View(customerOrder);

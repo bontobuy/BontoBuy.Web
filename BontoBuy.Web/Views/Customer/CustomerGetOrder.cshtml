@@ -2,9 +2,10 @@
 
 @{
     Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
+    ViewBag.Title = Model.ModelNumber + "Order Details";
 }
-<div>
-    <h4>Details</h4>
+<div class="container">
+    <h4>@ViewBag.Title</h4>
     <hr/>
     <dl class="dl-horizontal">
         <dt>

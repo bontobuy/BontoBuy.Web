@@ -13,10 +13,13 @@ namespace BontoBuy.Web.Models
         [Key]
         public int DeliveryId { get; set; }
         public int OrderId { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Zipcode { get; set; }
         public DateTime ExpectedDeliveryDate { get; set; }
         public DateTime ActualDeliveryDate { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+        public Nullable<DateTime> DateUpdated { get; set; }
         public string Status { get; set; }
         [ForeignKey("OrderId")]
         public OrderViewModel OrderNav { get; set; }

@@ -294,5 +294,14 @@ namespace BontoBuy.Web.Controllers
                 await smtp.SendMailAsync(message);
             }
         }
+
+        public JsonResult GetDeliveryAddress()
+        {
+            var userId = User.Identity.GetUserId();
+            var addressList = (from d in db.DeliveryAddresses
+                               where d.UserId == userId && d.Status == "Optional"
+                               select d).ToList();
+            return Json(addressList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

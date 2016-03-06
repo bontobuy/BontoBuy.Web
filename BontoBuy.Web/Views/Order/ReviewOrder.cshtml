@@ -11,6 +11,10 @@
     #cart {
         border: 1px solid #ddd;
     }
+
+    .border {
+        border: 1px solid #ddd;
+    }
 </style>
 
 @using (Html.BeginForm())
@@ -87,28 +91,67 @@
                     </thead>
                     <tbody>
                         <tr class="delivery">
-                            <td>
+                            <td class="streetTd">
 
-                                        Street: @ViewBag.Street
+                                Street: @ViewBag.Street
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                        City: @ViewBag.City
-
+                                City: @ViewBag.City
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                        ZipCode: @ViewBag.ZipCode
+                                ZipCode: @ViewBag.ZipCode
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
-                        <input class="btn btn-primary" value="Change Delivery Address"/>
+                        <input class="btn btn-primary" id="ChangeDeliveryAddress" value="Change Delivery Address"/>
                     </tfoot>
                 </table>
             </div>
         </div>
     </div>
+}
+@section Scripts {
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $('#ChangeDeliveryAddress').click(function () {
+
+                    $.ajax({
+                        url: '/Order/GetDeliveryAddress',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            var container;
+                            var street, city, zipcode;
+                            $(data).each(function (index, item) {
+                                container += '<div class="border"><a><ul><li class="stret" data-id="' + item.DeliveryAddressId + '">Street: ' + item.Street + '</li><li>City: ' + item.City + '</li><li>ZipCode: ' + item.Zipcode + '</li></ul></></div>';
+                            });
+                            $.jAlert({
+                                'title': 'Click to change Delivery Address',
+                                'content': container
+
+                            })
+                            $('.border').click(function () {
+                                street = $('.stret').attr('data-id');
+                                alert(street);
+                                //$.jAlert({
+                                //    'title': 'Success',
+                                //    'content':'Delivery Address changed.',
+                                //    'onClose': function (alert) {
+
+                                //        $('.jAlert').closeAlert()
+                                //    }
+                                //    });
+
+                            });
+
+                        }
+                    })
+                });
+            });
+        </script>*@
 }

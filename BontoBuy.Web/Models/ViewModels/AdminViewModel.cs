@@ -9,6 +9,7 @@ namespace BontoBuy.Web.Models
     [Table("Admin")]
     public class AdminViewModel : ApplicationUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AdminId { get; set; }
     }
 

@@ -205,6 +205,8 @@ namespace BontoBuy.Web.Controllers
                         ExpectedDeliveryDate = DateTime.UtcNow,
                         RealDeliveryDate = DateTime.UtcNow,
                         Status = "Active",
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice,
                         Total = item.SubTotal,
                         GrandTotal = item.GrandTotal,
                         SupplierId = item.SupplierId,

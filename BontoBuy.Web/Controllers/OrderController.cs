@@ -184,7 +184,7 @@ namespace BontoBuy.Web.Controllers
             ViewBag.Street = userAddress.Street;
             ViewBag.City = userAddress.City;
             ViewBag.ZipCode = userAddress.Zipcode;
-
+            Session["DeliveryAddress"] = userAddress;
             return View(orderList);
         }
 
@@ -192,6 +192,7 @@ namespace BontoBuy.Web.Controllers
         public ActionResult ReviewOrder(List<CartViewModel> orders)
         {
             var orderList = Session["Order"] as List<CartViewModel>;
+            var deliveryAddress = Session["DeliveryAddress"] as DeliveryAddressViewModel;
             string userId = User.Identity.GetUserId();
             var orderItems = new List<OrderViewModel>();
             if (orderList != null)
@@ -221,6 +222,23 @@ namespace BontoBuy.Web.Controllers
                     db.Orders.Add(newOrder);
                     db.SaveChanges();
 
+                    db.Entry(newOrder).GetDatabaseValues();
+                    int newOrderId = newOrder.OrderId;
+
+                    var newOrderDelivery = new DeliveryViewModel()
+                    {
+                        OrderId = newOrderId,
+                        Street = deliveryAddress.Street,
+                        City = deliveryAddress.City,
+                        Zipcode = deliveryAddress.Zipcode,
+                        ExpectedDeliveryDate = DateTime.UtcNow,
+                        ActualDeliveryDate = DateTime.UtcNow,
+                        DateCreated = DateTime.UtcNow,
+                        Status = "Processing"
+                    };
+                    db.Deliveries.Add(newOrderDelivery);
+                    db.SaveChanges();
+
                     string supplierEmail = (from s in db.Suppliers
                                             where s.SupplierId == newOrder.SupplierId
                                             select s.Email).FirstOrDefault();
@@ -235,11 +253,13 @@ namespace BontoBuy.Web.Controllers
 
                 Session.Remove("Order");
                 Session.Remove("Cart");
+                Session.Remove("DeliveryAddress");
 
                 //return RedirectToAction("Invoice", "Order", orderItems);
                 //return View("../Order/Invoice", orderItems);
                 return RedirectToAction("CustomerRetrieveOrders", "Customer");
             }
+
             return View("../Home/Error404");
         }
 

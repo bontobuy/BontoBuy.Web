@@ -33,13 +33,15 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
+
                 <form class="navbar-form navbar-left" method="GET" role="search">
                     <div class="form-group">
                         <input type="text" name="q" class="form-control" placeholder="Search">
                     </div>
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                     <a class="text-info" href="@Url.Action("AdvancedSearch","Search")">Advanced</a>
                 </form>
+
                 <ul class="nav navbar-nav navbar-right">
                     @Html.Partial("_LoginPartial")
                     <li class="dropdown">

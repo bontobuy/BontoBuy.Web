@@ -1,1 +1,38 @@
-﻿
+﻿@model BontoBuy.Web.Models.DeliveryAddressViewModel
+@{
+    Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
+    ViewBag.Title = "Delivery Address Details";
+}
+
+<div>
+    <h4>Details</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Zipcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zipcode)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "CustomerUpdateDeliveryAddress", new { id = Model.DeliveryAddressId }) |
+    @Html.ActionLink("Back to List", "CustomerRetrieveDeliveryAddress")
+</p>

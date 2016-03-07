@@ -42,8 +42,8 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.DeliveryAddressId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.DeliveryAddressId }) |
+                    @Html.ActionLink("Edit", "CustomerUpdateDeliveryAddress", new { id = item.DeliveryAddressId }) |
+                    @Html.ActionLink("Details", "CustomerGetDeliveryAddress", new { id = item.DeliveryAddressId }) |
                     @Html.ActionLink("Delete", "Archive", new { id = item.DeliveryAddressId })
                 </td>
             </tr>

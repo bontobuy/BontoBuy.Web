@@ -473,6 +473,10 @@
     <Compile Include="Migrations\201603070421288_Add PaymentStatus.Designer.cs">
       <DependentUpon>201603070421288_Add PaymentStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603071646459_Add Nullable TO COlumn RatingId.cs" />
+    <Compile Include="Migrations\201603071646459_Add Nullable TO COlumn RatingId.Designer.cs">
+      <DependentUpon>201603071646459_Add Nullable TO COlumn RatingId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
@@ -1117,6 +1121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603070421288_Add PaymentStatus.resx">
       <DependentUpon>201603070421288_Add PaymentStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603071646459_Add Nullable TO COlumn RatingId.resx">
+      <DependentUpon>201603071646459_Add Nullable TO COlumn RatingId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

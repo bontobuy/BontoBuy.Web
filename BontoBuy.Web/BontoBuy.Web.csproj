@@ -186,6 +186,7 @@
     <Compile Include="Controllers\CommissionController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomerPaymentController.cs" />
+    <Compile Include="Controllers\CustomerReturnsController.cs" />
     <Compile Include="Controllers\DeliveryAddressController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
@@ -838,6 +839,9 @@
     <Content Include="Views\Customer\CustomerGetDeliveryAddress.cshtml" />
     <Content Include="Views\Customer\CustomerUpdateDeliveryAddress.cshtml" />
     <Content Include="Views\Commission\Create.cshtml" />
+    <Content Include="Views\CustomerReturns\RetrieveReturns.cshtml" />
+    <Content Include="Views\CustomerReturns\GetReturns.cshtml" />
+    <Content Include="Views\CustomerReturns\CreateReturn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

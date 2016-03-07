@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
 
 namespace BontoBuy.Web.Controllers
 {

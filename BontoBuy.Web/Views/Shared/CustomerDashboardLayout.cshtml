@@ -127,13 +127,13 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                                     <span class="glyphicon glyphicon-user">
                                     </span>Manage Account
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
+                        <div id="collapseTwo" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table class="table">
                                     <tr>
@@ -163,9 +163,30 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                     <span class="glyphicon glyphicon-file">
                                     </span>Orders
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-usd"></span><a href="@Url.Action("CustomerRetrieveOrders","Customer")">Purchase History</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                    <span class="glyphicon glyphicon-remove-circle">
+                                    </span>Returns
                                 </a>
                             </h4>
                         </div>
@@ -174,7 +195,7 @@
                                 <table class="table">
                                     <tr>
                                         <td>
-                                            <span class="glyphicon glyphicon-usd"></span><a href="@Url.Action("CustomerRetrieveOrders","Customer")">Purchase History</a>
+                                            <span class="glyphicon glyphicon-usd"></span><a href="@Url.Action("RetrieveReturns","CustomerReturns")">Return History</a>
                                         </td>
                                     </tr>
                                 </table>

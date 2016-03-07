@@ -17,6 +17,7 @@ namespace BontoBuy.Web.Models
         public DateTime DtCreated { get; set; }
         public DateTime DtUpdated { get; set; }
         public int DiscountAllowed { get; set; }
+        public string Status { get; set; }
 
         [ForeignKey("OrderId")]
         [Column(Order = 0)]
@@ -24,5 +25,18 @@ namespace BontoBuy.Web.Models
         [ForeignKey("CommissionId")]
         [Column(Order = 1)]
         public CommissionViewModel CommissionNav { get; set; }
+    }
+
+    public class PaymentActionViewModel
+    {
+        [Key]
+        public int PaymentId { get; set; }
+        public int OrderId { get; set; }
+        public int CommissionId { get; set; }
+        public DateTime DtCreated { get; set; }
+        public DateTime DtUpdated { get; set; }
+        public int DiscountAllowed { get; set; }
+        public string Status { get; set; }
+        public int PaymentStatusId { get; set; }
     }
 }

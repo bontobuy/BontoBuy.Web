@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -6,8 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -513,6 +513,8 @@ namespace BontoBuy.Web.Controllers
                 return Json(new { ok = false, message = ex.Message });
             }
         }
+
+        [HttpPost]
         public ActionResult SearchModel(string searchCriteria)
         {
             if (String.IsNullOrEmpty(searchCriteria))
@@ -520,7 +522,7 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             Session["SearchCriteria"] = searchCriteria;
-            return RedirectToAction("SearchResult", "Search");
+            return View("SearchResult", searchResult);
         }
     }
 }

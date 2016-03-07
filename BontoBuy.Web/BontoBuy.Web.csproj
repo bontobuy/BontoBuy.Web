@@ -185,12 +185,15 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CommissionController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerPaymentController.cs" />
     <Compile Include="Controllers\DeliveryAddressController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PaymentCustomerController.cs" />
+    <Compile Include="Controllers\PaymentSupplierController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\ProductCreationController.cs" />
     <Compile Include="Controllers\ReturnController.cs" />
@@ -462,7 +465,16 @@
     <Compile Include="Migrations\201603061632192_ResolveMigration.Designer.cs">
       <DependentUpon>201603061632192_ResolveMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603070415485_Add Status in payment.cs" />
+    <Compile Include="Migrations\201603070415485_Add Status in payment.Designer.cs">
+      <DependentUpon>201603070415485_Add Status in payment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603070421288_Add PaymentStatus.cs" />
+    <Compile Include="Migrations\201603070421288_Add PaymentStatus.Designer.cs">
+      <DependentUpon>201603070421288_Add PaymentStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
+    <Compile Include="Models\ViewModels\PaymentStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
     <Compile Include="Models\ViewModels\CommissionViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentViewModel.cs" />
@@ -826,9 +838,13 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\" />
+    <Folder Include="Views\CustomerPayment\" />
     <Folder Include="Views\Email\" />
+    <Folder Include="Views\PaymentCustomer\" />
+    <Folder Include="Views\PaymentSupplier\" />
     <Folder Include="Views\Payment\" />
     <Folder Include="Views\Return\" />
+    <Folder Include="Views\SupplierPayment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1095,6 +1111,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603061632192_ResolveMigration.resx">
       <DependentUpon>201603061632192_ResolveMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603070415485_Add Status in payment.resx">
+      <DependentUpon>201603070415485_Add Status in payment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603070421288_Add PaymentStatus.resx">
+      <DependentUpon>201603070421288_Add PaymentStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -62,6 +62,8 @@ namespace BontoBuy.Web.Controllers
                                join c in db.Categories on p.CategoryId equals c.CategoryId
                                where m.BrandId == filter.BrandId
                                && c.CategoryId == filter.CategoryId
+                               && m.Price >= filter.MinPrice
+                               && m.Price <= filter.MaxPrice
                                select m;
 
             //You need to change the View in order to display it

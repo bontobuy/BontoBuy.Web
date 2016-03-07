@@ -1,7 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +6,9 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -142,7 +142,7 @@ namespace BontoBuy.Web.Controllers
 
                     SendNotification(supplierEmail, "Supplier");
                     SendNotification(customerEmail, "Customer");
-            }
+                }
                 return RedirectToAction("CustomerRetrieveOrders", "Customer");
             }
 
@@ -264,6 +264,19 @@ namespace BontoBuy.Web.Controllers
             }
 
             return View("../Home/Error404");
+        }
+
+        private void GenerateDelivery(int orderId)
+        {
+            if (orderId > 1)
+            {
+                var newDelivery = new DeliveryViewModel()
+                {
+                    OrderId = orderId,
+                };
+                db.Deliveries.Add(newDelivery);
+                db.SaveChanges();
+            }
         }
 
         private void GeneratePayment(int orderId)

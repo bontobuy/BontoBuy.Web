@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -18,7 +18,7 @@ namespace BontoBuy.Web.Controllers
         {
             var searchCriteria = Session["SearchCriteria"] as string;
             if (searchCriteria == null)
-                return RedirectToAction("Home", "Error404");
+                return RedirectToAction("Error404", "Home");
             var records = db.Models.Where(x => x.ModelNumber.Contains(searchCriteria)).ToList();
             return View(records);
         }
@@ -56,20 +56,25 @@ namespace BontoBuy.Web.Controllers
             ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description", filter.CategoryId);
             ViewBag.BrandId = new SelectList(db.Brands.Where(b => b.Status == "Active"), "BrandId", "Name", filter.BrandId);
 
-            var searchResult = from m in db.Models
-                               join i in db.Items on m.ItemId equals i.ItemId
-                               join p in db.Products on i.ProductId equals p.ProductId
-                               join c in db.Categories on p.CategoryId equals c.CategoryId
-                               where m.BrandId == filter.BrandId
-                               && c.CategoryId == filter.CategoryId
-                               && m.Price >= filter.MinPrice
-                               && m.Price <= filter.MaxPrice
-                               select m;
+            var searchResult = (from m in db.Models
+                                join i in db.Items on m.ItemId equals i.ItemId
+                                join p in db.Products on i.ProductId equals p.ProductId
+                                join c in db.Categories on p.CategoryId equals c.CategoryId
+                                where m.ModelNumber == filter.ModelName
+                                && m.BrandId == filter.BrandId
+                                && c.CategoryId == filter.CategoryId
+                                && m.Price >= filter.MinPrice
+                                && m.Price <= filter.MaxPrice
+                                select m).ToList();
+
+            int count = searchResult.Count();
+            ViewBag.Count = count;
+            ViewBag.Model = filter.ModelName;
 
             //You need to change the View in order to display it
             //You can also put it in a Session and use it elsewhere
 
-            return View(searchResult);
+            return View("SearchResult", searchResult);
         }
     }
 }

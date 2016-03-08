@@ -733,7 +733,7 @@
                                     <div class="info">
                                         <div class="separator clear-left">
                                             <p class="btn-add">
-                                                <i class="glyphicon glyphicon-shopping-cart"></i>@Html.ActionLink("AddToCart", "#", new { id = item.ModelId }, new { @class = "btn btn-primary" })
+                                                <i class="glyphicon glyphicon-shopping-cart"></i><input class="btn btn-primary AddToCart" type="button" value="AddToCart" data-id="@item.ModelId" /> @*@Html.ActionLink("AddToCart", "NavigateToCart", new { id = item.ModelId }, new { @class = "btn btn-primary" })*@
                                             </p>
                                             <p class="btn-details">
                                                 <i class="glyphicon glyphicon-list"></i>@Html.ActionLink("Details»", "ModelDetails", new { id = item.ModelId }, new { @class = "btn btn-info" })

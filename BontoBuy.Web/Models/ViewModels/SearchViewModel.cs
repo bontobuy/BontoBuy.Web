@@ -15,6 +15,7 @@ namespace BontoBuy.Web.Models
         public int BrandId { get; set; }
         public int MaxPrice { get; set; }
         public int MinPrice { get; set; }
+        public string ModelName { get; set; }
     }
 
     public class SearchResultViewModel

@@ -1,0 +1,45 @@
+﻿@model BontoBuy.Web.Models.ReturnViewModel
+@{
+    ViewBag.Title = "Create Return";
+    Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
+}
+<style type="text/css">
+    #Reason{
+        width: 400px;
+        height:100px;
+    }
+</style>
+
+<div class="container">
+    <h3>@ViewBag.Title</h3>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Enter Details</h4>
+            <hr/>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label>Create Return For OrderNo. @ViewBag.OrderId</label>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-7">
+                    @Html.TextAreaFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", @id = "Reason" } })
+                    @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-3">
+                    <input type="submit" value="Create" class="btn btn-default"/>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "RetrieveReturns")
+    </div>
+</div>

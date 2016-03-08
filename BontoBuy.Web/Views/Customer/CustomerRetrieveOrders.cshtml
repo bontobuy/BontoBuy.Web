@@ -40,7 +40,8 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Details", "CustomerGetOrder", new { id = item.OrderId })
+                    @Html.ActionLink("Details", "CustomerGetOrder", new { id = item.OrderId }) |
+                    @Html.ActionLink("Return Product", "CreateReturn", "CustomerReturns", new { id = item.OrderId }, null)
                 </td>
             </tr>
         }

@@ -22,7 +22,7 @@ namespace BontoBuy.Web.Models
         public string ModelNumber { get; set; }
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
-        public int RatingId { get; set; }
+        public Nullable<int> RatingId { get; set; }
 
         [RegularExpression(@"^[+-]?[0-9]{1,9}(?:\.[0-9]{1,2})?$", ErrorMessage = "Please enter a correct price!")]
 

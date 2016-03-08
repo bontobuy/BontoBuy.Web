@@ -237,14 +237,14 @@ namespace BontoBuy.Web.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult CustomerUpdateDeliveryAddress(int id = 1)
+        public ActionResult CustomerUpdateDeliveryAddress(int id)
         {
             var userId = User.Identity.GetUserId();
             if (userId == null || !User.IsInRole("Customer"))
             {
                 return RedirectToAction("Login", "Account");
             }
-            var record = db.DeliveryAddresses.Where(x => x.UserId == userId).FirstOrDefault();
+            var record = db.DeliveryAddresses.Where(x => x.UserId == userId && x.DeliveryAddressId == id).FirstOrDefault();
             if (record == null)
                 return RedirectToAction("Home", "Error404");
 
@@ -256,39 +256,42 @@ namespace BontoBuy.Web.Controllers
                 Status = record.Status,
                 Street = record.Street,
                 Zipcode = record.Zipcode,
-                DeliveryAddressStatusId = 2,
+
+                //DeliveryAddressStatusId = 2,
                 UserId = record.UserId
             };
 
             //Need to test !!
-            ViewBag.DeliveryAddressStatus = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status");
-            Session["Data"] = recordToUpdate;
+            ViewBag.DeliveryAddressStatusId = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status");
+
+            //Session["Data"] = recordToUpdate;
             return View(recordToUpdate);
         }
 
         [HttpPost]
 
         // public ActionResult CustomerUpdateDeliveryAddress(DeliveryAddressActionViewModel item)
-        public ActionResult CustomerUpdateDeliveryAddress()
+        public ActionResult CustomerUpdateDeliveryAddress(DeliveryAddressActionViewModel item)
         {
-            var recordToUpdate = Session["Data"] as DeliveryAddressActionViewModel;
+            //var recordToUpdate = Session["Data"] as DeliveryAddressActionViewModel;
             var userId = User.Identity.GetUserId();
             if (userId == null || !User.IsInRole("Customer"))
             {
                 return RedirectToAction("Login", "Account");
             }
-            if (ModelState.IsValid && recordToUpdate != null)
+            if (ModelState.IsValid)
             {
-                ViewBag.DeliveryAddressStatus = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status", recordToUpdate.DeliveryAddressStatusId);
+                ViewBag.DeliveryAddressStatusId = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status", item.DeliveryAddressStatusId);
 
-                var updatedRecord = db.DeliveryAddresses.Where(x => x.DeliveryAddressId == recordToUpdate.DeliveryAddressId).FirstOrDefault();
-                updatedRecord.CustomerId = updatedRecord.CustomerId;
-                updatedRecord.UserId = updatedRecord.UserId;
-                updatedRecord.Zipcode = updatedRecord.Zipcode;
-                updatedRecord.City = updatedRecord.City;
-                updatedRecord.Street = updatedRecord.Street;
+                var updatedRecord = db.DeliveryAddresses.Where(x => x.DeliveryAddressId == item.DeliveryAddressId).FirstOrDefault();
+
+                //updatedRecord.CustomerId = updatedRecord.CustomerId;
+                //updatedRecord.UserId = updatedRecord.UserId;
+                updatedRecord.Zipcode = item.Zipcode;
+                updatedRecord.City = item.City;
+                updatedRecord.Street = item.Street;
                 updatedRecord.Status = (from da in db.DeliveryAddressStatuses
-                                        where da.DeliveryAddressStatusId == recordToUpdate.DeliveryAddressStatusId
+                                        where da.DeliveryAddressStatusId == item.DeliveryAddressStatusId
                                         select da.Status).FirstOrDefault();
                 if (updatedRecord.Status == "Default")
                 {

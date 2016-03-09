@@ -522,7 +522,7 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             Session["SearchCriteria"] = searchCriteria;
-            return View("SearchResult", searchResult);
+            return View("SearchResult");
         }
     }
 }

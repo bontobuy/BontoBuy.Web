@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,9 +9,6 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -286,7 +286,7 @@ namespace BontoBuy.Web.Controllers
                 var newPayment = new PaymentViewModel()
                 {
                     OrderId = orderId,
-                    CommissionId = 1,
+                    CommissionId = 3,
                     DtCreated = DateTime.UtcNow,
                     DtUpdated = DateTime.UtcNow,
                     DiscountAllowed = 10

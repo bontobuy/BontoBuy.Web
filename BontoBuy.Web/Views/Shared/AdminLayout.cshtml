@@ -160,8 +160,13 @@
                         </ul>
                     </li>
 
-                    <li>
-                        <a href=""><i class="glyphicon glyphicon-book"></i> Orders</a>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-book"></i> Orders</a>
+                        <ul id="demo" class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("RetrieveOrders","AdminOrder")">View Orders List</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-arrow-down"></i> Returns</a>

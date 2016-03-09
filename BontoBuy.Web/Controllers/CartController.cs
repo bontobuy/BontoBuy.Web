@@ -154,9 +154,9 @@ namespace BontoBuy.Web.Controllers
                     //item.Quantity = 1;
                     //item.SubTotal = (item.Quantity * item.UnitPrice);
                 }
+                return View(cartList);
             }
-
-            return View(cartList);
+            return RedirectToAction("Error404", "Home");
         }
 
         [HttpPost]

@@ -1,6 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -8,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -134,7 +134,7 @@ namespace BontoBuy.Web.Controllers
             var itemList1 = (from i in db.Items
                              join p in db.Products on i.ProductId equals p.ProductId
                              where i.ProductId == 1
-                             where i.Status == "Active"
+                             where i.AdminStatus == "Active"
                              select i).ToList();
 
             model.ItemRecordsP1 = itemList1;
@@ -143,7 +143,7 @@ namespace BontoBuy.Web.Controllers
             var itemList2 = (from i in db.Items
                              join p in db.Products on i.ProductId equals p.ProductId
                              where i.ProductId == 2
-                             where i.Status == "Active"
+                             where i.AdminStatus == "Active"
                              select i).ToList();
 
             model.ItemRecordsP2 = itemList2;
@@ -152,7 +152,7 @@ namespace BontoBuy.Web.Controllers
             var itemList3 = (from i in db.Items
                              join p in db.Products on i.ProductId equals p.ProductId
                              where i.ProductId == 3
-                             where i.Status == "Active"
+                             where i.AdminStatus == "Active"
                              select i).ToList();
 
             model.ItemRecordsP3 = itemList3;
@@ -161,7 +161,7 @@ namespace BontoBuy.Web.Controllers
             var itemList4 = (from i in db.Items
                              join p in db.Products on i.ProductId equals p.ProductId
                              where i.ProductId == 4
-                             where i.Status == "Active"
+                             where i.AdminStatus == "Active"
                              select i).ToList();
 
             model.ItemRecordsP4 = itemList4;
@@ -170,7 +170,7 @@ namespace BontoBuy.Web.Controllers
             var itemList5 = (from i in db.Items
                              join p in db.Products on i.ProductId equals p.ProductId
                              where i.ProductId == 5
-                             where i.Status == "Active"
+                             where i.AdminStatus == "Active"
                              select i).ToList();
 
             model.ItemRecordsP5 = itemList5;
@@ -179,7 +179,7 @@ namespace BontoBuy.Web.Controllers
             var itemList6 = (from i in db.Items
                              join p in db.Products on i.ProductId equals p.ProductId
                              where i.ProductId == 6
-                             where i.Status == "Active"
+                             where i.AdminStatus == "Active"
                              select i).ToList();
 
             model.ItemRecordsP6 = itemList6;
@@ -188,7 +188,7 @@ namespace BontoBuy.Web.Controllers
             var itemList7 = (from i in db.Items
                              join p in db.Products on i.ProductId equals p.ProductId
                              where i.ProductId == 7
-                             where i.Status == "Active"
+                             where i.AdminStatus == "Active"
                              select i).ToList();
 
             model.ItemRecordsP7 = itemList7;
@@ -211,7 +211,7 @@ namespace BontoBuy.Web.Controllers
                               join p in db.Products on i.ProductId equals p.ProductId
                               join c in db.Categories on p.CategoryId equals c.CategoryId
                               where i.ProductId == 8
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP8 = itemListP8;
@@ -221,7 +221,7 @@ namespace BontoBuy.Web.Controllers
                               join p in db.Products on i.ProductId equals p.ProductId
                               join c in db.Categories on p.CategoryId equals c.CategoryId
                               where i.ProductId == 9
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP9 = itemListP9;
@@ -230,7 +230,7 @@ namespace BontoBuy.Web.Controllers
             var itemList10 = (from i in db.Items
                               join p in db.Products on i.ProductId equals p.ProductId
                               where i.ProductId == 10
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP10 = itemList10;
@@ -239,7 +239,7 @@ namespace BontoBuy.Web.Controllers
             var itemList11 = (from i in db.Items
                               join p in db.Products on i.ProductId equals p.ProductId
                               where i.ProductId == 11
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP11 = itemList11;
@@ -248,7 +248,7 @@ namespace BontoBuy.Web.Controllers
             var itemList12 = (from i in db.Items
                               join p in db.Products on i.ProductId equals p.ProductId
                               where i.ProductId == 12
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP12 = itemList12;
@@ -257,7 +257,7 @@ namespace BontoBuy.Web.Controllers
             var itemList13 = (from i in db.Items
                               join p in db.Products on i.ProductId equals p.ProductId
                               where i.ProductId == 13
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP13 = itemList13;
@@ -266,7 +266,7 @@ namespace BontoBuy.Web.Controllers
             var itemList14 = (from i in db.Items
                               join p in db.Products on i.ProductId equals p.ProductId
                               where i.ProductId == 14
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP14 = itemList14;
@@ -275,7 +275,7 @@ namespace BontoBuy.Web.Controllers
             var itemList15 = (from i in db.Items
                               join p in db.Products on i.ProductId equals p.ProductId
                               where i.ProductId == 15
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP15 = itemList15;
@@ -284,7 +284,7 @@ namespace BontoBuy.Web.Controllers
             var itemList16 = (from i in db.Items
                               join p in db.Products on i.ProductId equals p.ProductId
                               where i.ProductId == 16
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP16 = itemList16;
@@ -293,7 +293,7 @@ namespace BontoBuy.Web.Controllers
             var itemList17 = (from i in db.Items
                               join p in db.Products on i.ProductId equals p.ProductId
                               where i.ProductId == 17
-                              where i.Status == "Active"
+                              where i.AdminStatus == "Active"
                               select i).ToList();
 
             model.ItemRecordsP17 = itemList17;
@@ -522,7 +522,7 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             Session["SearchCriteria"] = searchCriteria;
-            return View("SearchResult", searchResult);
+            return View("SearchResult", searchCriteria);
         }
     }
 }

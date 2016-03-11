@@ -129,7 +129,7 @@ namespace BontoBuy.Web.Controllers
                 {
                     var newItem = new ModelViewModel();
                     ViewBag.BrandId = new SelectList(db.Brands.Where(x => x.Status == "Active"), "BrandId", "Name");
-                    ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description");
+                    ViewBag.ItemId = new SelectList(db.Items.Where(x => x.AdminStatus == "Active"), "ItemId", "Description");
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");
@@ -166,7 +166,7 @@ namespace BontoBuy.Web.Controllers
                     if (ModelState.IsValid)
                     {
                         ViewBag.BrandId = new SelectList(db.Brands.Where(x => x.Status == "Active"), "BrandId", "Name", item.BrandId);
-                        ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description", item.ItemId);
+                        ViewBag.ItemId = new SelectList(db.Items.Where(x => x.AdminStatus == "Active"), "ItemId", "Description", item.ItemId);
 
                         item.Status = "Active";
                         db.Models.Add(item);

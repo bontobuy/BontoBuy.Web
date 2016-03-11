@@ -182,7 +182,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\InitializeRoles.cs" />
-    <Compile Include="Controllers\AdminItemController.cs" />
+	 <Compile Include="Controllers\AdminItemController.cs" />
+	  <Compile Include="Controllers\AdminOrderController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CommissionController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -864,6 +865,8 @@
     <Content Include="Views\CustomerReturns\RetrieveReturns.cshtml" />
     <Content Include="Views\CustomerReturns\GetReturns.cshtml" />
     <Content Include="Views\CustomerReturns\CreateReturn.cshtml" />
+    <Content Include="Views\AdminOrder\RetrieveOrders.cshtml" />
+    <Content Include="Views\AdminOrder\GetOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

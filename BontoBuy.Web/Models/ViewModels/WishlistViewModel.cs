@@ -22,8 +22,47 @@ namespace BontoBuy.Web.Models
         public int WishlistId { get; set; }
         public int CustomerId { get; set; }
         public string Name { get; set; }
-
+        public DateTime DtCreated { get; set; }
+        public DateTime DtUpdated { get; set; }
+        public string Status { get; set; }
         public IEnumerable<ModelViewModel> ModelNav { get; set; }
         public IEnumerable<CustomerViewModel> CustomerNav { get; set; }
+    }
+
+    public class CustomerRetrieveWishlistViewModel
+    {
+        public int ModelId { get; set; }
+        public string UserId { get; set; }
+        public int WishlistId { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class CustomerGetWishlistViewModel
+    {
+        public int ModelId { get; set; }
+        public string ModelNumber { get; set; }
+        public int Price { get; set; }
+        public string UserId { get; set; }
+        public int WishlistId { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class CustomerCreateWishlistViewModel
+    {
+        public int ModelId { get; set; }
+        public string UserId { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class CustomerUpdateWishlistViewModel
+    {
+        public int ModelId { get; set; }
+        public string UserId { get; set; }
+        public int WishlistId { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class CustomerArchiveWishlistViewModel
+    {
     }
 }

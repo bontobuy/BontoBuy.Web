@@ -425,9 +425,10 @@ namespace BontoBuy.Web.Controllers
                 }
 
                 List<CartViewModel> Cart = Session["Cart"] as List<CartViewModel>;
+                var carCount = Cart.Count();
 
                 //var productList = db.Products.Where(p => p.CategoryId == id).ToList();
-                return Json(Cart);
+                return Json(new { Cart, carCount }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -522,7 +523,7 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             Session["SearchCriteria"] = searchCriteria;
-            return View("SearchResult", searchCriteria);
+            return View("SearchResult", searchResult);
         }
     }
 }

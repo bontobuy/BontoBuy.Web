@@ -12,7 +12,7 @@ namespace BontoBuy.Web.Models
         public IEnumerable<ItemViewModel> Retrieve()
         {
             var records = (from items in db.Items
-                           where items.Status == "Active"
+                           where items.AdminStatus == "Active"
                            select items).ToList();
 
             return records;
@@ -50,12 +50,12 @@ namespace BontoBuy.Web.Models
         public void Archive(int id)
         {
             var record = db.Items
-                .Where(x => x.ItemId == id && x.Status == "Active")
+                .Where(x => x.ItemId == id && x.AdminStatus == "Active")
                 .FirstOrDefault();
 
             if (record != null)
             {
-                record.Status = "Archived";
+                record.AdminStatus = "Archived";
                 db.SaveChanges();
             }
         }
@@ -63,7 +63,7 @@ namespace BontoBuy.Web.Models
         public IEnumerable<ItemViewModel> RetrieveArchives()
         {
             var records = (from items in db.Items
-                           where items.Status == "Archived"
+                           where items.AdminStatus == "Archived"
                            select items).ToList();
 
             return records;
@@ -72,12 +72,12 @@ namespace BontoBuy.Web.Models
         public void RevertArchive(int id)
         {
             var record = db.Items
-                .Where(x => x.ItemId == id && x.Status == "Archived")
+                .Where(x => x.ItemId == id && x.AdminStatus == "Archived")
                 .FirstOrDefault();
 
             if (record != null)
             {
-                record.Status = "Active";
+                record.AdminStatus = "Active";
                 db.SaveChanges();
             }
         }

@@ -17,6 +17,6 @@ namespace BontoBuy.Web.Models
         bool Archive(int id);
         bool RevertArchive(int id);
 
-        IEnumerable<ProductViewModel> AdminRetrieveProducts();
+        List<ProductViewModel> AdminRetrieveProducts();
     }
 }

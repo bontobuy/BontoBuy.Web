@@ -17,6 +17,7 @@ namespace BontoBuy.Web.Models
 
         public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }
         public IEnumerable<OrderViewModel> OrderNav { get; set; }
+        public IEnumerable<PaymentViewModel> PaymentNav { get; set; }
     }
 
     public class SupplierRetrieveModelsViewModel

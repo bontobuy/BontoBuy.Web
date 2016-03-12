@@ -13,7 +13,7 @@ namespace BontoBuy.Web.Models
         [Key]
         public int PaymentId { get; set; }
         public int OrderId { get; set; }
-        public int CommissionId { get; set; }
+        public string SupplierUserId { get; set; }
         public DateTime DtCreated { get; set; }
         public DateTime DtUpdated { get; set; }
         public int DiscountAllowed { get; set; }
@@ -22,9 +22,9 @@ namespace BontoBuy.Web.Models
         [ForeignKey("OrderId")]
         [Column(Order = 0)]
         public OrderViewModel OrderNav { get; set; }
-        [ForeignKey("CommissionId")]
+        [ForeignKey("SupplierUserId")]
         [Column(Order = 1)]
-        public CommissionViewModel CommissionNav { get; set; }
+        public SupplierViewModel SupplierNav { get; set; }
     }
 
     public class PaymentActionViewModel

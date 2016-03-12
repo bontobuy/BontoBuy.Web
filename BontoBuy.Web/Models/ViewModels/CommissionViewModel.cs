@@ -15,7 +15,5 @@ namespace BontoBuy.Web.Models
         public int Percentage { get; set; }
         public DateTime DtCreated { get; set; }
         public DateTime DtUpdated { get; set; }
-
-        public IEnumerable<PaymentViewModel> PaymentNav { get; set; }
     }
 }

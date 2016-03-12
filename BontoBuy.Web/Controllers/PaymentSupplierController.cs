@@ -92,7 +92,8 @@ namespace BontoBuy.Web.Controllers
             {
                 PaymentId = record.PaymentId,
                 OrderId = record.OrderId,
-                CommissionId = record.CommissionId,
+
+                //CommissionId = record.CommissionId,
                 DtCreated = record.DtCreated,
                 DtUpdated = DateTime.UtcNow,
                 DiscountAllowed = record.DiscountAllowed,
@@ -108,7 +109,7 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                if (item == null || item.PaymentId == null)
+                if (item == null || item.PaymentId < 1)
                 {
                     return RedirectToAction("Home", "Error404");
                 }

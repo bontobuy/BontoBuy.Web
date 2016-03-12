@@ -19,7 +19,10 @@ namespace BontoBuy.Web.Models
         [Display(Name = "Item Category")]
         [Required(ErrorMessage = "Item name is required")]
         public string Description { get; set; }
-        public string Status { get; set; }
+        public string AdminStatus { get; set; }
+        public DateTime DtCreated { get; set; }
+        public DateTime DtUpdated { get; set; }
+
         public IEnumerable<ModelViewModel> ItemModelNav { get; set; }
 
         [ForeignKey("ProductId")]

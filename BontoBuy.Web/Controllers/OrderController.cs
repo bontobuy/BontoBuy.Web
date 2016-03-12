@@ -286,7 +286,8 @@ namespace BontoBuy.Web.Controllers
                 var newPayment = new PaymentViewModel()
                 {
                     OrderId = orderId,
-                    CommissionId = 3,
+
+                    // CommissionId = 1,
                     DtCreated = DateTime.UtcNow,
                     DtUpdated = DateTime.UtcNow,
                     DiscountAllowed = 10

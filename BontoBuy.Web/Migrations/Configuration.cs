@@ -383,7 +383,80 @@ namespace BontoBuy.Web.Migrations
             //    new RatingViewModel() { RatingNumber = 3 },
             //    new RatingViewModel() { RatingNumber = 4 },
             //    new RatingViewModel() { RatingNumber = 5 }
+            //    );
 
+            //context.DeliveryAddressStatuses.AddOrUpdate(
+            //    p => p.DeliveryAddressStatusId,
+            //    new DeliveryAddressStatusViewModel() { Status = "Default" },
+            //    new DeliveryAddressStatusViewModel() { Status = "Other" }
+            //    );
+
+            //context.PaymentStatuses.AddOrUpdate(
+            //    p => p.PaymentStatusId,
+            //    new PaymentStatusViewModel() { Status = "Processing" },
+            //    new PaymentStatusViewModel() { Status = "Paid" }
+            //    );
+
+            //context.ReturnStatuses.AddOrUpdate(
+            //    p => p.ReturnStatusId,
+            //    new ReturnStatusViewModel() { Status = "Processing" },
+            //    new ReturnStatusViewModel() { Status = "Validated" }
+            //    );
+
+            //context.ProductSpecs.AddOrUpdate(
+            //    p => p.SpecificationId,
+            //    new ProductSpecViewModel() { ProductId = 1, SpecificationId = 1 },
+            //    new ProductSpecViewModel() { ProductId = 2, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 3, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 4, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 5, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 6, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 7, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 8, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 9, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 10, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 11, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 12, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 13, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 14, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 15, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 16, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 17, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 18, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 19, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 20, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 21, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 22, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 23, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 24, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 25, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 26, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 27, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 28, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 29, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 30, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 31, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 32, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 33, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 34, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 35, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 36, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 37, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 38, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 39, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 40, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 41, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 42, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 43, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 44, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 45, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 46, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 47, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 48, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 49, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 50, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 51, SpecificationId = 2 },
+            //    new ProductSpecViewModel() { ProductId = 52, SpecificationId = 2 }
             //    );
 
             //context.Commissions.AddOrUpdate(

@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
 
@@ -199,6 +204,65 @@ namespace BontoBuy.Web.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult ConvertToExcel()
+        {
+            var dataTable = ConvertToDataTable();
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dataTable);
+            ExportToExcel(ds, "Test");
+            return View();
+        }
+
+        private void ExportToExcel(DataSet ds, string filename)
+        {
+            HttpResponse response = System.Web.HttpContext.Current.Response;
+
+            // first let's clean up the response.object
+            response.Clear();
+            response.Charset = "";
+
+            // set the response mime type for excel
+            response.ContentType = "application/vnd.ms-excel";
+            response.AddHeader("Content-Disposition", "attachment;filename=\"" + filename + "\"" + ".xls");
+
+            // create a string writer
+            using (StringWriter sw = new StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    // instantiate a datagrid
+                    DataGrid dg = new DataGrid();
+                    dg.DataSource = ds.Tables[0];
+                    dg.DataBind();
+                    dg.RenderControl(htw);
+                    response.Write(sw.ToString());
+                    response.End();
+                }
+            }
+        }
+
+        private DataTable ConvertToDataTable()
+        {
+            var records = db.Categories.ToList();
+
+            PropertyDescriptorCollection properties =
+            TypeDescriptor.GetProperties(typeof(CategoryViewModel));
+            DataTable table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (var item in records)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+
+                table.Rows.Add(row);
+            }
+
+            return table;
         }
     }
 }

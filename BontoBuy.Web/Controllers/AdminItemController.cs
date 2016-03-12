@@ -44,6 +44,7 @@ namespace BontoBuy.Web.Controllers
             {
                 if (id < 1)
                     return RedirectToAction("Home", "Error404");
+
                 if (User.IsInRole("Admin"))
                 {
                     var record = _repo.Get(id);
@@ -104,6 +105,7 @@ namespace BontoBuy.Web.Controllers
 
                         return RedirectToAction("AdminItem", "Retrieve");
                     }
+                    return RedirectToAction("Home", "Error404");
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -147,9 +149,11 @@ namespace BontoBuy.Web.Controllers
                 {
                     if (item == null || item.ItemId < 1)
                         return null;
+
                     var itemToUpdate = _repo.Update(item);
                     if (itemToUpdate == null || itemToUpdate.ItemId < 1)
                         return RedirectToAction("Home", "Error404");
+
                     return RedirectToAction("AdminItem", "Retrieve");
                 }
                 return RedirectToAction("Login", "Account");

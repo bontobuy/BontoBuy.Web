@@ -6,10 +6,10 @@ using BontoBuy.Web.HelperMethods;
 
 namespace BontoBuy.Web.Models
 {
-    public class AdminItemRepo : Helper, IAdminItemRepo
+    public class AdminItemRepo : IAdminItemRepo
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
-        private Helper helper;
+        private Helper helper = new Helper();
 
         public IEnumerable<AdminRetrieveItemViewModel> Retrieve()
         {
@@ -141,8 +141,10 @@ namespace BontoBuy.Web.Models
                 return null;
 
             item.ItemDescription = helper.ConvertToTitleCase(item.ItemDescription);
-            if (CheckDuplicates(item.ItemDescription) == true)
-                return null;
+
+            var existingRecord = CheckDuplicates(item.ItemDescription);
+            if (existingRecord != null)
+                return existingRecord;
 
             var newItem = new ItemViewModel()
             {
@@ -229,16 +231,16 @@ namespace BontoBuy.Web.Models
 
             return itemToUpdate;
         }
-        private bool CheckDuplicates(string description)
+        private ItemViewModel CheckDuplicates(string description)
         {
             if (String.IsNullOrEmpty(description))
-                return true;
+                return null;
 
             var record = db.Items.Where(x => x.Description == description).FirstOrDefault();
             if (record != null)
-                return true;
+                return record;
 
-            return false;
+            return null;
         }
     }
 }

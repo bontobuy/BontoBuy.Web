@@ -300,7 +300,7 @@ namespace BontoBuy.Web.Controllers
 
             var modelRecords = _modelRepository.Retrieve();
             var FeaturedList = new List<HomeCatalogViewModel>();
-            foreach (var item in modelRecords.Take(3))
+            foreach (var item in modelRecords.OrderBy(f => Guid.NewGuid()).Take(3))
             {
                 var modelItem = new HomeCatalogViewModel()
                 {
@@ -327,7 +327,8 @@ namespace BontoBuy.Web.Controllers
             model.FeaturedList = FeaturedList;
 
             var SlideShowList = new List<HomeCatalogViewModel>();
-            foreach (var item in modelRecords)
+            Random randomNumber = new Random();
+            foreach (var item in modelRecords.OrderBy(s => randomNumber.Next(1, 20)))
             {
                 var modelImage = new HomeCatalogViewModel()
                 {
@@ -369,6 +370,33 @@ namespace BontoBuy.Web.Controllers
             }
 
             model.NewLaunchList = NewLaunchesList;
+
+            var NewLaunchesList2 = new List<HomeCatalogViewModel>();
+            foreach (var item in modelRecords.OrderByDescending(x => Guid.NewGuid()).Take(4))
+            {
+                var modelNewLaunch = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                NewLaunchesList2.Add(modelNewLaunch);
+            }
+
+            model.NewLaunchList2 = NewLaunchesList2;
 
             return View(model);
         }

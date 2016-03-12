@@ -126,7 +126,6 @@ namespace BontoBuy.Web.Controllers
             }
             return RedirectToAction("NavigateToCart");
         }
-
         public ActionResult NavigateToCart()
         {
             string userId = User.Identity.GetUserId();
@@ -156,7 +155,7 @@ namespace BontoBuy.Web.Controllers
                 }
                 return View(cartList);
             }
-            return RedirectToAction("Error404", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

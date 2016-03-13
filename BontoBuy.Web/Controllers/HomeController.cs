@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -6,8 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -196,7 +196,7 @@ namespace BontoBuy.Web.Controllers
             //Products for CategoryId = 2
             var productRecordsC2 = (from prod in db.Products
                                     join cat in db.Categories on prod.CategoryId equals cat.CategoryId
-                                    where cat.CategoryId == 2
+                                    where cat.Description == "Computers"
                                     where prod.Status == "Active"
                                     select prod).ToList();
 
@@ -297,6 +297,290 @@ namespace BontoBuy.Web.Controllers
                               select i).ToList();
 
             model.ItemRecordsP17 = itemList17;
+
+            //Products for CategoryId = 3
+            var productRecordsC3 = (from prod in db.Products
+                                    join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                    where cat.Description == "Gaming"
+                                    where prod.Status == "Active"
+                                    select prod).ToList();
+
+            if (productRecordsC3 == null)
+            {
+                return HttpNotFound();
+            }
+            model.ProductRecordsC3 = productRecordsC3;
+
+            //Items for ProductId = 18
+            var itemListP18 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 18
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP18 = itemListP18;
+
+            //Products for CategoryId = 4
+            var productRecordsC4 = (from prod in db.Products
+                                    join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                    where cat.Description == "Electronics"
+                                    where prod.Status == "Active"
+                                    select prod).ToList();
+
+            if (productRecordsC4 == null)
+            {
+                return HttpNotFound();
+            }
+            model.ProductRecordsC4 = productRecordsC4;
+
+            //Items for ProductId = 19
+            var itemListP19 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 19
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP19 = itemListP19;
+
+            //Items for ProductId = 20
+            var itemListP20 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 20
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP20 = itemListP20;
+
+            //Items for ProductId = 21
+            var itemList21 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 21
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP21 = itemList21;
+
+            //Items for ProductId = 22
+            var itemList22 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 22
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP22 = itemList22;
+
+            //Items for ProductId = 23
+            var itemList23 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 23
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP23 = itemList23;
+
+            //Items for ProductId = 24
+            var itemList24 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 24
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP24 = itemList24;
+
+            //Items for ProductId = 25
+            var itemList25 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 25
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP25 = itemList25;
+
+            //Products for CategoryId = 5
+            var productRecordsC5 = (from prod in db.Products
+                                    join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                    where cat.Description == "Women's Fashion"
+                                    where prod.Status == "Active"
+                                    select prod).ToList();
+
+            if (productRecordsC5 == null)
+            {
+                return HttpNotFound();
+            }
+            model.ProductRecordsC5 = productRecordsC5;
+
+            //Items for ProductId = 26
+            var itemListP26 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 26
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP26 = itemListP26;
+
+            //Items for ProductId = 27
+            var itemListP27 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 27
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP27 = itemListP27;
+
+            //Items for ProductId = 28
+            var itemList28 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 28
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP28 = itemList28;
+
+            //Items for ProductId = 29
+            var itemList29 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 29
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP29 = itemList29;
+
+            //Items for ProductId = 30
+            var itemList30 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 30
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP30 = itemList30;
+
+            //Items for ProductId = 31
+            var itemList31 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 31
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP31 = itemList31;
+
+            //Items for ProductId = 32
+            var itemList32 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 32
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP32 = itemList32;
+
+            //Items for ProductId = 33
+            var itemList33 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 33
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP33 = itemList33;
+
+            //Items for ProductId = 34
+            var itemList34 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 34
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP34 = itemList34;
+
+            //Products for CategoryId = 6
+            var productRecordsC6 = (from prod in db.Products
+                                    join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                    where cat.Description == "Men's Fashion"
+                                    where prod.Status == "Active"
+                                    select prod).ToList();
+
+            if (productRecordsC6 == null)
+            {
+                return HttpNotFound();
+            }
+            model.ProductRecordsC6 = productRecordsC6;
+
+            //Items for ProductId = 35
+            var itemListP35 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 35
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP35 = itemListP35;
+
+            //Items for ProductId = 36
+            var itemListP36 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 36
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP36 = itemListP36;
+
+            //Items for ProductId = 37
+            var itemList37 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 37
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP37 = itemList37;
+
+            //Items for ProductId = 38
+            var itemList38 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 38
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP38 = itemList38;
+
+            //Items for ProductId = 39
+            var itemList39 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 39
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP39 = itemList39;
+
+            //Items for ProductId = 40
+            var itemList40 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 40
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP40 = itemList40;
+
+            //Items for ProductId = 41
+            var itemList41 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 41
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP41 = itemList41;
+
+            //Items for ProductId = 42
+            var itemList42 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 42
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP42 = itemList42;
 
             var modelRecords = _modelRepository.Retrieve();
             var FeaturedList = new List<HomeCatalogViewModel>();

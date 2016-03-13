@@ -23,6 +23,40 @@
         .Dash {
             background-color: lightskyblue;
         }
+
+        .footer-bottom p {
+            color: #54697E;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 27px;
+            text-transform: uppercase;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #DDDDDD;
+            position: relative;
+            bottom: 0;
+            z-index: 1030;
+            height: 10%;
+            margin-top: 100px;
+            margin-left: 240px;
+        }
+
+        .footerContainer {
+            background-color: #E3E3E3;
+        }
+
+        .footer-bottom p.pull-left {
+            /*padding-top: 6px;*/
+        }
+
+        .payments {
+            font-size: 15px;
+        }
+
+        .border {
+            border: 1px solid #ddd;
+        }
     </style>
 
     @Styles.Render("~/Content/AdminCSS")
@@ -183,10 +217,16 @@
             </div>
         </div>
     </div>
-    <div class="container" id="containerCustom">
+    <div class="container border" id="containerCustom">
         @RenderBody()
     </div>
-
+    <footer>
+        <div class="footer-bottom">
+            <div class="footerContainer">
+                <p class="pull-left"> Copyright © BontoBuy 2016. All right reserved. </p>
+            </div>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/CustomJS")

@@ -125,6 +125,9 @@
         z-index: 1030;
         background: url(../../Content/Admin/sidebar-5.jpg);
         border-radius: 20px;
+        -webkit-box-shadow: 3px 3px 5px 6px #ccc; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+        -moz-box-shadow: 3px 3px 5px 4px #ccc; /* Firefox 3.5 - 3.6 */
+        box-shadow: 3px 3px 5px 4px #ccc;
     }
 
     #SCart {
@@ -174,13 +177,19 @@
         ul.SCart li .item-right button {
             margin-top: 14px;
         }
+
+        #cartAlert{
+            position:fixed;
+            z-index:1030;
+        }
 </style>
 
 @section scripts{
 
     <script type="text/javascript">
-
+        var countItem = 0;
         $(document).ready(function () {
+
             $('.dropdown-toggle').mouseover(function () {
                 var CategoryName = $(this).attr('data-name').toString();
                 if (CategoryName == 'Mobiles & Tablets') {
@@ -201,11 +210,12 @@
                 });
             }
 
+            $('#cartAlert').hide();
+
             $('.AddToCart').click(function () {
-                var countItem = 0;
                 var modelId = $(this).attr('data-id');
                 var modelImg = $(this).attr('data-img');
-                $('#SCart').find('.appended').remove();
+
                 var hasBeenAppended = false;
                 $.ajax({
                     url: '/Home/AddCartItem/',
@@ -215,22 +225,29 @@
                     success: function (data) {
                         $(data.Cart).each(function (index, item) {
                             //$('.dropdown-cart').append('<li class="cartlist"><span class="item"><span class="item-left"><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"><button class="btn btn-xs btn-danger pull-right">x</button></span></span></li><li class="divider"></li>');
-                            if (data.carCount <= 6) {
-                                $('#SCart').append('<li class="appended"><span class="item"><span class="item-left"><img class="test" src="' + modelImg + '" alt=""/><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"><button class="btn btn-xs btn-danger pull-right">x</button></span></span></li><li class="divider"></li>');
+                            $('#SCart').find('.appended').remove();
+                            //if (data.carCount <= 6) {
+                            $('#SCart').append('<li class="appended fa fa-plus"><span class="item"><span class="item-left"><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"><button class="btn btn-xs btn-danger pull-right">x</button></span></span></li><li class="divider"></li>');
+                            //}
 
-                            }
-
+                            $('#cartAlert').fadeIn(400);
+                            setTimeout(function () { $('#cartAlert').fadeOut(1000) }, 3000);
                         });
                         countItem = data.carCount;
                         $(".cart").text(data.carCount);
                         $('#viewCart').removeClass('hide');
                     }
                 });
-                $('#cardSideBar').fadeIn(900);
-                if (countItem == 6) {
-                    alert('Shopping Cart', 'Shopping Cart has reached maximum display number. <br> Click on View Cart');
-                }
+                $('#cardSideBar').slideDown(1000);
+
+                //if (countItem == 6) {
+                //    alert('Shopping Cart', 'Shopping Cart has reached maximum display number. <br> Click on View Cart');
+                //}
             });
+
+            $('#HideCart').click(function () {
+                $('#cardSideBar').slideUp(1000);
+            })
         });
     </script>
 
@@ -309,7 +326,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-2">
-            <nav class="navbar  nav-sidebar ">
+            <nav class="navbar  nav-sidebar">
                 <ul class="nav">
                     <li class="active"><a href="#">Shop By Categories</a></li>
                     @foreach (var category in Model.Category)
@@ -690,6 +707,7 @@
             </nav>
         </div>
         <div class="col-md-8">
+            <div class="alert alert-success" id="cartAlert" role="alert">You succesfully added new item to Shopping Cart.</div>
             <div class="slideshow">
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <!-- Carousel indicators -->
@@ -724,6 +742,7 @@
             </div>
         </div>
         <div class="col-md-2" id="cardSideBar">
+            <span class="item-right"><button class="btn btn-xs btn-danger pull-right" id="HideCart">Hide</button></span>
             <div class="cart-icon-top">
             </div>
             <div id="cartSide">
@@ -731,19 +750,6 @@
                 <p><span class="badge cart"></span> Items</p>
             </div>
             <ul class="nav nav-sidebar" id="SCart">
-                @*<span class="item">
-                        <span class="item-left">
-                            <img src="http://lorempixel.com/50/50/" alt=""/>
-                            <span class="item-info">
-                                <span>Item name</span>
-                                <span>23$</span>
-                            </span>
-                        </span>
-                        <span class="item-right">
-                            <button class="btn btn-xs btn-danger pull-right">x</button>
-                        </span>
-                    </span>
-                    <span class="nav-divider"></span>*@
                 <li class="divider"></li>
                 <li><a class="text-center" href="@Url.Action("NavigateToCart","Cart")">View Cart</a></li>
             </ul>
@@ -831,7 +837,7 @@
                 </div>
                 <div class="item">
                     <div class="row">
-                        @foreach (var item in Model.NewLaunchList)
+                        @foreach (var item in Model.NewLaunchList2)
                         {
                             <div class="col-sm-3">
                                 <div class="col-item">

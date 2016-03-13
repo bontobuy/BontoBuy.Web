@@ -12,6 +12,18 @@
     @Styles.Render("~/Content/css/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/JAlert")
+    @Styles.Render("~/Content/FontAwesome")
+    <style type="text/css">
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function check() {
+                var ItemContent = $('#cartLink').attr('data-content');
+                alert(ItemContent);
+            }
+        })
+    </script>
 </head>
 <body>
     @*<img alt="full screen background image" src="~/Content/Background.jpg" id="full-screen-background-image" />*@
@@ -55,7 +67,7 @@
                             }
                             else { numberOfItems = Cart.Count.ToString(); }
                         }
-                        <a href="@Url.Action("NavigateToCart", "Cart")" class=" text-info cartLink" role="link"false"> <span class="glyphicon glyphicon-shopping-cart"></span>Shopping Cart(<i class="badge warning cart">@numberOfItems</i>)<span class="caret"></span></a>
+                        <a href="@Url.Action("NavigateToCart","Cart")" class="text-info" id="cartLink" role="link" onclick="return check()" data-content="@numberOfItems"> <span class="glyphicon glyphicon-shopping-cart"></span>Shopping Cart(<i class="badge warning cart">@numberOfItems</i>)<span class="caret"></span></a>
                         @*<ul class="dropdown-menu dropdown-cart" role="menu">
                                 <li class="cartlist">
                                         <span class="item">
@@ -84,7 +96,68 @@
     <div class="container body-content">
         @RenderBody()
     </div>
-
+    <footer>
+        <div class="footer">
+            <div class="container footerContainer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                            <h3> Policy Info </h3>
+                            <ul>
+                                <li> <a href="#"> Privacy Policy </a> </li>
+                                <li> <a href="#"> Terms of Sale </a> </li>
+                                <li> <a href="#"> Terms of Use </a> </li>
+                                <li> <a href="#"> Policy </a> </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                            <h3> Company </h3>
+                            <ul>
+                                <li> <a href="#"> About Us </a> </li>
+                                <li> <a href="#"> Core Values </a> </li>
+                                <li> <a href="#"> Sitemape </a> </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                            <h3> Business </h3>
+                            <ul>
+                                <li> <a href="#"> Deal of the Day </a> </li>
+                                <li> <a href="@Url.Action("RegisterSupplier","Account")"> Sell on BontoBuy </a> </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                            <h3> Need Help? </h3>
+                            <ul>
+                                <li> <a href="#"> FAQ </a> </li>
+                                <li> <a href="#"> Contact Us </a> </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
+                            <h3> Stay Connected </h3>
+                            <ul class="social">
+                                <li> <a href="#"> <i class=" fa fa-facebook">   </i> </a> </li>
+                                <li> <a href="#"> <i class="fa fa-google">   </i> </a> </li>
+                                <li> <a href="#"> <i class="fa fa-twitter">   </i> </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <div class="container">
+                            <p class="pull-left"> Copyright © BontoBuy 2016. All right reserved. </p>
+                            <div class="pull-right">
+                                <ul class="nav nav-pills payments">
+                                    <li><i class="fa fa-cc-visa"></i></li>
+                                    <li><i class="fa fa-cc-mastercard"></i></li>
+                                    <li><i class="fa fa-cc-amex"></i></li>
+                                    <li><i class="fa fa-cc-paypal"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/CustomJS")

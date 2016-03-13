@@ -7,3 +7,28 @@
     margin-bottom: -40px;
     margin-right: -13px;
 }
+
+ .footer-bottom {
+            border-top: 1px solid #DDDDDD;
+            position: relative;
+            bottom: 0;
+            z-index: 1030;
+            height: 10%;
+            margin-top: 80px;
+        }
+
+        .footerContainer {
+            background-color: #E3E3E3;
+        }
+
+        .footer-bottom p.pull-left {
+            /*padding-top: 6px;*/
+        }
+
+        .payments {
+            font-size: 15px;
+        }
+
+        .border {
+            border: 1px solid #ddd;
+        }

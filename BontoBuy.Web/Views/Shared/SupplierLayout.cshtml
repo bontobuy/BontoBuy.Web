@@ -7,7 +7,9 @@
     @Styles.Render("~/Content/SupplierCSS")
     @Styles.Render("~/Content/JAlert")
     @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
 
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">
@@ -71,12 +73,23 @@
                     </ul>
                 </div>
             </div>
-            <div class="container container-fluid col-md-10">
+            <div class="container container-fluid col-md-10 border">
                 @RenderBody()
             </div>
         </div>
     </div>
-
+    <div class="footer-bottom">
+        <div class="footerContainer">
+            <p class="pull-left"> Copyright © BontoBuy 2016. All right reserved. </p>
+            <div class="pull-right">
+                <ul class="nav nav-pills payments">
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Need Help?</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/CustomJS")

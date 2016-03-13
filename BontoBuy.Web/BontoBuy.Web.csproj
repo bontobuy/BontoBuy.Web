@@ -210,7 +210,6 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SpecificationController.cs" />
     <Compile Include="Controllers\TagController.cs" />
-    <Compile Include="HelperMethods\ActionHandler.cs" />
     <Compile Include="HelperMethods\Helper.cs" />
     <Compile Include="Migrations\201601281501503_Remove Brand From Item.cs" />
     <Compile Include="Migrations\201601281501503_Remove Brand From Item.Designer.cs">
@@ -661,7 +660,6 @@
     <Compile Include="Models\ViewModels\StatusViewModel.cs" />
     <Compile Include="Models\ViewModels\SupplierViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecialCategoryViewModel.cs" />
-    <Compile Include="Models\ViewModels\WishlistStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\WishlistViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -684,7 +682,15 @@
     <Content Include="Content\jAlert-v3.css" />
     <Content Include="Content\Logo2.png" />
     <Content Include="Content\Menu\Computers.jpg" />
+    <Content Include="Content\Menu\Electronics.jpg" />
+    <Content Include="Content\Menu\Gaming.jpg" />
+    <Content Include="Content\Menu\HomeKitchen.jpg" />
+    <Content Include="Content\Menu\kids.jpg" />
+    <Content Include="Content\Menu\MensFashion.jpg" />
     <Content Include="Content\Menu\mobilephones-tablets.jpg" />
+    <Content Include="Content\Menu\Outdoors.jpg" />
+    <Content Include="Content\Menu\WomenFashion.jpg" />
+    <Content Include="Content\Menu\Womens.jpg" />
     <Content Include="Content\Supplier\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />

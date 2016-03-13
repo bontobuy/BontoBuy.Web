@@ -188,6 +188,7 @@
     <Compile Include="App_Start\InitializeRoles.cs" />
     <Compile Include="Controllers\AdminItemController.cs" />
     <Compile Include="Controllers\AdminOrderController.cs" />
+    <Compile Include="Controllers\AdminRoleController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CommissionController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -502,8 +503,10 @@
     <Compile Include="Migrations\201603110610064_Add Date+Status to Item.Designer.cs">
       <DependentUpon>201603110610064_Add Date+Status to Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminItemRepo.cs" />
     <Compile Include="Models\Repositories\AdminItemRepo.cs" />
+    <Compile Include="Models\Repositories\AdminRoleRepo.cs" />
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
@@ -876,6 +879,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="obj\" />
     <Folder Include="Views\AdminItem\" />
+    <Folder Include="Views\AdminRole\" />
     <Folder Include="Views\CustomerPayment\" />
     <Folder Include="Views\CustomerWishlist\" />
     <Folder Include="Views\Email\" />

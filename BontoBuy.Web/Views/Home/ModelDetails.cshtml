@@ -205,20 +205,26 @@
                 </div>
 
                 <div class="col-md-7 border">
-                    <div class="product-title">@Model.Info.ModelNumber</div>
-                    <div class="product-desc">Description</div>
-                    <div class="product-rating"><i class="glyphicon glyphicon-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
-                    <hr>
-                    <div class="product-price">Rs @Model.Info.Price</div>
-                    <div class="product-stock">In Stock</div>
-                    <hr>
-                    <div class="btn-group cart">
-                        <a href="" class="btn btn-success AddToCart" data-id="@Model.Info.ModelId">AddToCart</a>@*@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { @class = "btn btn-success AddToCart" })*@
+                    <div class="col-md-6">
+                        <div class="badge">@Model.Info.BrandName</div>
+                        <div class="product-title">@Model.Info.ModelNumber</div>
+                        <div class="product-desc">Description</div>
+                        <div class="product-rating"><i class="glyphicon glyphicon-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+                        <hr>
+                        <div class="product-price">Rs @Model.Info.Price</div>
+                        <div class="product-stock">In Stock</div>
+                        <hr>
+                        <div class="btn-group cart">
+                            <a href="" class="btn btn-success AddToCart" data-id="@Model.Info.ModelId">AddToCart</a>@*@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { @class = "btn btn-success AddToCart" })*@
+                        </div>
+                        <div class="btn-group wishlist">
+                            <button type="button" class="btn btn-danger">
+                                Add to wishlist
+                            </button>
+                        </div>
                     </div>
-                    <div class="btn-group wishlist">
-                        <button type="button" class="btn btn-danger">
-                            Add to wishlist
-                        </button>
+                    <div class="col-md-4 border col-md-offset-2">
+                        <div class="product-title"><span class="text-info">Supplier: </span> @Model.Info.Supplier</div>
                     </div>
                 </div>
             </div>
@@ -337,10 +343,10 @@
                                 <div class="producttitle">@item.ModelNumber</div>
                                 <div class="text-primary">
                                     @item.Price <br/>
-                                @item.BrandName <br/>
-                                @item.DtCreated
-                            </div>
-                        </li>
+                                    @item.BrandName <br/>
+                                    @item.DtCreated
+                                </div>
+                            </li>
                         }
                     </ul>
                     <br>

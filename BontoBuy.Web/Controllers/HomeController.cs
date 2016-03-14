@@ -55,7 +55,12 @@ namespace BontoBuy.Web.Controllers
                             join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
                             join m in db.Models on pm.ModelId equals m.ModelId
                             where pm.ModelId == id
-                            select ph.ImageUrl).FirstOrDefault()
+                            select ph.ImageUrl).FirstOrDefault(),
+
+                Supplier = (from m in db.Models
+                            join u in db.Users on m.UserId equals u.Id
+                            where m.ModelId == id
+                            select u.Name).FirstOrDefault()
             };
             model.Info = modelDetails;
 

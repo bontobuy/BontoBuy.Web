@@ -153,6 +153,13 @@ namespace BontoBuy.Web.Controllers
         {
             List<CartViewModel> orderList = Session["Order"] as List<CartViewModel>;
             int grandTotal = total;
+            string userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                string returnUrl = Request.Url.ToString();
+                return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+            }
+            else { userId = User.Identity.GetUserId(); }
             if (orderList != null)
             {
                 foreach (var item in orderList)
@@ -176,7 +183,6 @@ namespace BontoBuy.Web.Controllers
             }
             ViewData["GrandTotal"] = grandTotal;
 
-            string userId = User.Identity.GetUserId();
             var userAddress = (from d in db.DeliveryAddresses
                                join u in db.Users on d.UserId equals u.Id
                                where d.UserId == userId && d.Status == "Default"

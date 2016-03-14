@@ -143,10 +143,9 @@
                 <div class="col-md-12">
                     <div class="product col-md-3 service-image-left">
                         <center>
-                            <img id="@Model.Info.ModelId" src="~/images/@Model.Info.ImageUrl" alt="@Model.Info.ModelNumber">
+                            <img id="@Model.Info.ModelId" class="" src="~/images/@Model.Info.ImageUrl" alt="@Model.Info.ModelNumber">
                         </center>
                     </div>
-
                     @*<div class="container service1-items col-sm-2 col-md-2 pull-left">
                             <center>
                                 <a id="item-1" class="service1-item">
@@ -162,7 +161,7 @@
                         </div>*@
                 </div>
 
-                <div class="col-md-7">
+                <div class="col-md-7 border">
                     <div class="product-title">@Model.Info.ModelNumber</div>
                     <div class="product-desc">Description</div>
                     <div class="product-rating"><i class="glyphicon glyphicon-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
@@ -182,7 +181,7 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="col-md-12 product-info">
+            <div class="col-md-12 product-info border">
                 <ul id="myTab" class="nav nav-tabs nav_tabs">
 
                     <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>

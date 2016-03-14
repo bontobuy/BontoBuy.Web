@@ -185,7 +185,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\InitializeData.cs" />
     <Compile Include="App_Start\InitializeRoles.cs" />
+    <Compile Include="Controllers\AdminCommissionController.cs" />
     <Compile Include="Controllers\AdminItemController.cs" />
     <Compile Include="Controllers\AdminOrderController.cs" />
     <Compile Include="Controllers\AdminRoleController.cs" />
@@ -503,11 +505,30 @@
     <Compile Include="Migrations\201603110610064_Add Date+Status to Item.Designer.cs">
       <DependentUpon>201603110610064_Add Date+Status to Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603140539285_Add ModelCommission.cs" />
+    <Compile Include="Migrations\201603140539285_Add ModelCommission.Designer.cs">
+      <DependentUpon>201603140539285_Add ModelCommission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603141619556_Add Name to commission.cs" />
+    <Compile Include="Migrations\201603141619556_Add Name to commission.Designer.cs">
+      <DependentUpon>201603141619556_Add Name to commission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603141631430_Remove Rating From Model.cs" />
+    <Compile Include="Migrations\201603141631430_Remove Rating From Model.Designer.cs">
+      <DependentUpon>201603141631430_Remove Rating From Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603141639417_Add DeliveryDays to Model.cs" />
+    <Compile Include="Migrations\201603141639417_Add DeliveryDays to Model.Designer.cs">
+      <DependentUpon>201603141639417_Add DeliveryDays to Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminItemRepo.cs" />
+    <Compile Include="Models\Repositories\AdminCommissionRepo.cs" />
     <Compile Include="Models\Repositories\AdminItemRepo.cs" />
     <Compile Include="Models\Repositories\AdminRoleRepo.cs" />
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
+    <Compile Include="Models\ViewModels\ModelCommissionViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
     <Compile Include="Models\ViewModels\CommissionViewModel.cs" />
@@ -882,6 +903,9 @@
     <Content Include="Views\CustomerReturns\CreateReturn.cshtml" />
     <Content Include="Views\AdminOrder\RetrieveOrders.cshtml" />
     <Content Include="Views\AdminOrder\GetOrder.cshtml" />
+    <Content Include="Views\AdminCommission\Retrieve.cshtml" />
+    <Content Include="Views\AdminCommission\Get.cshtml" />
+    <Content Include="Views\AdminCommission\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1183,6 +1207,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603110610064_Add Date+Status to Item.resx">
       <DependentUpon>201603110610064_Add Date+Status to Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603140539285_Add ModelCommission.resx">
+      <DependentUpon>201603140539285_Add ModelCommission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603141619556_Add Name to commission.resx">
+      <DependentUpon>201603141619556_Add Name to commission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603141631430_Remove Rating From Model.resx">
+      <DependentUpon>201603141631430_Remove Rating From Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603141639417_Add DeliveryDays to Model.resx">
+      <DependentUpon>201603141639417_Add DeliveryDays to Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

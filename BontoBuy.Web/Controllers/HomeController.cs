@@ -88,6 +88,366 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("Error404", "Home");
             }
             model.Overview = modelOverviewSpec;
+
+            var BoxContentSpec = (from spec in db.Specifications
+                                  join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                  where specialCat.Description == "Box Content"
+                                  select spec).ToList();
+
+            var modelBoxContentSpec = new List<ModelFullDetails>();
+            foreach (var spec in BoxContentSpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelBoxContentSpec.Add(modelSpec);
+                ViewBag.BoxContent = (from special in db.SpecialCategories
+                                      where special.Description == "Box Content"
+                                      select special.Description).FirstOrDefault();
+            }
+            if (modelBoxContentSpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.BoxContent = modelBoxContentSpec;
+
+            var DisplaySpec = (from spec in db.Specifications
+                               join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                               where specialCat.Description == "Display"
+                               select spec).ToList();
+
+            var modelDisplaySpec = new List<ModelFullDetails>();
+            foreach (var spec in DisplaySpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelDisplaySpec.Add(modelSpec);
+                ViewBag.Display = (from special in db.SpecialCategories
+                                   where special.Description == "Display"
+                                   select special.Description).FirstOrDefault();
+            }
+            if (modelDisplaySpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.Display = modelDisplaySpec;
+
+            var SoftwareSpec = (from spec in db.Specifications
+                                join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                where specialCat.Description == "Software"
+                                select spec).ToList();
+
+            var modelSoftwareSpec = new List<ModelFullDetails>();
+            foreach (var spec in DisplaySpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelSoftwareSpec.Add(modelSpec);
+                ViewBag.Software = (from special in db.SpecialCategories
+                                    where special.Description == "Software"
+                                    select special.Description).FirstOrDefault();
+            }
+            if (modelOverviewSpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.Software = modelSoftwareSpec;
+
+            var CameraSpec = (from spec in db.Specifications
+                              join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                              where specialCat.Description == "Camera"
+                              select spec).ToList();
+
+            var modelCameraSpec = new List<ModelFullDetails>();
+            foreach (var spec in CameraSpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelCameraSpec.Add(modelSpec);
+                ViewBag.Camera = (from special in db.SpecialCategories
+                                  where special.Description == "Camera"
+                                  select special.Description).FirstOrDefault();
+            }
+            if (modelCameraSpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.Camera = modelCameraSpec;
+
+            var ConnectivitySpec = (from spec in db.Specifications
+                                    join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                    where specialCat.Description == "Connectivity"
+                                    select spec).ToList();
+
+            var modelConnectivitySpec = new List<ModelFullDetails>();
+            foreach (var spec in ConnectivitySpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelConnectivitySpec.Add(modelSpec);
+                ViewBag.Connectivity = (from special in db.SpecialCategories
+                                        where special.Description == "Connectivity"
+                                        select special.Description).FirstOrDefault();
+            }
+            if (modelConnectivitySpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.Connectivity = modelConnectivitySpec;
+
+            var ProcessorSpec = (from spec in db.Specifications
+                                 join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                 where specialCat.Description == "Processor"
+                                 select spec).ToList();
+
+            var modelProcessorSpec = new List<ModelFullDetails>();
+            foreach (var spec in ProcessorSpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelProcessorSpec.Add(modelSpec);
+                ViewBag.Processor = (from special in db.SpecialCategories
+                                     where special.Description == "Processor"
+                                     select special.Description).FirstOrDefault();
+            }
+            if (modelProcessorSpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.Processor = modelProcessorSpec;
+
+            var MemoryStorageSpec = (from spec in db.Specifications
+                                     join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                     where specialCat.Description == "Memory & Storage"
+                                     select spec).ToList();
+
+            var modelMemoryStorageSpec = new List<ModelFullDetails>();
+            foreach (var spec in MemoryStorageSpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelMemoryStorageSpec.Add(modelSpec);
+                ViewBag.MemoryStorage = (from special in db.SpecialCategories
+                                         where special.Description == "Memory & Storage"
+                                         select special.Description).FirstOrDefault();
+            }
+            if (modelMemoryStorageSpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.MemoryStorage = modelMemoryStorageSpec;
+
+            var HardwareSpec = (from spec in db.Specifications
+                                join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                where specialCat.Description == "Hardware"
+                                select spec).ToList();
+
+            var modelHardwareSpec = new List<ModelFullDetails>();
+            foreach (var spec in HardwareSpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelHardwareSpec.Add(modelSpec);
+                ViewBag.Hardware = (from special in db.SpecialCategories
+                                    where special.Description == "Hardware"
+                                    select special.Description).FirstOrDefault();
+            }
+            if (modelHardwareSpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.Hardware = modelHardwareSpec;
+
+            var HardwareConnectivitySpec = (from spec in db.Specifications
+                                            join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                            where specialCat.Description == "Hardware Connectivity"
+                                            select spec).ToList();
+
+            var modelHardwareConnectivitySpec = new List<ModelFullDetails>();
+            foreach (var spec in HardwareConnectivitySpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelHardwareConnectivitySpec.Add(modelSpec);
+                ViewBag.HardwareConnectivity = (from special in db.SpecialCategories
+                                                where special.Description == "Hardware Connectivity"
+                                                select special.Description).FirstOrDefault();
+            }
+            if (modelHardwareConnectivitySpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.HardwareConnectivity = modelHardwareConnectivitySpec;
+
+            var BatteryPowerSpec = (from spec in db.Specifications
+                                    join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                    where specialCat.Description == "Battery & Power"
+                                    select spec).ToList();
+
+            var modelBatteryPowerSpec = new List<ModelFullDetails>();
+            foreach (var spec in BatteryPowerSpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelBatteryPowerSpec.Add(modelSpec);
+                ViewBag.BatteryPower = (from special in db.SpecialCategories
+                                        where special.Description == "Battery & Power"
+                                        select special.Description).FirstOrDefault();
+            }
+            if (modelBatteryPowerSpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.BatteryPower = modelBatteryPowerSpec;
+
+            var DimensionsSpec = (from spec in db.Specifications
+                                  join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                  where specialCat.Description == "Dimensions"
+                                  select spec).ToList();
+
+            var modelDimensionsSpec = new List<ModelFullDetails>();
+            foreach (var spec in DimensionsSpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelDimensionsSpec.Add(modelSpec);
+                ViewBag.Dimensions = (from special in db.SpecialCategories
+                                      where special.Description == "Dimensions"
+                                      select special.Description).FirstOrDefault();
+            }
+            if (modelDimensionsSpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.Dimensions = modelDimensionsSpec;
+
+            var WarrantySpec = (from spec in db.Specifications
+                                join specialCat in db.SpecialCategories on spec.SpecialCatId equals specialCat.SpecialCatId
+                                where specialCat.Description == "Warranty"
+                                select spec).ToList();
+
+            var modelWarrantySpec = new List<ModelFullDetails>();
+            foreach (var spec in WarrantySpec)
+            {
+                var modelSpec = new ModelFullDetails()
+                {
+                    SpecificationDescription = (from sp in db.Specifications
+                                                join modelSpecs in db.ModelSpecs on sp.SpecificationId equals modelSpecs.SpecificationId
+                                                where modelSpecs.SpecificationId == spec.SpecificationId && modelSpecs.ModelId == id
+                                                select sp.Description).FirstOrDefault(),
+                    SpecificationValue = (from s in db.Specifications
+                                          join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                          where ms.SpecificationId == spec.SpecificationId && ms.ModelId == id
+                                          select ms.Value).FirstOrDefault()
+                };
+                modelWarrantySpec.Add(modelSpec);
+                ViewBag.Warranty = (from special in db.SpecialCategories
+                                    where special.Description == "Warranty"
+                                    select special.Description).FirstOrDefault();
+            }
+            if (modelWarrantySpec == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            model.Warranty = modelWarrantySpec;
             return View(model);
         }
 

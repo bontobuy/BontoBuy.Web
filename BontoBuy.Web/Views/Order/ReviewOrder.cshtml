@@ -108,7 +108,7 @@
                         </tr>
                     </tbody>
                     <tfoot>
-                        <input class="btn btn-primary" id="ChangeDeliveryAddress" value="Change Delivery Address"/>
+                        <a href="@Url.Action("CustomerRetrieveDeliveryAddress", "Customer", new { returnUrl = Request.Url.ToString() })" class="btn btn-primary">Change Delivery Address</a>@*<input class="btn btn-primary" id="ChangeDeliveryAddress" value="Change Delivery Address"/>*@
                     </tfoot>
                 </table>
             </div>

@@ -20,7 +20,50 @@ namespace BontoBuy.Web.Controllers
             if (searchCriteria == null)
                 return RedirectToAction("Error404", "Home");
             var records = db.Models.Where(x => x.ModelNumber.Contains(searchCriteria)).ToList();
-            return View(records);
+
+            var searchList = new List<SearchResultViewModel>();
+            foreach (var item in records)
+            {
+                var searchItem = new SearchResultViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelName = item.ModelNumber,
+                    Price = item.Price,
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+
+                    DtCreated = item.DtCreated,
+                    CategoryName = (from c in db.Categories
+                                    join p in db.Products on c.CategoryId equals p.CategoryId
+                                    join i in db.Items on p.ProductId equals i.ProductId
+                                    join m in db.Models on i.ItemId equals m.ItemId
+                                    where m.ItemId == item.ItemId
+                                    select c.Description).FirstOrDefault(),
+
+                    ProductName = (from c in db.Categories
+                                   join p in db.Products on c.CategoryId equals p.CategoryId
+                                   join i in db.Items on p.ProductId equals i.ProductId
+                                   join m in db.Models on i.ItemId equals m.ItemId
+                                   where m.ItemId == item.ItemId
+                                   select p.Description).FirstOrDefault(),
+
+                    ItemName = (from c in db.Categories
+                                join p in db.Products on c.CategoryId equals p.CategoryId
+                                join i in db.Items on p.ProductId equals i.ProductId
+                                join m in db.Models on i.ItemId equals m.ItemId
+                                where m.ItemId == item.ItemId
+                                select i.Description).FirstOrDefault()
+                };
+                searchList.Add(searchItem);
+            }
+            int count = records.Count();
+            ViewBag.Count = count;
+            ViewBag.Model = searchCriteria.ToString();
+            Session.Remove("SearchCriteria");
+            return View(searchList);
         }
 
         public ActionResult AdvancedSearch()
@@ -56,25 +99,64 @@ namespace BontoBuy.Web.Controllers
             ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description", filter.CategoryId);
             ViewBag.BrandId = new SelectList(db.Brands.Where(b => b.Status == "Active"), "BrandId", "Name", filter.BrandId);
 
-            var searchResult = (from m in db.Models
-                                join i in db.Items on m.ItemId equals i.ItemId
-                                join p in db.Products on i.ProductId equals p.ProductId
-                                join c in db.Categories on p.CategoryId equals c.CategoryId
-                                where m.ModelNumber == filter.ModelName
-                                && m.BrandId == filter.BrandId
-                                && c.CategoryId == filter.CategoryId
-                                && m.Price >= filter.MinPrice
-                                && m.Price <= filter.MaxPrice
-                                select m).ToList();
+            var records = (from m in db.Models
+                           join i in db.Items on m.ItemId equals i.ItemId
+                           join p in db.Products on i.ProductId equals p.ProductId
+                           join c in db.Categories on p.CategoryId equals c.CategoryId
+                           where m.ModelNumber.Contains(filter.ModelName)
+                           && m.BrandId == filter.BrandId
+                           && c.CategoryId == filter.CategoryId
+                           && m.Price >= filter.MinPrice
+                           && m.Price <= filter.MaxPrice
+                           select m).ToList();
 
-            int count = searchResult.Count();
+            var searchList = new List<SearchResultViewModel>();
+            foreach (var item in records)
+            {
+                var searchItem = new SearchResultViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelName = item.ModelNumber,
+                    Price = item.Price,
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+
+                    DtCreated = item.DtCreated,
+                    CategoryName = (from c in db.Categories
+                                    join p in db.Products on c.CategoryId equals p.CategoryId
+                                    join i in db.Items on p.ProductId equals i.ProductId
+                                    join m in db.Models on i.ItemId equals m.ItemId
+                                    where m.ItemId == item.ItemId
+                                    select c.Description).FirstOrDefault(),
+
+                    ProductName = (from c in db.Categories
+                                   join p in db.Products on c.CategoryId equals p.CategoryId
+                                   join i in db.Items on p.ProductId equals i.ProductId
+                                   join m in db.Models on i.ItemId equals m.ItemId
+                                   where m.ItemId == item.ItemId
+                                   select p.Description).FirstOrDefault(),
+
+                    ItemName = (from c in db.Categories
+                                join p in db.Products on c.CategoryId equals p.CategoryId
+                                join i in db.Items on p.ProductId equals i.ProductId
+                                join m in db.Models on i.ItemId equals m.ItemId
+                                where m.ItemId == item.ItemId
+                                select i.Description).FirstOrDefault()
+                };
+                searchList.Add(searchItem);
+            }
+
+            int count = records.Count();
             ViewBag.Count = count;
             ViewBag.Model = filter.ModelName;
 
             //You need to change the View in order to display it
             //You can also put it in a Session and use it elsewhere
 
-            return View("SearchResult", searchResult);
+            return View("SearchResult", searchList);
         }
     }
 }

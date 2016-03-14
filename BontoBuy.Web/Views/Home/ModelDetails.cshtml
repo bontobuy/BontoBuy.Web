@@ -143,10 +143,9 @@
                 <div class="col-md-12">
                     <div class="product col-md-3 service-image-left">
                         <center>
-                            <img id="@Model.Info.ModelId" src="~/images/@Model.Info.ImageUrl" alt="@Model.Info.ModelNumber">
+                            <img id="@Model.Info.ModelId" class="" src="~/images/@Model.Info.ImageUrl" alt="@Model.Info.ModelNumber">
                         </center>
                     </div>
-
                     @*<div class="container service1-items col-sm-2 col-md-2 pull-left">
                             <center>
                                 <a id="item-1" class="service1-item">
@@ -162,7 +161,7 @@
                         </div>*@
                 </div>
 
-                <div class="col-md-7">
+                <div class="col-md-7 border">
                     <div class="product-title">@Model.Info.ModelNumber</div>
                     <div class="product-desc">Description</div>
                     <div class="product-rating"><i class="glyphicon glyphicon-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
@@ -171,7 +170,7 @@
                     <div class="product-stock">In Stock</div>
                     <hr>
                     <div class="btn-group cart">
-                        @Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { id = Model.Info.ModelId }, new { @class = "btn btn-success" })
+                        <a href="" class="btn btn-success AddToCart" data-id="@Model.Info.ModelId">AddToCart</a>@*@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { @class = "btn btn-success AddToCart" })*@
                     </div>
                     <div class="btn-group wishlist">
                         <button type="button" class="btn btn-danger">
@@ -182,7 +181,7 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="col-md-12 product-info">
+            <div class="col-md-10 product-info border">
                 <ul id="myTab" class="nav nav-tabs nav_tabs">
 
                     <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
@@ -194,9 +193,83 @@
                         <section class="container product-info">
 
                             <h3><b>@ViewBag.Overview</b></h3>
-                            @foreach (var spec in Model.Overview) {
-                            <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            @foreach (var spec in Model.Overview)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
                             }
+                            <br/>
+                            <h3><b>@ViewBag.BoxContent</b></h3>
+                            @foreach (var spec in Model.BoxContent)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.Display</b></h3>
+                            @foreach (var spec in Model.Display)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.Software</b></h3>
+                            @foreach (var spec in Model.Software)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.Camera</b></h3>
+                            @foreach (var spec in Model.Camera)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.Connectivity</b></h3>
+                            @foreach (var spec in Model.Connectivity)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.Processor</b></h3>
+                            @foreach (var spec in Model.Processor)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.MemoryStorage</b></h3>
+                            @foreach (var spec in Model.MemoryStorage)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.Hardware</b></h3>
+                            @foreach (var spec in Model.Hardware)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.HardwareConnectivity</b></h3>
+                            @foreach (var spec in Model.HardwareConnectivity)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.BatteryPower</b></h3>
+                            @foreach (var spec in Model.BatteryPower)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.Dimensions</b></h3>
+                            @foreach (var spec in Model.Dimensions)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
+                            <h3><b>@ViewBag.Warranty</b></h3>
+                            @foreach (var spec in Model.Warranty)
+                            {
+                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                            }
+                            <br/>
                         </section>
                     </div>
                     <div class="tab-pane fade" id="service-two">
@@ -209,3 +282,45 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.AddToCart').click(function () {
+                var modelId = $(this).attr('data-id');
+
+                var hasBeenAppended = false;
+                $.ajax({
+                    url: '/Home/AddCartItem/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { id: modelId },
+                    success: function (data) {
+                        $(data.Cart).each(function (index, item) {
+                            //$('.dropdown-cart').append('<li class="cartlist"><span class="item"><span class="item-left"><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"><button class="btn btn-xs btn-danger pull-right">x</button></span></span></li><li class="divider"></li>');
+                            //$('#SCart').find('.appended').remove();
+                            ////if (data.carCount <= 6) {
+                            //$('#SCart').append('<li class="appended fa fa-plus"><span class="item"><span class="item-left"><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"><button class="btn btn-xs btn-danger pull-right">x</button></span></span></li><li class="divider"></li>');
+                            ////}
+
+                            //$('#cartAlert').fadeIn(400);
+                            //setTimeout(function () { $('#cartAlert').fadeOut(1000) }, 3000);
+                        });
+                        countItem = data.carCount;
+                        $(".cart").text(data.carCount);
+                        $('#viewCart').removeClass('hide');
+                    }
+                });
+                $('#cardSideBar').slideDown(1000);
+
+                //if (countItem == 6) {
+                //    alert('Shopping Cart', 'Shopping Cart has reached maximum display number. <br> Click on View Cart');
+                //}
+            });
+
+            $('#HideCart').click(function () {
+                $('#cardSideBar').slideUp(1000);
+            })
+        });
+    </script>
+}

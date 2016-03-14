@@ -81,6 +81,7 @@
 #myCarousel {
     background: transparent;
     margin-top: 20px;
+    height:115%;
 }
 
     #myCarousel .item img {
@@ -431,3 +432,7 @@
 .payments {
     font-size: 1.5em;
 }
+
+        .border {
+            border: 1px solid #ddd;
+        }

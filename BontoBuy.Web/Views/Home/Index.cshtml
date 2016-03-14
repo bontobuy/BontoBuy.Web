@@ -182,6 +182,10 @@
         position: fixed;
         z-index: 1030;
     }
+
+    #searchInput {
+        width: 100%;
+    }
 </style>
 
 @section scripts{
@@ -990,37 +994,51 @@
             </nav>
         </div>
         <div class="col-md-8">
-            <div class="alert alert-success" id="cartAlert" role="alert">You succesfully added new item to Shopping Cart.</div>
-            <div class="slideshow">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <!-- Carousel indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                    </ol>
-                    <!-- Wrapper for carousel items -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="~/images/slide1.png" alt="First Slide">
+            <div class="row">
+                <div class="alert alert-success" id="cartAlert" role="alert">You succesfully added new item to Shopping Cart.</div>
+                @using (Html.BeginForm())
+                {
+                        <div class="form-group col-md-8 col-md-offset-1">
+                            <input type="text" name="searchCriteria" class="form-control" id="searchInput" placeholder="Search">
                         </div>
-                        @foreach (var item in Model.SlideShow)
-                        {
-                            <div class="item">
-                                <a href="~/Home/ModelDetails/@item.ModelId"><img src="~/images/@item.ImageUrl" alt="@item.ModelNumber" /></a>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        <a class="text-info" href="@Url.Action("AdvancedSearch","Search")">Advanced</a>
+        </div>
+        }
+    </div>
+            <div class="row">
+                <div class="slideshow">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Carousel indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+                        <!-- Wrapper for carousel items -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="~/images/slide1.png" alt="First Slide">
                             </div>
-                        }
-                        @*<div class="item">
-                                <img src="../images/slide3.png" alt="Third Slide">
-                            </div>*@
+                            @foreach (var item in Model.SlideShow)
+                            {
+                                <div class="item">
+                                    <a href="~/Home/ModelDetails/@item.ModelId" title="@item.ModelNumber"><img src="~/images/@item.ImageUrl" alt="@item.ModelNumber" /></a>
+                                </div>
+                            }
+                            @*<div class="item">
+                                    <img src="../images/slide3.png" alt="Third Slide">
+                                </div>*@
+                        </div>
+                        <!-- Carousel controls -->
+                        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
                     </div>
-                    <!-- Carousel controls -->
-                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="carousel-control right" href="#myCarousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -1044,7 +1062,7 @@
         {
             <div class="col-md-4" data-id="@item.ModelId">
                 <div>
-                    <img src="~/images/@item.ImageUrl" alt="" class="img-rounded" width="200" height="200"/>
+                    <a href="@Url.Action("ModelDetails", "Home", new { id = item.ModelId })" title="@item.ModelNumber" class="thumbnail"><img src="~/images/@item.ImageUrl" alt="" class="" width="200" height="200" /></a>
                     <h2>@item.ModelNumber</h2>
                     <p style="text-align: left;">
                         <span class="glyphicon glyphicon-info-sign"></span>
@@ -1099,7 +1117,7 @@
                                         </div>
                                     </div>
                                     <div class="photo">
-                                        <img src="~/images/@item.ImageUrl" width="360" height="100" alt="@item.ModelNumber"/>
+                                        <a href="@Url.Action("ModelDetails", "Home", new { id = item.ModelId })" title="@item.ModelNumber" class="img-responsive"><img src="~/images/@item.ImageUrl" width="360" height="100" alt="@item.ModelNumber" /></a>
                                     </div>
                                     <div class="info">
                                         <div class="separator clear-left">

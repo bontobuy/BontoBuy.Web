@@ -22,7 +22,6 @@ namespace BontoBuy.Web.Models
         public string ModelNumber { get; set; }
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
-        public Nullable<int> RatingId { get; set; }
 
         [RegularExpression(@"^[+-]?[0-9]{1,9}(?:\.[0-9]{1,2})?$", ErrorMessage = "Please enter a correct price!")]
 
@@ -30,6 +29,8 @@ namespace BontoBuy.Web.Models
         [Required(ErrorMessage = "Price is required")]
         public int Price { get; set; }
         public string UserId { get; set; }
+        public int DeliveryInDays { get; set; }
+        public int NumberDaysToAdvert { get; set; }
         public int SupplierId { get; set; }
         public DateTime DtCreated { get; set; }
         public string Status { get; set; }
@@ -44,9 +45,6 @@ namespace BontoBuy.Web.Models
         [ForeignKey("UserId")]
         [Column(Order = 2)]
         public SupplierViewModel SupplierNav { get; set; }
-        [ForeignKey("RatingId")]
-        [Column(Order = 3)]
-        public RatingViewModel RatingNav { get; set; }
     }
 
     public class ModelBrandViewModel

@@ -55,6 +55,7 @@ namespace BontoBuy.Web.App_Start
             container.RegisterType<ITagRepo, TagRepo>();
             container.RegisterType<IAdminItemRepo, AdminItemRepo>();
             container.RegisterType<IAdminRoleRepo, AdminRoleRepo>();
+            container.RegisterType<IAdminCommissionRepo, AdminCommissionRepo>();
         }
     }
 }

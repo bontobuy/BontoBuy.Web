@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.CommissionViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Percentage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtUpdated)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Percentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtUpdated)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Update", new { id = item.CommissionId }) |
+                @Html.ActionLink("Details", "Get", new { id = item.CommissionId })
+            </td>
+        </tr>
+    }
+</table>

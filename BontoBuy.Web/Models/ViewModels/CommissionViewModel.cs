@@ -12,6 +12,7 @@ namespace BontoBuy.Web.Models
     {
         [Key]
         public int CommissionId { get; set; }
+        public string Name { get; set; }
         public int Percentage { get; set; }
         public DateTime DtCreated { get; set; }
         public DateTime DtUpdated { get; set; }

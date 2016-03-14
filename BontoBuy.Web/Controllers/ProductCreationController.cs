@@ -280,6 +280,8 @@ namespace BontoBuy.Web.Controllers
                         BrandName = "",
                         UserId = userId,
                         ModelNumber = "",
+                        NumberDaysToAdvert = 1,
+                        DeliveryInDays = 1
                     };
                     Session["SpecProd"] = specProd;
                     return View(specProd);
@@ -347,14 +349,35 @@ namespace BontoBuy.Web.Controllers
                         model.Price = item.Price;
                         model.Status = specProd.Status;
                         model.UserId = userId;
-                        //Need to address this rating
-                        model.RatingId = 1;
                         model.SupplierId = specProd.SupplierId;
                         model.ItemId = specProd.ItemId;
                         model.BrandId = brandId;
                         model.ModelNumber = item.ModelNumber;
                         model.DtCreated = DateTime.UtcNow;
+                        model.NumberDaysToAdvert = item.NumberDaysToAdvert;
+                        model.DeliveryInDays = item.DeliveryInDays;
                         db.Models.Add(model);
+                        db.SaveChanges();
+
+                        var modelCommission = new ModelCommissionViewModel()
+                        {
+                            ModelId = model.ModelId
+                        };
+                        string commissionName = "Tier1";
+                        if (model.NumberDaysToAdvert >= 1 && model.NumberDaysToAdvert < 6)
+                            commissionName = "Tier1";
+                        if (model.NumberDaysToAdvert >= 6 && model.NumberDaysToAdvert < 20)
+                            commissionName = "Tier2";
+                        if (model.NumberDaysToAdvert >= 20)
+                            commissionName = "Tier3";
+
+                        int commissionId = (from c in db.Commissions
+                                            where c.Name == commissionName
+                                            select c.CommissionId).FirstOrDefault();
+
+                        modelCommission.CommissionId = commissionId;
+
+                        db.ModelCommissions.Add(modelCommission);
                         db.SaveChanges();
 
                         var photoModel = new PhotoModelViewModel()

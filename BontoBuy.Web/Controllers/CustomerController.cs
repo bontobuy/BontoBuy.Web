@@ -142,7 +142,7 @@ namespace BontoBuy.Web.Controllers
             return new ViewAsPdf("ViewOrderPdf", customerOrder);
         }
 
-        public ActionResult CustomerRetrieveDeliveryAddress()
+        public ActionResult CustomerRetrieveDeliveryAddress(string returnUrl)
         {
             var userId = User.Identity.GetUserId();
             if (userId == null)
@@ -151,6 +151,13 @@ namespace BontoBuy.Web.Controllers
             }
             if (User.IsInRole("Customer"))
             {
+                string requestedUrl = returnUrl;
+                if (String.IsNullOrEmpty(requestedUrl))
+                {
+                    return RedirectToAction("Error404", "Home");
+                }
+                Session["InitialRequest"] = requestedUrl;
+
                 var records = db.DeliveryAddresses.Where(x => x.UserId == userId);
                 var addressList = new List<DeliveryAddressActionViewModel>();
                 foreach (var item in records)
@@ -281,6 +288,8 @@ namespace BontoBuy.Web.Controllers
             }
             if (ModelState.IsValid)
             {
+                string requestedUrl = Session["InitialRequest"].ToString();
+
                 ViewBag.DeliveryAddressStatusId = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status", item.DeliveryAddressStatusId);
 
                 var updatedRecord = db.DeliveryAddresses.Where(x => x.DeliveryAddressId == item.DeliveryAddressId).FirstOrDefault();
@@ -312,7 +321,12 @@ namespace BontoBuy.Web.Controllers
                 }
                 db.SaveChanges();
 
-                return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer");
+                if (String.IsNullOrWhiteSpace(requestedUrl))
+                {
+                    return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer");
+                }
+                Session.Remove("InitialRequest");
+                return Redirect(requestedUrl);
             }
 
             return RedirectToAction("Home", "Error404");

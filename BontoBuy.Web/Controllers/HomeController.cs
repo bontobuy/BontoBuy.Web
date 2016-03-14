@@ -80,12 +80,12 @@ namespace BontoBuy.Web.Controllers
                 };
                 modelOverviewSpec.Add(modelSpec);
                 ViewBag.Overview = (from special in db.SpecialCategories
-                                    where special.Description == "Overview"
+                                    where special.Description == "General"
                                     select special.Description).FirstOrDefault();
             }
             if (modelOverviewSpec == null)
             {
-                model.Overview = new EmptyResult();
+                return RedirectToAction("Error404", "Home");
             }
             model.Overview = modelOverviewSpec;
             return View(model);
@@ -828,14 +828,14 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchModel(string searchCriteria)
+        public ActionResult Index(string searchCriteria)
         {
             if (String.IsNullOrEmpty(searchCriteria))
             {
                 return RedirectToAction("Index", "Home");
             }
             Session["SearchCriteria"] = searchCriteria;
-            return View("SearchResult");
+            return RedirectToAction("SearchResult", "Search");
         }
     }
 }

@@ -47,6 +47,10 @@ namespace BontoBuy.Web.Models
         public int PhotoId { get; set; }
         public string PhotoName { get; set; }
         public string ImageUrl { get; set; }
+        [Required]
+        public int NumberDaysToAdvert { get; set; }
+        [Required]
+        public int DeliveryInDays { get; set; }
     }
 
     public class SpecActionViewModel

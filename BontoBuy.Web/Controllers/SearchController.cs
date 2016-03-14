@@ -62,6 +62,7 @@ namespace BontoBuy.Web.Controllers
             int count = records.Count();
             ViewBag.Count = count;
             ViewBag.Model = searchCriteria.ToString();
+            Session.Remove("SearchCriteria");
             return View(searchList);
         }
 

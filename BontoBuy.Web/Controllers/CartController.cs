@@ -163,12 +163,14 @@ namespace BontoBuy.Web.Controllers
         {
             //var quantity = order.Quantity;
             List<CartViewModel> orderList = Session["Cart"] as List<CartViewModel>;
-            string userId = User.Identity.GetUserId();
-            if (userId == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            else { userId = User.Identity.GetUserId(); }
+
+            //string userId = User.Identity.GetUserId();
+            //if (userId == null)
+            //{
+            //    string returnUrl = Request.Url.ToString();
+            //    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+            //}
+            //else { userId = User.Identity.GetUserId(); }
 
             int quantity = 0;
             int total = 0;
@@ -197,7 +199,7 @@ namespace BontoBuy.Web.Controllers
                 //item.GrandTotal += item.SubTotal;
                 total += item.SubTotal;
 
-                item.UserId = userId;
+                //item.UserId = userId;
                 item.SupplierId = db.Models.Find(item.ModelId).SupplierId;
 
                 //item.Quantity = 1;

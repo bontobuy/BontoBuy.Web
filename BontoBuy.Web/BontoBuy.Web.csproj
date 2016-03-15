@@ -521,10 +521,12 @@
       <DependentUpon>201603141639417_Add DeliveryDays to Model.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
+    <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminItemRepo.cs" />
     <Compile Include="Models\Repositories\AdminCommissionRepo.cs" />
     <Compile Include="Models\Repositories\AdminItemRepo.cs" />
+    <Compile Include="Models\Repositories\AdminOrderRepo.cs" />
     <Compile Include="Models\Repositories\AdminRoleRepo.cs" />
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelCommissionViewModel.cs" />
@@ -912,6 +914,7 @@
     <Content Include="Views\AdminCommission\Retrieve.cshtml" />
     <Content Include="Views\AdminCommission\Get.cshtml" />
     <Content Include="Views\AdminCommission\Update.cshtml" />
+    <Content Include="Views\AdminOrder\ExportToExcel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,18 +1,24 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
     public class AdminOrderController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private IAdminOrderRepo _repo;
+
+        public AdminOrderController(IAdminOrderRepo repository)
+        {
+            _repo = repository;
+        }
 
         // GET: AdminOrder
         public ActionResult RetrieveOrders()
@@ -31,33 +37,38 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Admin"))
                 {
-                    var orderList = new List<AdminRetrieveOrdersViewModel>();
-                    var records = (from o in db.Orders
-                                   select o).ToList();
-                    foreach (var item in records)
-                    {
-                        var orderItem = new AdminRetrieveOrdersViewModel()
-                        {
-                            OrderId = item.OrderId,
-                            ModelId = item.ModelId,
-                            CustomerId = item.CustomerId,
-                            CustomerName = (from u in db.Users
-                                            join o in db.Orders on u.Id equals o.CustomerUserId
-                                            where o.OrderId == item.OrderId
-                                            select u.Name).FirstOrDefault(),
+                    var records = _repo.AdminRetrieveOrders();
+                    if (records == null)
+                        return RedirectToAction("Home", "Error404");
+                    return View(records);
 
-                            ModelNumber = (from m in db.Models
-                                           where m.ModelId == item.ModelId
-                                           select m.ModelNumber).FirstOrDefault(),
-                            SupplierName = (from c in db.Suppliers
-                                            where c.SupplierId == item.SupplierId
-                                            select c.Name).FirstOrDefault(),
-                            Status = item.Status,
-                            DtCreated = item.DtCreated
-                        };
-                        orderList.Add(orderItem);
-                    }
-                    return View(orderList);
+                    //var orderList = new List<AdminRetrieveOrdersViewModel>();
+                    //var records = (from o in db.Orders
+                    //               select o).ToList();
+                    //foreach (var item in records)
+                    //{
+                    //    var orderItem = new AdminRetrieveOrdersViewModel()
+                    //    {
+                    //        OrderId = item.OrderId,
+                    //        ModelId = item.ModelId,
+                    //        CustomerId = item.CustomerId,
+                    //        CustomerName = (from u in db.Users
+                    //                        join o in db.Orders on u.Id equals o.CustomerUserId
+                    //                        where o.OrderId == item.OrderId
+                    //                        select u.Name).FirstOrDefault(),
+
+                    //        ModelNumber = (from m in db.Models
+                    //                       where m.ModelId == item.ModelId
+                    //                       select m.ModelNumber).FirstOrDefault(),
+                    //        SupplierName = (from c in db.Suppliers
+                    //                        where c.SupplierId == item.SupplierId
+                    //                        select c.Name).FirstOrDefault(),
+                    //        Status = item.Status,
+                    //        DtCreated = item.DtCreated
+                    //    };
+                    //    orderList.Add(orderItem);
+                    //}
+                    //return View(orderList);
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -65,6 +76,12 @@ namespace BontoBuy.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
+        }
+
+        public ActionResult ExportToExcel()
+        {
+            _repo.ExportToExcel();
+            return RedirectToAction("RetrieveOrders");
         }
 
         public ActionResult GetOrder(int id)

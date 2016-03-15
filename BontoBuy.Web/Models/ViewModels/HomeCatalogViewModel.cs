@@ -21,6 +21,13 @@ namespace BontoBuy.Web.Models
         public string Supplier { get; set; }
     }
 
+    public class DisplayModelSpec
+    {
+        public string SpecialCategoryName { get; set; }
+        public string SpecName { get; set; }
+        public string SpecValue { get; set; }
+    }
+
     public class ModelFullDetails : HomeCatalogViewModel
     {
         public int SpecialCategoryId { get; set; }

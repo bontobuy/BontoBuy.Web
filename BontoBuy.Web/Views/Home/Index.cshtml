@@ -88,6 +88,11 @@
             line-height: 20px;
         }
 
+        .imgDropdown{
+            height:150px;
+            width:200px;
+        }
+
     .container-fluid {
         background-color: white;
         padding-right: 15px;
@@ -194,37 +199,37 @@
         var countItem = 0;
         $(document).ready(function () {
 
-            $('.dropdown-toggle').mouseover(function () {
-                var CategoryName = $(this).attr('data-name').toString();
-                if (CategoryName == 'Mobiles & Tablets') {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/mobilephones-tablets.jpg)')
-                }
-                else if (CategoryName == 'Computers') {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Computers.jpg)')
-                }
-                else if (CategoryName == 'Gaming') {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Gaming.jpg)')
-                }
-                else if (CategoryName == 'Electronics') {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Electronics.jpg)')
-                }
-                else if (CategoryName == "Women's Fashion") {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/WomenFashion.jpg)')
-                }
-                else if (CategoryName == "Men's Fashion") {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/MensFashion.jpg)')
-                }
-                else if (CategoryName == "Kids' Fashion") {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/kids.jpg)')
-                }
-                else if (CategoryName == "Home & Kitchen") {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/HomeKitchen.jpg)')
-                }
-                else if (CategoryName == "Sport, Fitness & Outdoor") {
-                    $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Outdoors.jpg)')
-                }
-                else $('.mega-sidebar-menu').css('background', 'white');
-            });
+            //$('.dropdown-toggle').mouseover(function () {
+            //    var CategoryName = $(this).attr('data-name').toString();
+            //    if (CategoryName == 'Mobiles & Tablets') {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/mobilephones-tablets.jpg)')
+            //    }
+            //    else if (CategoryName == 'Computers') {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Computers.jpg)')
+            //    }
+            //    else if (CategoryName == 'Gaming') {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Gaming.jpg)')
+            //    }
+            //    else if (CategoryName == 'Electronics') {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Electronics.jpg)')
+            //    }
+            //    else if (CategoryName == "Women's Fashion") {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/WomenFashion.jpg)')
+            //    }
+            //    else if (CategoryName == "Men's Fashion") {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/MensFashion.jpg)')
+            //    }
+            //    else if (CategoryName == "Kids' Fashion") {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/kids.jpg)')
+            //    }
+            //    else if (CategoryName == "Home & Kitchen") {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/HomeKitchen.jpg)')
+            //    }
+            //    else if (CategoryName == "Sport, Fitness & Outdoor") {
+            //        $('.mega-sidebar-menu').css('background', 'url(../../Content/Menu/Outdoors.jpg)')
+            //    }
+            //    else $('.mega-sidebar-menu').css('background', 'white');
+            //});
 
             if (countItem == 0) {
                 $('#cardSideBar').css('display', 'none');
@@ -427,13 +432,14 @@
                                             </ul>
                                         </li>
                                     }
+                                    <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.MobileCategory.ModelId })"><img src="~/images/@Model.MobileCategory.ImageUrl" alt="@Model.MobileCategory.ModelNumber" class="imgDropdown" width="200" height="200" />@Model.MobileCategory.ModelNumber</a>
                                 }
 
                                 @if (category.Description == "Computers")
                                 {
                                     foreach (var product in Model.ProductRecordsC2)
                                     {
-                                        <li class="col-md-3">
+                                        <li class="col-md-4">
 
                                             <ul id="ProductList">
 
@@ -521,10 +527,12 @@
                                             </ul>
                                         </li>
                                     }
+                                    <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.ComputerCategory.ModelId })"><img src="~/images/@Model.ComputerCategory.ImageUrl" alt="" class="imgDropdown" width="200" height="200" />@Model.ComputerCategory.ModelNumber</a>
                                 }
 
                                 @if (category.Description == "Gaming")
                                 {
+
                                     foreach (var product in Model.ProductRecordsC3)
                                     {
                                         <li class="col-md-3">
@@ -538,11 +546,13 @@
                                                     {
                                                         <li><a href="#">@item.Description</a></li>
                                                     }
+
                                                 }
                                                 <li class="divider"></li>
                                             </ul>
                                         </li>
                                     }
+                                    <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.GamingCategory.ModelId })"><img src="~/images/@Model.GamingCategory.ImageUrl" alt="" class="imgDropdown" width="200" height="200" />@Model.GamingCategory.ModelNumber</a>
                                 }
 
                                 @if (category.Description == "Electronics")
@@ -613,6 +623,7 @@
                                             </ul>
                                         </li>
                                     }
+                                    <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.ElectronicsCategory.ModelId })"><img src="~/images/@Model.ElectronicsCategory.ImageUrl" alt="" class="img-thumbnail" width="200" height="200" />@Model.ElectronicsCategory.ModelNumber</a>
                                 }
 
                                 @if (category.Description == "Women's Fashion")
@@ -699,6 +710,7 @@
                                             </ul>
                                         </li>
                                     }
+                                    <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.WomenCategory.ModelId })"><img src="~/images/@Model.WomenCategory.ImageUrl" alt="" class="imgDropdown" width="200" height="200" />@Model.WomenCategory.ModelNumber</a>
                                 }
 
                                 @if (category.Description == "Men's Fashion")
@@ -777,6 +789,7 @@
                                             </ul>
                                         </li>
                                     }
+                                    <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.MenCategory.ModelId })"><><img src="~/images/@Model.MenCategory.ImageUrl" a alt="" class="imgDropdown" width="200" height="200" />@Model.MenCategory.ModelNumber</a>
                                 }
                             </ul>
                         </li>
@@ -998,15 +1011,15 @@
                 <div class="alert alert-success" id="cartAlert" role="alert">You succesfully added new item to Shopping Cart.</div>
                 @using (Html.BeginForm())
                 {
-                        <div class="form-group col-md-8 col-md-offset-1">
-                            <input type="text" name="searchCriteria" class="form-control" id="searchInput" placeholder="Search">
-                        </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-        <a class="text-info" href="@Url.Action("AdvancedSearch","Search")">Advanced</a>
-        </div>
-        }
-    </div>
+                    <div class="form-group col-md-8 col-md-offset-1">
+                        <input type="text" name="searchCriteria" class="form-control" id="searchInput" placeholder="Search">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        <a class="text-info" href="@Url.Action("AdvancedSearch","Search")">Advanced</a>
+                    </div>
+                }
+            </div>
             <div class="row">
                 <div class="slideshow">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1178,86 +1191,86 @@
     </div>
     <hr/>
     @*<div class="row" id="row-eq-height">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <h4 class="text-center"><span class="label label-info">Samsung</span></h4>
-                <img src="650*450" class="img-responsive">
-                <div class="caption">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                            <h3>Galaxy S6</h3>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <h4 class="text-center"><span class="label label-info">Samsung</span></h4>
+                    <img src="650*450" class="img-responsive">
+                    <div class="caption">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <h3>Galaxy S6</h3>
+                            </div>
+                            <div class="col-md-6 col-xs-6 price">
+                                <h3>
+                                    <label>Rs34,700</label>
+                                </h3>
+                            </div>
                         </div>
-                        <div class="col-md-6 col-xs-6 price">
-                            <h3>
-                                <label>Rs34,700</label>
-                            </h3>
-                        </div>
-                    </div>
-                    <p>32GB, 2GB Ram, 1080HD, 5.1 inches, Android</p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <h4 class="text-center"><span class="label label-info">Apple</span></h4>
-                <img src="650*450" class="img-responsive">
-                <div class="caption">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                            <h3>iPhone 6</h3>
-                        </div>
-                        <div class="col-md-6 col-xs-6 price">
-                            <h3>
-                                <label>Rs36,500</label>
-                            </h3>
-                        </div>
-                    </div>
-                    <p>32GB, 64Bit, 1080HD, 4.7 inches, iOS 8</p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                        <p>32GB, 2GB Ram, 1080HD, 5.1 inches, Android</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <h4 class="text-center"><span class="label label-info">Nokia</span></h4>
-                <img src="650*450" class="img-responsive">
-                <div class="caption">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                            <h3>Lumia 1520</h3>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <h4 class="text-center"><span class="label label-info">Apple</span></h4>
+                    <img src="650*450" class="img-responsive">
+                    <div class="caption">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <h3>iPhone 6</h3>
+                            </div>
+                            <div class="col-md-6 col-xs-6 price">
+                                <h3>
+                                    <label>Rs36,500</label>
+                                </h3>
+                            </div>
                         </div>
-                        <div class="col-md-6 col-xs-6 price">
-                            <h3>
-                                <label>Rs12,250</label>
-                            </h3>
-                        </div>
-                    </div>
-                    <p>32GB, 4GB Ram, 1080HD, 6.3 inches, WP 8</p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                        <p>32GB, 64Bit, 1080HD, 4.7 inches, iOS 8</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <h4 class="text-center"><span class="label label-info">Nokia</span></h4>
+                    <img src="650*450" class="img-responsive">
+                    <div class="caption">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <h3>Lumia 1520</h3>
+                            </div>
+                            <div class="col-md-6 col-xs-6 price">
+                                <h3>
+                                    <label>Rs12,250</label>
+                                </h3>
+                            </div>
+                        </div>
+                        <p>32GB, 4GB Ram, 1080HD, 6.3 inches, WP 8</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 </div>

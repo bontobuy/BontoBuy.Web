@@ -979,6 +979,294 @@ namespace BontoBuy.Web.Controllers
 
             model.ItemRecordsP42 = itemList42;
 
+            var MobileCategoryRecords = (from m in db.Models
+                                         join i in db.Items on m.ItemId equals i.ItemId
+                                         join p in db.Products on i.ProductId equals p.ProductId
+                                         join c in db.Categories on p.CategoryId equals c.CategoryId
+                                         where c.Description == "Mobiles & Tablets"
+                                         select m).ToList();
+
+            var MobileCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in MobileCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var MobileCategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                MobileCategoryDisplay = MobileCategoryData;
+            }
+            model.MobileCategory = MobileCategoryDisplay;
+
+            var ComputerCategoryRecords = (from m in db.Models
+                                           join i in db.Items on m.ItemId equals i.ItemId
+                                           join p in db.Products on i.ProductId equals p.ProductId
+                                           join c in db.Categories on p.CategoryId equals c.CategoryId
+                                           where c.Description == "Computers"
+                                           select m).ToList();
+
+            var ComputerCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in ComputerCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var ComputerCategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                ComputerCategoryDisplay = ComputerCategoryData;
+            }
+            model.ComputerCategory = ComputerCategoryDisplay;
+
+            var GamingCategoryRecords = (from m in db.Models
+                                         join i in db.Items on m.ItemId equals i.ItemId
+                                         join p in db.Products on i.ProductId equals p.ProductId
+                                         join c in db.Categories on p.CategoryId equals c.CategoryId
+                                         where c.Description == "Gaming"
+                                         select m).ToList();
+
+            var GamingCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in GamingCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var GamingCategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                GamingCategoryDisplay = GamingCategoryData;
+            }
+            model.GamingCategory = GamingCategoryDisplay;
+
+            var ElectronicsCategoryRecords = (from m in db.Models
+                                              join i in db.Items on m.ItemId equals i.ItemId
+                                              join p in db.Products on i.ProductId equals p.ProductId
+                                              join c in db.Categories on p.CategoryId equals c.CategoryId
+                                              where c.Description == "Electronics"
+                                              select m).ToList();
+
+            var ElectronicsCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in ElectronicsCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var ElectronicsCategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                ElectronicsCategoryDisplay = ElectronicsCategoryData;
+            }
+            model.ElectronicsCategory = ElectronicsCategoryDisplay;
+
+            var WomenCategoryRecords = (from m in db.Models
+                                        join i in db.Items on m.ItemId equals i.ItemId
+                                        join p in db.Products on i.ProductId equals p.ProductId
+                                        join c in db.Categories on p.CategoryId equals c.CategoryId
+                                        where c.Description == "Women's Fashion"
+                                        select m).ToList();
+
+            var WomenCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in WomenCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var CategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                WomenCategoryDisplay = CategoryData;
+            }
+            model.WomenCategory = WomenCategoryDisplay;
+
+            var MenCategoryRecords = (from m in db.Models
+                                      join i in db.Items on m.ItemId equals i.ItemId
+                                      join p in db.Products on i.ProductId equals p.ProductId
+                                      join c in db.Categories on p.CategoryId equals c.CategoryId
+                                      where c.Description == "Men's Fashion"
+                                      select m).ToList();
+
+            var MenCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in MenCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var CategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                MenCategoryDisplay = CategoryData;
+            }
+            model.MenCategory = MenCategoryDisplay;
+
+            var KidsCategoryRecords = (from m in db.Models
+                                       join i in db.Items on m.ItemId equals i.ItemId
+                                       join p in db.Products on i.ProductId equals p.ProductId
+                                       join c in db.Categories on p.CategoryId equals c.CategoryId
+                                       where c.Description == "Kids' Fashion"
+                                       select m).ToList();
+
+            var KidsCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in KidsCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var CategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                KidsCategoryDisplay = CategoryData;
+            }
+            model.KidsCategory = KidsCategoryDisplay;
+
+            var HomeCategoryRecords = (from m in db.Models
+                                       join i in db.Items on m.ItemId equals i.ItemId
+                                       join p in db.Products on i.ProductId equals p.ProductId
+                                       join c in db.Categories on p.CategoryId equals c.CategoryId
+                                       where c.Description == "Home & Kitchen"
+                                       select m).ToList();
+
+            var HomeCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in HomeCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var CategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                HomeCategoryDisplay = CategoryData;
+            }
+            model.HomeCategory = HomeCategoryDisplay;
+
+            var SportCategoryRecords = (from m in db.Models
+                                        join i in db.Items on m.ItemId equals i.ItemId
+                                        join p in db.Products on i.ProductId equals p.ProductId
+                                        join c in db.Categories on p.CategoryId equals c.CategoryId
+                                        where c.Description == "Sport, Fitness & Outdoor"
+                                        select m).ToList();
+
+            var SportCategoryDisplay = new HomeCatalogViewModel();
+            foreach (var item in SportCategoryRecords.OrderBy(m => Guid.NewGuid()).Take(1))
+            {
+                var CategoryData = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                SportCategoryDisplay = CategoryData;
+            }
+            model.SportCategory = SportCategoryDisplay;
+
             var modelRecords = _modelRepository.Retrieve();
             var FeaturedList = new List<HomeCatalogViewModel>();
             foreach (var item in modelRecords.OrderBy(f => Guid.NewGuid()).Take(3))

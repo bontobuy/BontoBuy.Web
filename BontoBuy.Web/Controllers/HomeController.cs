@@ -55,7 +55,12 @@ namespace BontoBuy.Web.Controllers
                             join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
                             join m in db.Models on pm.ModelId equals m.ModelId
                             where pm.ModelId == id
-                            select ph.ImageUrl).FirstOrDefault()
+                            select ph.ImageUrl).FirstOrDefault(),
+
+                Supplier = (from m in db.Models
+                            join u in db.Users on m.UserId equals u.Id
+                            where m.ModelId == id
+                            select u.Name).FirstOrDefault()
             };
             model.Info = modelDetails;
 
@@ -448,6 +453,38 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("Error404", "Home");
             }
             model.Warranty = modelWarrantySpec;
+
+            int modelItemId = (from m in db.Models
+                               where m.ModelId == id
+                               select m.ItemId).FirstOrDefault();
+            var relatedRecords = (from m in db.Models
+                                  where m.ItemId == modelItemId
+                                  select m).ToList();
+            var relatedList = new List<HomeCatalogViewModel>();
+            foreach (var item in relatedRecords.OrderBy(f => Guid.NewGuid()).Take(15))
+            {
+                var relatedItem = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                relatedList.Add(relatedItem);
+            }
+            model.RelatedProducts = relatedList;
+
             return View(model);
         }
 

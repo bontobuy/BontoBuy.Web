@@ -133,6 +133,49 @@
             height: 319px;
             width: 242px;
         }
+
+    marquee > a, marquee > a:hover {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .productbox {
+        width: 250px;
+        height: auto;
+        background-color: #ffffff;
+        padding: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        background-color: #fff;
+        border: solid 1px #cbcbcb;
+        transition: all .20s ease-in-out;
+    }
+
+        .productbox img {
+            width: 235px;
+            height: 214px;
+        }
+
+    .producttitle {
+        font-weight: bold;
+        padding: 5px 0 5px 0;
+        width: 235px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+        .producttitle a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .producttitle .btn {
+            background-color: #EDEEF0;
+        }
 </style>
 
 <div class="container-fluid">
@@ -143,7 +186,7 @@
                 <div class="col-md-12">
                     <div class="product col-md-3 service-image-left">
                         <center>
-                            <img id="@Model.Info.ModelId" class="" src="~/images/@Model.Info.ImageUrl" alt="@Model.Info.ModelNumber">
+                            <a><img id="@Model.Info.ModelId" class="img-responsive" src="~/images/@Model.Info.ImageUrl" alt="@Model.Info.ModelNumber"></a>
                         </center>
                     </div>
                     @*<div class="container service1-items col-sm-2 col-md-2 pull-left">
@@ -162,122 +205,152 @@
                 </div>
 
                 <div class="col-md-7 border">
-                    <div class="product-title">@Model.Info.ModelNumber</div>
-                    <div class="product-desc">Description</div>
-                    <div class="product-rating"><i class="glyphicon glyphicon-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
-                    <hr>
-                    <div class="product-price">Rs @Model.Info.Price</div>
-                    <div class="product-stock">In Stock</div>
-                    <hr>
-                    <div class="btn-group cart">
-                        <a href="" class="btn btn-success AddToCart" data-id="@Model.Info.ModelId">AddToCart</a>@*@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { @class = "btn btn-success AddToCart" })*@
+                    <div class="col-md-6">
+                        <div class="badge">@Model.Info.BrandName</div>
+                        <div class="product-title">@Model.Info.ModelNumber</div>
+                        <div class="product-desc">Description</div>
+                        <div class="product-rating"><i class="glyphicon glyphicon-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+                        <hr>
+                        <div class="product-price">Rs @Model.Info.Price</div>
+                        <div class="product-stock">In Stock</div>
+                        <hr>
+                        <div class="btn-group cart">
+                            <a href="" class="btn btn-success AddToCart" data-id="@Model.Info.ModelId">AddToCart</a>@*@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { @class = "btn btn-success AddToCart" })*@
+                        </div>
+                        <div class="btn-group wishlist">
+                            <button type="button" class="btn btn-danger">
+                                Add to wishlist
+                            </button>
+                        </div>
                     </div>
-                    <div class="btn-group wishlist">
-                        <button type="button" class="btn btn-danger">
-                            Add to wishlist
-                        </button>
+                    <div class="col-md-4 border col-md-offset-2">
+                        <div class="product-title"><span class="text-info">Supplier: </span> @Model.Info.Supplier</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="container-fluid">
-            <div class="col-md-10 product-info border">
-                <ul id="myTab" class="nav nav-tabs nav_tabs">
+            <div class="row">
+                <div class="col-md-10 product-info border">
+                    <ul id="myTab" class="nav nav-tabs nav_tabs">
 
-                    <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
-                    <li><a href="#service-two" data-toggle="tab">REVIEWS</a></li>
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade in active" id="service-one">
+                        <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+                        <li><a href="#service-two" data-toggle="tab">REVIEWS</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade in active" id="service-one">
 
-                        <section class="container product-info">
+                            <section class="container product-info">
 
-                            <h3><b>@ViewBag.Overview</b></h3>
-                            @foreach (var spec in Model.Overview)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.BoxContent</b></h3>
-                            @foreach (var spec in Model.BoxContent)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.Display</b></h3>
-                            @foreach (var spec in Model.Display)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.Software</b></h3>
-                            @foreach (var spec in Model.Software)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.Camera</b></h3>
-                            @foreach (var spec in Model.Camera)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.Connectivity</b></h3>
-                            @foreach (var spec in Model.Connectivity)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.Processor</b></h3>
-                            @foreach (var spec in Model.Processor)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.MemoryStorage</b></h3>
-                            @foreach (var spec in Model.MemoryStorage)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.Hardware</b></h3>
-                            @foreach (var spec in Model.Hardware)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.HardwareConnectivity</b></h3>
-                            @foreach (var spec in Model.HardwareConnectivity)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.BatteryPower</b></h3>
-                            @foreach (var spec in Model.BatteryPower)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.Dimensions</b></h3>
-                            @foreach (var spec in Model.Dimensions)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                            <h3><b>@ViewBag.Warranty</b></h3>
-                            @foreach (var spec in Model.Warranty)
-                            {
-                                <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                            }
-                            <br/>
-                        </section>
+                                <h3><b>@ViewBag.Overview</b></h3>
+                                @foreach (var spec in Model.Overview)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.BoxContent</b></h3>
+                                @foreach (var spec in Model.BoxContent)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.Display</b></h3>
+                                @foreach (var spec in Model.Display)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.Software</b></h3>
+                                @foreach (var spec in Model.Software)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.Camera</b></h3>
+                                @foreach (var spec in Model.Camera)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.Connectivity</b></h3>
+                                @foreach (var spec in Model.Connectivity)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.Processor</b></h3>
+                                @foreach (var spec in Model.Processor)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.MemoryStorage</b></h3>
+                                @foreach (var spec in Model.MemoryStorage)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.Hardware</b></h3>
+                                @foreach (var spec in Model.Hardware)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.HardwareConnectivity</b></h3>
+                                @foreach (var spec in Model.HardwareConnectivity)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.BatteryPower</b></h3>
+                                @foreach (var spec in Model.BatteryPower)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.Dimensions</b></h3>
+                                @foreach (var spec in Model.Dimensions)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                                <h3><b>@ViewBag.Warranty</b></h3>
+                                @foreach (var spec in Model.Warranty)
+                                {
+                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                }
+                                <br/>
+                            </section>
+                        </div>
+                        <div class="tab-pane fade" id="service-two">
+
+                            <section class="container"></section>
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="service-two">
-
-                        <section class="container"></section>
-                    </div>
+                    <hr>
                 </div>
-                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-info"><strong>Related Products</strong></h2>
+                <marquee style="" scrollamount="6" scrolldelay="90" direction="left" onmouseover="this.stop()" onmouseout="this.start()">
+                    <ul class="list-inline list-unstyled r">
+                        @foreach (var item in Model.RelatedProducts)
+                        {
+                            <li class="productbox">
+                                <a href="@Url.Action("ModelDetails", "Home", new { id = item.ModelId })"><img src="~/images/@item.ImageUrl" class="img-responsive"></a>
+                                <div class="producttitle">@item.ModelNumber</div>
+                                <div class="text-primary">
+                                    @item.Price <br/>
+                                    @item.BrandName <br/>
+                                    @item.DtCreated
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                    <br>
+                </marquee>
             </div>
         </div>
     </div>

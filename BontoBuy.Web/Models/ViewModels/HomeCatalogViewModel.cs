@@ -18,6 +18,7 @@ namespace BontoBuy.Web.Models
         public string ImageUrl { get; set; }
         public string PhysicalPath { get; set; }
         public DateTime DtCreated { get; set; }
+        public string Supplier { get; set; }
     }
 
     public class ModelFullDetails : HomeCatalogViewModel

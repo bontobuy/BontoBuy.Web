@@ -25,6 +25,7 @@
     <div class="row">
         <div class="container">
             <div class="col-md-8">
+                <div class="alert alert-success" id="cartRemoveAlert" role="alert">You just remove an item from the Shopping Cart.</div>
                 <table id="cart" class="table table-hover table-condensed">
                     <thead>
                         <tr>
@@ -49,7 +50,7 @@
                         </div>
                         @foreach (var item in Model)
                         {
-                            <tr>
+                            <tr class="@item.ModelId">
                                 <td data-th="Product">
                                     <div class="row">
                                         <div class="col-sm-2 hidden-xs"><img src="~/images/@item.ImageUrl" height="100" width="100" alt="..." class="img-responsive" /></div>
@@ -62,7 +63,7 @@
                                 <td data-th="Quantity">@item.Quantity</td>
                                 <td data-th="Sub Total">@item.SubTotal</td>
                                 <td class="actions" data-th="">
-                                    <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+                                    @*<button class="btn btn-danger btn-sm RemoveModelCart" data-id="@item.ModelId"><i class=" glyphicon glyphicon-trash"></i></button>*@
                                 </td>
                             </tr>
                         }
@@ -79,8 +80,9 @@
                         </tr>
                     </tfoot>
                 </table>
+                <a href="@Url.Action("NavigateToCart","Cart")" class="btn btn-warning">Go back to Cart</a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 ">
                 <table id="Delivery" class="table table-responsive">
                     <thead>
                         <tr>
@@ -116,42 +118,23 @@
     </div>
 }
 @section Scripts {
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-                $('#ChangeDeliveryAddress').click(function () {
-
-                    $.ajax({
-                        url: '/Order/GetDeliveryAddress',
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (data) {
-                            var container;
-                            var street, city, zipcode;
-                            $(data).each(function (index, item) {
-                                container += '<div class="border"><a><ul><li class="stret" data-id="' + item.DeliveryAddressId + '">Street: ' + item.Street + '</li><li>City: ' + item.City + '</li><li>ZipCode: ' + item.Zipcode + '</li></ul></></div>';
-                            });
-                            $.jAlert({
-                                'title': 'Click to change Delivery Address',
-                                'content': container
-
-                            })
-                            $('.border').click(function () {
-                                street = $('.stret').attr('data-id');
-                                alert(street);
-                                //$.jAlert({
-                                //    'title': 'Success',
-                                //    'content':'Delivery Address changed.',
-                                //    'onClose': function (alert) {
-
-                                //        $('.jAlert').closeAlert()
-                                //    }
-                                //    });
-
-                            });
-
-                        }
-                    })
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#cartRemoveAlert').hide();
+            $('.RemoveModelCart').click(function () {
+                var ModelId = $(this).attr('data-id');
+                $.ajax({
+                    url: '/Cart/RemoveCartItem/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { id: ModelId },
+                    success: function (data) {
+                        $('.' + ModelId).fadeOut(1000);
+                        $('.cart').text(data.count);
+                        $('#cartRemoveAlert').fadeIn(400).delay(3000).fadeOut(1000);
+                    }
                 });
             });
-        </script>*@
+        });
+    </script>
 }

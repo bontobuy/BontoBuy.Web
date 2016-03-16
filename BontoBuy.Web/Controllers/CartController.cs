@@ -211,6 +211,16 @@ namespace BontoBuy.Web.Controllers
             return RedirectToAction("ReviewOrder", "Order", new { total = total });
         }
 
+        public JsonResult RemoveCartItem(int id)
+        {
+            List<CartViewModel> cartList = Session["Cart"] as List<CartViewModel>;
+            var itemToRemove = cartList.FindIndex(m => m.ModelId == id);
+            cartList.RemoveAt(itemToRemove);
+            Session["Cart"] = cartList;
+            int count = cartList.Count();
+            return Json(new { count, cartList }, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Cart/Create
         public ActionResult Create()
         {

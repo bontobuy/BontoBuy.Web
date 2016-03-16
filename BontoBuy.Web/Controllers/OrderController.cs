@@ -153,6 +153,7 @@ namespace BontoBuy.Web.Controllers
         {
             List<CartViewModel> orderList = Session["Order"] as List<CartViewModel>;
             int grandTotal = total;
+
             string userId = User.Identity.GetUserId();
             if (userId == null)
             {
@@ -160,7 +161,7 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
             }
             else { userId = User.Identity.GetUserId(); }
-            if (orderList != null)
+            if (orderList.Count() != 0)
             {
                 foreach (var item in orderList)
                 {
@@ -180,18 +181,20 @@ namespace BontoBuy.Web.Controllers
 
                     item.GrandTotal = grandTotal;
                 }
-            }
-            ViewData["GrandTotal"] = grandTotal;
 
-            var userAddress = (from d in db.DeliveryAddresses
-                               join u in db.Users on d.UserId equals u.Id
-                               where d.UserId == userId && d.Status == "Default"
-                               select d).FirstOrDefault();
-            ViewBag.Street = userAddress.Street;
-            ViewBag.City = userAddress.City;
-            ViewBag.ZipCode = userAddress.Zipcode;
-            Session["DeliveryAddress"] = userAddress;
-            return View(orderList);
+                ViewData["GrandTotal"] = grandTotal;
+
+                var userAddress = (from d in db.DeliveryAddresses
+                                   join u in db.Users on d.UserId equals u.Id
+                                   where d.UserId == userId && d.Status == "Default"
+                                   select d).FirstOrDefault();
+                ViewBag.Street = userAddress.Street;
+                ViewBag.City = userAddress.City;
+                ViewBag.ZipCode = userAddress.Zipcode;
+                Session["DeliveryAddress"] = userAddress;
+                return View(orderList);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

@@ -88,10 +88,10 @@
             line-height: 20px;
         }
 
-        .imgDropdown{
-            height:150px;
-            width:200px;
-        }
+    .imgDropdown {
+        height: 150px;
+        width: 200px;
+    }
 
     .container-fluid {
         background-color: white;
@@ -257,7 +257,7 @@
                             //$('.dropdown-cart').append('<li class="cartlist"><span class="item"><span class="item-left"><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"><button class="btn btn-xs btn-danger pull-right">x</button></span></span></li><li class="divider"></li>');
                             $('#SCart').find('.appended').remove();
                             //if (data.carCount <= 6) {
-                            $('#SCart').append('<li class="appended fa fa-plus"><span class="item"><span class="item-left"><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"><button class="btn btn-xs btn-danger pull-right">x</button></span></span></li><li class="divider"></li>');
+                            $('#SCart').append('<li class="appended fa fa-plus ' + modelId + '"><span class="item"><span class="item-left"><span class="item-info"><span>' + item.ModelName + '</span><span> Rs' + item.UnitPrice + '</span></span></span><span class="item-right"></span></span><span class="pull-right fa fa-check-square-o"></span></li><li class="divider"></li>');
                             //}
 
                             $('#cartAlert').fadeIn(400);
@@ -368,69 +368,69 @@
                                 {
                                     foreach (var product in Model.ProductRecordsC1)
                                     {
-                                        <li class="col-md-4">
+                                    <li class="col-md-4">
 
-                                            <ul id="ProductList">
+                                        <ul id="ProductList">
 
-                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                                @if (product.ProductId == 1)
+                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                            @if (product.ProductId == 1)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP1)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 2)
+                                            @if (product.ProductId == 2)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP2)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 3)
+                                            @if (product.ProductId == 3)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP3)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 4)
+                                            @if (product.ProductId == 4)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP4)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 5)
+                                            @if (product.ProductId == 5)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP5)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 6)
+                                            @if (product.ProductId == 6)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP6)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 7)
+                                            @if (product.ProductId == 7)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP7)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
-                                                <li class="divider"></li>
-                                            </ul>
-                                        </li>
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
                                     }
                                     <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.MobileCategory.ModelId })"><img src="~/images/@Model.MobileCategory.ImageUrl" alt="@Model.MobileCategory.ModelNumber" class="imgDropdown" width="200" height="200" />@Model.MobileCategory.ModelNumber</a>
                                 }
@@ -439,93 +439,93 @@
                                 {
                                     foreach (var product in Model.ProductRecordsC2)
                                     {
-                                        <li class="col-md-4">
+                                    <li class="col-md-4">
 
-                                            <ul id="ProductList">
+                                        <ul id="ProductList">
 
-                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                                @if (product.ProductId == 8)
+                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                            @if (product.ProductId == 8)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP8)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 9)
+                                            @if (product.ProductId == 9)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP9)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 10)
+                                            @if (product.ProductId == 10)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP10)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 11)
+                                            @if (product.ProductId == 11)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP11)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 12)
+                                            @if (product.ProductId == 12)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP12)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 13)
+                                            @if (product.ProductId == 13)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP13)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 14)
+                                            @if (product.ProductId == 14)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP14)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 15)
+                                            @if (product.ProductId == 15)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP15)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 16)
+                                            @if (product.ProductId == 16)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP16)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 17)
+                                            @if (product.ProductId == 17)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP17)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
-                                                <li class="divider"></li>
-                                            </ul>
-                                        </li>
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
                                     }
                                     <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.ComputerCategory.ModelId })"><img src="~/images/@Model.ComputerCategory.ImageUrl" alt="" class="imgDropdown" width="200" height="200" />@Model.ComputerCategory.ModelNumber</a>
                                 }
@@ -535,22 +535,22 @@
 
                                     foreach (var product in Model.ProductRecordsC3)
                                     {
-                                        <li class="col-md-3">
+                                    <li class="col-md-3">
 
-                                            <ul id="ProductList">
+                                        <ul id="ProductList">
 
-                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                                @if (product.ProductId == 18)
+                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                            @if (product.ProductId == 18)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP18)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
 
                                                 }
-                                                <li class="divider"></li>
-                                            </ul>
-                                        </li>
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
                                     }
                                     <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.GamingCategory.ModelId })"><img src="~/images/@Model.GamingCategory.ImageUrl" alt="" class="imgDropdown" width="200" height="200" />@Model.GamingCategory.ModelNumber</a>
                                 }
@@ -559,69 +559,69 @@
                                 {
                                     foreach (var product in Model.ProductRecordsC4)
                                     {
-                                        <li class="col-md-3">
+                                    <li class="col-md-3">
 
-                                            <ul id="ProductList">
+                                        <ul id="ProductList">
 
-                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                                @if (product.ProductId == 19)
+                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                            @if (product.ProductId == 19)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP19)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 20)
+                                            @if (product.ProductId == 20)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP20)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 21)
+                                            @if (product.ProductId == 21)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP21)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 22)
+                                            @if (product.ProductId == 22)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP22)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 23)
+                                            @if (product.ProductId == 23)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP23)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 24)
+                                            @if (product.ProductId == 24)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP24)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 25)
+                                            @if (product.ProductId == 25)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP25)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
-                                                <li class="divider"></li>
-                                            </ul>
-                                        </li>
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
                                     }
                                     <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.ElectronicsCategory.ModelId })"><img src="~/images/@Model.ElectronicsCategory.ImageUrl" alt="" class="img-thumbnail" width="200" height="200" />@Model.ElectronicsCategory.ModelNumber</a>
                                 }
@@ -630,85 +630,85 @@
                                 {
                                     foreach (var product in Model.ProductRecordsC5)
                                     {
-                                        <li class="col-md-3">
+                                    <li class="col-md-3">
 
-                                            <ul id="ProductList">
+                                        <ul id="ProductList">
 
-                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                                @if (product.ProductId == 26)
+                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                            @if (product.ProductId == 26)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP26)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 27)
+                                            @if (product.ProductId == 27)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP27)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 28)
+                                            @if (product.ProductId == 28)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP28)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 29)
+                                            @if (product.ProductId == 29)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP29)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 30)
+                                            @if (product.ProductId == 30)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP30)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 31)
+                                            @if (product.ProductId == 31)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP31)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 32)
+                                            @if (product.ProductId == 32)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP32)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 33)
+                                            @if (product.ProductId == 33)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP33)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 34)
+                                            @if (product.ProductId == 34)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP34)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
-                                                <li class="divider"></li>
-                                            </ul>
-                                        </li>
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
                                     }
                                     <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.WomenCategory.ModelId })"><img src="~/images/@Model.WomenCategory.ImageUrl" alt="" class="imgDropdown" width="200" height="200" />@Model.WomenCategory.ModelNumber</a>
                                 }
@@ -717,77 +717,77 @@
                                 {
                                     foreach (var product in Model.ProductRecordsC6)
                                     {
-                                        <li class="col-md-3">
+                                    <li class="col-md-3">
 
-                                            <ul id="ProductList">
+                                        <ul id="ProductList">
 
-                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
-                                                @if (product.ProductId == 35)
+                                            <li class="sidebar-header"><a href="#">@product.Description</a></li>
+                                            @if (product.ProductId == 35)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP35)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 36)
+                                            @if (product.ProductId == 36)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP36)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 37)
+                                            @if (product.ProductId == 37)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP37)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 38)
+                                            @if (product.ProductId == 38)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP38)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 39)
+                                            @if (product.ProductId == 39)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP39)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 40)
+                                            @if (product.ProductId == 40)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP40)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 41)
+                                            @if (product.ProductId == 41)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP41)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
 
-                                                @if (product.ProductId == 42)
+                                            @if (product.ProductId == 42)
                                                 {
                                                     foreach (var item in Model.ItemRecordsP42)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                <li><a href="#">@item.Description</a></li>
                                                     }
                                                 }
-                                                <li class="divider"></li>
-                                            </ul>
-                                        </li>
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
                                     }
                                     <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.MenCategory.ModelId })"><><img src="~/images/@Model.MenCategory.ImageUrl" a alt="" class="imgDropdown" width="200" height="200" />@Model.MenCategory.ModelNumber</a>
                                 }
@@ -1008,6 +1008,7 @@
         </div>
         <div class="col-md-8">
             <div class="row">
+
                 <div class="alert alert-success" id="cartAlert" role="alert">You succesfully added new item to Shopping Cart.</div>
                 @using (Html.BeginForm())
                 {

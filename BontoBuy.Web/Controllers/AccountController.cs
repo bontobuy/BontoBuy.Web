@@ -120,6 +120,11 @@ namespace BontoBuy.Web.Controllers
                 return View(model);
             }
 
+            //var anonymousEmail = model.Email;
+            //var anonymousProfile = (from u in db.Users
+            //                        where u.Email == anonymousEmail
+            //                        select u.ActivationCode).FirstOrDefault();
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -196,22 +201,29 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActivateAccount(AccountViewModel item)
+        public ActionResult ActivateAccount(string id)
         {
-            var userId = User.Identity.GetUserId();
-            var userProfile = db.Users.Where(x => x.Id == userId).FirstOrDefault();
-            var userCode = (from u in db.Users
-                            where u.Id == userId
-                            select u.ActivationCode).FirstOrDefault();
+            //var userId = User.Identity.GetUserId();
+            //var userProfile = db.Users.Where(x => x.ActivationCode == id).FirstOrDefault();
+            //var userCode = (from u in db.Users
+            //                where u.ActivationCode == id
+            //                select u.ActivationCode).FirstOrDefault();
 
-            if (userCode == item.ActivationCode)
-            {
-                userProfile.ActivationCode = null;
-                db.SaveChanges();
-                return RedirectToAction("Index", "Supplier");
-            }
+            //if (userCode == item.ActivationCode)
+            //{
+            //    userProfile.ActivationCode = null;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Login", "Account");
+            //}
 
-            return View();
+            var record = db.Users.Where(x => x.ActivationCode == id).FirstOrDefault();
+            if (String.IsNullOrWhiteSpace(record.Id))
+                return View();
+
+            record.ActivationCode = null;
+            db.SaveChanges();
+
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: /Account/LoginAdmin
@@ -360,7 +372,7 @@ namespace BontoBuy.Web.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    ActivationCode = activationCode,
+                    ActivationCode = activationCode + model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Name = model.FirstName + " " + model.LastName,
@@ -410,7 +422,8 @@ namespace BontoBuy.Web.Controllers
                     ApplicationUser currentUser = db.Users.Where(u => u.Email.Equals(model.Email, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
                     if (customer != null) UserManager.AddToRole(customer.Id, "Customer");
 
-                    return RedirectToAction("Index", "Manage");
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return RedirectToAction("RegistrationLogin", "Account");
                 }
                 AddErrors(result);
             }
@@ -490,7 +503,7 @@ namespace BontoBuy.Web.Controllers
                     Website = model.Website,
                     Status = "Pending",
                     PhoneNumber = model.PhoneNumber,
-                    ActivationCode = activationCode
+                    ActivationCode = activationCode + model.Email
                 };
                 var result = await UserManager.CreateAsync(supplier, model.Password);
                 if (result.Succeeded)
@@ -738,6 +751,99 @@ namespace BontoBuy.Web.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegistrationLogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("RegistrationLogin", "Account");
+        }
+
+        [AllowAnonymous]
+        public ActionResult RegistrationLogin(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegistrationLogin(LoginViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            if (result.ToString() == "Success")
+            {
+                var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
+                var userProfile = (from u in db.Users
+                                   where u.Id == userId
+                                   select u.ActivationCode).FirstOrDefault();
+                var RolesForUser = await UserManager.GetRolesAsync(userId);
+                string password = db.Users.Where(x => x.Email == model.Email)
+                                     .Select(x => x.PasswordHash)
+                                     .Single();
+                bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
+
+                //string requestedUrl = Session["InitialRequest"] as string;
+                string requestedUrl = returnUrl;
+                if (userId != null && passwordMatches == true)
+                {
+                    switch (RolesForUser[0].ToString())
+                    {
+                        case "Supplier":
+                            if (userProfile != null)
+                            {
+                                return RedirectToAction("ActivateAccount");
+                            }
+                            if (String.IsNullOrWhiteSpace(requestedUrl))
+                            {
+                                return RedirectToAction("Index", "Supplier");
+                            }
+                            return Redirect(requestedUrl);
+
+                        case "Admin":
+                            return RedirectToAction("Index", "Admin");
+
+                        case "Customer":
+                            if (userProfile != null)
+                            {
+                                return RedirectToAction("ActivateAccount");
+                            }
+
+                            if (String.IsNullOrWhiteSpace(requestedUrl))
+                            {
+                                return RedirectToAction("Index", "Customer");
+                            }
+
+                            return Redirect(requestedUrl);
+
+                        //return RedirectToAction("Index", "Customer");
+                    }
+                }
+            }
+
+            switch (result)
+            {
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
         }
 
         //

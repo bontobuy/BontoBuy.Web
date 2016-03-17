@@ -212,6 +212,7 @@
     <Compile Include="Controllers\SalesClerkController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SpecificationController.cs" />
+    <Compile Include="Controllers\SupplierOrderController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="HelperMethods\Helper.cs" />
     <Compile Include="Migrations\201601281501503_Remove Brand From Item.cs" />
@@ -520,14 +521,38 @@
     <Compile Include="Migrations\201603141639417_Add DeliveryDays to Model.Designer.cs">
       <DependentUpon>201603141639417_Add DeliveryDays to Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603151908178_Add ConfirmationCode to Order.cs" />
+    <Compile Include="Migrations\201603151908178_Add ConfirmationCode to Order.Designer.cs">
+      <DependentUpon>201603151908178_Add ConfirmationCode to Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161618468_Remove WishlistPK.cs" />
+    <Compile Include="Migrations\201603161618468_Remove WishlistPK.Designer.cs">
+      <DependentUpon>201603161618468_Remove WishlistPK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161628144_Add WishlistModel.cs" />
+    <Compile Include="Migrations\201603161628144_Add WishlistModel.Designer.cs">
+      <DependentUpon>201603161628144_Add WishlistModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161641203_Add CustomerUserId to Wishlist.cs" />
+    <Compile Include="Migrations\201603161641203_Add CustomerUserId to Wishlist.Designer.cs">
+      <DependentUpon>201603161641203_Add CustomerUserId to Wishlist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603171730368_Add WishlistModelId pk.cs" />
+    <Compile Include="Migrations\201603171730368_Add WishlistModelId pk.Designer.cs">
+      <DependentUpon>201603171730368_Add WishlistModelId pk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminItemRepo.cs" />
+    <Compile Include="Models\Interfaces\ICustomerWishlistRepo.cs" />
+    <Compile Include="Models\Interfaces\ISupplierOrderRepo.cs" />
     <Compile Include="Models\Repositories\AdminCommissionRepo.cs" />
     <Compile Include="Models\Repositories\AdminItemRepo.cs" />
     <Compile Include="Models\Repositories\AdminOrderRepo.cs" />
     <Compile Include="Models\Repositories\AdminRoleRepo.cs" />
+    <Compile Include="Models\Repositories\CustomerWishlistRepo.cs" />
+    <Compile Include="Models\Repositories\SupplierOrderRepo.cs" />
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelCommissionViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentStatusViewModel.cs" />
@@ -686,6 +711,7 @@
     <Compile Include="Models\ViewModels\StatusViewModel.cs" />
     <Compile Include="Models\ViewModels\SupplierViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecialCategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\WishlistModelViewModel.cs" />
     <Compile Include="Models\ViewModels\WishlistViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -928,6 +954,7 @@
     <Folder Include="Views\PaymentSupplier\" />
     <Folder Include="Views\Payment\" />
     <Folder Include="Views\Return\" />
+    <Folder Include="Views\SupplierOrder\" />
     <Folder Include="Views\SupplierPayment\" />
   </ItemGroup>
   <ItemGroup>
@@ -1228,6 +1255,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603141639417_Add DeliveryDays to Model.resx">
       <DependentUpon>201603141639417_Add DeliveryDays to Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603151908178_Add ConfirmationCode to Order.resx">
+      <DependentUpon>201603151908178_Add ConfirmationCode to Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161618468_Remove WishlistPK.resx">
+      <DependentUpon>201603161618468_Remove WishlistPK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161628144_Add WishlistModel.resx">
+      <DependentUpon>201603161628144_Add WishlistModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161641203_Add CustomerUserId to Wishlist.resx">
+      <DependentUpon>201603161641203_Add CustomerUserId to Wishlist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603171730368_Add WishlistModelId pk.resx">
+      <DependentUpon>201603171730368_Add WishlistModelId pk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,6 +12,7 @@ namespace BontoBuy.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; }
         public IEnumerable<OrderViewModel> OrderNav { get; set; }
+        public IEnumerable<WishlistViewModel> WishlistNav { get; set; }
     }
 
     public class CustomerRetrieveOrdersViewModel

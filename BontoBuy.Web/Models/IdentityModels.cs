@@ -73,5 +73,6 @@ namespace BontoBuy.Web.Models
         public DbSet<ReturnStatusViewModel> ReturnStatuses { get; set; }
         public DbSet<PaymentStatusViewModel> PaymentStatuses { get; set; }
         public DbSet<ModelCommissionViewModel> ModelCommissions { get; set; }
+        public DbSet<WishlistModelViewModel> WishlistModels { get; set; }
     }
 }

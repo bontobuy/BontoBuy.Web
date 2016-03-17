@@ -1,7 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +6,9 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -224,7 +224,7 @@ namespace BontoBuy.Web.Controllers
                                       select c.CustomerId).FirstOrDefault(),
                         ModelId = item.ModelId,
                         CustomerUserId = userId,
-
+                        ConfirmationCode = CodeGenerator(),
                         SupplierUserId = (from s in db.Suppliers
                                           where s.SupplierId == item.SupplierId
                                           select s.Id).FirstOrDefault()
@@ -365,6 +365,16 @@ namespace BontoBuy.Web.Controllers
                                where d.UserId == userId && d.Status == "Optional"
                                select d).ToList();
             return Json(addressList, JsonRequestBehavior.AllowGet);
+        }
+
+        private string CodeGenerator()
+        {
+            int length = 8;
+            const string Chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+            var randomNumber = new Random();
+            return new string(Enumerable.Repeat(Chars, length)
+            .Select(s => s[randomNumber.Next(s.Length)]).ToArray());
         }
     }
 }

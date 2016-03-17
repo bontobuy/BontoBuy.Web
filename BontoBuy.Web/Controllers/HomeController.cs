@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -6,8 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -458,7 +458,7 @@ namespace BontoBuy.Web.Controllers
                                where m.ModelId == id
                                select m.ItemId).FirstOrDefault();
             var relatedRecords = (from m in db.Models
-                                  where m.ItemId == modelItemId
+                                  where m.ItemId == modelItemId && m.Status == "Active"
                                   select m).ToList();
             var relatedList = new List<HomeCatalogViewModel>();
             foreach (var item in relatedRecords.OrderBy(f => Guid.NewGuid()).Take(15))

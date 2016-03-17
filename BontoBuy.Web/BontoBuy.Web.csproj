@@ -941,6 +941,7 @@
     <Content Include="Views\AdminCommission\Get.cshtml" />
     <Content Include="Views\AdminCommission\Update.cshtml" />
     <Content Include="Views\AdminOrder\ExportToExcel.cshtml" />
+    <Content Include="Views\Account\RegistrationLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

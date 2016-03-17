@@ -16,14 +16,14 @@
     <style type="text/css">
     </style>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            function check() {
-                var ItemContent = $('#cartLink').attr('data-content');
-                alert(ItemContent);
-            }
-        })
-    </script>
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                function check() {
+                    var ItemContent = $('#cartLink').attr('data-content');
+                    alert(ItemContent);
+                }
+            })
+        </script>*@
 </head>
 <body>
     @*<img alt="full screen background image" src="~/Content/Background.jpg" id="full-screen-background-image" />*@
@@ -59,7 +59,7 @@
                             }
                             else { numberOfItems = Cart.Count.ToString(); }
                         }
-                        <a href="@Url.Action("NavigateToCart","Cart")" class="text-info" id="cartLink" role="link" onclick="return check()" data-content="@numberOfItems"> <span class="glyphicon glyphicon-shopping-cart"></span>Shopping Cart(<i class="badge warning cart">@numberOfItems</i>)<span class="caret"></span></a>
+                        <a href="@Url.Action("NavigateToCart","Cart")" class="text-info" id="cartLink" role="link"  data-content="@numberOfItems"> <span class="glyphicon glyphicon-shopping-cart"></span>Shopping Cart(<i class="badge warning cart">@numberOfItems</i>)<span class="caret"></span></a>
                         @*<ul class="dropdown-menu dropdown-cart" role="menu">
                                 <li class="cartlist">
                                         <span class="item">
@@ -107,7 +107,7 @@
                             <ul>
                                 <li> <a href="#"> About Us </a> </li>
                                 <li> <a href="#"> Core Values </a> </li>
-                                <li> <a href="#"> Sitemape </a> </li>
+                                <li> <a href="#"> Sitemap </a> </li>
                             </ul>
                         </div>
                         <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">

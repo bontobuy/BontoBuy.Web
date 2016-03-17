@@ -1,0 +1,177 @@
+﻿@model IEnumerable<BontoBuy.Web.Models.HomeCatalogViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .glyphicon {
+        margin-right: 5px;
+    }
+
+    .thumbnail {
+        margin-bottom: 20px;
+        padding: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
+
+    .item.list-group-item {
+        float: none;
+        width: 100%;
+        background-color: #fff;
+        margin-bottom: 10px;
+    }
+
+        .item.list-group-item:nth-of-type(odd):hover, .item.list-group-item:hover, .grid-group-item:hover {
+            background: #428bca;
+        }
+
+        .item.list-group-item .list-group-image {
+            margin-right: 10px;
+        }
+
+    .catalogImage {
+        height: 250px;
+        width: 400px;
+    }
+
+    .item.list-group-item .thumbnail {
+        margin-bottom: 0px;
+    }
+
+    .item.list-group-item .caption {
+        padding: 9px 9px 0px 9px;
+    }
+
+    .item.list-group-item:nth-of-type(odd) {
+        background: #eeeeee;
+    }
+
+    .item.list-group-item:before, .item.list-group-item:after {
+        display: table;
+        content: " ";
+    }
+
+    .item.list-group-item img {
+        float: left;
+    }
+
+    .item.list-group-item:after {
+        clear: both;
+    }
+
+    .list-group-item-text {
+        margin: 0 0 11px;
+    }
+
+    #btnPrice{
+        width:35%;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="well well-sm">
+                <h3><strong>Filter By</strong></h3>
+                <div class="row">
+                    <div class="col-md-10">
+                        @*<div class="btn-group">
+                                <a href="#" id="list" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-th-list">
+                                    </span>List
+                                </a> <a href="#" id="grid" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-th"></span>Grid
+                                </a>
+                            </div>*@
+                        @using (Html.BeginForm("CatalogByBrand", "Home"))
+                        {
+                            <h5><strong>Brand</strong></h5>
+                            @Html.DropDownList("BrandId", null, htmlAttributes: new { @class = "form-control col-md-5", onchange = "this.form.submit();" })
+                        }
+                    </div>
+                </div>
+                <hr class="divider"/>
+                <div class="row">
+                    <div class="col-md-8">
+                        @using (Html.BeginForm("CatalogByPrice", "Home"))
+                        {
+                            <h5><strong>Price</strong></h5>
+                            <div class="form-group">
+                                <input id="minPrice" type="text" class="form-control" placeholder="Min Price" name="minPrice" /> to <input id="maxPrice" type="text" class="form-control" placeholder="Max Price" name="maxPrice"/>
+
+                                <input type="submit" id="btnPrice" class="btn btn-primary form-control" value=">>" />
+
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="products" class="row list-group">
+                @foreach (var item in Model)
+                {
+                    <div class="item  col-xs-4 col-md-4">
+                        <div class="thumbnail">
+                            <a href="@Url.Action("ModelDetails", "Home", new { id = item.ModelId })" title="@item.ModelNumber"><img src="~/images/@item.ImageUrl" height="250" width="400" class="group list-group-image img-responsive catalogImage" alt="@item.ModelNumber" /></a>@*<img class=" img-responsive" src="~/images/@item.ImageUrl" alt="@item.ModelNumber"/>*@
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">
+                                    @item.ModelNumber
+                                </h4>
+                                <p class="group inner list-group-item-text">
+                                    Description
+                                </p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p class="lead">
+                                            Rs @item.Price
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <input class="btn btn-primary AddToCart" type="button" value="Add To Cart" data-id="@item.ModelId"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3 ">
+                                        @Html.ActionLink("Details »", "ModelDetails", new { id = item.ModelId }, new { @class = "btn btn-info" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#products .item').addClass('list-group-item');
+
+            //$('#list').click(function (event) { event.preventDefault(); $('#products .item').addClass('list-group-item'); });
+            //$('#grid').click(function (event) { event.preventDefault(); $('#products .item').removeClass('list-group-item'); $('#products .item').addClass('grid-group-item'); });
+
+            $('#cartAlert').hide();
+
+            $('.AddToCart').click(function () {
+                var modelId = $(this).attr('data-id');
+                var modelImg = $(this).attr('data-img');
+
+                var hasBeenAppended = false;
+                $.ajax({
+                    url: '/Home/AddCartItem/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { id: modelId },
+                    success: function (data) {
+                        countItem = data.carCount;
+                        $(".cart").text(data.carCount);
+                    }
+                });
+
+            });
+
+        });
+    </script>
+}

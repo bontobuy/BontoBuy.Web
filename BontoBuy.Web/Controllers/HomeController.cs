@@ -1525,5 +1525,114 @@ namespace BontoBuy.Web.Controllers
             Session["SearchCriteria"] = searchCriteria;
             return RedirectToAction("SearchResult", "Search");
         }
+
+        public ActionResult Catalog(int id)
+        {
+            if (id < 0)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+            var records = (from m in db.Models
+                           where m.ItemId == id && m.Status == "Active"
+                           select m).ToList();
+
+            var CatalogList = new List<HomeCatalogViewModel>();
+            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
+            foreach (var item in records)
+            {
+                var CatalogItem = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                CatalogList.Add(CatalogItem);
+            }
+            return View(CatalogList);
+        }
+
+        [HttpPost]
+        public ActionResult CatalogByBrand(int BrandId)
+        {
+            var records = (from m in db.Models
+                           where m.BrandId == BrandId && m.Status == "Active"
+                           select m).ToList();
+
+            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
+
+            var CatalogList = new List<HomeCatalogViewModel>();
+            foreach (var item in records)
+            {
+                var CatalogItem = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                CatalogList.Add(CatalogItem);
+            }
+
+            return View("Catalog", CatalogList);
+        }
+
+        [HttpPost]
+        public ActionResult CatalogByPrice(int minPrice, int maxPrice)
+        {
+            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
+
+            var records = db.Models.Where(m => m.Price >= minPrice && m.Price <= maxPrice && m.Status == "Active").ToList();
+            var CatalogList = new List<HomeCatalogViewModel>();
+            foreach (var item in records)
+            {
+                var CatalogItem = new HomeCatalogViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelNumber = item.ModelNumber,
+                    Price = item.Price,
+                    BrandName = (from m in db.Models
+                                 join b in db.Brands on m.BrandId equals b.BrandId
+                                 where m.ModelId == item.ModelId
+                                 select b.Name).FirstOrDefault(),
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+
+                    DtCreated = (from m in db.Models
+                                 where m.ModelId == item.ModelId
+                                 select m.DtCreated).FirstOrDefault()
+                };
+                CatalogList.Add(CatalogItem);
+            }
+
+            return View("Catalog", CatalogList);
+        }
     }
 }

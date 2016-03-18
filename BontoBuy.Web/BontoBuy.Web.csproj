@@ -541,6 +541,10 @@
     <Compile Include="Migrations\201603171730368_Add WishlistModelId pk.Designer.cs">
       <DependentUpon>201603171730368_Add WishlistModelId pk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603171949211_Add Column Action &amp; Controller to ItemVM.cs" />
+    <Compile Include="Migrations\201603171949211_Add Column Action &amp; Controller to ItemVM.Designer.cs">
+      <DependentUpon>201603171949211_Add Column Action &amp; Controller to ItemVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -942,6 +946,7 @@
     <Content Include="Views\AdminCommission\Update.cshtml" />
     <Content Include="Views\AdminOrder\ExportToExcel.cshtml" />
     <Content Include="Views\Account\RegistrationLogin.cshtml" />
+    <Content Include="Views\Home\Catalog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1271,6 +1276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603171730368_Add WishlistModelId pk.resx">
       <DependentUpon>201603171730368_Add WishlistModelId pk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603171949211_Add Column Action &amp; Controller to ItemVM.resx">
+      <DependentUpon>201603171949211_Add Column Action &amp; Controller to ItemVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

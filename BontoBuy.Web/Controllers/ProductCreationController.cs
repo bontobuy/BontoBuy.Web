@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class ProductCreationController : Controller
+    public class ProductCreationController : NotificationController
     {
         private readonly IProductCreationRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -50,6 +50,7 @@ namespace BontoBuy.Web.Controllers
                     //{
                     var newItem = new CategoryViewModel();
                     ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description");
+                    GetSupplierNotification();
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");
@@ -88,6 +89,7 @@ namespace BontoBuy.Web.Controllers
                         CategoryId = item.CategoryId,
                         Description = ""
                     };
+                    GetSupplierNotification();
                     return RedirectToAction("ProductSelection");
                 }
                 return RedirectToAction("Login", "Account");
@@ -125,7 +127,7 @@ namespace BontoBuy.Web.Controllers
                     }
                     records = _repository.RetrieveProductByCategory(item);
                     ViewBag.ProductId = new SelectList(records, "ProductId", "Description");
-
+                    GetSupplierNotification();
                     return View(item);
                 }
                 return RedirectToAction("Login", "Account");
@@ -172,7 +174,7 @@ namespace BontoBuy.Web.Controllers
                         Description = ""
                     };
                     Session["Product"] = item;
-
+                    GetSupplierNotification();
                     return RedirectToAction("ItemSelection");
                 }
                 return RedirectToAction("Login", "Account");
@@ -209,6 +211,7 @@ namespace BontoBuy.Web.Controllers
                     }
                     records = _repository.RetrieveItemByProduct(item);
                     ViewBag.ItemId = new SelectList(records, "ItemId", "Description");
+                    GetSupplierNotification();
                     return View(item);
                 }
                 return RedirectToAction("Login", "Account");
@@ -249,6 +252,7 @@ namespace BontoBuy.Web.Controllers
                     {
                         ItemId = item.ItemId
                     };
+                    GetSupplierNotification();
                     return RedirectToAction("ModelCreation");
                 }
                 return RedirectToAction("Login", "Account");
@@ -290,6 +294,7 @@ namespace BontoBuy.Web.Controllers
                         DeliveryInDays = 1
                     };
                     Session["SpecProd"] = specProd;
+                    GetSupplierNotification();
                     return View(specProd);
 
                     //return RedirectToAction("ModelSpecCreation");
@@ -395,7 +400,7 @@ namespace BontoBuy.Web.Controllers
                         db.SaveChanges();
 
                         Session["ModelSpecData"] = model;
-
+                        GetSupplierNotification();
                         return RedirectToAction("ModelSpecCreation");
 
                         //return RedirectToAction("ModelSpecCreation");on("ModelSpecCreation");
@@ -449,6 +454,7 @@ namespace BontoBuy.Web.Controllers
                         };
                         listSpecProduct.Add(specProd);
                     }
+                    GetSupplierNotification();
                     return View(listSpecProduct);
                 }
                 return RedirectToAction("Login", "Account");
@@ -501,9 +507,10 @@ namespace BontoBuy.Web.Controllers
                             db.ModelSpecs.Add(modelSpec);
                             db.SaveChanges();
                         }
+
                         return RedirectToAction("SupplierRetrieveModels", "Supplier", new { message = ManageMessageId.AddModelSuccess });
                     }
-
+                    GetSupplierNotification();
                     return View();
                 }
                 return RedirectToAction("Login", "Account");

@@ -1,18 +1,26 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
     public class SupplierController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public enum ManageMessageId
+        {
+            AddModelSuccess,
+            UpdateOrderStatus,
+            UpdateReturnStatus,
+            Error
+        }
 
         // GET: Supplier
         public ActionResult Index()
@@ -49,7 +57,7 @@ namespace BontoBuy.Web.Controllers
             return View();
         }
 
-        public ActionResult SupplierRetrieveModels(string searchString)
+        public ActionResult SupplierRetrieveModels(string searchString, ManageMessageId? message)
         {
             try
             {
@@ -98,7 +106,11 @@ namespace BontoBuy.Web.Controllers
 
                             modelList.Add(model);
                         }
-
+                        ViewBag.StatusMessage =
+                            message == ManageMessageId.AddModelSuccess ? "You just added a model successfully."
+                            : message == ManageMessageId.Error ? "An error has occurred."
+                            : message == ManageMessageId.UpdateOrderStatus ? "You just updated the order status."
+                            : "";
                         return View(modelList);
                     }
                     if (String.IsNullOrEmpty(searchString))
@@ -367,7 +379,7 @@ namespace BontoBuy.Web.Controllers
                                     select os.Name).FirstOrDefault();
                     db.SaveChanges();
                 }
-                return RedirectToAction("SupplierRetrieveOrders", "Supplier");
+                return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.UpdateOrderStatus });
             }
             catch (Exception ex)
             {
@@ -375,7 +387,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult SupplierRetrieveReturns()
+        public ActionResult SupplierRetrieveReturns(ManageMessageId? message)
         {
             //View ReturnViewModel
 
@@ -392,6 +404,10 @@ namespace BontoBuy.Web.Controllers
             if (records == null)
                 return RedirectToAction("Home", "Error404");
 
+            ViewBag.StatusMessage =
+                message == ManageMessageId.UpdateReturnStatus ? "You successfully updated Return Details."
+                : message == ManageMessageId.Error ? "An error occured."
+                : "";
             return View(records);
         }
 
@@ -409,7 +425,7 @@ namespace BontoBuy.Web.Controllers
                           join o in db.Orders on r.OrderId equals o.OrderId
                           where o.SupplierUserId == userId &&
                           r.ReturnId == id
-                          select r);
+                          select r).FirstOrDefault();
 
             if (record == null)
                 return RedirectToAction("Home", "Error404");
@@ -449,27 +465,41 @@ namespace BontoBuy.Web.Controllers
             return View(itemToUpdate);
         }
 
+        [HttpPost]
         public ActionResult SupplierEditReturn(ReturnActionViewModel item)
         {
             try
             {
+                var testReturnId = item;
+
                 //Refer to Product Controller for View
                 ViewBag.ReturnStatusId = new SelectList(db.ReturnStatuses, "ReturnStatusId", "Status", item.ReturnStatusId);
-                var itemToUpdate = new ReturnViewModel()
-                {
-                    ReturnId = item.ReturnId,
-                    OrderId = item.OrderId,
-                    ReturnDate = item.ReturnDate,
-                    ReturnMethod = item.ReturnMethod,
-                    Reason = item.Reason,
-                    Status = (from rs in db.ReturnStatuses
-                              where rs.ReturnStatusId == item.ReturnStatusId
-                              select rs.Status).FirstOrDefault(),
-                    DtCreated = item.DtCreated,
-                    DtUpdated = item.DtUpdated
-                };
+
+                var recordToUpdate = db.Returns.Where(r => r.ReturnId == item.ReturnId).FirstOrDefault();
+                recordToUpdate.ReturnMethod = item.ReturnMethod;
+                recordToUpdate.ReturnDate = item.ReturnDate;
+                recordToUpdate.Status = (from rs in db.ReturnStatuses
+                                         where rs.ReturnStatusId == item.ReturnStatusId
+                                         select rs.Status).FirstOrDefault();
+                recordToUpdate.DtUpdated = DateTime.UtcNow;
+
+                //var itemToUpdate = new ReturnActionViewModel()
+                //{
+                //    ReturnId = item.ReturnId,
+                //    OrderId = item.OrderId,
+                //    ReturnDate = item.ReturnDate,
+                //    ReturnMethod = item.ReturnMethod,
+
+                //    Reason = item.Reason,
+                //    Status = (from rs in db.ReturnStatuses
+                //              where rs.ReturnStatusId == item.ReturnStatusId
+                //              select rs.Status).FirstOrDefault(),
+
+                //    DtCreated = item.DtCreated,
+                //    DtUpdated = DateTime.UtcNow
+                //};
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SupplierRetrieveReturns", "Supplier", new { message = ManageMessageId.UpdateReturnStatus });
             }
             catch
             {

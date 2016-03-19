@@ -197,6 +197,7 @@
     <Compile Include="Controllers\CustomerPaymentController.cs" />
     <Compile Include="Controllers\CustomerRatingController.cs" />
     <Compile Include="Controllers\CustomerReturnsController.cs" />
+    <Compile Include="Controllers\CustomerReviewController.cs" />
     <Compile Include="Controllers\CustomerWishlistController.cs" />
     <Compile Include="Controllers\DeliveryAddressController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
@@ -554,11 +555,24 @@
     <Compile Include="Migrations\201603190514285_Remove AverageRating in ModelRating.Designer.cs">
       <DependentUpon>201603190514285_Remove AverageRating in ModelRating.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603190637330_Add Review.cs" />
+    <Compile Include="Migrations\201603190637330_Add Review.Designer.cs">
+      <DependentUpon>201603190637330_Add Review.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603190639227_Add ReviewFKCustomer.cs" />
+    <Compile Include="Migrations\201603190639227_Add ReviewFKCustomer.Designer.cs">
+      <DependentUpon>201603190639227_Add ReviewFKCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603190658569_Add ReviewFKModel.cs" />
+    <Compile Include="Migrations\201603190658569_Add ReviewFKModel.Designer.cs">
+      <DependentUpon>201603190658569_Add ReviewFKModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminItemRepo.cs" />
     <Compile Include="Models\Interfaces\ICustomerRatingRepo.cs" />
+    <Compile Include="Models\Interfaces\ICustomerReviewRepo.cs" />
     <Compile Include="Models\Interfaces\ICustomerWishlistRepo.cs" />
     <Compile Include="Models\Interfaces\ISupplierOrderRepo.cs" />
     <Compile Include="Models\Repositories\AdminCommissionRepo.cs" />
@@ -566,6 +580,7 @@
     <Compile Include="Models\Repositories\AdminOrderRepo.cs" />
     <Compile Include="Models\Repositories\AdminRoleRepo.cs" />
     <Compile Include="Models\Repositories\CustomerRatingRepo.cs" />
+    <Compile Include="Models\Repositories\CustomerReviewRepo.cs" />
     <Compile Include="Models\Repositories\CustomerWishlistRepo.cs" />
     <Compile Include="Models\Repositories\SupplierOrderRepo.cs" />
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
@@ -721,6 +736,7 @@
     <Compile Include="Models\ViewModels\Product\UpdateViewModel.cs" />
     <Compile Include="Models\ViewModels\ReturnStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\ReturnViewModel.cs" />
+    <Compile Include="Models\ViewModels\ReviewViewModel.cs" />
     <Compile Include="Models\ViewModels\RoleViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchViewModel.cs" />
     <Compile Include="Models\ViewModels\SpecificationViewModel.cs" />
@@ -968,6 +984,7 @@
     <Folder Include="Views\AdminItem\" />
     <Folder Include="Views\AdminRole\" />
     <Folder Include="Views\CustomerPayment\" />
+    <Folder Include="Views\CustomerReview\" />
     <Folder Include="Views\CustomerWishlist\" />
     <Folder Include="Views\Email\" />
     <Folder Include="Views\PaymentCustomer\" />
@@ -1299,6 +1316,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603190514285_Remove AverageRating in ModelRating.resx">
       <DependentUpon>201603190514285_Remove AverageRating in ModelRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603190637330_Add Review.resx">
+      <DependentUpon>201603190637330_Add Review.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603190639227_Add ReviewFKCustomer.resx">
+      <DependentUpon>201603190639227_Add ReviewFKCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603190658569_Add ReviewFKModel.resx">
+      <DependentUpon>201603190658569_Add ReviewFKModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

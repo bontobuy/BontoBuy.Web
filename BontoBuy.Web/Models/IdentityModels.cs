@@ -75,5 +75,6 @@ namespace BontoBuy.Web.Models
         public DbSet<ModelCommissionViewModel> ModelCommissions { get; set; }
         public DbSet<WishlistModelViewModel> WishlistModels { get; set; }
         public DbSet<RatingModelViewModel> RatingModels { get; set; }
+        public DbSet<ReviewViewModel> Reviews { get; set; }
     }
 }

@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomerController : NotificationController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -32,6 +32,9 @@ namespace BontoBuy.Web.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
+
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
             return View();
         }
 
@@ -68,10 +71,15 @@ namespace BontoBuy.Web.Controllers
                                             where c.SupplierId == item.SupplierId
                                             select c.Name).FirstOrDefault(),
                             Status = item.Status,
-                            DtCreated = item.DtCreated
+                            DtCreated = item.DtCreated,
+                            HasReturn = item.HasReturn
                         };
                         orderList.Add(orderItem);
                     }
+
+                    ViewBag.Title = "List of your Orders";
+                    GetCustomerReturnNotification();
+                    GetCustomerNotification();
                     return View(orderList);
                 }
                 return RedirectToAction("Login", "Account");
@@ -143,6 +151,9 @@ namespace BontoBuy.Web.Controllers
                 message == ManageMessageId.AddOrderSuccess ? "Your order has been created."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
+
+                    GetCustomerReturnNotification();
+                    GetCustomerNotification();
                     return View(customerOrder);
                 }
                 return RedirectToAction("Login", "Account");
@@ -198,6 +209,9 @@ namespace BontoBuy.Web.Controllers
                 message == ManageMessageId.AddDeliveryAddressSuccess ? "New delivery address successfully added."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
+
+                GetCustomerReturnNotification();
+                GetCustomerNotification();
                 return View(addressList);
             }
             return RedirectToAction("Login", "Account");
@@ -209,6 +223,8 @@ namespace BontoBuy.Web.Controllers
             if (record == null)
                 return RedirectToAction("Home", "Error404");
 
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
             return View(record);
         }
 
@@ -221,6 +237,7 @@ namespace BontoBuy.Web.Controllers
             }
             var deliveryAddress = new DeliveryAddressActionViewModel();
             ViewBag.DeliveryAddressStatusId = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status");
+            GetCustomerNotification();
             return View(deliveryAddress);
         }
 
@@ -263,6 +280,8 @@ namespace BontoBuy.Web.Controllers
                 db.DeliveryAddresses.Add(deliveryAddress);
                 db.SaveChanges();
 
+                GetCustomerReturnNotification();
+                GetCustomerNotification();
                 return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer", new { message = ManageMessageId.AddDeliveryAddressSuccess });
             }
             return RedirectToAction("Login", "Account");
@@ -294,6 +313,9 @@ namespace BontoBuy.Web.Controllers
 
             //Need to test !!
             ViewBag.DeliveryAddressStatusId = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status");
+
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
 
             //Session["Data"] = recordToUpdate;
             return View(recordToUpdate);
@@ -349,6 +371,9 @@ namespace BontoBuy.Web.Controllers
                     return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer");
                 }
                 Session.Remove("InitialRequest");
+
+                GetCustomerReturnNotification();
+                GetCustomerNotification();
                 return Redirect(requestedUrl);
             }
 
@@ -359,6 +384,8 @@ namespace BontoBuy.Web.Controllers
         {
             var userId = User.Identity.GetUserId();
             var record = db.DeliveryAddresses.Where(d => d.DeliveryAddressId == id && d.UserId == userId).FirstOrDefault();
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
             return View(record);
         }
 
@@ -392,6 +419,9 @@ namespace BontoBuy.Web.Controllers
                         db.SaveChanges();
                     }
 
+                    GetCustomerReturnNotification();
+                    GetCustomerNotification();
+
                     //   return RedirectToAction("Retrieve");
                     return RedirectToAction("CustomerRetrieveDeliveryAddress");
                 }
@@ -406,6 +436,49 @@ namespace BontoBuy.Web.Controllers
         {
             //Refer to ReturnController Create
             return null;
+        }
+
+        [HttpPost]
+        public ActionResult UpdatedOrders()
+        {
+            var userId = User.Identity.GetUserId();
+            var updatedOrders = db.Orders.Where(o => o.CustomerUserId == userId && o.Notification == "Customer").ToList();
+            if (updatedOrders == null)
+            {
+                return RedirectToAction("Index");
+            }
+            foreach (var item in updatedOrders)
+            {
+                item.Notification = null;
+            }
+            db.SaveChanges();
+
+            var updatedOrderList = new List<CustomerRetrieveOrdersViewModel>();
+
+            foreach (var item in updatedOrders)
+            {
+                var orderItem = new CustomerRetrieveOrdersViewModel()
+                {
+                    OrderId = item.OrderId,
+                    ModelId = item.ModelId,
+                    ModelNumber = (from m in db.Models
+                                   where m.ModelId == item.ModelId
+                                   select m.ModelNumber).FirstOrDefault(),
+                    SupplierName = (from c in db.Suppliers
+                                    where c.SupplierId == item.SupplierId
+                                    select c.Name).FirstOrDefault(),
+                    Status = item.Status,
+                    DtCreated = item.DtCreated,
+                    HasReturn = item.HasReturn
+                };
+                updatedOrderList.Add(orderItem);
+            }
+
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
+            ViewBag.Title = "List of your Updated Orders";
+            ViewBag.CustomerOrderStatus = "Your order status has been updated. Please check it.";
+            return View("CustomerRetrieveOrders", updatedOrderList);
         }
     }
 }

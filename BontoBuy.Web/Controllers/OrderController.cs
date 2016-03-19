@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,15 +9,18 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
     public class OrderController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public enum ManageMessageId
+        {
+            AddOrderSuccess,
+            Error
+        }
 
         // GET: Order
         public ActionResult Index()
@@ -206,6 +212,7 @@ namespace BontoBuy.Web.Controllers
             var orderItems = new List<OrderViewModel>();
             if (orderList != null)
             {
+                int newOrderId = 0;
                 foreach (var item in orderList)
                 {
                     var newOrder = new OrderViewModel()
@@ -234,7 +241,7 @@ namespace BontoBuy.Web.Controllers
                     db.SaveChanges();
 
                     db.Entry(newOrder).GetDatabaseValues();
-                    int newOrderId = newOrder.OrderId;
+                    newOrderId = newOrder.OrderId;
 
                     var newOrderDelivery = new DeliveryViewModel()
                     {
@@ -269,7 +276,7 @@ namespace BontoBuy.Web.Controllers
 
                 //return RedirectToAction("Invoice", "Order", orderItems);
                 //return View("../Order/Invoice", orderItems);
-                return RedirectToAction("CustomerRetrieveOrders", "Customer");
+                return RedirectToAction("CustomerGetOrder", "Customer", new { id = newOrderId, message = ManageMessageId.AddOrderSuccess });
             }
 
             return View("../Home/Error404");

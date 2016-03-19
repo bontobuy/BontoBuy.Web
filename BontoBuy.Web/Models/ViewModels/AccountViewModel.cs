@@ -8,5 +8,6 @@ namespace BontoBuy.Web.Models
     public class AccountViewModel
     {
         public string ActivationCode { get; set; }
+        public string Email { get; set; }
     }
 }

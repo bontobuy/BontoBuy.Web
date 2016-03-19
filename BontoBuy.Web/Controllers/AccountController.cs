@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
@@ -21,6 +23,7 @@ namespace BontoBuy.Web.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private CancellationTokenSource tokenSource = new CancellationTokenSource();
 
         public AccountController()
         {
@@ -79,37 +82,6 @@ namespace BontoBuy.Web.Controllers
 
         //
         // POST: /Account/Login
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    // This doesn't count login failures towards account lockout
-        //    // To enable password failures to trigger account lockout, change to shouldLockout: true
-        //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-        //    switch (result)
-        //    {
-        //        case SignInStatus.Success:
-        //            return RedirectToLocal(returnUrl);
-
-        //        case SignInStatus.LockedOut:
-        //            return View("Lockout");
-
-        //        case SignInStatus.RequiresVerification:
-        //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-
-        //        case SignInStatus.Failure:
-        //        default:
-        //            ModelState.AddModelError("", "Invalid login attempt.");
-        //            return View(model);
-        //    }
-        //}
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -120,20 +92,30 @@ namespace BontoBuy.Web.Controllers
                 return View(model);
             }
 
-            //var anonymousEmail = model.Email;
-            //var anonymousProfile = (from u in db.Users
-            //                        where u.Email == anonymousEmail
-            //                        select u.ActivationCode).FirstOrDefault();
+            var pendingUser = db.Users.Where(x => x.Email == model.Email).FirstOrDefault();
+            if (pendingUser.ActivationCode != null)
+            {
+                Session["AccountInfo"] = pendingUser;
+                try
+                {
+                    CancellationTokenSource source = new CancellationTokenSource();
+                    source.Cancel();
+                    source.Token.ThrowIfCancellationRequested();
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("ActivateAccount");
+                }
+            }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
+            var userProfile = (from u in db.Users
+                               where u.Id == userId
+                               select u.ActivationCode).FirstOrDefault();
+
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             if (result.ToString() == "Success")
             {
-                var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
-                var userProfile = (from u in db.Users
-                                   where u.Id == userId
-                                   select u.ActivationCode).FirstOrDefault();
                 var RolesForUser = await UserManager.GetRolesAsync(userId);
                 string password = db.Users.Where(x => x.Email == model.Email)
                                      .Select(x => x.PasswordHash)
@@ -171,10 +153,13 @@ namespace BontoBuy.Web.Controllers
                                 return RedirectToAction("Index", "Customer");
                             }
 
-                            return Redirect(requestedUrl);
-
-                        //return RedirectToAction("Index", "Customer");
+                            if (pendingUser.ActivationCode != null)
+                            {
+                                return RedirectToAction("ActivateAccount", "Account");
+                            }
+                            return RedirectToAction("ActivateAccount", "Account");
                     }
+                    return RedirectToAction("ActivateAccount", "Account");
                 }
             }
 
@@ -196,34 +181,28 @@ namespace BontoBuy.Web.Controllers
         public ActionResult ActivateAccount()
         {
             var account = new AccountViewModel();
-            account.ActivationCode = "";
             return View(account);
         }
 
         [HttpPost]
-        public ActionResult ActivateAccount(string id)
+        public ActionResult ActivateAccount(AccountViewModel item)
         {
-            //var userId = User.Identity.GetUserId();
-            //var userProfile = db.Users.Where(x => x.ActivationCode == id).FirstOrDefault();
-            //var userCode = (from u in db.Users
-            //                where u.ActivationCode == id
-            //                select u.ActivationCode).FirstOrDefault();
+            var userInfo = Session["AccountInfo"] as ApplicationUser;
+            Session.Remove("AccountInfo");
 
-            //if (userCode == item.ActivationCode)
-            //{
-            //    userProfile.ActivationCode = null;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Login", "Account");
-            //}
+            if (String.IsNullOrEmpty(userInfo.Id))
+                return RedirectToAction("Login", "Account");
 
-            var record = db.Users.Where(x => x.ActivationCode == id).FirstOrDefault();
-            if (String.IsNullOrWhiteSpace(record.Id))
-                return View();
+            if (userInfo.ActivationCode == item.ActivationCode)
+            {
+                var currentUser = db.Users.Where(x => x.Id == userInfo.Id).FirstOrDefault();
+                if (String.IsNullOrEmpty(currentUser.Id))
+                    return RedirectToAction("Error404", "Home");
 
-            record.ActivationCode = null;
-            db.SaveChanges();
-
-            return RedirectToAction("Login", "Account");
+                currentUser.ActivationCode = null;
+                db.SaveChanges();
+            }
+            return View();
         }
 
         // GET: /Account/LoginAdmin
@@ -759,6 +738,12 @@ namespace BontoBuy.Web.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("RegistrationLogin", "Account");
+        }
+
+        public ActionResult PerformLogoff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
         }
 
         [AllowAnonymous]

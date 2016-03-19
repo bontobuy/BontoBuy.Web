@@ -24,6 +24,7 @@ namespace BontoBuy.Web.Models
         public string SupplierName { get; set; }
         public string Status { get; set; }
         public DateTime DtCreated { get; set; }
+        public bool HasReturn { get; set; }
     }
 
     public class CustomerGetOrderViewModel

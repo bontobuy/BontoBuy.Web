@@ -1,13 +1,13 @@
-﻿using System;
+﻿using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -16,6 +16,12 @@ namespace BontoBuy.Web.Controllers
         private readonly IProductCreationRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
         private IEnumerable<object> records;
+
+        public enum ManageMessageId
+        {
+            AddModelSuccess,
+            Error
+        }
 
         public ProductCreationController(IProductCreationRepo repo)
         {
@@ -495,7 +501,7 @@ namespace BontoBuy.Web.Controllers
                             db.ModelSpecs.Add(modelSpec);
                             db.SaveChanges();
                         }
-                        return RedirectToAction("SupplierRetrieveModels", "Supplier");
+                        return RedirectToAction("SupplierRetrieveModels", "Supplier", new { message = ManageMessageId.AddModelSuccess });
                     }
 
                     return View();

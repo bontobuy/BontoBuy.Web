@@ -157,48 +157,52 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult ReviewOrder(int total)
         {
-            List<CartViewModel> orderList = Session["Order"] as List<CartViewModel>;
-            int grandTotal = total;
+            if (User.IsInRole("Customer"))
+            {
+                List<CartViewModel> orderList = Session["Order"] as List<CartViewModel>;
+                int grandTotal = total;
 
-            string userId = User.Identity.GetUserId();
-            if (userId == null)
-            {
-                string returnUrl = Request.Url.ToString();
-                return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
-            }
-            else { userId = User.Identity.GetUserId(); }
-            if (orderList.Count() != 0)
-            {
-                foreach (var item in orderList)
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
                 {
-                    item.ModelName = (from m in db.Models
-                                      where m.ModelId == item.ModelId
-                                      select m.ModelNumber).FirstOrDefault();
-
-                    item.ImageUrl = (from p in db.Photos
-                                     join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
-                                     join m in db.Models on pm.ModelId equals m.ModelId
-                                     where m.ModelId == item.ModelId
-                                     select p.ImageUrl).FirstOrDefault();
-
-                    item.UnitPrice = (from m in db.Models
-                                      where m.ModelId == item.ModelId
-                                      select m.Price).FirstOrDefault();
-
-                    item.GrandTotal = grandTotal;
+                    string returnUrl = Request.Url.ToString();
+                    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
                 }
+                else { userId = User.Identity.GetUserId(); }
+                if (orderList.Count() != 0)
+                {
+                    foreach (var item in orderList)
+                    {
+                        item.ModelName = (from m in db.Models
+                                          where m.ModelId == item.ModelId
+                                          select m.ModelNumber).FirstOrDefault();
 
-                ViewData["GrandTotal"] = grandTotal;
+                        item.ImageUrl = (from p in db.Photos
+                                         join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                                         join m in db.Models on pm.ModelId equals m.ModelId
+                                         where m.ModelId == item.ModelId
+                                         select p.ImageUrl).FirstOrDefault();
 
-                var userAddress = (from d in db.DeliveryAddresses
-                                   join u in db.Users on d.UserId equals u.Id
-                                   where d.UserId == userId && d.Status == "Default"
-                                   select d).FirstOrDefault();
-                ViewBag.Street = userAddress.Street;
-                ViewBag.City = userAddress.City;
-                ViewBag.ZipCode = userAddress.Zipcode;
-                Session["DeliveryAddress"] = userAddress;
-                return View(orderList);
+                        item.UnitPrice = (from m in db.Models
+                                          where m.ModelId == item.ModelId
+                                          select m.Price).FirstOrDefault();
+
+                        item.GrandTotal = grandTotal;
+                    }
+
+                    ViewData["GrandTotal"] = grandTotal;
+
+                    var userAddress = (from d in db.DeliveryAddresses
+                                       join u in db.Users on d.UserId equals u.Id
+                                       where d.UserId == userId && d.Status == "Default"
+                                       select d).FirstOrDefault();
+                    ViewBag.Street = userAddress.Street;
+                    ViewBag.City = userAddress.City;
+                    ViewBag.ZipCode = userAddress.Zipcode;
+                    Session["DeliveryAddress"] = userAddress;
+                    return View(orderList);
+                }
+                return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Index", "Home");
         }
@@ -206,79 +210,82 @@ namespace BontoBuy.Web.Controllers
         [HttpPost]
         public ActionResult ReviewOrder(List<CartViewModel> orders)
         {
-            var orderList = Session["Order"] as List<CartViewModel>;
-            var deliveryAddress = Session["DeliveryAddress"] as DeliveryAddressViewModel;
-            string userId = User.Identity.GetUserId();
-            var orderItems = new List<OrderViewModel>();
-            if (orderList != null)
+            if (User.IsInRole("Customer"))
             {
-                int newOrderId = 0;
-                foreach (var item in orderList)
+                var orderList = Session["Order"] as List<CartViewModel>;
+                var deliveryAddress = Session["DeliveryAddress"] as DeliveryAddressViewModel;
+                string userId = User.Identity.GetUserId();
+                var orderItems = new List<OrderViewModel>();
+                if (orderList != null)
                 {
-                    var newOrder = new OrderViewModel()
+                    int newOrderId = 0;
+                    foreach (var item in orderList)
                     {
-                        DtCreated = DateTime.UtcNow,
-                        ExpectedDeliveryDate = DateTime.UtcNow,
-                        RealDeliveryDate = DateTime.UtcNow,
-                        Status = "Active",
-                        Quantity = item.Quantity,
-                        UnitPrice = item.UnitPrice,
-                        Total = item.SubTotal,
-                        GrandTotal = item.GrandTotal,
-                        SupplierId = item.SupplierId,
-                        CustomerId = (from c in db.Customers
-                                      where c.Id == userId
-                                      select c.CustomerId).FirstOrDefault(),
-                        ModelId = item.ModelId,
-                        CustomerUserId = userId,
-                        ConfirmationCode = CodeGenerator(),
-                        SupplierUserId = (from s in db.Suppliers
-                                          where s.SupplierId == item.SupplierId
-                                          select s.Id).FirstOrDefault()
-                    };
-                    orderItems.Add(newOrder);
-                    db.Orders.Add(newOrder);
-                    db.SaveChanges();
+                        var newOrder = new OrderViewModel()
+                        {
+                            DtCreated = DateTime.UtcNow,
+                            ExpectedDeliveryDate = DateTime.UtcNow,
+                            RealDeliveryDate = DateTime.UtcNow,
+                            Status = "Active",
+                            Quantity = item.Quantity,
+                            UnitPrice = item.UnitPrice,
+                            Total = item.SubTotal,
+                            GrandTotal = item.GrandTotal,
+                            SupplierId = item.SupplierId,
+                            CustomerId = (from c in db.Customers
+                                          where c.Id == userId
+                                          select c.CustomerId).FirstOrDefault(),
+                            ModelId = item.ModelId,
+                            CustomerUserId = userId,
+                            ConfirmationCode = CodeGenerator(),
+                            SupplierUserId = (from s in db.Suppliers
+                                              where s.SupplierId == item.SupplierId
+                                              select s.Id).FirstOrDefault(),
+                            Notification = "Supplier"
+                        };
+                        orderItems.Add(newOrder);
+                        db.Orders.Add(newOrder);
+                        db.SaveChanges();
 
-                    db.Entry(newOrder).GetDatabaseValues();
-                    newOrderId = newOrder.OrderId;
+                        db.Entry(newOrder).GetDatabaseValues();
+                        newOrderId = newOrder.OrderId;
 
-                    var newOrderDelivery = new DeliveryViewModel()
-                    {
-                        OrderId = newOrderId,
-                        Street = deliveryAddress.Street,
-                        City = deliveryAddress.City,
-                        Zipcode = deliveryAddress.Zipcode,
-                        ExpectedDeliveryDate = DateTime.UtcNow,
-                        ActualDeliveryDate = DateTime.UtcNow,
-                        DateCreated = DateTime.UtcNow,
-                        Status = "Processing"
-                    };
-                    db.Deliveries.Add(newOrderDelivery);
-                    db.SaveChanges();
+                        var newOrderDelivery = new DeliveryViewModel()
+                        {
+                            OrderId = newOrderId,
+                            Street = deliveryAddress.Street,
+                            City = deliveryAddress.City,
+                            Zipcode = deliveryAddress.Zipcode,
+                            ExpectedDeliveryDate = DateTime.UtcNow,
+                            ActualDeliveryDate = DateTime.UtcNow,
+                            DateCreated = DateTime.UtcNow,
+                            Status = "Processing"
+                        };
+                        db.Deliveries.Add(newOrderDelivery);
+                        db.SaveChanges();
 
-                    GeneratePayment(newOrder.OrderId);
-                    string supplierEmail = (from s in db.Suppliers
-                                            where s.SupplierId == newOrder.SupplierId
-                                            select s.Email).FirstOrDefault();
+                        GeneratePayment(newOrder.OrderId);
+                        string supplierEmail = (from s in db.Suppliers
+                                                where s.SupplierId == newOrder.SupplierId
+                                                select s.Email).FirstOrDefault();
 
-                    string customerEmail = (from c in db.Customers
-                                            where c.CustomerId == newOrder.CustomerId
-                                            select c.Email).FirstOrDefault();
+                        string customerEmail = (from c in db.Customers
+                                                where c.CustomerId == newOrder.CustomerId
+                                                select c.Email).FirstOrDefault();
 
-                    new Task(() => { SendNotification(supplierEmail, "Supplier"); }).Start();
-                    new Task(() => { SendNotification(customerEmail, "Customer"); }).Start();
+                        new Task(() => { SendNotification(supplierEmail, "Supplier"); }).Start();
+                        new Task(() => { SendNotification(customerEmail, "Customer"); }).Start();
+                    }
+
+                    Session.Remove("Order");
+                    Session.Remove("Cart");
+                    Session.Remove("DeliveryAddress");
+
+                    //return RedirectToAction("Invoice", "Order", orderItems);
+                    //return View("../Order/Invoice", orderItems);
+                    return RedirectToAction("CustomerGetOrder", "Customer", new { id = newOrderId, message = ManageMessageId.AddOrderSuccess });
                 }
-
-                Session.Remove("Order");
-                Session.Remove("Cart");
-                Session.Remove("DeliveryAddress");
-
-                //return RedirectToAction("Invoice", "Order", orderItems);
-                //return View("../Order/Invoice", orderItems);
-                return RedirectToAction("CustomerGetOrder", "Customer", new { id = newOrderId, message = ManageMessageId.AddOrderSuccess });
             }
-
             return View("../Home/Error404");
         }
 

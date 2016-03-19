@@ -10,17 +10,9 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class SupplierController : Controller
+    public class SupplierController : NotificationController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        public enum ManageMessageId
-        {
-            AddModelSuccess,
-            UpdateOrderStatus,
-            UpdateReturnStatus,
-            Error
-        }
 
         // GET: Supplier
         public ActionResult Index()
@@ -42,6 +34,8 @@ namespace BontoBuy.Web.Controllers
                     //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
                     //if (userInRole != null)
                     //{
+                    GetSupplierNotification();
+                    GetSupplierReturnNotification();
                     return View();
                 }
                 return RedirectToAction("Login", "Account");
@@ -54,6 +48,7 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult AddProduct()
         {
+            GetSupplierNotification();
             return View();
         }
 
@@ -106,11 +101,15 @@ namespace BontoBuy.Web.Controllers
 
                             modelList.Add(model);
                         }
+
                         ViewBag.StatusMessage =
                             message == ManageMessageId.AddModelSuccess ? "You just added a model successfully."
                             : message == ManageMessageId.Error ? "An error has occurred."
                             : message == ManageMessageId.UpdateOrderStatus ? "You just updated the order status."
                             : "";
+
+                        GetSupplierReturnNotification();
+                        GetSupplierNotification();
                         return View(modelList);
                     }
                     if (String.IsNullOrEmpty(searchString))
@@ -150,6 +149,8 @@ namespace BontoBuy.Web.Controllers
                             modelList.Add(model);
                         }
 
+                        GetSupplierReturnNotification();
+                        GetSupplierNotification();
                         return View(modelList);
                     }
                 }
@@ -202,6 +203,8 @@ namespace BontoBuy.Web.Controllers
                         modelSpecVM.Add(model);
                     }
 
+                    GetSupplierReturnNotification();
+                    GetSupplierNotification();
                     return View(modelSpecVM);
                 }
                 return RedirectToAction("Login", "Account");
@@ -250,6 +253,10 @@ namespace BontoBuy.Web.Controllers
                         };
                         orderList.Add(orderItem);
                     }
+
+                    GetSupplierReturnNotification();
+                    GetSupplierNotification();
+                    ViewBag.Title = "List of your Orders";
                     return View(orderList);
                 }
                 return RedirectToAction("Login", "Account");
@@ -295,6 +302,8 @@ namespace BontoBuy.Web.Controllers
                                         select u.Name).FirstOrDefault()
                     };
                     Session["SupplierOrder"] = supplierOrder;
+                    GetSupplierReturnNotification();
+                    GetSupplierNotification();
                     return View(supplierOrder);
                 }
                 return RedirectToAction("Login", "Account");
@@ -346,6 +355,8 @@ namespace BontoBuy.Web.Controllers
 
                     ViewBag.OrderStatusId = new SelectList(db.OrderStatuses, "OrderStatusId", "Name");
 
+                    GetSupplierReturnNotification();
+                    GetSupplierNotification();
                     return View(order);
                 }
                 return RedirectToAction("Login", "Account");
@@ -377,8 +388,12 @@ namespace BontoBuy.Web.Controllers
                     order.Status = (from os in db.OrderStatuses
                                     where os.OrderStatusId == item.OrderStatusId
                                     select os.Name).FirstOrDefault();
+                    order.Notification = "Customer";
                     db.SaveChanges();
                 }
+
+                GetSupplierReturnNotification();
+                GetSupplierNotification();
                 return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.UpdateOrderStatus });
             }
             catch (Exception ex)
@@ -408,6 +423,10 @@ namespace BontoBuy.Web.Controllers
                 message == ManageMessageId.UpdateReturnStatus ? "You successfully updated Return Details."
                 : message == ManageMessageId.Error ? "An error occured."
                 : "";
+
+            ViewBag.Title = "List of your Returns";
+            GetSupplierReturnNotification();
+            GetSupplierNotification();
             return View(records);
         }
 
@@ -430,6 +449,8 @@ namespace BontoBuy.Web.Controllers
             if (record == null)
                 return RedirectToAction("Home", "Error404");
 
+            GetSupplierReturnNotification();
+            GetSupplierNotification();
             return View(record);
         }
 
@@ -462,6 +483,8 @@ namespace BontoBuy.Web.Controllers
 
             //Refer to Product Controller for View
             ViewBag.ReturnStatusId = new SelectList(db.ReturnStatuses, "ReturnStatusId", "Status");
+            GetSupplierReturnNotification();
+            GetSupplierNotification();
             return View(itemToUpdate);
         }
 
@@ -482,6 +505,7 @@ namespace BontoBuy.Web.Controllers
                                          where rs.ReturnStatusId == item.ReturnStatusId
                                          select rs.Status).FirstOrDefault();
                 recordToUpdate.DtUpdated = DateTime.UtcNow;
+                recordToUpdate.Notification = "Customer";
 
                 //var itemToUpdate = new ReturnActionViewModel()
                 //{
@@ -499,12 +523,113 @@ namespace BontoBuy.Web.Controllers
                 //    DtUpdated = DateTime.UtcNow
                 //};
                 db.SaveChanges();
+                GetSupplierReturnNotification();
+                GetSupplierNotification();
                 return RedirectToAction("SupplierRetrieveReturns", "Supplier", new { message = ManageMessageId.UpdateReturnStatus });
             }
             catch
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult NewOrders()
+        {
+            var userId = User.Identity.GetUserId();
+            var newOrders = db.Orders.Where(o => o.SupplierUserId == userId && o.Notification == "Supplier").ToList();
+            if (newOrders == null)
+            {
+                return RedirectToAction("Index");
+            }
+            foreach (var item in newOrders)
+            {
+                item.Notification = null;
+            }
+            db.SaveChanges();
+
+            var newOrderList = new List<SupplierRetrieveOrdersViewModel>();
+
+            foreach (var item in newOrders)
+            {
+                var orderItem = new SupplierRetrieveOrdersViewModel()
+                {
+                    OrderId = item.OrderId,
+                    ModelId = item.ModelId,
+                    ModelNumber = (from m in db.Models
+                                   where m.ModelId == item.ModelId
+                                   select m.ModelNumber).FirstOrDefault(),
+                    CustomerName = (from c in db.Customers
+                                    where c.CustomerId == item.CustomerId
+                                    select c.Name).FirstOrDefault(),
+                    Status = item.Status,
+                    DtCreated = item.DtCreated
+                };
+                newOrderList.Add(orderItem);
+            }
+            GetSupplierReturnNotification();
+            GetSupplierNotification();
+            ViewBag.Title = "List of your New Orders";
+            return View("SupplierRetrieveOrders", newOrderList);
+        }
+
+        [HttpPost]
+        public ActionResult NewReturns()
+        {
+            var userId = User.Identity.GetUserId();
+            var newReturns = (from r in db.Returns
+                              join o in db.Orders on r.OrderId equals o.OrderId
+                              where o.SupplierUserId == userId && r.Notification == "Supplier"
+                              select r).ToList();
+            if (newReturns == null)
+            {
+                return RedirectToAction("Index");
+            }
+            foreach (var item in newReturns)
+            {
+                item.Notification = null;
+            }
+            db.SaveChanges();
+
+            GetSupplierReturnNotification();
+            GetSupplierNotification();
+            ViewBag.Title = "List of your New Returns";
+            return View("SupplierRetrieveReturns", newReturns);
+        }
+
+        [HttpPost]
+        public ActionResult SupplierFilterOrders(int SearchString)
+        {
+            var userId = User.Identity.GetUserId();
+            var records = db.Orders.Where(o => o.OrderId == SearchString && o.SupplierUserId == userId).ToList();
+            var orderList = new List<SupplierRetrieveOrdersViewModel>();
+            foreach (var item in records)
+            {
+                var orderItem = new SupplierRetrieveOrdersViewModel()
+                {
+                    OrderId = item.OrderId,
+                    ModelId = item.ModelId,
+                    ModelNumber = (from m in db.Models
+                                   where m.ModelId == item.ModelId
+                                   select m.ModelNumber).FirstOrDefault(),
+                    CustomerName = (from c in db.Customers
+                                    where c.CustomerId == item.CustomerId
+                                    select c.Name).FirstOrDefault(),
+                    Status = item.Status,
+                    DtCreated = item.DtCreated
+                };
+                orderList.Add(orderItem);
+            }
+            ViewBag.Title = "List of your Orders";
+            return View("SupplierRetrieveOrders", orderList);
+        }
+
+        public enum ManageMessageId
+        {
+            AddModelSuccess,
+            UpdateOrderStatus,
+            UpdateReturnStatus,
+            Error
         }
     }
 }

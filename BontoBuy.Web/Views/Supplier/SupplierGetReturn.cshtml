@@ -1,10 +1,11 @@
 ﻿@model BontoBuy.Web.Models.ReturnViewModel
 @{
-    ViewBag.Title = Model.ReturnId + "Details";
-    Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
+    ViewBag.Title = "Return #" + Model.ReturnId;
+    Layout = "~/Views/Shared/SupplierLayout.cshtml";
 }
 
 <div class="col-md-12">
+    <h2>@ViewBag.Title</h2><hr/>
     <h4>Details</h4>
     <hr/>
     <dl class="dl-horizontal">
@@ -59,7 +60,7 @@
             @Html.DisplayFor(model => model.DtCreated)
         </dd>
     </dl>
+    <div>
+        @Html.ActionLink("Back to List", "SupplierRetrieveReturns") | @Html.ActionLink("Edit", "SupplierEditReturn", new {id= Model.ReturnId })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "RetrieveReturns")
-</p>

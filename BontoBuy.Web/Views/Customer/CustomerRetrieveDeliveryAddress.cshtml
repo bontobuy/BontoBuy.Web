@@ -5,6 +5,7 @@
 }
 <div class="container">
     <h4>@ViewBag.Title</h4>
+    <p class="text-success">@ViewBag.StatusMessage</p>
     <p>
         @Html.ActionLink("Add New", "CustomerCreateDeliveryAddress")
     </p>
@@ -44,7 +45,7 @@
                 <td>
                     @Html.ActionLink("Edit", "CustomerUpdateDeliveryAddress", new { id = item.DeliveryAddressId }) |
                     @Html.ActionLink("Details", "CustomerGetDeliveryAddress", new { id = item.DeliveryAddressId }) |
-                    @Html.ActionLink("Delete", "Archive", new { id = item.DeliveryAddressId })
+                    @Html.ActionLink("Delete", "ArchiveDeliveryAddress", new { id = item.DeliveryAddressId })
                 </td>
             </tr>
         }

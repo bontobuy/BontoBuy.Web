@@ -1,10 +1,13 @@
 ﻿using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,9 +17,21 @@ namespace BontoBuy.Web.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Customer
-        public ActionResult Index()
+        public enum ManageMessageId
         {
+            ChangePasswordSuccess,
+            AddDeliveryAddressSuccess,
+            AddOrderSuccess,
+            Error
+        }
+
+        // GET: Customer
+        public ActionResult Index(ManageMessageId? message)
+        {
+            ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
             return View();
         }
 
@@ -67,7 +82,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult CustomerGetOrder(int id)
+        public ActionResult CustomerGetOrder(int id, ManageMessageId? message)
         {
             try
             {
@@ -124,6 +139,10 @@ namespace BontoBuy.Web.Controllers
                                      select o.UnitPrice).FirstOrDefault()
                     };
                     Session["CustomerOrder"] = customerOrder;
+                    ViewBag.StatusMessage =
+                message == ManageMessageId.AddOrderSuccess ? "Your order has been created."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
                     return View(customerOrder);
                 }
                 return RedirectToAction("Login", "Account");
@@ -142,7 +161,7 @@ namespace BontoBuy.Web.Controllers
             return new ViewAsPdf("ViewOrderPdf", customerOrder);
         }
 
-        public ActionResult CustomerRetrieveDeliveryAddress(string returnUrl)
+        public ActionResult CustomerRetrieveDeliveryAddress(string returnUrl, ManageMessageId? message)
         {
             var userId = User.Identity.GetUserId();
             if (userId == null)
@@ -152,13 +171,14 @@ namespace BontoBuy.Web.Controllers
             if (User.IsInRole("Customer"))
             {
                 string requestedUrl = returnUrl;
-                if (String.IsNullOrEmpty(requestedUrl))
-                {
-                    return RedirectToAction("Error404", "Home");
-                }
+
+                //if (String.IsNullOrEmpty(requestedUrl))
+                //{
+                //    return View();
+                //}
                 Session["InitialRequest"] = requestedUrl;
 
-                var records = db.DeliveryAddresses.Where(x => x.UserId == userId);
+                var records = db.DeliveryAddresses.Where(x => x.UserId == userId && x.Status != "Archived");
                 var addressList = new List<DeliveryAddressActionViewModel>();
                 foreach (var item in records)
                 {
@@ -174,6 +194,10 @@ namespace BontoBuy.Web.Controllers
                     };
                     addressList.Add(addressItem);
                 }
+                ViewBag.StatusMessage =
+                message == ManageMessageId.AddDeliveryAddressSuccess ? "New delivery address successfully added."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
                 return View(addressList);
             }
             return RedirectToAction("Login", "Account");
@@ -239,7 +263,7 @@ namespace BontoBuy.Web.Controllers
                 db.DeliveryAddresses.Add(deliveryAddress);
                 db.SaveChanges();
 
-                return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer");
+                return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer", new { message = ManageMessageId.AddDeliveryAddressSuccess });
             }
             return RedirectToAction("Login", "Account");
         }
@@ -288,8 +312,6 @@ namespace BontoBuy.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                string requestedUrl = Session["InitialRequest"].ToString();
-
                 ViewBag.DeliveryAddressStatusId = new SelectList(db.DeliveryAddressStatuses, "DeliveryAddressStatusId", "Status", item.DeliveryAddressStatusId);
 
                 var updatedRecord = db.DeliveryAddresses.Where(x => x.DeliveryAddressId == item.DeliveryAddressId).FirstOrDefault();
@@ -321,6 +343,7 @@ namespace BontoBuy.Web.Controllers
                 }
                 db.SaveChanges();
 
+                string requestedUrl = Session["InitialRequest"] as string;
                 if (String.IsNullOrWhiteSpace(requestedUrl))
                 {
                     return RedirectToAction("CustomerRetrieveDeliveryAddress", "Customer");
@@ -330,6 +353,54 @@ namespace BontoBuy.Web.Controllers
             }
 
             return RedirectToAction("Home", "Error404");
+        }
+
+        public ActionResult ArchiveDeliveryAddress(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            var record = db.DeliveryAddresses.Where(d => d.DeliveryAddressId == id && d.UserId == userId).FirstOrDefault();
+            return View(record);
+        }
+
+        [HttpPost]
+        public ActionResult ArchiveDeliveryAddress(DeliveryAddressViewModel item)
+        {
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if (User.IsInRole("Customer"))
+                {
+                    var itemId = item.DeliveryAddressId;
+                    if (itemId < 1)
+                    {
+                        RedirectToAction("CustomerRetrieveDeliveryAddresse");
+                    }
+                    if (item == null)
+                    {
+                        RedirectToAction("CustomerRetrieveDeliveryAddress");
+                    }
+
+                    var record = db.DeliveryAddresses.Where(d => d.DeliveryAddressId == itemId && d.UserId == userId).FirstOrDefault();
+                    if (record != null)
+                    {
+                        record.Status = "Archived";
+                        db.SaveChanges();
+                    }
+
+                    //   return RedirectToAction("Retrieve");
+                    return RedirectToAction("CustomerRetrieveDeliveryAddress");
+                }
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
         public ActionResult CustomerCreateReturns()
         {

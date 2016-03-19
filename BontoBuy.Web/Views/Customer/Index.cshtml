@@ -6,7 +6,12 @@
     var UserId = User.Identity.GetUserId();
     var name = userName.GetName(UserId.ToString());
     ViewBag.Title = "Welcome";
+    string Status = ViewBag.StatusMessage;
+
 }
+
+    <p class="alert alert-info">@ViewBag.StatusMessage</p>
+
 
 <div class="well">
     <h2>

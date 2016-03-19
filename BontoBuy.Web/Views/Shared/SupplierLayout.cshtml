@@ -7,8 +7,8 @@
     @Styles.Render("~/Content/SupplierCSS")
     @Styles.Render("~/Content/JAlert")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/FontAwesome")
     <style type="text/css">
-
     </style>
 </head>
 <body>
@@ -64,11 +64,19 @@
                         <li><a href="#">Manage</a></li>
                     </ul>
                     <h5>
-                        <i class="glyphicon glyphicon-info-sign"></i>
+                        <i class="fa fa-list"></i>
                         <small><b>Orders</b></small>
                     </h5>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="@Url.Action("SupplierRetrieveOrders", "Supplier")">List</a></li>
+                        <li><a href="#">Manage</a></li>
+                    </ul>
+                    <h5>
+                        <i class="fa fa-reorder"></i>
+                        <small><b>Returns</b></small>
+                    </h5>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="@Url.Action("SupplierRetrieveReturns", "Supplier")">List</a></li>
                         <li><a href="#">Manage</a></li>
                     </ul>
                 </div>

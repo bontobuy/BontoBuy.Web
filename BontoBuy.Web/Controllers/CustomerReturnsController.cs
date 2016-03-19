@@ -13,8 +13,14 @@ namespace BontoBuy.Web.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public enum ManageMessageId
+        {
+            AddReturnSuccess,
+            Error
+        }
+
         // GET: CustomerReturns
-        public ActionResult RetrieveReturns()
+        public ActionResult RetrieveReturns(ManageMessageId? message)
         {
             string userId = User.Identity.GetUserId();
             if (userId == null)
@@ -29,6 +35,10 @@ namespace BontoBuy.Web.Controllers
             if (records == null)
                 return RedirectToAction("Home", "Error404");
 
+            ViewBag.StatusMessage =
+               message == ManageMessageId.AddReturnSuccess ? "Your return has been created."
+               : message == ManageMessageId.Error ? "An error has occurred."
+               : "";
             return View(records);
         }
 
@@ -87,7 +97,7 @@ namespace BontoBuy.Web.Controllers
             db.Returns.Add(newReturn);
             db.SaveChanges();
 
-            return RedirectToAction("RetrieveReturns", "CustomerReturns");
+            return RedirectToAction("RetrieveReturns", "CustomerReturns", new { message = ManageMessageId.AddReturnSuccess });
         }
     }
 }

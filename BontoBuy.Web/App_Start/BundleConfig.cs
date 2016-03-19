@@ -29,7 +29,11 @@ namespace BontoBuy.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/fileinput.js"));
+                      "~/Scripts/fileinput.js",
+                      "~/Scripts/bootstrap-datetimepicker.js",
+                      "~/Scripts/moment.js",
+                      "~/Scripts/moment-with-locales.js",
+                      "~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new StyleBundle("~/Content/JAlert").Include(
                             "~/Content/jAlert-v3.css"));
@@ -40,17 +44,21 @@ namespace BontoBuy.Web
                       "~/content/bootstrap-theme.css",
                       "~/Content/Login.css",
                       "~/Content/Product.css",
-                      "~/Content/fileinput.css"));
+                      "~/Content/fileinput.css",
+                      "~/Content/fileinput.css",
+                      "~/Content/bootstrap-datetimepicker.css",
+                      "~/Content/bootstrap-datepicker.css"));
 
             bundles.Add(new StyleBundle("~/Content/SupplierCSS").Include(
                 "~/Content/Supplier/Site.css",
                 "~/Content/bootstrap.css",
                 "~/content/bootstrap-theme.css",
-                "~/Content/fileinput.css"));
+                "~/Content/bootstrap-datetimepicker.css"));
 
             bundles.Add(new StyleBundle("~/Content/AdminCSS").Include(
                 "~/Content/Admin/Site.css",
-                "~/Content/bootstrap.css"));
+                "~/Content/bootstrap.css",
+                "~/Content/bootstrap-datetimepicker.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/CustomJS").Include(
                "~/Scripts/bootstrap.min.js",

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class CustomerReturnsController : Controller
+    public class CustomerReturnsController : NotificationController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -39,6 +39,10 @@ namespace BontoBuy.Web.Controllers
                message == ManageMessageId.AddReturnSuccess ? "Your return has been created."
                : message == ManageMessageId.Error ? "An error has occurred."
                : "";
+
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
+            ViewBag.Title = "List of your Returns";
             return View(records);
         }
 
@@ -59,6 +63,8 @@ namespace BontoBuy.Web.Controllers
             if (record == null)
                 return RedirectToAction("Home", "Error404");
 
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
             return View(record);
         }
 
@@ -72,6 +78,9 @@ namespace BontoBuy.Web.Controllers
             var newReturn = new ReturnViewModel();
             Session["ReturnOrderId"] = id;
             ViewBag.OrderId = id;
+
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
             return View(newReturn);
         }
 
@@ -92,12 +101,42 @@ namespace BontoBuy.Web.Controllers
                 Status = "Pending",
                 DtCreated = DateTime.UtcNow,
                 ReturnDate = DateTime.UtcNow,
-                DtUpdated = DateTime.UtcNow
+                DtUpdated = DateTime.UtcNow,
+                Notification = "Supplier"
             };
             db.Returns.Add(newReturn);
             db.SaveChanges();
 
+            var orderRecord = db.Orders.Where(o => o.OrderId == orderId).FirstOrDefault();
+            orderRecord.HasReturn = true;
+            db.SaveChanges();
+
             return RedirectToAction("RetrieveReturns", "CustomerReturns", new { message = ManageMessageId.AddReturnSuccess });
+        }
+
+        [HttpPost]
+        public ActionResult UpdatedReturns()
+        {
+            var userId = User.Identity.GetUserId();
+            var updatedReturns = (from r in db.Returns
+                                  join o in db.Orders on r.OrderId equals o.OrderId
+                                  where o.CustomerUserId == userId
+                                  select r).ToList();
+            if (updatedReturns.Count() <= 0)
+            {
+                return RedirectToAction("Index");
+            }
+            foreach (var item in updatedReturns)
+            {
+                item.Notification = null;
+            }
+            db.SaveChanges();
+
+            GetCustomerReturnNotification();
+            GetCustomerNotification();
+            ViewBag.Title = "List of your Updated Returns";
+            ViewBag.CustomerReturnStatus = "Your return status has been updated. Please check it.";
+            return View("RetrieveReturns", updatedReturns);
         }
     }
 }

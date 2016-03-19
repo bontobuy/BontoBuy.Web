@@ -214,6 +214,7 @@
     <Compile Include="Controllers\SalesClerkController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SpecificationController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SupplierOrderController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="HelperMethods\Helper.cs" />
@@ -567,6 +568,18 @@
     <Compile Include="Migrations\201603190658569_Add ReviewFKModel.Designer.cs">
       <DependentUpon>201603190658569_Add ReviewFKModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603191149423_Add HasReturn to OrderVM.cs" />
+    <Compile Include="Migrations\201603191149423_Add HasReturn to OrderVM.Designer.cs">
+      <DependentUpon>201603191149423_Add HasReturn to OrderVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603191213482_Add Column Notification to OrderVM.cs" />
+    <Compile Include="Migrations\201603191213482_Add Column Notification to OrderVM.Designer.cs">
+      <DependentUpon>201603191213482_Add Column Notification to OrderVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603191900391_Add Column Notification to ReturnVM.cs" />
+    <Compile Include="Migrations\201603191900391_Add Column Notification to ReturnVM.Designer.cs">
+      <DependentUpon>201603191900391_Add Column Notification to ReturnVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -768,6 +781,10 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\FontConvergence.css" />
     <Content Include="Content\jAlert-v3.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\Logo2.png" />
     <Content Include="Content\Menu\Computers.jpg" />
     <Content Include="Content\Menu\Electronics.jpg" />
@@ -828,6 +845,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1006,6 +1025,7 @@
     <Folder Include="obj\" />
     <Folder Include="Views\AdminItem\" />
     <Folder Include="Views\AdminRole\" />
+    <Folder Include="Views\BaseNotification\" />
     <Folder Include="Views\CustomerPayment\" />
     <Folder Include="Views\CustomerReview\" />
     <Folder Include="Views\CustomerWishlist\" />
@@ -1014,6 +1034,7 @@
     <Folder Include="Views\PaymentSupplier\" />
     <Folder Include="Views\Payment\" />
     <Folder Include="Views\Return\" />
+    <Folder Include="Views\SupplierNotification\" />
     <Folder Include="Views\SupplierOrder\" />
     <Folder Include="Views\SupplierPayment\" />
   </ItemGroup>
@@ -1345,6 +1366,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603190658569_Add ReviewFKModel.resx">
       <DependentUpon>201603190658569_Add ReviewFKModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603191149423_Add HasReturn to OrderVM.resx">
+      <DependentUpon>201603191149423_Add HasReturn to OrderVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603191213482_Add Column Notification to OrderVM.resx">
+      <DependentUpon>201603191213482_Add Column Notification to OrderVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603191900391_Add Column Notification to ReturnVM.resx">
+      <DependentUpon>201603191900391_Add Column Notification to ReturnVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

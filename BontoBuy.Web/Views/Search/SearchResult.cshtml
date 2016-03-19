@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.SearchResultViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Search Results";
 }
 <style type="text/css">
     .container {
@@ -109,7 +110,7 @@
 <div class="container">
 
     <hgroup class="mb20">
-        <h1>Search Results</h1>
+        <h1>@ViewBag.Title</h1>
         <h2 class="lead"><strong class="text-danger">@ViewBag.Count</strong> results were found for the search for <strong class="text-danger">@ViewBag.Model</strong></h2>
     </hgroup>
 

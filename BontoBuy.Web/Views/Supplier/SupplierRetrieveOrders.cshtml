@@ -1,13 +1,25 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.SupplierRetrieveOrdersViewModel>
 @{
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
-    ViewBag.Title = "List of your Orders";
 }
 
 <div class="col-md-12">
     <h2>@ViewBag.Title</h2>
+    @using (Html.BeginForm("SupplierFilterOrders", "Supplier"))
+    {
+        <div class="col-md-4 form-group">
+            <p>Search by Order#:</p>
+            <input class="form-control " type="number" name="SearchString" min="1" value="1" /> <br/>
+            <div class="col-md-4 ">
+                <input type="submit" value="Filter" class="btn btn-details " />
+            </div>
+        </div>
+    }
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderId)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ModelNumber)
             </th>
@@ -26,6 +38,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ModelNumber)
                 </td>

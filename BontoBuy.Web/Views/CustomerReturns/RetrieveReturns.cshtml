@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.ReturnViewModel>
 @{
     Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
-    ViewBag.Title = "List of your Returns";
 }
 
 <div class="col-md-12">
     <h2>@ViewBag.Title</h2>
+    <h4 class="text-success">@ViewBag.CustomerReturnStatus</h4>
     <p class="text-success">@ViewBag.StatusMessage</p>
     <table class="table">
         <tr>

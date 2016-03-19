@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/JAlert")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/FontAwesome")
+    @Styles.Render("~/Content/jQueryUI")
     <style type="text/css">
     </style>
 </head>
@@ -69,7 +70,10 @@
                     </h5>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="@Url.Action("SupplierRetrieveOrders", "Supplier")">List</a></li>
-                        <li><a href="#">Manage</a></li>
+                        @using (Html.BeginForm("NewOrders", "Supplier"))
+                        {
+                            <li><a href="javascript:$('form').submit()">New Orders<span class="badge">@ViewBag.SupplierNotification</span></a></li>
+                        }
                     </ul>
                     <h5>
                         <i class="fa fa-reorder"></i>
@@ -77,7 +81,10 @@
                     </h5>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="@Url.Action("SupplierRetrieveReturns", "Supplier")">List</a></li>
-                        <li><a href="#">Manage</a></li>
+                        @using (Html.BeginForm("NewReturns", "Supplier"))
+                        {
+                            <li><a href="javascript:$('form').submit()">New Returns<span class="badge">@ViewBag.SupplierReturnNotification</span></a></li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -102,6 +109,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/CustomJS")
     @Scripts.Render("~/bundles/JAlert")
+    @Scripts.Render("~/bundles/jQueryUI")
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -310,7 +310,7 @@ namespace BontoBuy.Web.Controllers
 
         // POST: Item/Delete/5
         [HttpPost]
-        public ActionResult Archive(ItemViewModel item)
+        public ActionResult ArchiveDeliveryAddress(ItemViewModel item)
         {
             try
             {

@@ -195,6 +195,7 @@
     <Compile Include="Controllers\CommissionController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomerPaymentController.cs" />
+    <Compile Include="Controllers\CustomerRatingController.cs" />
     <Compile Include="Controllers\CustomerReturnsController.cs" />
     <Compile Include="Controllers\CustomerWishlistController.cs" />
     <Compile Include="Controllers\DeliveryAddressController.cs" />
@@ -545,21 +546,32 @@
     <Compile Include="Migrations\201603171949211_Add Column Action &amp; Controller to ItemVM.Designer.cs">
       <DependentUpon>201603171949211_Add Column Action &amp; Controller to ItemVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603190400508_Add RatingModels.cs" />
+    <Compile Include="Migrations\201603190400508_Add RatingModels.Designer.cs">
+      <DependentUpon>201603190400508_Add RatingModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603190514285_Remove AverageRating in ModelRating.cs" />
+    <Compile Include="Migrations\201603190514285_Remove AverageRating in ModelRating.Designer.cs">
+      <DependentUpon>201603190514285_Remove AverageRating in ModelRating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminItemRepo.cs" />
+    <Compile Include="Models\Interfaces\ICustomerRatingRepo.cs" />
     <Compile Include="Models\Interfaces\ICustomerWishlistRepo.cs" />
     <Compile Include="Models\Interfaces\ISupplierOrderRepo.cs" />
     <Compile Include="Models\Repositories\AdminCommissionRepo.cs" />
     <Compile Include="Models\Repositories\AdminItemRepo.cs" />
     <Compile Include="Models\Repositories\AdminOrderRepo.cs" />
     <Compile Include="Models\Repositories\AdminRoleRepo.cs" />
+    <Compile Include="Models\Repositories\CustomerRatingRepo.cs" />
     <Compile Include="Models\Repositories\CustomerWishlistRepo.cs" />
     <Compile Include="Models\Repositories\SupplierOrderRepo.cs" />
     <Compile Include="Models\ViewModels\DeliveryAddressStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\ModelCommissionViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentStatusViewModel.cs" />
+    <Compile Include="Models\ViewModels\RatingModelViewModel.cs" />
     <Compile Include="Models\ViewModels\RatingViewModel.cs" />
     <Compile Include="Models\ViewModels\CommissionViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentViewModel.cs" />
@@ -947,6 +959,8 @@
     <Content Include="Views\AdminOrder\ExportToExcel.cshtml" />
     <Content Include="Views\Account\RegistrationLogin.cshtml" />
     <Content Include="Views\Home\Catalog.cshtml" />
+    <Content Include="Views\CustomerRating\Get.cshtml" />
+    <Content Include="Views\CustomerRating\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1279,6 +1293,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603171949211_Add Column Action &amp; Controller to ItemVM.resx">
       <DependentUpon>201603171949211_Add Column Action &amp; Controller to ItemVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603190400508_Add RatingModels.resx">
+      <DependentUpon>201603190400508_Add RatingModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603190514285_Remove AverageRating in ModelRating.resx">
+      <DependentUpon>201603190514285_Remove AverageRating in ModelRating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

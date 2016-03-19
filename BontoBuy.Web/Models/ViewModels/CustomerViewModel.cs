@@ -13,6 +13,7 @@ namespace BontoBuy.Web.Models
         public int CustomerId { get; set; }
         public IEnumerable<OrderViewModel> OrderNav { get; set; }
         public IEnumerable<WishlistViewModel> WishlistNav { get; set; }
+        public IEnumerable<ReviewViewModel> ReviewNav { get; set; }
     }
 
     public class CustomerRetrieveOrdersViewModel

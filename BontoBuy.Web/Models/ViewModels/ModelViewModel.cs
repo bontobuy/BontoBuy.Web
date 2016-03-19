@@ -34,6 +34,7 @@ namespace BontoBuy.Web.Models
         public int SupplierId { get; set; }
         public DateTime DtCreated { get; set; }
         public string Status { get; set; }
+        public IEnumerable<ReviewViewModel> ReviewNav { get; set; }
         public IEnumerable<ModelSpecViewModel> ModeSpecNav { get; set; }
         public IEnumerable<OrderViewModel> OrderNav { get; set; }
         [ForeignKey("ItemId")]

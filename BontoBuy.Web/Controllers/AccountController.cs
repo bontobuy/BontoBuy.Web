@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Routing;
 using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -92,22 +93,6 @@ namespace BontoBuy.Web.Controllers
                 return View(model);
             }
 
-            var pendingUser = db.Users.Where(x => x.Email == model.Email).FirstOrDefault();
-            if (pendingUser.ActivationCode != null)
-            {
-                Session["AccountInfo"] = pendingUser;
-                try
-                {
-                    CancellationTokenSource source = new CancellationTokenSource();
-                    source.Cancel();
-                    source.Token.ThrowIfCancellationRequested();
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("ActivateAccount");
-                }
-            }
-
             var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
             var userProfile = (from u in db.Users
                                where u.Id == userId
@@ -116,6 +101,7 @@ namespace BontoBuy.Web.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             if (result.ToString() == "Success")
             {
+                Session["AccountInfo"] = userId;
                 var RolesForUser = await UserManager.GetRolesAsync(userId);
                 string password = db.Users.Where(x => x.Email == model.Email)
                                      .Select(x => x.PasswordHash)
@@ -153,10 +139,10 @@ namespace BontoBuy.Web.Controllers
                                 return RedirectToAction("Index", "Customer");
                             }
 
-                            if (pendingUser.ActivationCode != null)
-                            {
-                                return RedirectToAction("ActivateAccount", "Account");
-                            }
+                            //if (pendingUser.ActivationCode != null)
+                            //{
+                            //    return RedirectToAction("ActivateAccount", "Account");
+                            //}
                             return RedirectToAction("ActivateAccount", "Account");
                     }
                     return RedirectToAction("ActivateAccount", "Account");
@@ -187,22 +173,25 @@ namespace BontoBuy.Web.Controllers
         [HttpPost]
         public ActionResult ActivateAccount(AccountViewModel item)
         {
-            var userInfo = Session["AccountInfo"] as ApplicationUser;
+            var userId = Session["AccountInfo"] as string;
             Session.Remove("AccountInfo");
 
-            if (String.IsNullOrEmpty(userInfo.Id))
+            if (String.IsNullOrEmpty(userId))
                 return RedirectToAction("Login", "Account");
 
-            if (userInfo.ActivationCode == item.ActivationCode)
+            var requestedUser = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+
+            if (requestedUser.ActivationCode == item.ActivationCode)
             {
-                var currentUser = db.Users.Where(x => x.Id == userInfo.Id).FirstOrDefault();
+                var currentUser = db.Users.Where(x => x.Id == userId).FirstOrDefault();
                 if (String.IsNullOrEmpty(currentUser.Id))
                     return RedirectToAction("Error404", "Home");
 
                 currentUser.ActivationCode = null;
                 db.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
-            return View();
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: /Account/LoginAdmin
@@ -403,6 +392,47 @@ namespace BontoBuy.Web.Controllers
 
                     AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                     return RedirectToAction("RegistrationLogin", "Account");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        public ActionResult RegisterSales()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterSales(RegisterSalesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var sales = new AdminViewModel()
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DtCreated = DateTime.UtcNow,
+                    Name = model.Name
+                };
+                var result = await UserManager.CreateAsync(sales, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(sales, isPersistent: false, rememberBrowser: false);
+
+                    ApplicationUser user = db.Users.Where(u => u.Email.Equals(model.Email, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                    if (user != null) UserManager.AddToRole(user.Id, "Sales");
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Sales");
                 }
                 AddErrors(result);
             }

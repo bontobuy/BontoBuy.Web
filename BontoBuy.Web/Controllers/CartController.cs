@@ -1,10 +1,10 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -16,40 +16,48 @@ namespace BontoBuy.Web.Controllers
         public ActionResult RetrieveModels()
         {
             string userId = User.Identity.GetUserId();
+            if (String.IsNullOrEmpty(userId))
+                return RedirectToAction("Error404", "Home");
 
-            var getSupplier = (from s in db.Suppliers
-                               where s.Id == userId
-                               select s).FirstOrDefault();
+            var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
 
-            var retrieveModels = (from m in db.Models
-                                  join ms in db.ModelSpecs on m.ModelId equals ms.ModelId
-                                  join s in db.Suppliers on ms.SupplierId equals s.SupplierId
-
-                                  select m).Distinct();
-
-            var modelList = new List<SupplierRetrieveModelsViewModel>();
-
-            foreach (var obj in retrieveModels)
+            if (User.IsInRole("Supplier") && user.ActivationCode == null)
             {
-                var model = new SupplierRetrieveModelsViewModel()
+                var getSupplier = (from s in db.Suppliers
+                                   where s.Id == userId
+                                   select s).FirstOrDefault();
+
+                var retrieveModels = (from m in db.Models
+                                      join ms in db.ModelSpecs on m.ModelId equals ms.ModelId
+                                      join s in db.Suppliers on ms.SupplierId equals s.SupplierId
+
+                                      select m).Distinct();
+
+                var modelList = new List<SupplierRetrieveModelsViewModel>();
+
+                foreach (var obj in retrieveModels)
                 {
-                    ModelId = obj.ModelId,
-                    ModelNumber = obj.ModelNumber,
-                    BrandName = (from b in db.Brands
-                                 join m in db.Models on b.BrandId equals m.BrandId
-                                 where b.BrandId == obj.BrandId
-                                 select b.Name).FirstOrDefault(),
-                    ImageUrl = (from ph in db.Photos
-                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
-                                join m in db.Models on pm.ModelId equals m.ModelId
-                                where pm.ModelId == obj.ModelId
-                                select ph.ImageUrl).FirstOrDefault()
-                };
+                    var model = new SupplierRetrieveModelsViewModel()
+                    {
+                        ModelId = obj.ModelId,
+                        ModelNumber = obj.ModelNumber,
+                        BrandName = (from b in db.Brands
+                                     join m in db.Models on b.BrandId equals m.BrandId
+                                     where b.BrandId == obj.BrandId
+                                     select b.Name).FirstOrDefault(),
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == obj.ModelId
+                                    select ph.ImageUrl).FirstOrDefault()
+                    };
 
-                modelList.Add(model);
+                    modelList.Add(model);
+                }
+
+                return View(modelList);
             }
-
-            return View(modelList);
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: Cart/Details/5

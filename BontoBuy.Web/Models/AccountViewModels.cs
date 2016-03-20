@@ -122,6 +122,13 @@ namespace BontoBuy.Web.Models
         public string Name { get; set; }
     }
 
+    public class RegisterSalesViewModel : RegisterViewModel
+    {
+        [Required]
+        [Display(Name = "User Name")]
+        public string Name { get; set; }
+    }
+
     public class ResetPasswordViewModel
     {
         [Required]

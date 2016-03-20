@@ -41,36 +41,30 @@ namespace BontoBuy.Web.Controllers
                     if (records == null)
                         return RedirectToAction("Home", "Error404");
                     return View(records);
-
-                    //var orderList = new List<AdminRetrieveOrdersViewModel>();
-                    //var records = (from o in db.Orders
-                    //               select o).ToList();
-                    //foreach (var item in records)
-                    //{
-                    //    var orderItem = new AdminRetrieveOrdersViewModel()
-                    //    {
-                    //        OrderId = item.OrderId,
-                    //        ModelId = item.ModelId,
-                    //        CustomerId = item.CustomerId,
-                    //        CustomerName = (from u in db.Users
-                    //                        join o in db.Orders on u.Id equals o.CustomerUserId
-                    //                        where o.OrderId == item.OrderId
-                    //                        select u.Name).FirstOrDefault(),
-
-                    //        ModelNumber = (from m in db.Models
-                    //                       where m.ModelId == item.ModelId
-                    //                       select m.ModelNumber).FirstOrDefault(),
-                    //        SupplierName = (from c in db.Suppliers
-                    //                        where c.SupplierId == item.SupplierId
-                    //                        select c.Name).FirstOrDefault(),
-                    //        Status = item.Status,
-                    //        DtCreated = item.DtCreated
-                    //    };
-                    //    orderList.Add(orderItem);
-                    //}
-                    //return View(orderList);
                 }
                 return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        public ActionResult SearchOrders(DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                if (fromDate == null)
+                    fromDate = DateTime.Today;
+                if (toDate == null)
+                    toDate = DateTime.Today;
+
+                var searchResult = from o in db.Orders
+                                   where o.DtCreated >= fromDate
+                                   && o.DtCreated <= toDate
+                                   select o;
+
+                return View(searchResult);
             }
             catch (Exception ex)
             {

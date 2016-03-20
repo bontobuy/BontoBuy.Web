@@ -448,7 +448,7 @@
                                                 {
                                                     foreach (var item in Model.ItemRecordsP8)
                                                     {
-                                                        <li><a href="#">@item.Description</a></li>
+                                                        <li><a href="@Url.Action(item.Action,item.Controller,new{id=item.ItemId})">@item.Description</a></li>
                                                     }
                                                 }
 

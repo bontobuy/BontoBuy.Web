@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="col-xs-2">
                                         @*<input id="@item.ModelId" type="text" class="form-control quantity"/>*@
-                                        @Html.EditorFor(modelItem => item.Quantity, new { htmlAttributes = new { @class = "form-control quantity", @data_quantity = item.Quantity, @data_id = item.ModelId } })
+                                        @Html.EditorFor(modelItem => item.Quantity, new { htmlAttributes = new { @class = "form-control quantity", @data_quantity = item.Quantity, @data_id = item.ModelId, min=1, value=1 } })
                                         @Html.ValidationMessageFor(modelItem => item.Quantity, "", new { @class = "text-danger" })
                                         @*<input type="text" class="form-control input-sm" value="1">*@
                                     </div>

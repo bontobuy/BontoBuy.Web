@@ -157,18 +157,18 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult ReviewOrder(int total)
         {
+            List<CartViewModel> orderList = Session["Order"] as List<CartViewModel>;
+            int grandTotal = total;
+
+            string userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                string returnUrl = Request.Url.ToString();
+                return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+            }
+            else { userId = User.Identity.GetUserId(); }
             if (User.IsInRole("Customer"))
             {
-                List<CartViewModel> orderList = Session["Order"] as List<CartViewModel>;
-                int grandTotal = total;
-
-                string userId = User.Identity.GetUserId();
-                if (userId == null)
-                {
-                    string returnUrl = Request.Url.ToString();
-                    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
-                }
-                else { userId = User.Identity.GetUserId(); }
                 if (orderList.Count() != 0)
                 {
                     foreach (var item in orderList)

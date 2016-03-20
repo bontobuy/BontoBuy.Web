@@ -70,9 +70,9 @@
                     </h5>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="@Url.Action("SupplierRetrieveOrders", "Supplier")">List</a></li>
-                        @using (Html.BeginForm("NewOrders", "Supplier"))
+                        @using (Html.BeginForm("NewOrders", "Supplier",FormMethod.Post, new { id = "NewOrders" }))
                         {
-                            <li><a href="javascript:$('form').submit()">New Orders<span class="badge">@ViewBag.SupplierNotification</span></a></li>
+                            <li><a href="javascript:$('#NewOrders').submit()">New Orders<span class="badge">@ViewBag.SupplierNotification</span></a></li>
                         }
                     </ul>
                     <h5>
@@ -81,9 +81,9 @@
                     </h5>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="@Url.Action("SupplierRetrieveReturns", "Supplier")">List</a></li>
-                        @using (Html.BeginForm("NewReturns", "Supplier"))
+                        @using (Html.BeginForm("NewReturns", "Supplier",FormMethod.Post, new { id = "NewReturns" }))
                         {
-                            <li><a href="javascript:$('form').submit()">New Returns<span class="badge">@ViewBag.SupplierReturnNotification</span></a></li>
+                            <li><a href="javascript:$('#NewReturns').submit()">New Returns<span class="badge">@ViewBag.SupplierReturnNotification</span></a></li>
                         }
                     </ul>
                 </div>

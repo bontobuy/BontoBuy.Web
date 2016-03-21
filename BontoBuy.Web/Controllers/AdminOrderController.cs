@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -40,6 +40,8 @@ namespace BontoBuy.Web.Controllers
                     var records = _repo.AdminRetrieveOrders();
                     if (records == null)
                         return RedirectToAction("Home", "Error404");
+
+                    ViewBag.Title = "List Of Orders";
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -50,6 +52,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult SearchOrders(DateTime fromDate, DateTime toDate)
         {
             try
@@ -64,7 +67,37 @@ namespace BontoBuy.Web.Controllers
                                    && o.DtCreated <= toDate
                                    select o;
 
-                return View(searchResult);
+                var itemList = new List<AdminRetrieveOrdersViewModel>();
+                foreach (var item in searchResult)
+                {
+                    var orderItem = new AdminRetrieveOrdersViewModel()
+                    {
+                        OrderId = item.OrderId,
+                        ModelId = item.ModelId,
+                        CustomerId = item.CustomerId,
+                        CustomerName = (from u in db.Users
+                                        join o in db.Orders on u.Id equals o.CustomerUserId
+                                        where o.OrderId == item.OrderId
+                                        select u.Name).FirstOrDefault(),
+
+                        ModelNumber = (from m in db.Models
+                                       where m.ModelId == item.ModelId
+                                       select m.ModelNumber).FirstOrDefault(),
+                        SupplierName = (from c in db.Suppliers
+                                        where c.SupplierId == item.SupplierId
+                                        select c.Name).FirstOrDefault(),
+                        Status = item.Status,
+                        DtCreated = item.DtCreated
+                    };
+                    itemList.Add(orderItem);
+                }
+                if (itemList == null)
+                {
+                    ViewBag.Title = "No Order for in that range found.";
+                    return View("RetrieveOrders");
+                }
+
+                return View("RetrieveOrders", itemList);
             }
             catch (Exception ex)
             {

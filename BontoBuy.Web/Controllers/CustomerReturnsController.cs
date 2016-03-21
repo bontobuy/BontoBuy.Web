@@ -29,10 +29,10 @@ namespace BontoBuy.Web.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            var records = from r in db.Returns
-                          join o in db.Orders on r.OrderId equals o.OrderId
-                          where o.CustomerUserId == userId
-                          select r;
+            var records = (from r in db.Returns
+                           join o in db.Orders on r.OrderId equals o.OrderId
+                           where o.CustomerUserId == userId
+                           select r).OrderBy(o => o.ReturnId);
             if (records == null)
                 return RedirectToAction("Home", "Error404");
 
@@ -49,7 +49,7 @@ namespace BontoBuy.Web.Controllers
             var pageOfProducts = records.ToPagedList(pageNumber, 10);
             ViewBag.pageOfProducts = pageOfProducts;
 
-            return View(records);
+            return View();
         }
 
         public ActionResult GetReturns(int id)
@@ -121,16 +121,16 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdatedReturns()
+        public ActionResult UpdatedReturns(int? page)
         {
             var userId = User.Identity.GetUserId();
             var updatedReturns = (from r in db.Returns
                                   join o in db.Orders on r.OrderId equals o.OrderId
-                                  where o.CustomerUserId == userId
+                                  where o.CustomerUserId == userId && r.Notification == "Customer"
                                   select r).ToList();
             if (updatedReturns.Count() <= 0)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("RetrieveReturns");
             }
             foreach (var item in updatedReturns)
             {
@@ -142,7 +142,12 @@ namespace BontoBuy.Web.Controllers
             GetCustomerNotification();
             ViewBag.Title = "List of your Updated Returns";
             ViewBag.CustomerReturnStatus = "Your return status has been updated. Please check it.";
-            return View("RetrieveReturns", updatedReturns);
+
+            var pageNumber = page ?? 1;
+            var pageOfProducts = updatedReturns.ToPagedList(pageNumber, 10);
+            ViewBag.pageOfProducts = pageOfProducts;
+
+            return View("RetrieveReturns");
         }
     }
 }

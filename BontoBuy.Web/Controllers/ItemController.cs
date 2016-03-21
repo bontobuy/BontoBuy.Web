@@ -1,5 +1,6 @@
 ﻿using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: Item
-        public ActionResult Retrieve()
+        public ActionResult Retrieve(int? page)
         {
             try
             {
@@ -43,7 +44,11 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
-                    return View(records);
+
+                    var pageNumber = page ?? 1;
+                    var pageOfProducts = records.ToPagedList(pageNumber, 10);
+                    ViewBag.pageOfProducts = pageOfProducts;
+                    return View();
                 }
                 return RedirectToAction("Login", "Account");
             }

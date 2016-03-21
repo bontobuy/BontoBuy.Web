@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.SearchResultViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.SearchResultViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Search Results";
@@ -115,7 +117,7 @@
     </hgroup>
 
     <section class="col-xs-12 col-sm-6 col-md-12">
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.pageOfProducts)
         {
             <article class="search-result row">
                 <div class="col-xs-12 col-sm-12 col-md-3">
@@ -142,5 +144,11 @@
                 <span class="clearfix border"></span>
             </article>
         }
+        <div class="col-md-12">
+            <div class="text-center">
+                @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveOrders", new { page }))
+                Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Results
+            </div>
+        </div>
     </section>
 </div>

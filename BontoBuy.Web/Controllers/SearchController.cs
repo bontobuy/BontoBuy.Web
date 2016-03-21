@@ -1,5 +1,6 @@
 ﻿using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace BontoBuy.Web.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Search
-        public ActionResult SearchResult()
+        public ActionResult SearchResult(int? page)
         {
             var searchCriteria = Session["SearchCriteria"] as string;
             if (searchCriteria == null)
@@ -63,6 +64,11 @@ namespace BontoBuy.Web.Controllers
             ViewBag.Count = count;
             ViewBag.Model = searchCriteria.ToString();
             Session.Remove("SearchCriteria");
+
+            var pageNumber = page ?? 1;
+            var pageOfProducts = searchList.ToPagedList(pageNumber, 10);
+            ViewBag.pageOfProducts = pageOfProducts;
+
             return View(searchList);
         }
 
@@ -76,7 +82,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdvancedSearch(SearchFilter filter)
+        public ActionResult AdvancedSearch(SearchFilter filter, int? page)
         {
             if (filter == null)
             {
@@ -155,6 +161,10 @@ namespace BontoBuy.Web.Controllers
 
             //You need to change the View in order to display it
             //You can also put it in a Session and use it elsewhere
+
+            var pageNumber = page ?? 1;
+            var pageOfProducts = searchList.ToPagedList(pageNumber, 10);
+            ViewBag.pageOfProducts = pageOfProducts;
 
             return View("SearchResult", searchList);
         }

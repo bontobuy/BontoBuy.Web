@@ -5,7 +5,7 @@
 {
     Name userName = new Name();
     var UserId = User.Identity.GetUserId();
-    var name = userName.GetName(UserId.ToString());
+    var name = userName.getSupplierName(UserId);
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()

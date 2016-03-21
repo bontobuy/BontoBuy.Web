@@ -19,5 +19,11 @@ namespace BontoBuy.Web.Models
             string name = db.Users.Where(x => x.Id == id).Select(x => x.Name).Single();
             return name;
         }
+
+        public string getSupplierName(string id)
+        {
+            string name = db.Users.Where(x => x.Id == id).Select(x => x.FirstName).Single();
+            return name;
+        }
     }
 }

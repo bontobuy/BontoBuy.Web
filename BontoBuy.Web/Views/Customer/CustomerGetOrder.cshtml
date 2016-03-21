@@ -63,7 +63,7 @@
         <dd>
             @Html.DisplayFor(model => model.RealDeliveryDate)
         </dd>
-        <hr />
+        <hr/>
         <h4 class="text-info">Delivery Details</h4>
 
         <dt>
@@ -84,12 +84,12 @@
         <dd>
             @Html.DisplayFor(model => model.Zipcode)
         </dd>
-        <hr />
-        <dt>@Html.DisplayNameFor(model=>model.ConfirmationCode)</dt>
-        <dd class="text-danger">@Html.DisplayFor(model=>model.ConfirmationCode)</dd>
+        <hr/>
+        <dt>@Html.DisplayNameFor(model => model.ConfirmationCode)</dt>
+        <dd class="text-danger">@Html.DisplayFor(model => model.ConfirmationCode)</dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("View As Pdf", "ViewOrderPdf") |
+    @Html.ActionLink("View As Pdf", "ViewOrderPdf", null, new { target = "_blank" }) |
     @Html.ActionLink("Back to List", "CustomerRetrieveOrders")
 </p>

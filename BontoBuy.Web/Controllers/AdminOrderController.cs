@@ -1,5 +1,6 @@
 ﻿using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using Rotativa;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: AdminOrder
-        public ActionResult RetrieveOrders()
+        public ActionResult RetrieveOrders(int? page)
         {
             try
             {
@@ -41,8 +42,13 @@ namespace BontoBuy.Web.Controllers
                     if (records == null)
                         return RedirectToAction("Home", "Error404");
 
+                    //Paging Section
+                    var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                    var pageOfProducts = records.ToPagedList(pageNumber, 10); //set the number of records per page
+                    ViewBag.pageOfProducts = pageOfProducts;
+
                     ViewBag.Title = "List Of Orders";
-                    return View(records);
+                    return View();
                 }
                 return RedirectToAction("Login", "Account");
             }

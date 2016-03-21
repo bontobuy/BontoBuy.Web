@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.AdminRetrieveOrdersViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.AdminRetrieveOrdersViewModel>
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
@@ -49,23 +51,23 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.pageOfProducts)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ModelNumber)
+                    @item.ModelNumber
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SupplierName)
+                    @item.SupplierName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
+                    @item.CustomerName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DtCreated)
+                    @item.DtCreated
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @item.Status
                 </td>
 
                 <td>
@@ -74,6 +76,12 @@
             </tr>
         }
     </table>
+    <div class="col-md-12">
+        <div class="text-center">
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveOrders", new { page }))
+            Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Orders
+        </div>
+    </div>
 </div>
 
 @section scripts{

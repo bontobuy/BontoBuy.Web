@@ -1,6 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -8,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -1561,13 +1561,19 @@ namespace BontoBuy.Web.Controllers
                 };
                 CatalogList.Add(CatalogItem);
             }
-            Session["ItemId"] = id;
+
+            //Session will be of datatype integer
+            //You need to convert it to string first
+            Session["ItemId"] = id.ToString();
             return View(CatalogList);
         }
 
         public ActionResult CatalogByBrand()
         {
+            //You can retrieve it as a string :)
             var ItemId = Session["ItemId"] as string;
+
+            //Do you need to add Return View(xxx)?
             return RedirectToAction("Catalog", new { id = ItemId });
         }
 

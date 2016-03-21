@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PagedList;
 using Rotativa;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace BontoBuy.Web.Controllers
             return View();
         }
 
-        public ActionResult CustomerRetrieveOrders()
+        public ActionResult CustomerRetrieveOrders(int? page)
         {
             try
             {
@@ -80,7 +81,12 @@ namespace BontoBuy.Web.Controllers
                     ViewBag.Title = "List of your Orders";
                     GetCustomerReturnNotification();
                     GetCustomerNotification();
-                    return View(orderList);
+
+                    var pageNumber = page ?? 1;
+                    var pageOfProducts = orderList.ToPagedList(pageNumber, 10);
+                    ViewBag.pageOfProducts = pageOfProducts;
+
+                    return View();
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -177,7 +183,7 @@ namespace BontoBuy.Web.Controllers
             return new ViewAsPdf("ViewOrderPdf", customerOrder);
         }
 
-        public ActionResult CustomerRetrieveDeliveryAddress(string returnUrl, ManageMessageId? message)
+        public ActionResult CustomerRetrieveDeliveryAddress(string returnUrl, ManageMessageId? message, int? page)
         {
             var userId = User.Identity.GetUserId();
             if (userId == null)
@@ -217,7 +223,12 @@ namespace BontoBuy.Web.Controllers
 
                 GetCustomerReturnNotification();
                 GetCustomerNotification();
-                return View(addressList);
+
+                var pageNumber = page ?? 1;
+                var pageOfProducts = addressList.ToPagedList(pageNumber, 10);
+                ViewBag.pageOfProducts = pageOfProducts;
+
+                return View();
             }
             return RedirectToAction("Login", "Account");
         }
@@ -291,7 +302,6 @@ namespace BontoBuy.Web.Controllers
             }
             return RedirectToAction("Login", "Account");
         }
-
         public ActionResult CustomerUpdateDeliveryAddress(int id)
         {
             var userId = User.Identity.GetUserId();
@@ -442,7 +452,6 @@ namespace BontoBuy.Web.Controllers
             //Refer to ReturnController Create
             return null;
         }
-
         [HttpPost]
         public ActionResult UpdatedOrders()
         {

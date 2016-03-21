@@ -19,6 +19,7 @@ namespace BontoBuy.Web.Models
         public int ModelId { get; set; }
         public string Status { get; set; }
     }
+
     public class AdminRetrieveItemViewModel
     {
         public int ItemId { get; set; }
@@ -72,6 +73,7 @@ namespace BontoBuy.Web.Models
         public DateTime DtUpdated { get; set; }
         public string Status { get; set; }
     }
+
     public class AdminRetrieveOrdersViewModel
     {
         public int OrderId { get; set; }

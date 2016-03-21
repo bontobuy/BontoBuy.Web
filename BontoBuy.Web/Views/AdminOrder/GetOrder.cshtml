@@ -5,7 +5,7 @@
 }
 
 <div class="col-md-9">
-    <h4>@ViewBag.Title</h4>
+    <h4 class="text-info">@ViewBag.Title</h4>
     <hr/>
     <dl class="dl-horizontal">
         <dt>
@@ -74,11 +74,27 @@
         <dd>
             @Html.DisplayFor(model => model.RealDeliveryDate)
         </dd>
+        <hr />
+
+            <h4 class="text-info">Order Delivery Address Details</h4>
+
         <dt>
-            @Html.DisplayNameFor(model => model.DeliveryAddress)
+            @Html.DisplayNameFor(model=>model.Street)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DeliveryAddress)
+            @Html.DisplayFor(model=>model.Street)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model=>model.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model=>model.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model=>model.Zipcode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model=>model.Zipcode)
         </dd>
     </dl>
 <p>

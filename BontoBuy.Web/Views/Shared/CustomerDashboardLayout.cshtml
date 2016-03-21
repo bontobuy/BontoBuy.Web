@@ -184,9 +184,9 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @using (Html.BeginForm("UpdatedOrders", "Customer"))
+                                            @using (Html.BeginForm("UpdatedOrders", "Customer", FormMethod.Post, new { id = "UpdatedOrders" }))
                                             {
-                                                <a href="javascript:$('form').submit()">Updated Orders<span class="badge">@ViewBag.CustomerNotification</span></a>
+                                                <a href="javascript:$('#UpdatedOrders').submit()">Updated Orders<span class="badge">@ViewBag.CustomerNotification</span></a>
                                             }
                                         </td>
                                     </tr>
@@ -213,9 +213,9 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @using (Html.BeginForm("UpdatedReturns", "CustomerReturns"))
+                                            @using (Html.BeginForm("UpdatedReturns", "CustomerReturns", FormMethod.Post, new { id = "UpdatedReturns" }))
                                             {
-                                                <a href="javascript:$('form').submit()"><span class="fa fa-backward"></span>Updated Returns<span class="badge">@ViewBag.CustomerReturnNotification</span></a>
+                                                <a href="javascript:$('#UpdatedReturns').submit()"><span class="fa fa-backward"></span>Updated Returns<span class="badge">@ViewBag.CustomerReturnNotification</span></a>
                                             }
                                         </td>
                                     </tr>

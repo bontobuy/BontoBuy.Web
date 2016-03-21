@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.DeliveryAddressActionViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.DeliveryAddressActionViewModel>
 @{
     Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
     ViewBag.Title = "Delivery Address List";
@@ -26,21 +28,21 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.pageOfProducts)
         {
             <tr>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Street)
+                    @item.Street
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.City)
+                    @item.City
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Zipcode)
+                    @item.Zipcode
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @item.Status
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "CustomerUpdateDeliveryAddress", new { id = item.DeliveryAddressId }) |
@@ -50,4 +52,10 @@
             </tr>
         }
     </table>
+    <div class="col-md-12">
+        <div class="text-center">
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveOrders", new { page }))
+            Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Delivery Addresses
+        </div>
+    </div>
 </div>

@@ -39,12 +39,14 @@ namespace BontoBuy.Web.Models
         public DateTime DtCreated { get; set; }
         public DateTime ExpectedDeliveryDate { get; set; }
         public DateTime RealDeliveryDate { get; set; }
-        public string DeliveryAddress { get; set; }
+
+        //public string DeliveryAddress { get; set; }
         public string CustomerFName { get; set; }
         public string CustomerLName { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public string Zipcode { get; set; }
         public int UnitPrice { get; set; }
+        public string ConfirmationCode { get; set; }
     }
 }

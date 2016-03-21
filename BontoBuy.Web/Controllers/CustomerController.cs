@@ -144,7 +144,11 @@ namespace BontoBuy.Web.Controllers
 
                         UnitPrice = (from o in db.Orders
                                      where o.OrderId == id
-                                     select o.UnitPrice).FirstOrDefault()
+                                     select o.UnitPrice).FirstOrDefault(),
+
+                        ConfirmationCode = (from o in db.Orders
+                                            where o.OrderId == id
+                                            select o.ConfirmationCode).FirstOrDefault()
                     };
                     Session["CustomerOrder"] = customerOrder;
                     ViewBag.StatusMessage =
@@ -167,7 +171,8 @@ namespace BontoBuy.Web.Controllers
         public ActionResult ViewOrderPdf()
         {
             var customerOrder = Session["CustomerOrder"] as CustomerGetOrderViewModel;
-            Session.Remove("CustomerOrder");
+
+            //Session.Remove("CustomerOrder");
 
             return new ViewAsPdf("ViewOrderPdf", customerOrder);
         }

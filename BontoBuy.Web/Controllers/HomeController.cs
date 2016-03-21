@@ -1,5 +1,6 @@
 ﻿using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -1526,7 +1527,7 @@ namespace BontoBuy.Web.Controllers
             return RedirectToAction("SearchResult", "Search");
         }
 
-        public ActionResult Catalog(int id)
+        public ActionResult Catalog(int id, int? page)
         {
             if (id < 0)
             {
@@ -1562,7 +1563,13 @@ namespace BontoBuy.Web.Controllers
                 CatalogList.Add(CatalogItem);
             }
             Session["ItemId"] = id;
-            return View(CatalogList);
+
+            //Paging Section
+            var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+            var pageOfProducts = CatalogList.ToPagedList(pageNumber, 10); //set the number of records per page
+            ViewBag.pageOfProducts = pageOfProducts;
+
+            return View();
         }
 
         public ActionResult CatalogByBrand()

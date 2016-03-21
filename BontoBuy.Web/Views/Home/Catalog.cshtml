@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.HomeCatalogViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.HomeCatalogViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Catalog";
@@ -109,7 +111,7 @@
         </div>
         <div class="col-md-9">
             <div id="products" class="row list-group">
-                @foreach (var item in Model)
+                @foreach (var item in ViewBag.pageOfProducts)
                 {
                     <div class="item  col-xs-4 col-md-4">
                         <div class="thumbnail">
@@ -138,6 +140,12 @@
                         </div>
                     </div>
                 }
+            </div>
+            <div class="col-md-12">
+                <div class="text-center">
+                    @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveOrders", new { page }))
+                    Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Models
+                </div>
             </div>
         </div>
     </div>

@@ -66,6 +66,9 @@ namespace BontoBuy.Web.Models
         public DateTime RealDeliveryDate { get; set; }
         public string DeliveryAddress { get; set; }
         public string SupplierName { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Zipcode { get; set; }
     }
 
     public class SupplierUpdateOrderViewModel

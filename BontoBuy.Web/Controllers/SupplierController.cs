@@ -299,7 +299,19 @@ namespace BontoBuy.Web.Controllers
                         RealDeliveryDate = record.RealDeliveryDate,
                         SupplierName = (from u in db.Users
                                         where u.Id == userId
-                                        select u.Name).FirstOrDefault()
+                                        select u.Name).FirstOrDefault(),
+
+                        Street = (from d in db.Deliveries
+                                  where d.OrderId == id
+                                  select d.Street).FirstOrDefault(),
+
+                        City = (from d in db.Deliveries
+                                where d.OrderId == id
+                                select d.City).FirstOrDefault(),
+
+                        Zipcode = (from d in db.Deliveries
+                                   where d.OrderId == id
+                                   select d.Zipcode).FirstOrDefault()
                     };
                     Session["SupplierOrder"] = supplierOrder;
                     GetSupplierReturnNotification();

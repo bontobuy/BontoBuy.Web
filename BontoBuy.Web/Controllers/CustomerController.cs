@@ -453,13 +453,13 @@ namespace BontoBuy.Web.Controllers
             return null;
         }
         [HttpPost]
-        public ActionResult UpdatedOrders()
+        public ActionResult UpdatedOrders(int? page)
         {
             var userId = User.Identity.GetUserId();
             var updatedOrders = db.Orders.Where(o => o.CustomerUserId == userId && o.Notification == "Customer").ToList();
-            if (updatedOrders == null)
+            if (updatedOrders.Count() <= 0)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("CustomerRetrieveOrders");
             }
             foreach (var item in updatedOrders)
             {
@@ -492,7 +492,11 @@ namespace BontoBuy.Web.Controllers
             GetCustomerNotification();
             ViewBag.Title = "List of your Updated Orders";
             ViewBag.CustomerOrderStatus = "Your order status has been updated. Please check it.";
-            return View("CustomerRetrieveOrders", updatedOrderList);
+
+            var pageNumber = page ?? 1;
+            var pageOfProducts = updatedOrderList.ToPagedList(pageNumber, 10);
+            ViewBag.pageOfProducts = pageOfProducts;
+            return View("CustomerRetrieveOrders");
         }
     }
 }

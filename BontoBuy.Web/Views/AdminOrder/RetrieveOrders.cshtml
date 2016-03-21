@@ -1,11 +1,31 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.AdminRetrieveOrdersViewModel>
 @{
-    ViewBag.Title = "List Of Orders";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <div class="col-md-9">
     <h2>@ViewBag.Title</h2>
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm("SearchOrders", "AdminOrder", FormMethod.Post, new { id = "SearchOrders" }))
+            {
+                <p>Search By Date</p><br/>
+                <div class="form-group">
+                    @Html.Label("From: ")
+                    <div class='input-group date'>
+                        <input type='date' name="fromDate" class="form-control" id='datepickerFromDate'/>
+                    </div>
+                    @Html.Label("To: ")
+                    <div class='input-group date'>
+                        <input type='date' name="toDate" class="form-control" id='datepickerToDate'/>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="submit" value="Search" class="form-control btn btn-info test"/>
+                </div>
+            }
+        </div>
+    </div><br/>
     <p>
         @Html.ActionLink("Export as Excel", "ExportToExcel")
     </p>
@@ -55,3 +75,29 @@
         }
     </table>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //$('#datepickerFromDate').datepicker({
+            //    format: 'dd/mm/yyyy',
+            //}).on('changeDate', function (e) {
+            //    $(this).datepicker('hide');
+            //});
+
+            //$('#datepickerToDate').datepicker({
+            //    format: 'dd/mm/yyyy',
+            //}).on('changeDate', function (e) {
+            //    $(this).datepicker('hide');
+            //});
+
+            //$('.test').click(function () {
+            //    var from = $('#datepickerFromDate').val();
+            //    var to = $('#datepickerToDate').val();
+            //    alert(from);
+            //    alert(to);
+            //});
+        });
+    </script>
+}

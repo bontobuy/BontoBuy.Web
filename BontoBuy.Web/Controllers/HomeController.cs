@@ -1561,14 +1561,24 @@ namespace BontoBuy.Web.Controllers
                 };
                 CatalogList.Add(CatalogItem);
             }
+            Session["ItemId"] = id;
             return View(CatalogList);
+        }
+
+        public ActionResult CatalogByBrand()
+        {
+            var ItemId = Session["ItemId"] as string;
+            return RedirectToAction("Catalog", new { id = ItemId });
         }
 
         [HttpPost]
         public ActionResult CatalogByBrand(int BrandId)
         {
+            string ItemIdInString = Session["ItemId"] as string;
+            int ItemId = Convert.ToInt32(ItemIdInString);
             var records = (from m in db.Models
                            where m.BrandId == BrandId && m.Status == "Active"
+                           where m.ModelId == ItemId
                            select m).ToList();
 
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");

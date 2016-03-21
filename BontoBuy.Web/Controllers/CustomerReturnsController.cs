@@ -1,5 +1,6 @@
 ﻿using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: CustomerReturns
-        public ActionResult RetrieveReturns(ManageMessageId? message)
+        public ActionResult RetrieveReturns(ManageMessageId? message, int? page)
         {
             string userId = User.Identity.GetUserId();
             if (userId == null)
@@ -43,6 +44,11 @@ namespace BontoBuy.Web.Controllers
             GetCustomerReturnNotification();
             GetCustomerNotification();
             ViewBag.Title = "List of your Returns";
+
+            var pageNumber = page ?? 1;
+            var pageOfProducts = records.ToPagedList(pageNumber, 10);
+            ViewBag.pageOfProducts = pageOfProducts;
+
             return View(records);
         }
 

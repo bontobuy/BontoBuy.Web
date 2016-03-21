@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.ReturnViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.ReturnViewModel>
 @{
     Layout = "~/Views/Shared/CustomerDashboardLayout.cshtml";
 }
@@ -24,20 +26,20 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.pageOfProducts)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.OrderId)
+                    @item.OrderId
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                    @item.ReturnDate
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @item.Status
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DtCreated)
+                    @item.DtCreated
                 </td>
                 <td>
                     @Html.ActionLink("Details", "GetReturns", new { id = item.ReturnId })
@@ -45,4 +47,10 @@
             </tr>
         }
     </table>
+    <div class="col-md-12">
+        <div class="text-center">
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveOrders", new { page }))
+            Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Returns
+        </div>
+    </div>
 </div>

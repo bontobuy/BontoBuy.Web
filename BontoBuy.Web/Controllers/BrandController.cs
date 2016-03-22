@@ -384,7 +384,7 @@ namespace BontoBuy.Web.Controllers
                     }
 
                     ViewBag.StatusMessage =
-         message == ManageMessageId.RestoreSuccess ? "You have successfully restore an Item."
+         message == ManageMessageId.RestoreSuccess ? "You have successfully restore a Brand."
          : message == ManageMessageId.Error ? "An error has occurred."
          : "";
 

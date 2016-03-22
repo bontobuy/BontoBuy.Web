@@ -12,13 +12,22 @@ namespace BontoBuy.Web.Controllers
     {
         private readonly ITagRepo _repository;
 
+        public enum ManageMessageId
+        {
+            AddSuccess,
+            UpdateSuccess,
+            ArchiveSuccess,
+            RestoreSuccess,
+            Error
+        }
+
         public TagController(ITagRepo repo)
         {
             _repository = repo;
         }
 
         // GET: Tag
-        public ActionResult Retrieve()
+        public ActionResult Retrieve(ManageMessageId? message)
         {
             try
             {
@@ -30,6 +39,12 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+                message == ManageMessageId.AddSuccess ? "You have successfully added a new Special Category."
+                : message == ManageMessageId.UpdateSuccess ? "You have successfully updated a Special Category."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
 
                     return View(records);
                 }
@@ -101,12 +116,12 @@ namespace BontoBuy.Web.Controllers
                 {
                     if (item == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
                     var newItem = _repository.Create(item);
 
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.AddSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -155,16 +170,16 @@ namespace BontoBuy.Web.Controllers
                 {
                     if (item == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
                     var updatedItem = _repository.Update(id, item);
                     if (updatedItem == null)
                     {
-                        return HttpNotFound();
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.UpdateSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }

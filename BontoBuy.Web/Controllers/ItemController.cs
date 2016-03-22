@@ -14,13 +14,23 @@ namespace BontoBuy.Web.Controllers
     {
         private readonly IItemRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public enum ManageMessageId
+        {
+            AddSuccess,
+            UpdateSuccess,
+            ArchiveSuccess,
+            RestoreSuccess,
+            Error
+        }
+
         public ItemController(IItemRepo repo)
         {
             _repository = repo;
         }
 
         // GET: Item
-        public ActionResult Retrieve(int? page)
+        public ActionResult Retrieve(int? page, ManageMessageId? message)
         {
             try
             {
@@ -48,6 +58,15 @@ namespace BontoBuy.Web.Controllers
                     var pageNumber = page ?? 1;
                     var pageOfProducts = records.ToPagedList(pageNumber, 10);
                     ViewBag.pageOfProducts = pageOfProducts;
+
+                    ViewBag.StatusMessage =
+                message == ManageMessageId.AddSuccess ? "You have successfully added a new Item."
+                : message == ManageMessageId.ArchiveSuccess ? "You have just archive a Item."
+                : message == ManageMessageId.UpdateSuccess ? "You have successfully updated a Item."
+                : message == ManageMessageId.RestoreSuccess ? "You have successfully restore a Item."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
                     return View();
                 }
                 return RedirectToAction("Login", "Account");
@@ -173,7 +192,7 @@ namespace BontoBuy.Web.Controllers
                         //db.SpecialCategories.Add(newTag);
                         //db.SaveChanges();
 
-                        return RedirectToAction("Retrieve");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.AddSuccess });
                     }
                     ViewBag.ProductId = new SelectList(db.Products.Where(x => x.Status == "Active"), "ProductId", "Description", item.ProductId);
 
@@ -261,7 +280,7 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.UpdateSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -315,7 +334,7 @@ namespace BontoBuy.Web.Controllers
 
         // POST: Item/Delete/5
         [HttpPost]
-        public ActionResult ArchiveDeliveryAddress(ItemViewModel item)
+        public ActionResult Archive(ItemViewModel item)
         {
             try
             {
@@ -346,7 +365,7 @@ namespace BontoBuy.Web.Controllers
                     _repository.Archive(itemId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.ArchiveSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -356,7 +375,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult RetrieveArchives()
+        public ActionResult RetrieveArchives(ManageMessageId? message)
         {
             try
             {
@@ -380,6 +399,11 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+          message == ManageMessageId.RestoreSuccess ? "You have successfully restore an Item."
+          : message == ManageMessageId.Error ? "An error has occurred."
+          : "";
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -464,7 +488,7 @@ namespace BontoBuy.Web.Controllers
                     _repository.RevertArchive(itemId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("RetrieveArchives");
+                    return RedirectToAction("RetrieveArchives", new { message = ManageMessageId.RestoreSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }

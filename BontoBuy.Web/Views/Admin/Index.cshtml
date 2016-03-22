@@ -1,9 +1,14 @@
 ﻿@{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
     ViewBag.Title = "Admin";
-
 }
 
 <div class="jumbotron"><h3><b>Dashboard</b></h3></div>
 <div class="col-md-9">
+    <div id="chartdiv">
+        <h3 class=text-info>Orders & Returns Report</h3>
+        <img src="@Url.Action("OrderReturnReport")" alt="Order & Return Report"/>
+    </div>
+    <div>
+    </div>
 </div>

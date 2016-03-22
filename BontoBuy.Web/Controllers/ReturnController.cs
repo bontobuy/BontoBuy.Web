@@ -26,7 +26,7 @@ namespace BontoBuy.Web.Controllers
                 var records = db.Returns.ToList();
                 if (records == null)
                 {
-                    return RedirectToAction("Home", "Error404");
+                    return RedirectToAction("Index", "Admin", new { message = ManageMessageId.Error });
                 }
 
                 ViewBag.StatusMessage =
@@ -165,7 +165,7 @@ namespace BontoBuy.Web.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Retrieve", "Return", new { message = ManageMessageId.Error });
             }
         }
 

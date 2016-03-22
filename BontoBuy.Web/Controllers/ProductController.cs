@@ -14,13 +14,22 @@ namespace BontoBuy.Web.Controllers
         private readonly IProductRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public enum ManageMessageId
+        {
+            AddSuccess,
+            UpdateSuccess,
+            ArchiveSuccess,
+            RestoreSuccess,
+            Error
+        }
+
         public ProductController(IProductRepo repo)
         {
             _repository = repo;
         }
 
         // GET: Product
-        public ActionResult Retrieve()
+        public ActionResult Retrieve(ManageMessageId? message)
         {
             try
             {
@@ -44,6 +53,15 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+                message == ManageMessageId.AddSuccess ? "You have successfully added a new Product."
+                : message == ManageMessageId.ArchiveSuccess ? "You have just archive a Product."
+                : message == ManageMessageId.UpdateSuccess ? "You have successfully updated a IProduct."
+                : message == ManageMessageId.RestoreSuccess ? "You have successfully restore a Product."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -164,7 +182,7 @@ namespace BontoBuy.Web.Controllers
                     if (ModelState.IsValid)
                     {
                         _repository.Create(item);
-                        return RedirectToAction("Retrieve");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.AddSuccess });
                     }
                     return View(item);
                 }
@@ -251,7 +269,7 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.UpdateSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -338,7 +356,7 @@ namespace BontoBuy.Web.Controllers
                     _repository.Archive(productId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.ArchiveSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -348,7 +366,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult RetrieveArchives()
+        public ActionResult RetrieveArchives(ManageMessageId? message)
         {
             try
             {
@@ -372,6 +390,12 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+        message == ManageMessageId.RestoreSuccess ? "You have successfully restore an Item."
+        : message == ManageMessageId.Error ? "An error has occurred."
+        : "";
+
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -446,17 +470,17 @@ namespace BontoBuy.Web.Controllers
                     var productId = item.ProductId;
                     if (productId < 1)
                     {
-                        RedirectToAction("RetrieveArchives");
+                        RedirectToAction("RetrieveArchives", new { message = ManageMessageId.Error });
                     }
                     if (item == null)
                     {
-                        RedirectToAction("RetrieveArchives");
+                        RedirectToAction("RetrieveArchives", new { message = ManageMessageId.Error });
                     }
 
                     _repository.RevertArchive(productId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("RetrieveArchives");
+                    return RedirectToAction("RetrieveArchives", new { message = ManageMessageId.RestoreSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }

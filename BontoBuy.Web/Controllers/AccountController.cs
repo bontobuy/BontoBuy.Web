@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -11,10 +15,6 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -124,7 +124,7 @@ namespace BontoBuy.Web.Controllers
                             {
                                 return RedirectToAction("Index", "Supplier");
                             }
-                            return Redirect(requestedUrl);
+                            return Redirect(returnUrl);
 
                         case "Admin":
                             return RedirectToAction("Index", "Admin");
@@ -135,7 +135,7 @@ namespace BontoBuy.Web.Controllers
                                 return RedirectToAction("ActivateAccount", "Account");
                             }
 
-                            if (String.IsNullOrWhiteSpace(requestedUrl))
+                            if (String.IsNullOrWhiteSpace(returnUrl))
                             {
                                 return RedirectToAction("Index", "Customer");
                             }
@@ -144,7 +144,7 @@ namespace BontoBuy.Web.Controllers
                             //{
                             //    return RedirectToAction("ActivateAccount", "Account");
                             //}
-                            return RedirectToAction("Index", "Customer");
+                            return Redirect(returnUrl);
                     }
                     return RedirectToAction("ActivateAccount", "Account");
                 }

@@ -132,7 +132,7 @@ namespace BontoBuy.Web.Controllers
                         case "Customer":
                             if (userProfile != null)
                             {
-                                return RedirectToAction("ActivateAccount");
+                                return RedirectToAction("ActivateAccount", "Account");
                             }
 
                             if (String.IsNullOrWhiteSpace(requestedUrl))
@@ -341,7 +341,7 @@ namespace BontoBuy.Web.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    ActivationCode = activationCode + model.Email,
+                    ActivationCode = activationCode,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Name = model.FirstName + " " + model.LastName,

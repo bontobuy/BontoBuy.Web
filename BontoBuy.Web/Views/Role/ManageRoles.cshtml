@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.UserRoleViewModel>
 
 @{
-    ViewBag.Title = "List of Users";
+    ViewBag.Title = "Manage Roles";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 
 <div class="col-md-9">
-    <div class="container">
+    <h2>@ViewBag.Title</h2>
         <div>
             @Html.ActionLink("Create Role", "Create")
             <hr />
@@ -16,5 +16,5 @@
             @Html.ActionLink("Retrieve Roles", "Retrieve")
             <hr />
         </div>
-    </div>
+
 </div>

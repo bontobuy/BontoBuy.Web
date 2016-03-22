@@ -1,4 +1,9 @@
-﻿using System;
+﻿using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,11 +12,6 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -20,6 +20,21 @@ namespace BontoBuy.Web.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        public enum ManageMessageId
+        {
+            AddRoleSuccess,
+            UpdateRoleSuccess,
+            ArchiveRoleSuccess,
+            RestoreRoleSuccess,
+            AddCustomerSuccess,
+            UpdateCustomerSuccess,
+            ArchiveCustomerSuccess,
+            AddSupplierSuccess,
+            UpdateSupplierSuccess,
+            ArchiveSupplierSuccess,
+            Error
+        }
 
         public RoleController()
         {
@@ -57,11 +72,11 @@ namespace BontoBuy.Web.Controllers
             //return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
-        public ActionResult RetrieveUsers()
+        public ActionResult RetrieveUsers(ManageMessageId? message)
         {
             if (User.IsInRole("Admin"))
             {
-                var records = db.Suppliers.ToList();
+                var records = db.Users.ToList();
 
                 var userAccountList = new List<UserRoleViewModel>();
                 foreach (var item in records)
@@ -74,12 +89,24 @@ namespace BontoBuy.Web.Controllers
                     };
                     userAccountList.Add(userAccount);
                 }
+
+                ViewBag.StatusMessage =
+                    message == ManageMessageId.AddCustomerSuccess ? "You have successfully added a new Customer."
+          : message == ManageMessageId.ArchiveCustomerSuccess ? "You have just desactivated a Customer account."
+          : message == ManageMessageId.UpdateCustomerSuccess ? "You have successfully activated a Customer account."
+          : message == ManageMessageId.Error ? "An error has occurred."
+          : message == ManageMessageId.AddSupplierSuccess ? "You have successfully added a new Supplier."
+           : message == ManageMessageId.ArchiveSupplierSuccess ? "You have just desactivated a Supplier account."
+           : message == ManageMessageId.UpdateSupplierSuccess ? "You have successfully activated a Supplier account."
+           : message == ManageMessageId.Error ? "An error has occurred."
+           : "";
+
                 return View(userAccountList);
             }
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult RetrieveSuppliers(string searchString)
+        public ActionResult RetrieveSuppliers(string searchString, ManageMessageId? message)
         {
             if (User.IsInRole("Admin"))
             {
@@ -115,12 +142,19 @@ namespace BontoBuy.Web.Controllers
                     }
                 }
 
+                ViewBag.StatusMessage =
+           message == ManageMessageId.AddSupplierSuccess ? "You have successfully added a new Supplier."
+           : message == ManageMessageId.ArchiveSupplierSuccess ? "You have just desactivated a Supplier account."
+           : message == ManageMessageId.UpdateSupplierSuccess ? "You have successfully activated a Supplier account."
+           : message == ManageMessageId.Error ? "An error has occurred."
+           : "";
+
                 return View(userAccountList);
             }
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult RetrieveCustomers(string searchString)
+        public ActionResult RetrieveCustomers(string searchString, ManageMessageId? message)
         {
             if (User.IsInRole("Admin"))
             {
@@ -154,6 +188,13 @@ namespace BontoBuy.Web.Controllers
                         userAccountList.Add(userAccount);
                     }
                 }
+
+                ViewBag.StatusMessage =
+          message == ManageMessageId.AddCustomerSuccess ? "You have successfully added a new Customer."
+          : message == ManageMessageId.ArchiveCustomerSuccess ? "You have just desactivated a Customer account."
+          : message == ManageMessageId.UpdateCustomerSuccess ? "You have successfully activated a Customer account."
+          : message == ManageMessageId.Error ? "An error has occurred."
+          : "";
 
                 return View(userAccountList);
             }
@@ -293,7 +334,7 @@ namespace BontoBuy.Web.Controllers
                         });
 
                         db.SaveChanges();
-                        return RedirectToAction("Retrieve");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.AddRoleSuccess });
                     }
 
                     return Content("Success");

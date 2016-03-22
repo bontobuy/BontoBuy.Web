@@ -16,13 +16,22 @@ namespace BontoBuy.Web.Controllers
 
         private readonly IBrandRepo _repository;
 
+        public enum ManageMessageId
+        {
+            AddSuccess,
+            UpdateSuccess,
+            ArchiveSuccess,
+            RestoreSuccess,
+            Error
+        }
+
         public BrandController(IBrandRepo repo)
         {
             _repository = repo;
         }
 
         // GET: Brand
-        public ActionResult Retrieve()
+        public ActionResult Retrieve(ManageMessageId? message)
         {
             try
             {
@@ -47,6 +56,14 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+              message == ManageMessageId.AddSuccess ? "You have successfully added a new Brand."
+              : message == ManageMessageId.ArchiveSuccess ? "You have just archive a Brand."
+              : message == ManageMessageId.UpdateSuccess ? "You have successfully updated a Brand."
+              : message == ManageMessageId.RestoreSuccess ? "You have successfully restore a Brand."
+              : message == ManageMessageId.Error ? "An error has occurred."
+              : "";
 
                     return View(records);
                 }
@@ -160,7 +177,7 @@ namespace BontoBuy.Web.Controllers
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
                     }
                     var newItem = _repository.Create(item);
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.AddSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -235,7 +252,7 @@ namespace BontoBuy.Web.Controllers
                     //{
                     if (item == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Product cannot be null");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
                     var updatedItem = _repository.Update(id, item);
@@ -244,7 +261,7 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.UpdateSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -321,7 +338,7 @@ namespace BontoBuy.Web.Controllers
 
                     if (brandId < 1)
                     {
-                        RedirectToAction("Retrieve");
+                        RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
                     if (item == null)
                     {
@@ -331,7 +348,7 @@ namespace BontoBuy.Web.Controllers
                     _repository.Archive(brandId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.ArchiveSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -341,7 +358,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult RetrieveArchives()
+        public ActionResult RetrieveArchives(ManageMessageId? message)
         {
             try
             {
@@ -365,6 +382,12 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+         message == ManageMessageId.RestoreSuccess ? "You have successfully restore an Item."
+         : message == ManageMessageId.Error ? "An error has occurred."
+         : "";
+
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -439,7 +462,7 @@ namespace BontoBuy.Web.Controllers
                     var brandId = item.BrandId;
                     if (brandId < 1)
                     {
-                        RedirectToAction("RetrieveArchives");
+                        RedirectToAction("RetrieveArchives", new { message = ManageMessageId.Error });
                     }
                     if (item == null)
                     {
@@ -449,7 +472,7 @@ namespace BontoBuy.Web.Controllers
                     _repository.RevertArchive(brandId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("RetrieveArchives");
+                    return RedirectToAction("RetrieveArchives", new { message = ManageMessageId.RestoreSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }

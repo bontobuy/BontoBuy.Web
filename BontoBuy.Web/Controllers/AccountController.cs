@@ -108,8 +108,9 @@ namespace BontoBuy.Web.Controllers
                                      .Single();
                 bool passwordMatches = Crypto.VerifyHashedPassword(password, model.Password);
 
-                //string requestedUrl = Session["InitialRequest"] as string;
-                string requestedUrl = returnUrl;
+                string requestedUrl = Session["InitialRequest"] as string;
+
+                // string requestedUrl = returnUrl;
                 if (userId != null && passwordMatches == true)
                 {
                     switch (RolesForUser[0].ToString())
@@ -143,7 +144,7 @@ namespace BontoBuy.Web.Controllers
                             //{
                             //    return RedirectToAction("ActivateAccount", "Account");
                             //}
-                            return RedirectToAction("ActivateAccount", "Account");
+                            return RedirectToAction("Index", "Customer");
                     }
                     return RedirectToAction("ActivateAccount", "Account");
                 }

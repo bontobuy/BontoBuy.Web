@@ -12,8 +12,14 @@ namespace BontoBuy.Web.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public enum ManageMessageId
+        {
+            UpdateSuccess,
+            Error
+        }
+
         // GET: Return
-        public ActionResult Retrieve()
+        public ActionResult Retrieve(ManageMessageId? message)
         {
             try
             {
@@ -22,6 +28,12 @@ namespace BontoBuy.Web.Controllers
                 {
                     return RedirectToAction("Home", "Error404");
                 }
+
+                ViewBag.StatusMessage =
+                message == ManageMessageId.UpdateSuccess ? "You have successfully updated a Item."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
                 return View(records);
             }
             catch (Exception ex)
@@ -69,7 +81,7 @@ namespace BontoBuy.Web.Controllers
             try
             {
                 if (item == null)
-                    return RedirectToAction("Home", "Error404");
+                    return RedirectToAction("Retrieve", "Return", new { message = ManageMessageId.Error });
 
                 var newItem = new ReturnViewModel()
                 {
@@ -149,7 +161,7 @@ namespace BontoBuy.Web.Controllers
                     DtUpdated = item.DtUpdated
                 };
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Retrieve", "Return", new { message = ManageMessageId.UpdateSuccess });
             }
             catch
             {

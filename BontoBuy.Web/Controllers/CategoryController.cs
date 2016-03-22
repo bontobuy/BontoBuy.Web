@@ -14,13 +14,23 @@ namespace BontoBuy.Web.Controllers
     {
         private readonly ICategoryRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public enum ManageMessageId
+        {
+            AddCategorySuccess,
+            UpdateCategorySuccess,
+            ArchiveCategorySuccess,
+            RestoreCategorySuccess,
+            Error
+        }
+
         public CategoryController(ICategoryRepo repo)
         {
             _repository = repo;
         }
 
         // GET: Category
-        public ActionResult Retrieve()
+        public ActionResult Retrieve(ManageMessageId? message)
         {
             try
             {
@@ -44,6 +54,14 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+                message == ManageMessageId.AddCategorySuccess ? "You have successfully added a new Category."
+                : message == ManageMessageId.ArchiveCategorySuccess ? "You have just archive a Category."
+                : message == ManageMessageId.UpdateCategorySuccess ? "You have successfully updated a Category."
+                : message == ManageMessageId.RestoreCategorySuccess ? "You have successfully restore a Category."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
                     return View(records);
 
                     //}
@@ -160,7 +178,7 @@ namespace BontoBuy.Web.Controllers
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
                     }
                     var newItem = _repository.Create(item);
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.AddCategorySuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -244,7 +262,7 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.UpdateCategorySuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -329,7 +347,7 @@ namespace BontoBuy.Web.Controllers
                     _repository.Archive(categoryId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.ArchiveCategorySuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -447,7 +465,7 @@ namespace BontoBuy.Web.Controllers
                     _repository.RevertArchive(categoryId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("RetrieveArchives");
+                    return RedirectToAction("RetrieveArchives", new { message = ManageMessageId.RestoreCategorySuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }

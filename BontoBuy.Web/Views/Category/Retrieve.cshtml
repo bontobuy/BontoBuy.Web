@@ -1,37 +1,38 @@
 ﻿@model IEnumerable<BontoBuy.Web.Models.CategoryViewModel>
 
-    @{
+@{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
     ViewBag.Title = "MainCategoryList";
-    }
+}
 
-    <div class="col-md-9">
-        <h2>Main Category List</h2>
+<div class="col-md-9">
+    <h2>Main Category List</h2>
 
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th></th>
-            </tr>
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
 
-            @foreach (var item in Model)
+        @foreach (var item in Model)
         {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
 
-                        @Html.ActionLink("Edit", "Update", new { id = item.CategoryId }) |
-                        @Html.ActionLink("Details", "Get", new { id = item.CategoryId }) |
-                        @Html.ActionLink("Archive", "Archive", new { id = item.CategoryId })
-                    </td>
-                </tr>
+                    @Html.ActionLink("Edit", "Update", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Details", "Get", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Archive", "Archive", new { id = item.CategoryId })
+                </td>
+            </tr>
         }
-        </table>
-    </div>
+    </table>
+</div>

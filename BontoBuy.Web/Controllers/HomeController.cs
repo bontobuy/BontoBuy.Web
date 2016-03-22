@@ -1609,7 +1609,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CatalogByBrand(int BrandId)
+        public ActionResult CatalogByBrand(int BrandId, int? page)
         {
             if (User.IsInRole("Supplier"))
                 return RedirectToAction("Index", "Supplier");
@@ -1619,10 +1619,9 @@ namespace BontoBuy.Web.Controllers
 
             string ItemIdInString = Session["ItemId"] as string;
             int ItemId = Convert.ToInt32(ItemIdInString);
-            var records = (from m in db.Models
-                           where m.BrandId == BrandId && m.Status == "Active"
-                           where m.ModelId == ItemId
-                           select m).ToList();
+            var brandTest = BrandId;
+
+            var records = db.Models.Where(m => m.ItemId == ItemId && m.BrandId == BrandId && m.Status == "Active").ToList();
 
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
 
@@ -1651,11 +1650,15 @@ namespace BontoBuy.Web.Controllers
                 CatalogList.Add(CatalogItem);
             }
 
-            return View("Catalog", CatalogList);
+            var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+            var pageOfProducts = CatalogList.ToPagedList(pageNumber, 10); //set the number of records per page
+            ViewBag.pageOfProducts = pageOfProducts;
+
+            return View("Catalog");
         }
 
         [HttpPost]
-        public ActionResult CatalogByPrice(int minPrice, int maxPrice)
+        public ActionResult CatalogByPrice(int minPrice, int maxPrice, int? page)
         {
             if (User.IsInRole("Supplier"))
                 return RedirectToAction("Index", "Supplier");
@@ -1663,9 +1666,11 @@ namespace BontoBuy.Web.Controllers
             if (User.IsInRole("Admin"))
                 return RedirectToAction("Index", "Admin");
 
+            string ItemIdInString = Session["ItemId"] as string;
+            int ItemId = Convert.ToInt32(ItemIdInString);
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
 
-            var records = db.Models.Where(m => m.Price >= minPrice && m.Price <= maxPrice && m.Status == "Active").ToList();
+            var records = db.Models.Where(m => m.Price >= minPrice && m.Price <= maxPrice && m.Status == "Active" && m.ItemId == ItemId).ToList();
             var CatalogList = new List<HomeCatalogViewModel>();
             foreach (var item in records)
             {
@@ -1691,7 +1696,11 @@ namespace BontoBuy.Web.Controllers
                 CatalogList.Add(CatalogItem);
             }
 
-            return View("Catalog", CatalogList);
+            var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+            var pageOfProducts = CatalogList.ToPagedList(pageNumber, 10); //set the number of records per page
+            ViewBag.pageOfProducts = pageOfProducts;
+
+            return View("Catalog");
         }
     }
 }

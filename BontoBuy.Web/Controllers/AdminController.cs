@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : NotificationController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -20,6 +20,7 @@ namespace BontoBuy.Web.Controllers
         {
             if (User.IsInRole("Admin"))
             {
+                GetNewSupplierActivation();
                 return View();
             }
             if (User.IsInRole("Supplier"))
@@ -141,6 +142,27 @@ namespace BontoBuy.Web.Controllers
                 .GetBytes("png");
 
             return File(myChart, "image/bytes");
+        }
+
+        public ActionResult NewSuppliers()
+        {
+            var records = db.Users.Where(u =>
+         u.Roles.Join(db.Roles, usrRole => usrRole.RoleId,
+         role => role.Id, (usrRole, role) => role).Any(r => r.Name.Equals("Supplier")) && u.Status == "Pending").ToList();
+
+            var userAccountList = new List<UserRoleViewModel>();
+            foreach (var item in records)
+            {
+                var userAccount = new UserRoleViewModel()
+                {
+                    UserId = item.Id,
+                    Email = item.Email,
+                    Status = item.Status
+                };
+                userAccountList.Add(userAccount);
+            }
+
+            return View("../Role/RetrieveSuppliers", userAccountList);
         }
     }
 }

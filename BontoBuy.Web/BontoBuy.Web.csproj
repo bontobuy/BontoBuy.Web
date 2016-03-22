@@ -1027,6 +1027,8 @@
     <Content Include="Views\Supplier\SupplierEditReturn.cshtml" />
     <Content Include="Views\Test\Datepicker.cshtml" />
     <Content Include="Views\Admin\OrderReturnReport.cshtml" />
+    <Content Include="Views\Return\Retrieve.cshtml" />
+    <Content Include="Views\Return\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1041,7 +1043,6 @@
     <Folder Include="Views\PaymentCustomer\" />
     <Folder Include="Views\PaymentSupplier\" />
     <Folder Include="Views\Payment\" />
-    <Folder Include="Views\Return\" />
     <Folder Include="Views\SupplierNotification\" />
     <Folder Include="Views\SupplierOrder\" />
     <Folder Include="Views\SupplierPayment\" />

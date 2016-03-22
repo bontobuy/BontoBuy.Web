@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BontoBuy.Web.Models;
@@ -15,216 +16,285 @@ namespace BontoBuy.Web.Controllers
         // GET: Cart
         public ActionResult RetrieveModels()
         {
-            string userId = User.Identity.GetUserId();
-            if (String.IsNullOrEmpty(userId))
-                return RedirectToAction("Error404", "Home");
-
-            var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
-
-            if (User.IsInRole("Supplier") && user.ActivationCode == null)
+            try
             {
-                var getSupplier = (from s in db.Suppliers
-                                   where s.Id == userId
-                                   select s).FirstOrDefault();
+                string userId = User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(userId))
+                    return RedirectToAction("Error404", "Home");
 
-                var retrieveModels = (from m in db.Models
-                                      join ms in db.ModelSpecs on m.ModelId equals ms.ModelId
-                                      join s in db.Suppliers on ms.SupplierId equals s.SupplierId
+                var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
 
-                                      select m).Distinct();
-
-                var modelList = new List<SupplierRetrieveModelsViewModel>();
-
-                foreach (var obj in retrieveModels)
+                if (User.IsInRole("Supplier") && user.ActivationCode == null)
                 {
-                    var model = new SupplierRetrieveModelsViewModel()
+                    var getSupplier = (from s in db.Suppliers
+                                       where s.Id == userId
+                                       select s).FirstOrDefault();
+
+                    var retrieveModels = (from m in db.Models
+                                          join ms in db.ModelSpecs on m.ModelId equals ms.ModelId
+                                          join s in db.Suppliers on ms.SupplierId equals s.SupplierId
+
+                                          select m).Distinct();
+
+                    var modelList = new List<SupplierRetrieveModelsViewModel>();
+
+                    foreach (var obj in retrieveModels)
                     {
-                        ModelId = obj.ModelId,
-                        ModelNumber = obj.ModelNumber,
-                        BrandName = (from b in db.Brands
-                                     join m in db.Models on b.BrandId equals m.BrandId
-                                     where b.BrandId == obj.BrandId
-                                     select b.Name).FirstOrDefault(),
-                        ImageUrl = (from ph in db.Photos
-                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
-                                    join m in db.Models on pm.ModelId equals m.ModelId
-                                    where pm.ModelId == obj.ModelId
-                                    select ph.ImageUrl).FirstOrDefault()
-                    };
+                        var model = new SupplierRetrieveModelsViewModel()
+                        {
+                            ModelId = obj.ModelId,
+                            ModelNumber = obj.ModelNumber,
+                            BrandName = (from b in db.Brands
+                                         join m in db.Models on b.BrandId equals m.BrandId
+                                         where b.BrandId == obj.BrandId
+                                         select b.Name).FirstOrDefault(),
+                            ImageUrl = (from ph in db.Photos
+                                        join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                        join m in db.Models on pm.ModelId equals m.ModelId
+                                        where pm.ModelId == obj.ModelId
+                                        select ph.ImageUrl).FirstOrDefault()
+                        };
 
-                    modelList.Add(model);
+                        modelList.Add(model);
+                    }
+
+                    return View(modelList);
                 }
-
-                return View(modelList);
+                return RedirectToAction("Login", "Account");
             }
-            return RedirectToAction("Login", "Account");
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // GET: Cart/Details/5
         public ActionResult Details(int id)
         {
-            int modelId = id;
-            string userId = User.Identity.GetUserId();
-            var getSupplier = (from s in db.Suppliers
-                               where s.Id == userId
-                               select s).FirstOrDefault();
-
-            var modelSpecList = (from ms in db.ModelSpecs
-                                 where ms.ModelId == modelId
-                                 select ms).ToList();
-
-            var modelSpecVM = new List<SupplierGetModelSpecViewModel>();
-
-            foreach (var obj in modelSpecList)
+            try
             {
-                var model = new SupplierGetModelSpecViewModel()
+                string userId = User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(userId))
+                    return RedirectToAction("Error404", "Home");
+
+                int modelId = id;
+                if (modelId < 1)
+                    return RedirectToAction("Error404", "Home");
+
+                var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+
+                if (User.IsInRole("Customer") && user.ActivationCode == null)
                 {
-                    ModelId = modelId,
-                    Value = obj.Value,
-                    Description = (from s in db.Specifications
-                                   join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
-                                   where s.SpecificationId == obj.SpecificationId
-                                   select s.Description).FirstOrDefault()
-                };
-                ViewBag.ModelSpec = db.Models.Find(modelId).ModelNumber.ToString();
-                modelSpecVM.Add(model);
+                    var getSupplier = (from s in db.Suppliers
+                                       where s.Id == userId
+                                       select s).FirstOrDefault();
+
+                    var modelSpecList = (from ms in db.ModelSpecs
+                                         where ms.ModelId == modelId
+                                         select ms).ToList();
+
+                    var modelSpecVM = new List<SupplierGetModelSpecViewModel>();
+
+                    foreach (var obj in modelSpecList)
+                    {
+                        var model = new SupplierGetModelSpecViewModel()
+                        {
+                            ModelId = modelId,
+                            Value = obj.Value,
+                            Description = (from s in db.Specifications
+                                           join ms in db.ModelSpecs on s.SpecificationId equals ms.SpecificationId
+                                           where s.SpecificationId == obj.SpecificationId
+                                           select s.Description).FirstOrDefault()
+                        };
+                        ViewBag.ModelSpec = db.Models.Find(modelId).ModelNumber.ToString();
+                        modelSpecVM.Add(model);
+                    }
+
+                    var cartData = new ModelToCartViewModel()
+                    {
+                        ModelId = modelId,
+                        SupplierId = (from s in db.Suppliers
+                                      join m in db.Models on s.SupplierId equals m.SupplierId
+                                      where m.ModelId == modelId
+                                      select s.SupplierId).FirstOrDefault()
+                    };
+
+                    Session["cartData"] = cartData;
+
+                    return View(modelSpecVM);
+                }
+                return RedirectToAction("Login", "Account");
             }
-
-            var cartData = new ModelToCartViewModel()
+            catch (Exception ex)
             {
-                ModelId = modelId,
-                SupplierId = (from s in db.Suppliers
-                              join m in db.Models on s.SupplierId equals m.SupplierId
-                              where m.ModelId == modelId
-                              select s.SupplierId).FirstOrDefault()
-            };
-
-            Session["cartData"] = cartData;
-
-            return View(modelSpecVM);
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         [HttpPost]
         public ActionResult Details(List<SupplierGetModelSpecViewModel> items)
         {
-            var cartData = Session["cartData"] as ModelToCartViewModel;
-            string userId = User.Identity.GetUserId();
-            var cartList = new List<CartViewModel>();
-            List<CartViewModel> updatedCartList = Session["Cart"] as List<CartViewModel>;
-            if (updatedCartList == null)
+            try
             {
-                var cartItem = new CartViewModel()
+                string userId = User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(userId))
+                    return RedirectToAction("Error404", "Home");
+
+                var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+                if (User.IsInRole("Customer") && user.ActivationCode == null)
                 {
-                    ModelId = cartData.ModelId,
-                    SupplierId = cartData.SupplierId
-                };
-                cartList.Add(cartItem);
-                Session["Cart"] = cartList;
+                    var cartData = Session["cartData"] as ModelToCartViewModel;
+                    var cartList = new List<CartViewModel>();
+                    List<CartViewModel> updatedCartList = Session["Cart"] as List<CartViewModel>;
+                    if (updatedCartList == null)
+                    {
+                        var cartItem = new CartViewModel()
+                        {
+                            ModelId = cartData.ModelId,
+                            SupplierId = cartData.SupplierId
+                        };
+                        cartList.Add(cartItem);
+                        Session["Cart"] = cartList;
+                    }
+                    if (updatedCartList != null)
+                    {
+                        var cartItem = new CartViewModel()
+                        {
+                            ModelId = cartData.ModelId,
+                            SupplierId = cartData.SupplierId
+                        };
+                        updatedCartList.Add(cartItem);
+                        Session.Remove("Cart");
+                        Session["Cart"] = updatedCartList;
+                    }
+                    return RedirectToAction("NavigateToCart");
+                }
+
+                return RedirectToAction("Login", "Account");
             }
-            if (updatedCartList != null)
+            catch (Exception ex)
             {
-                var cartItem = new CartViewModel()
-              {
-                  ModelId = cartData.ModelId,
-                  SupplierId = cartData.SupplierId
-              };
-                updatedCartList.Add(cartItem);
-                Session.Remove("Cart");
-                Session["Cart"] = updatedCartList;
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
-            return RedirectToAction("NavigateToCart");
         }
+
         public ActionResult NavigateToCart()
         {
-            string userId = User.Identity.GetUserId();
-
-            List<CartViewModel> cartList = Session["Cart"] as List<CartViewModel>;
-
-            if (cartList != null)
+            try
             {
-                foreach (var item in cartList)
+                string userId = User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(userId))
+                    return RedirectToAction("Error404", "Home");
+
+                var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+                if (User.IsInRole("Customer") && user.ActivationCode == null)
                 {
-                    item.ModelName = (from m in db.Models
-                                      where m.ModelId == item.ModelId
-                                      select m.ModelNumber).FirstOrDefault();
+                    List<CartViewModel> cartList = Session["Cart"] as List<CartViewModel>;
 
-                    item.ImageUrl = (from p in db.Photos
-                                     join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
-                                     join m in db.Models on pm.ModelId equals m.ModelId
-                                     where m.ModelId == item.ModelId
-                                     select p.ImageUrl).FirstOrDefault();
+                    if (cartList != null)
+                    {
+                        foreach (var item in cartList)
+                        {
+                            item.ModelName = (from m in db.Models
+                                              where m.ModelId == item.ModelId
+                                              select m.ModelNumber).FirstOrDefault();
 
-                    item.UnitPrice = (from m in db.Models
-                                      where m.ModelId == item.ModelId
-                                      select m.Price).FirstOrDefault();
+                            item.ImageUrl = (from p in db.Photos
+                                             join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                                             join m in db.Models on pm.ModelId equals m.ModelId
+                                             where m.ModelId == item.ModelId
+                                             select p.ImageUrl).FirstOrDefault();
 
-                    //item.Quantity = 1;
-                    //item.SubTotal = (item.Quantity * item.UnitPrice);
+                            item.UnitPrice = (from m in db.Models
+                                              where m.ModelId == item.ModelId
+                                              select m.Price).FirstOrDefault();
+
+                            //item.Quantity = 1;
+                            //item.SubTotal = (item.Quantity * item.UnitPrice);
+                        }
+                        return View(cartList);
+                    }
+                    return RedirectToAction("Index", "Home");
                 }
-                return View(cartList);
+                return RedirectToAction("Login", "Account");
             }
-            return RedirectToAction("Index", "Home");
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         [HttpPost]
         public ActionResult NavigateToCart(FormCollection collection)
         {
-            //var quantity = order.Quantity;
-            List<CartViewModel> orderList = Session["Cart"] as List<CartViewModel>;
-
-            //string userId = User.Identity.GetUserId();
-            //if (userId == null)
-            //{
-            //    string returnUrl = Request.Url.ToString();
-            //    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
-            //}
-            //else { userId = User.Identity.GetUserId(); }
-
-            int quantity = 0;
-            int total = 0;
-            var quantityArray = collection.GetValues("item.Quantity");
-
-            foreach (var item in orderList)
+            try
             {
-                //item.ModelName = (from m in db.Models
-                //                  where m.ModelId == item.ModelId
-                //                  select m.ModelNumber).FirstOrDefault();
+                string userId = User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(userId))
+                    return RedirectToAction("Error404", "Home");
 
-                //item.ImageUrl = (from p in db.Photos
-                //                 join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
-                //                 join m in db.Models on pm.ModelId equals m.ModelId
-                //                 where m.ModelId == item.ModelId
-                //                 select p.ImageUrl).FirstOrDefault();
+                var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+                if (User.IsInRole("Customer") && user.ActivationCode == null)
+                {
+                    //var quantity = order.Quantity;
+                    List<CartViewModel> orderList = Session["Cart"] as List<CartViewModel>;
 
-                item.UnitPrice = (from m in db.Models
-                                  where m.ModelId == item.ModelId
-                                  select m.Price).FirstOrDefault();
+                    //string userId = User.Identity.GetUserId();
+                    //if (userId == null)
+                    //{
+                    //    string returnUrl = Request.Url.ToString();
+                    //    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+                    //}
+                    //else { userId = User.Identity.GetUserId(); }
+                    int quantity = 0;
+                    int total = 0;
+                    var quantityArray = collection.GetValues("item.Quantity");
+                    foreach (var item in orderList)
+                    {
+                        //item.ModelName = (from m in db.Models
+                        //                  where m.ModelId == item.ModelId
+                        //                  select m.ModelNumber).FirstOrDefault();
+                        //item.ImageUrl = (from p in db.Photos
+                        //                 join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                        //                 join m in db.Models on pm.ModelId equals m.ModelId
+                        //                 where m.ModelId == item.ModelId
+                        //                 select p.ImageUrl).FirstOrDefault();
+                        item.UnitPrice = (from m in db.Models
+                                          where m.ModelId == item.ModelId
+                                          select m.Price).FirstOrDefault();
+                        item.Quantity = Convert.ToInt32(quantityArray[quantity]);
+                        item.SubTotal = (item.Quantity * item.UnitPrice);
 
-                item.Quantity = Convert.ToInt32(quantityArray[quantity]);
+                        //item.GrandTotal += item.SubTotal;
+                        total += item.SubTotal;
 
-                item.SubTotal = (item.Quantity * item.UnitPrice);
+                        //item.UserId = userId;
+                        item.SupplierId = db.Models.Find(item.ModelId).SupplierId;
 
-                //item.GrandTotal += item.SubTotal;
-                total += item.SubTotal;
+                        //item.Quantity = 1;
+                        quantity++;
+                    }
+                    Session["Order"] = orderList;
 
-                //item.UserId = userId;
-                item.SupplierId = db.Models.Find(item.ModelId).SupplierId;
-
-                //item.Quantity = 1;
-
-                quantity++;
+                    return RedirectToAction("ReviewOrder", "Order", new { total = total });
+                }
+                return RedirectToAction("Login", "Account");
             }
-
-            Session["Order"] = orderList;
-            return RedirectToAction("ReviewOrder", "Order", new { total = total });
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         public JsonResult RemoveCartItem(int id)
         {
             List<CartViewModel> cartList = Session["Cart"] as List<CartViewModel>;
+
             var itemToRemove = cartList.FindIndex(m => m.ModelId == id);
             cartList.RemoveAt(itemToRemove);
+
             Session["Cart"] = cartList;
+
             int count = cartList.Count();
             return Json(new { count, cartList }, JsonRequestBehavior.AllowGet);
         }

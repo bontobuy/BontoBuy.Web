@@ -13,13 +13,23 @@ namespace BontoBuy.Web.Controllers
     {
         private readonly ISpecificationRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public enum ManageMessageId
+        {
+            AddSuccess,
+            UpdateSuccess,
+            ArchiveSuccess,
+            RestoreSuccess,
+            Error
+        }
+
         public SpecificationController(ISpecificationRepo repo)
         {
             _repository = repo;
         }
 
         // GET: Specification
-        public ActionResult Retrieve()
+        public ActionResult Retrieve(ManageMessageId? message)
         {
             try
             {
@@ -43,6 +53,15 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+               message == ManageMessageId.AddSuccess ? "You have successfully added a new Specification."
+               : message == ManageMessageId.ArchiveSuccess ? "You have just archive a Specification."
+               : message == ManageMessageId.UpdateSuccess ? "You have successfully updated a Specification."
+               : message == ManageMessageId.RestoreSuccess ? "You have successfully restore a Specification."
+               : message == ManageMessageId.Error ? "An error has occurred."
+               : "";
+
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -155,7 +174,7 @@ namespace BontoBuy.Web.Controllers
                     //{
                     if (item == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
                     //  var newItem = _repository.Create(item);
@@ -179,7 +198,7 @@ namespace BontoBuy.Web.Controllers
                         productSpec.SpecificationId = spec.SpecificationId;
                         db.ProductSpecs.Add(productSpec);
                         db.SaveChanges();
-                        return RedirectToAction("Retrieve");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.AddSuccess });
                     }
                     ViewBag.TagId = new SelectList(db.SpecialCategories, "SpecialCatId", "Description", spec.SpecialCatId);
                     return View(item);
@@ -257,16 +276,16 @@ namespace BontoBuy.Web.Controllers
                     //{
                     if (item == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Specification cannot be null");
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
                     var updatedItem = _repository.Update(id, item);
                     if (updatedItem == null)
                     {
-                        return HttpNotFound();
+                        return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.UpdateSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -342,7 +361,7 @@ namespace BontoBuy.Web.Controllers
                     var specId = item.SpecificationId;
                     if (specId < 1)
                     {
-                        RedirectToAction("Retrieve");
+                        RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
                     if (item == null)
                     {
@@ -351,7 +370,7 @@ namespace BontoBuy.Web.Controllers
                     _repository.Archive(specId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("Retrieve");
+                    return RedirectToAction("Retrieve", new { message = ManageMessageId.ArchiveSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -361,7 +380,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult RetrieveArchives()
+        public ActionResult RetrieveArchives(ManageMessageId? message)
         {
             try
             {
@@ -385,6 +404,12 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+       message == ManageMessageId.RestoreSuccess ? "You have successfully restore a Specification."
+       : message == ManageMessageId.Error ? "An error has occurred."
+       : "";
+
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -459,17 +484,17 @@ namespace BontoBuy.Web.Controllers
                     var specId = item.SpecificationId;
                     if (specId < 1)
                     {
-                        RedirectToAction("RetrieveArchives");
+                        RedirectToAction("RetrieveArchives", new { message = ManageMessageId.Error });
                     }
                     if (item == null)
                     {
-                        RedirectToAction("RetrieveArchives");
+                        RedirectToAction("RetrieveArchives", new { message = ManageMessageId.Error });
                     }
 
                     _repository.RevertArchive(specId);
 
                     //   return RedirectToAction("Retrieve");
-                    return RedirectToAction("RetrieveArchives");
+                    return RedirectToAction("RetrieveArchives", new { message = ManageMessageId.RestoreSuccess });
                 }
                 return RedirectToAction("Login", "Account");
             }

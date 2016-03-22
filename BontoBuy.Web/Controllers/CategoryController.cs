@@ -357,7 +357,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult RetrieveArchives()
+        public ActionResult RetrieveArchives(ManageMessageId? message)
         {
             try
             {
@@ -381,6 +381,11 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    ViewBag.StatusMessage =
+                message == ManageMessageId.RestoreCategorySuccess ? "You have successfully restore a Category."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");

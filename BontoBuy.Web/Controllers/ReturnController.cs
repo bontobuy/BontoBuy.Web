@@ -1,4 +1,5 @@
 ﻿using BontoBuy.Web.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: Return
-        public ActionResult Retrieve(ManageMessageId? message)
+        public ActionResult Retrieve(ManageMessageId? message, int? page)
         {
             try
             {
@@ -34,7 +35,12 @@ namespace BontoBuy.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-                return View(records);
+                //Paging Section
+                var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                var pageOfProducts = records.ToPagedList(pageNumber, 10); //set the number of records per page
+                ViewBag.pageOfProducts = pageOfProducts;
+
+                return View();
             }
             catch (Exception ex)
             {

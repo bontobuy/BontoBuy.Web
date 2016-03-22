@@ -1,0 +1,63 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.ReturnViewModel>
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="col-md-9">
+    <h2>@ViewBag.Title</h2>
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DtCreated)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.pageOfProducts)
+        {
+            <tr>
+                <td>
+                    @item.ReturnId
+                </td>
+                <td>
+                    @item.OrderId
+                </td>
+                <td>
+                    @item.ReturnDate
+                </td>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    @item.DtCreated
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ReturnId }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ReturnId })
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="col-md-12">
+        <div class="text-center">
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveOrders", new { page }))
+            Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Returns
+        </div>
+    </div>
+</div>

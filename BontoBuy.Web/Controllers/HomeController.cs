@@ -1,5 +1,11 @@
 ﻿using BontoBuy.Web.Models;
+
+using BontoBuy.Web.Models;
+
 using Microsoft.AspNet.Identity;
+
+using Microsoft.AspNet.Identity;
+
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -1562,7 +1568,7 @@ namespace BontoBuy.Web.Controllers
                 };
                 CatalogList.Add(CatalogItem);
             }
-            Session["ItemId"] = id;
+            Session["ItemId"] = id.ToString();
 
             //Paging Section
             var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default

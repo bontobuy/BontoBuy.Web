@@ -47,5 +47,14 @@ namespace BontoBuy.Web.Controllers
                                       select r).Count();
             ViewBag.SupplierReturnNotification = ReturnNotification;
         }
+
+        public void GetNewSupplierActivation()
+        {
+            int usersInRole = db.Users.Where(u =>
+        u.Roles.Join(db.Roles, usrRole => usrRole.RoleId,
+        role => role.Id, (usrRole, role) => role).Any(r => r.Name.Equals("Supplier")) && u.Status == "Pending").ToList().Count();
+
+            ViewBag.NewSupplier = usersInRole;
+        }
     }
 }

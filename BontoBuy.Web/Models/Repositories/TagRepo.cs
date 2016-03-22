@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using BontoBuy.Web.HelperMethods;
 
 namespace BontoBuy.Web.Models
 {
     public class TagRepo : ITagRepo
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        private Helper helper = new Helper();
         public IEnumerable<SpecialCategoryViewModel> Retrieve()
         {
             var records = db.SpecialCategories.ToList();
@@ -25,14 +26,27 @@ namespace BontoBuy.Web.Models
         }
         public SpecialCategoryViewModel Create(SpecialCategoryViewModel item)
         {
-            var newRecord = new SpecialCategoryViewModel
-            {
-                Description = item.Description
-            };
-            db.SpecialCategories.Add(newRecord);
-            db.SaveChanges();
+            if (String.IsNullOrEmpty(item.Description))
+                return null;
 
-            return newRecord;
+            SpecialCategoryViewModel existingRecord = null;
+
+            string descriptionTitleCase = helper.ConvertToTitleCase(item.Description);
+            existingRecord = CheckForDuplicates(descriptionTitleCase);
+            if (existingRecord == null)
+            {
+                var newRecord = new SpecialCategoryViewModel
+                {
+                    Description = descriptionTitleCase
+                };
+
+                db.SpecialCategories.Add(newRecord);
+                db.SaveChanges();
+
+                return newRecord;
+            }
+
+            return existingRecord;
         }
 
         public SpecialCategoryViewModel Update(int id, SpecialCategoryViewModel item)
@@ -50,8 +64,16 @@ namespace BontoBuy.Web.Models
             return currentrecord;
         }
 
-        public void Remove(int id)
+        private SpecialCategoryViewModel CheckForDuplicates(string description)
         {
+            if (String.IsNullOrEmpty(description))
+                return null;
+
+            var record = db.SpecialCategories.Where(x => x.Description == description).FirstOrDefault();
+            if (record != null)
+                return record;
+
+            return null;
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -38,9 +38,6 @@ namespace BontoBuy.Web.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
-
-                //Check if the "Admin" role exists if not it returns a null value
-                var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
                 if (User.IsInRole("Admin"))
                 {
@@ -82,9 +79,6 @@ namespace BontoBuy.Web.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
-
-                //Check if the "Admin" role exists if not it returns a null value
-                var role = db.Roles.SingleOrDefault(m => m.Name == "Admin");
 
                 if (User.IsInRole("Admin"))
                 {
@@ -130,10 +124,6 @@ namespace BontoBuy.Web.Controllers
 
                 if (User.IsInRole("Admin"))
                 {
-                    //Runs a query to determine if the user is actually an "Admin" if not it returns a null value
-                    //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
-                    //if (userInRole != null)
-                    //{
                     var newItem = new SpecActionViewModel();
 
                     ViewBag.SpecialCatId = new SelectList(db.SpecialCategories, "SpecialCatId", "Description");

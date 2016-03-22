@@ -222,6 +222,8 @@
     <Compile Include="Controllers\SpecificationController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SupplierOrderController.cs" />
+    <Compile Include="Controllers\SupplierSpecialCategoryController.cs" />
+    <Compile Include="Controllers\SupplierSpecificationController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="HelperMethods\Helper.cs" />
     <Compile Include="Migrations\201601281501503_Remove Brand From Item.cs" />
@@ -1044,6 +1046,8 @@
     <Folder Include="Views\SupplierNotification\" />
     <Folder Include="Views\SupplierOrder\" />
     <Folder Include="Views\SupplierPayment\" />
+    <Folder Include="Views\SupplierSpecialCategory\" />
+    <Folder Include="Views\SupplierSpecification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

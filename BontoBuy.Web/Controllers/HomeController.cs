@@ -1,13 +1,4 @@
-﻿using BontoBuy.Web.Models;
-
-using BontoBuy.Web.Models;
-
-using Microsoft.AspNet.Identity;
-
-using Microsoft.AspNet.Identity;
-
-using PagedList;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -15,6 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -43,6 +37,12 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult ModelDetails(int id)
         {
+            if (User.IsInRole("Supplier"))
+                return RedirectToAction("Index", "Supplier");
+
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("Index", "Admin");
+
             dynamic model = new ExpandoObject();
 
             if (id < 0)
@@ -497,6 +497,12 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult Index()
         {
+            if (User.IsInRole("Supplier"))
+                return RedirectToAction("Index", "Supplier");
+
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("Index", "Admin");
+
             dynamic model = new ExpandoObject();
 
             var categoryRecords = _categoryRepository.Retrieve();
@@ -1525,6 +1531,12 @@ namespace BontoBuy.Web.Controllers
         [HttpPost]
         public ActionResult Index(string searchCriteria)
         {
+            if (User.IsInRole("Supplier"))
+                return RedirectToAction("Index", "Supplier");
+
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("Index", "Admin");
+
             if (String.IsNullOrEmpty(searchCriteria))
             {
                 return RedirectToAction("Index", "Home");
@@ -1535,6 +1547,12 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult Catalog(int id, int? page)
         {
+            if (User.IsInRole("Supplier"))
+                return RedirectToAction("Index", "Supplier");
+
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("Index", "Admin");
+
             if (id < 0)
             {
                 return RedirectToAction("Error404", "Home");
@@ -1580,6 +1598,12 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult CatalogByBrand()
         {
+            if (User.IsInRole("Supplier"))
+                return RedirectToAction("Index", "Supplier");
+
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("Index", "Admin");
+
             var ItemId = Session["ItemId"] as string;
             return RedirectToAction("Catalog", new { id = ItemId });
         }
@@ -1587,6 +1611,12 @@ namespace BontoBuy.Web.Controllers
         [HttpPost]
         public ActionResult CatalogByBrand(int BrandId)
         {
+            if (User.IsInRole("Supplier"))
+                return RedirectToAction("Index", "Supplier");
+
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("Index", "Admin");
+
             string ItemIdInString = Session["ItemId"] as string;
             int ItemId = Convert.ToInt32(ItemIdInString);
             var records = (from m in db.Models
@@ -1627,6 +1657,12 @@ namespace BontoBuy.Web.Controllers
         [HttpPost]
         public ActionResult CatalogByPrice(int minPrice, int maxPrice)
         {
+            if (User.IsInRole("Supplier"))
+                return RedirectToAction("Index", "Supplier");
+
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("Index", "Admin");
+
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
 
             var records = db.Models.Where(m => m.Price >= minPrice && m.Price <= maxPrice && m.Status == "Active").ToList();

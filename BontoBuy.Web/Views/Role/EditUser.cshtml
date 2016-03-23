@@ -38,13 +38,13 @@
                         @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.UserRoles, "UserRole", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-5">
-                        @Html.DropDownList("roleName", (IEnumerable<SelectListItem>)ViewBag.UserRoles)
-                        @Html.ValidationMessageFor(model => model.UserRoles, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.UserRoles, "UserRole", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.DropDownList("roleName", (IEnumerable<SelectListItem>)ViewBag.UserRoles)
+                            @Html.ValidationMessageFor(model => model.UserRoles, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">

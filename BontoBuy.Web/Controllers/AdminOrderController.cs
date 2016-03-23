@@ -59,7 +59,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchOrders(DateTime fromDate, DateTime toDate, int? page)
+        public ActionResult SearchOrders(Nullable<DateTime> fromDate, Nullable<DateTime> toDate, int? page)
         {
             try
             {
@@ -76,6 +76,10 @@ namespace BontoBuy.Web.Controllers
                 var itemList = new List<AdminRetrieveOrdersViewModel>();
                 foreach (var item in searchResult)
                 {
+                    int unitPrice = (from o in db.Orders
+                                     where o.OrderId == item.OrderId
+                                     select o.UnitPrice).FirstOrDefault();
+
                     var orderItem = new AdminRetrieveOrdersViewModel()
                     {
                         OrderId = item.OrderId,
@@ -93,7 +97,9 @@ namespace BontoBuy.Web.Controllers
                                         where c.SupplierId == item.SupplierId
                                         select c.Name).FirstOrDefault(),
                         Status = item.Status,
-                        DtCreated = item.DtCreated
+                        DtCreated = item.DtCreated,
+                        SupplierId = item.SupplierId,
+                        Price = unitPrice
                     };
                     itemList.Add(orderItem);
                 }

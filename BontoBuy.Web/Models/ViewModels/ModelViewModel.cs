@@ -57,25 +57,41 @@ namespace BontoBuy.Web.Models
     public class ModelAdminViewModel
     {
         public int ModelId { get; set; }
+        [Display(Name = "Supplier")]
         public string SupplierName { get; set; }
+        [Display(Name = "Supplier Email")]
         public string SupplierEmail { get; set; }
         public int SupplierId { get; set; }
         public int Price { get; set; }
         public string Status { get; set; }
+        [Display(Name = "Date Created")]
         public DateTime DtCreated { get; set; }
+        [Display(Name = "Model Number")]
         public string ModelNumber { get; set; }
+        [Display(Name = "Brand")]
         public string BrandName { get; set; }
+        [Display(Name = "Item Type")]
         public string ItemName { get; set; }
     }
 
     public class ModelAdminRetrieveViewModel
     {
         public int ModelId { get; set; }
+        [Display(Name = "Model Number")]
         public string ModelNumber { get; set; }
+        [Display(Name = "Date Created")]
         public DateTime DtCreated { get; set; }
         public string Status { get; set; }
+        [Display(Name = "")]
         public string ImageUrl { get; set; }
         public int Price { get; set; }
+        [Display(Name = "Supplier Id")]
         public int SupplierId { get; set; }
+        [Display(Name = "Commission Due")]
+        public int SupplierCommission { get; set; }
+        [Display(Name = "Commission Percentage")]
+        public string CommissionPercentage { get; set; }
+        [Display(Name = "Supplier Name")]
+        public string SupplierName { get; set; }
     }
 }

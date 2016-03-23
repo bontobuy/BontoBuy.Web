@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using BontoBuy.Web.HelperMethods;
 
 namespace BontoBuy.Web.Models
 {
     public class SpecificationRepo : ISpecificationRepo
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        private Helper helper = new Helper();
         public IEnumerable<SpecificationViewModel> Retrieve()
         {
             var records = (from specs in db.Specifications
                            where specs.Status == "Active"
-                           select specs).ToList();
+                           select specs).ToList().OrderBy(x => x.Description);
 
             return records;
         }
@@ -27,14 +28,22 @@ namespace BontoBuy.Web.Models
         }
         public SpecificationViewModel Create(SpecificationViewModel item)
         {
-            var newRecord = new SpecificationViewModel
+            string stringTitleCase = helper.ConvertToTitleCase(item.Description);
+            var existingItem = CheckForDuplicates(stringTitleCase);
+            if (existingItem == null)
             {
-                Description = item.Description,
-                Status = "Active"
-            };
-            db.Specifications.Add(newRecord);
-            db.SaveChanges();
-            return newRecord;
+                var newRecord = new SpecificationViewModel
+                {
+                    Description = stringTitleCase,
+                    Status = "Active"
+                };
+
+                db.Specifications.Add(newRecord);
+                db.SaveChanges();
+                return newRecord;
+            }
+
+            return null;
         }
 
         public SpecificationViewModel Update(int id, SpecificationViewModel item)
@@ -87,12 +96,16 @@ namespace BontoBuy.Web.Models
             }
         }
 
-        //public IEnumerable<> GetList()
-        //{
-        //    var records = from r in db.Categories
-        //                  select new { r.CategoryId, r.Description };
+        private SpecificationViewModel CheckForDuplicates(string description)
+        {
+            if (String.IsNullOrEmpty(description))
+                return null;
 
-        //    return records;
-        //}
+            var record = db.Specifications.Where(x => x.Description == description).FirstOrDefault();
+            if (record != null)
+                return record;
+
+            return null;
+        }
     }
 }

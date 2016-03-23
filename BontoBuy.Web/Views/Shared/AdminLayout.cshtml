@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
 
     <style type="text/css">
@@ -172,6 +172,12 @@
                                 <a href="@Url.Action("Retrieve","Model")">List</a>
                             </li>
                             <li>
+                                <a href="@Url.Action("RetrieveActive","Model")">Active List</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("RetrievePending","Model")">Pending List</a>
+                            </li>
+                            <li>
                                 <a href="@Url.Action("Create","Model")">Add New</a>
                             </li>
                             <li>
@@ -197,8 +203,6 @@
                                 @*@using (Html.BeginForm("NewSuppliers", "Admin", FormMethod.Post, new { id = "NewSuppliers" }))
                                     {*@
                                 <a href="javascript:$('#NewSuppliers').submit()">New Suppliers<span class="badge">@ViewBag.NewSupplier</span></a>
-
-
                             </li>
                             <li>
                                 <a href="@Url.Action("RetrieveCustomers","Role")">List of Customers</a>
@@ -218,10 +222,10 @@
                         <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-arrow-down"></i> Returns</a>
                         <ul id="demo" class="dropdown-menu">
                             <li>
-                                <a href="@Url.Action("Retrieve","Return")">>View Returns</a>
+                                <a href="@Url.Action("Retrieve","Return")">View Returns</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Edit","Return")">>Update Status</a>
+                                <a href="@Url.Action("Edit","Return")">Update Status</a>
                             </li>
                         </ul>
                     </li>

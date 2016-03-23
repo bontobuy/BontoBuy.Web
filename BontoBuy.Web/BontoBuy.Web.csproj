@@ -806,6 +806,7 @@
     <Content Include="Content\Menu\Womens.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Supplier\Site.css" />
+    <Content Include="Content\Welcome.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

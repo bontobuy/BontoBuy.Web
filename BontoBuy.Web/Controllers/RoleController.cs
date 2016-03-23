@@ -1,4 +1,9 @@
-﻿using System;
+﻿using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,11 +12,6 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -242,14 +242,29 @@ namespace BontoBuy.Web.Controllers
             if (User.IsInRole("Admin"))
             {
                 int statusId = 1;
-                ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name", statusId);
-                string status = (from s in db.Statuses
-                                 where s.StatusId == statusId
-                                 select s.Name).FirstOrDefault();
+
+                //ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name", statusId);
+                //string status = (from s in db.Statuses
+                //                 where s.StatusId == statusId
+                //                 select s.Name).FirstOrDefault();
+
                 var user = (from u in db.Users
                             where u.Id == item.UserId
                             select u).FirstOrDefault();
-                user.Status = status;
+
+                if (user.Status == "Active")
+                {
+                    user.Status = "Inactive";
+                }
+                else if (user.Status == "Inactive")
+                {
+                    user.Status = "Active";
+                }
+                else if (user.Status == "Pending")
+                {
+                    user.Status = "Active";
+                }
+
                 db.SaveChanges();
 
                 if (user.Status == "Active" && user.ActivationCode != null)

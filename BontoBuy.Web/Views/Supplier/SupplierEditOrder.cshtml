@@ -1,7 +1,7 @@
 ﻿@model BontoBuy.Web.Models.SupplierUpdateOrderViewModel
 @{
     Layout = "~/Views/Shared/SupplierLayout.cshtml";
-    ViewBag.Title = "Edit Order: "+Model.OrderId;
+    ViewBag.Title = "Edit Order: " + Model.OrderId;
 }
 @using (Html.BeginForm())
 {
@@ -9,7 +9,7 @@
 
     <div class="form-horizontal">
         <h4>@ViewBag.Title</h4>
-        <hr/>
+        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.OrderId)
 
@@ -36,14 +36,21 @@
                 @Html.ValidationMessageFor(model => model.RealDeliveryDate, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.OrderStatusId, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.DropDownList("OrderStatusId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.OrderStatusId, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.OrderStatusId, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.DropDownList("OrderStatusId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrderStatusId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -69,11 +76,33 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default"/>
+        @if (Model.Status == "Active")
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Processing" class="btn btn-default" />
+                </div>
             </div>
-        </div>
+        }
+        @if (Model.Status == "Processing")
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="In Transit" class="btn btn-default" />
+                </div>
+            </div>
+        }
+
+        @if (Model.Status == "In Transit")
+        {
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    Enter Confirmation Code received from Customer: <input type="text" required name="ConfirmationCode" class="form-control" /><br />
+                    <input type="submit" value="Delivered" class="btn btn-info" />
+                </div>
+            </div>
+        }
     </div>
 }
 

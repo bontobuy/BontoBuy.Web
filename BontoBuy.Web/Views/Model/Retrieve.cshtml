@@ -1,13 +1,39 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.ModelAdminRetrieveViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.ModelAdminRetrieveViewModel>
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
     ViewBag.Title = "List of Models";
 }
 
-<div class="col-md-9">
+<div class="col-md-11">
     <h2>@ViewBag.Title</h2>
     <p class="text-success">@ViewBag.StatusMessage</p>
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm("SearchModels", "Model", FormMethod.Post, new { id = "SearchModels" }))
+            {
+                <p>Search By Date</p><br/>
+                <div class="form-group">
+                    @Html.Label("From: ")
+                    <div class='input-group date'>
+                        <input type='date' name="fromDate" class="form-control" id='datepickerFromDate'/>
+                    </div>
+                    @Html.Label("To: ")
+                    <div class='input-group date'>
+                        <input type='date' name="toDate" class="form-control" id='datepickerToDate'/>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="submit" value="Search" class="form-control btn btn-info test"/>
+                </div>
+            }
+        </div>
+    </div><br/>
+    <p>
+        @Html.ActionLink("Export as Excel", "ExportToExcel")
+    </p><br/>
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
@@ -28,27 +54,33 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DtCreated)
+            </th>
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.pageOfProducts)
         {
             <tr>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.ModelNumber)
+                    @item.ModelNumber
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @item.Price
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SupplierId)
+                    @item.SupplierId
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @item.Status
                 </td>
                 <td>
                     <img src="~/images/@item.ImageUrl" width="200" height="200"/>
+                </td>
+                <td>
+                    @item.DtCreated
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.ModelId }) |
@@ -58,4 +90,10 @@
             </tr>
         }
     </table>
+    <div class="col-md-12">
+        <div class="text-center">
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("Retrieve", new { page }))
+            Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Models
+        </div>
+    </div>
 </div>

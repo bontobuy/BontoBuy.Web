@@ -1,13 +1,13 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using PagedList;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {

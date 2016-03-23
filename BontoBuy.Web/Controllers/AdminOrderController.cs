@@ -1,13 +1,13 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using PagedList;
-using Rotativa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
+using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -76,6 +76,10 @@ namespace BontoBuy.Web.Controllers
                 var itemList = new List<AdminRetrieveOrdersViewModel>();
                 foreach (var item in searchResult)
                 {
+                    int unitPrice = (from o in db.Orders
+                                     where o.OrderId == item.OrderId
+                                     select o.UnitPrice).FirstOrDefault();
+
                     var orderItem = new AdminRetrieveOrdersViewModel()
                     {
                         OrderId = item.OrderId,
@@ -93,7 +97,9 @@ namespace BontoBuy.Web.Controllers
                                         where c.SupplierId == item.SupplierId
                                         select c.Name).FirstOrDefault(),
                         Status = item.Status,
-                        DtCreated = item.DtCreated
+                        DtCreated = item.DtCreated,
+                        SupplierId = item.SupplierId,
+                        Price = unitPrice
                     };
                     itemList.Add(orderItem);
                 }

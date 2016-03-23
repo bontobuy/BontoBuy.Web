@@ -36,6 +36,17 @@ namespace BontoBuy.Web.Models
 
             foreach (var item in records)
             {
+                int commission = (from c in db.Commissions
+                                  join mc in db.ModelCommissions on c.CommissionId equals mc.CommissionId
+                                  join m in db.Models on mc.ModelId equals m.ModelId
+                                  join o in db.Orders on m.ModelId equals o.ModelId
+                                  where o.OrderId == item.OrderId
+                                  select c.Percentage).FirstOrDefault();
+
+                int unitPrice = (from o in db.Orders
+                                 where o.OrderId == item.OrderId
+                                 select o.UnitPrice).FirstOrDefault();
+
                 var orderItem = new AdminRetrieveOrdersViewModel()
                 {
                     OrderId = item.OrderId,

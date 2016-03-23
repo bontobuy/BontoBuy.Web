@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
 using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
 
@@ -13,6 +14,7 @@ namespace BontoBuy.Web.Controllers
     {
         private readonly ISpecificationRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private Helper helper = new Helper();
 
         public enum ManageMessageId
         {
@@ -167,31 +169,37 @@ namespace BontoBuy.Web.Controllers
                         return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
-                    //  var newItem = _repository.Create(item);
-                    var spec = new SpecificationViewModel()
+                    item.Description = helper.ConvertToTitleCase(item.Description);
+                    var existingSpec = CheckForDuplicates(item.Description);
+                    if (existingSpec == null)
                     {
-                        SpecialCatId = item.SpecialCatId,
-                        Status = "Active",
-                        Description = item.Description
-                    };
+                        var spec = new SpecificationViewModel()
+                        {
+                            SpecialCatId = item.SpecialCatId,
+                            Status = "Active",
+                            Description = item.Description
+                        };
 
-                    var productSpec = new ProductSpecViewModel()
-                    {
-                        ProductId = item.ProductId,
-                        SpecificationId = -1
-                    };
+                        var productSpec = new ProductSpecViewModel()
+                        {
+                            ProductId = item.ProductId,
+                            SpecificationId = -1
+                        };
 
-                    if (ModelState.IsValid)
-                    {
-                        db.Specifications.Add(spec);
-                        db.SaveChanges();
-                        productSpec.SpecificationId = spec.SpecificationId;
-                        db.ProductSpecs.Add(productSpec);
-                        db.SaveChanges();
-                        return RedirectToAction("Retrieve", new { message = ManageMessageId.AddSuccess });
+                        if (ModelState.IsValid)
+                        {
+                            db.Specifications.Add(spec);
+                            db.SaveChanges();
+                            productSpec.SpecificationId = spec.SpecificationId;
+                            db.ProductSpecs.Add(productSpec);
+                            db.SaveChanges();
+                            return RedirectToAction("Retrieve", new { message = ManageMessageId.AddSuccess });
+                        }
+                        ViewBag.TagId = new SelectList(db.SpecialCategories, "SpecialCatId", "Description", spec.SpecialCatId);
+                        return View(item);
                     }
-                    ViewBag.TagId = new SelectList(db.SpecialCategories, "SpecialCatId", "Description", spec.SpecialCatId);
-                    return View(item);
+
+                    return RedirectToAction("Retrieve");
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -492,6 +500,18 @@ namespace BontoBuy.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
+        }
+
+        private SpecificationViewModel CheckForDuplicates(string description)
+        {
+            if (String.IsNullOrEmpty(description))
+                return null;
+
+            var record = db.Specifications.Where(x => x.Description == description).FirstOrDefault();
+            if (record != null)
+                return record;
+
+            return null;
         }
     }
 }

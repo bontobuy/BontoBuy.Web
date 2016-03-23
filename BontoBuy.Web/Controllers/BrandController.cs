@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class BrandController : Controller
+    public class BrandController : NotificationController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -65,6 +65,8 @@ namespace BontoBuy.Web.Controllers
               : message == ManageMessageId.Error ? "An error has occurred."
               : "";
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -107,6 +109,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -141,6 +145,9 @@ namespace BontoBuy.Web.Controllers
 
                     var records = _repository.Retrieve();
                     ViewData["BrandList"] = records;
+
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");
@@ -219,6 +226,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(itemToUpdate);
                 }
                 return RedirectToAction("Login", "Account");
@@ -303,6 +312,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -388,6 +399,8 @@ namespace BontoBuy.Web.Controllers
          : message == ManageMessageId.Error ? "An error has occurred."
          : "";
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -429,6 +442,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");

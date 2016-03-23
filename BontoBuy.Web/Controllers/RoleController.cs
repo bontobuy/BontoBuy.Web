@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class RoleController : Controller
+    public class RoleController : NotificationController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
@@ -101,6 +101,8 @@ namespace BontoBuy.Web.Controllers
            : message == ManageMessageId.Error ? "An error has occurred."
            : "";
 
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View(userAccountList);
             }
             return RedirectToAction("Login", "Account");
@@ -149,6 +151,8 @@ namespace BontoBuy.Web.Controllers
            : message == ManageMessageId.Error ? "An error has occurred."
            : "";
 
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View(userAccountList);
             }
             return RedirectToAction("Login", "Account");
@@ -196,6 +200,8 @@ namespace BontoBuy.Web.Controllers
           : message == ManageMessageId.Error ? "An error has occurred."
           : "";
 
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View(userAccountList);
             }
             return RedirectToAction("Login", "Account");
@@ -203,6 +209,8 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult ManageRoles()
         {
+            GetNewSupplierActivation();
+            GetNewModelsActivation();
             return View();
         }
 
@@ -231,6 +239,8 @@ namespace BontoBuy.Web.Controllers
                 //    .Select(r => new SelectListItem { Value = r.Name, Text = r.Name });
                 ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name");
 
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View(userRole);
             }
             return RedirectToAction("RetrieveUsers");
@@ -302,6 +312,9 @@ namespace BontoBuy.Web.Controllers
                 var matchingValueCustomer = userRole.FirstOrDefault(stringToCompare => stringToCompare.Contains("Customer"));
                 if (matchingValueCustomer == "Customer")
                     return RedirectToAction("RetrieveCustomers");
+
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return RedirectToAction("RetrieveUsers");
             }
             return RedirectToAction("Login", "Account");
@@ -313,6 +326,8 @@ namespace BontoBuy.Web.Controllers
             if (User.IsInRole("Admin"))
             {
                 var records = db.Roles.ToList();
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View(records);
             }
             return RedirectToAction("Login", "Account");
@@ -379,6 +394,8 @@ namespace BontoBuy.Web.Controllers
             if (User.IsInRole("Admin"))
             {
                 var role = db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View(role);
             }
 
@@ -427,6 +444,8 @@ namespace BontoBuy.Web.Controllers
                     db.Roles.Remove(role);
                     db.SaveChanges();
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return RedirectToAction("Retrieve");
                 }
             }
@@ -443,6 +462,9 @@ namespace BontoBuy.Web.Controllers
                 new SelectListItem { Value = r.Name.ToString(), Text = r.Name }).ToList();
 
             ViewBag.Roles = roleList;
+
+            GetNewSupplierActivation();
+            GetNewModelsActivation();
             return View();
         }
 

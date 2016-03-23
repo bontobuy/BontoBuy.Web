@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class ReturnController : Controller
+    public class ReturnController : NotificationController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -40,6 +40,8 @@ namespace BontoBuy.Web.Controllers
                 var pageOfProducts = records.ToPagedList(pageNumber, 10); //set the number of records per page
                 ViewBag.pageOfProducts = pageOfProducts;
 
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View();
             }
             catch (Exception ex)
@@ -49,16 +51,19 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: Return/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Get(int id)
         {
             try
             {
-                var record = db.Returns.Where(x => x.ReturnId == id);
+                var record = db.Returns.Where(x => x.ReturnId == id).FirstOrDefault();
                 if (record == null)
                 {
                     return RedirectToAction("Home", "Error404");
                 }
-                return View();
+
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
+                return View(record);
             }
             catch (Exception ex)
             {
@@ -72,6 +77,9 @@ namespace BontoBuy.Web.Controllers
             try
             {
                 var newReturn = new ReturnActionViewModel();
+
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View(newReturn);
             }
             catch (Exception ex)
@@ -137,6 +145,9 @@ namespace BontoBuy.Web.Controllers
 
                 //Refer to Product Controller for View
                 ViewBag.ReturnStatusId = new SelectList(db.ReturnStatuses, "ReturnStatusId", "Status");
+
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View(itemToUpdate);
             }
             catch (Exception ex)

@@ -167,7 +167,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-gift"></i> Model</a>
+                        <a href="#" data-toggle="dropdown"><i class="dropdown-toggle glyphicon glyphicon-gift"></i> Model <span class="badge">@ViewBag.NewModels</span></a>
                         <ul id="demo" class="dropdown-menu">
                             <li>
                                 <a href="@Url.Action("Retrieve","Model")">List</a>
@@ -176,7 +176,7 @@
                                 <a href="@Url.Action("RetrieveActive","Model")">Active List</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("RetrievePending","Model")">Pending List</a>
+                                <a href="@Url.Action("RetrievePending","Model")">Pending List<span class="badge">@ViewBag.NewModels</span></a>
                             </li>
                             <li>
                                 <a href="@Url.Action("Create","Model")">Add New</a>
@@ -203,7 +203,7 @@
                             <li>
                                 @*@using (Html.BeginForm("NewSuppliers", "Admin", FormMethod.Post, new { id = "NewSuppliers" }))
                                     {*@
-                                <a href="javascript:$('#NewSuppliers').submit()">New Suppliers<span class="badge">@ViewBag.NewSupplier</span></a>
+                                <a href="@Url.Action("NewSuppliers","Admin")">New Suppliers<span class="badge">@ViewBag.NewSupplier</span></a>
                             </li>
                             <li>
                                 <a href="@Url.Action("RetrieveCustomers","Role")">List of Customers</a>

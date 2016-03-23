@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class SpecificationController : Controller
+    public class SpecificationController : NotificationController
     {
         private readonly ISpecificationRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -61,6 +61,8 @@ namespace BontoBuy.Web.Controllers
                : message == ManageMessageId.Error ? "An error has occurred."
                : "";
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -100,6 +102,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -133,6 +137,9 @@ namespace BontoBuy.Web.Controllers
 
                     var records = _repository.Retrieve();
                     ViewData["SpecificationList"] = records;
+
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");
@@ -241,6 +248,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(itemToUpdate);
                 }
                 return RedirectToAction("Login", "Account");
@@ -325,6 +334,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -408,6 +419,8 @@ namespace BontoBuy.Web.Controllers
        : message == ManageMessageId.Error ? "An error has occurred."
        : "";
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -449,6 +462,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");

@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class ModelController : Controller
+    public class ModelController : NotificationController
     {
         private readonly IModelRepo _repo;
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -102,6 +102,8 @@ namespace BontoBuy.Web.Controllers
                     var pageOfProducts = modelList.OrderByDescending(x => x.Status).ToPagedList(pageNumber, 10); //set the number of records per page
                     ViewBag.pageOfProducts = pageOfProducts;
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View();
                 }
                 return RedirectToAction("Login", "Account");
@@ -182,6 +184,8 @@ namespace BontoBuy.Web.Controllers
                     var pageOfProducts = modelList.OrderByDescending(x => x.Status).ToPagedList(pageNumber, 10); //set the number of records per page
                     ViewBag.pageOfProducts = pageOfProducts;
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View();
                 }
                 return RedirectToAction("Login", "Account");
@@ -263,6 +267,8 @@ namespace BontoBuy.Web.Controllers
                     var pageOfProducts = modelList.OrderByDescending(x => x.Status).ToPagedList(pageNumber, 10); //set the number of records per page
                     ViewBag.pageOfProducts = pageOfProducts;
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View();
                 }
                 return RedirectToAction("Login", "Account");
@@ -301,6 +307,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -330,6 +338,9 @@ namespace BontoBuy.Web.Controllers
                     var newItem = new ModelViewModel();
                     ViewBag.BrandId = new SelectList(db.Brands.Where(x => x.Status == "Active"), "BrandId", "Name");
                     ViewBag.ItemId = new SelectList(db.Items.Where(x => x.AdminStatus == "Active"), "ItemId", "Description");
+
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");
@@ -440,6 +451,9 @@ namespace BontoBuy.Web.Controllers
                     };
 
                     Session["Model"] = model;
+
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(model);
                 }
                 return RedirectToAction("Login", "Account");
@@ -568,6 +582,9 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
+
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -656,6 +673,8 @@ namespace BontoBuy.Web.Controllers
                     var pageOfProducts = records.ToPagedList(pageNumber, 10); //set the number of records per page
                     ViewBag.pageOfProducts = pageOfProducts;
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View();
                 }
                 return RedirectToAction("Login", "Account");
@@ -697,6 +716,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -798,6 +819,8 @@ namespace BontoBuy.Web.Controllers
 
                 ViewBag.Title = "List Of Models";
 
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View("Retrieve");
             }
             catch (Exception ex)

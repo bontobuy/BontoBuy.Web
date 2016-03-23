@@ -1,5 +1,6 @@
 ﻿using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: Model
-        public ActionResult Retrieve(ManageMessageId? message)
+        public ActionResult Retrieve(ManageMessageId? message, int? page)
         {
             try
             {
@@ -81,7 +82,12 @@ namespace BontoBuy.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-                    return View(modelList);
+                    //Paging Section
+                    var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                    var pageOfProducts = modelList.ToPagedList(pageNumber, 10); //set the number of records per page
+                    ViewBag.pageOfProducts = pageOfProducts;
+
+                    return View();
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -538,6 +544,62 @@ namespace BontoBuy.Web.Controllers
                     return RedirectToAction("RetrieveArchives", new { message = ManageMessageId.RestoreSuccess });
                 }
                 return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SearchModels(DateTime fromDate, DateTime toDate, int? page)
+        {
+            try
+            {
+                if (fromDate == null)
+                    fromDate = DateTime.Today;
+                if (toDate == null)
+                    toDate = DateTime.Today;
+
+                var searchResult = from o in db.Models
+                                   where o.DtCreated >= fromDate
+                                   && o.DtCreated <= toDate
+                                   select o;
+
+                var itemList = new List<ModelAdminRetrieveViewModel>();
+                foreach (var item in searchResult)
+                {
+                    var orderItem = new ModelAdminRetrieveViewModel()
+                    {
+                        ModelId = item.ModelId,
+                        ModelNumber = item.ModelNumber,
+                        DtCreated = item.DtCreated,
+                        Status = item.Status,
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == item.ModelId
+                                    select ph.ImageUrl).FirstOrDefault(),
+                        Price = item.Price,
+                        SupplierId = item.SupplierId
+                    };
+                    itemList.Add(orderItem);
+                }
+                if (itemList == null)
+                {
+                    ViewBag.Title = "No Order for in that range found.";
+                    return View("RetrieveOrders");
+                }
+                Session["ExcelData"] = itemList;
+
+                //Paging Section
+                var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                var pageOfProducts = itemList.ToPagedList(pageNumber, 10); //set the number of records per page
+                ViewBag.pageOfProducts = pageOfProducts;
+
+                ViewBag.Title = "List Of Models";
+
+                return View("Retrieve");
             }
             catch (Exception ex)
             {

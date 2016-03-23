@@ -1,13 +1,13 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using PagedList;
-using Rotativa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
+using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -102,6 +102,7 @@ namespace BontoBuy.Web.Controllers
                     ViewBag.Title = "No Order for in that range found.";
                     return View("RetrieveOrders");
                 }
+                Session["ExcelData"] = itemList;
 
                 //Paging Section
                 var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
@@ -120,7 +121,12 @@ namespace BontoBuy.Web.Controllers
 
         public ActionResult ExportToExcel()
         {
-            _repo.ExportToExcel();
+            var excelData = Session["ExcelData"] as List<AdminRetrieveOrdersViewModel>;
+            if (excelData != null)
+                _repo.ExportToExcel(excelData);
+
+            Session.Remove("ExcelData");
+
             return RedirectToAction("RetrieveOrders");
         }
 

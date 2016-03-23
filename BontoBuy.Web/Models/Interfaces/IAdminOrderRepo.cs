@@ -9,6 +9,6 @@ namespace BontoBuy.Web.Models
     public interface IAdminOrderRepo
     {
         IEnumerable<AdminRetrieveOrdersViewModel> AdminRetrieveOrders();
-        void ExportToExcel();
+        void ExportToExcel(List<AdminRetrieveOrdersViewModel> items);
     }
 }

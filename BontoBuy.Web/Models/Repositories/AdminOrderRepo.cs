@@ -63,9 +63,9 @@ namespace BontoBuy.Web.Models
             return itemList;
         }
 
-        public void ExportToExcel()
+        public void ExportToExcel(List<AdminRetrieveOrdersViewModel> records)
         {
-            var dataTable = ConvertToDatatable();
+            var dataTable = ConvertToDatatable(records);
             DataSet dataSet = new DataSet();
             dataSet.Tables.Add(dataTable);
             ExcelConversion(dataSet);
@@ -99,10 +99,8 @@ namespace BontoBuy.Web.Models
             }
         }
 
-        private DataTable ConvertToDatatable()
+        private DataTable ConvertToDatatable(List<AdminRetrieveOrdersViewModel> records)
         {
-            var records = AdminRetrieveOrders();
-
             PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(AdminRetrieveOrdersViewModel));
             DataTable table = new DataTable();
 

@@ -43,7 +43,7 @@
 
                 <td>
                     @Html.ActionLink("Details", "CustomerGetOrder", new { id = item.OrderId }) |
-                    @if (item.HasReturn == false)
+                    @if (item.HasReturn == false && item.Status=="Delivered")
                     {
                         @Html.ActionLink("Return Product", "CreateReturn", "CustomerReturns", new { id = item.OrderId }, null)
                     }

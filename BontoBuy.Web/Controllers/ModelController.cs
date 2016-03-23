@@ -491,6 +491,10 @@ namespace BontoBuy.Web.Controllers
                     {
                         itemToUpdate.Status = "Inactive";
                     }
+                    else if (itemStatus == "Inactive")
+                    {
+                        itemToUpdate.Status = "Active";
+                    }
 
                     db.SaveChanges();
 

@@ -1,7 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using PagedList;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,12 +6,15 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace BontoBuy.Web.Controllers
 {
     public class ModelController : Controller
     {
-        private readonly IModelRepo _repository;
+        private readonly IModelRepo _repo;
         private ApplicationDbContext db = new ApplicationDbContext();
 
         public enum ManageMessageId
@@ -28,7 +28,7 @@ namespace BontoBuy.Web.Controllers
 
         public ModelController(IModelRepo repo)
         {
-            _repository = repo;
+            _repo = repo;
         }
 
         // GET: Model
@@ -119,7 +119,7 @@ namespace BontoBuy.Web.Controllers
                         RedirectToAction("Retrieve");
                     }
 
-                    var profile = _repository.Get(id);
+                    var profile = _repo.Get(id);
                     if (profile == null)
                     {
                         return HttpNotFound();
@@ -231,7 +231,7 @@ namespace BontoBuy.Web.Controllers
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid Identifier");
                     }
 
-                    itemToUpdate = _repository.Get(id);
+                    itemToUpdate = _repo.Get(id);
                     if (itemToUpdate == null)
                     {
                         return HttpNotFound();
@@ -368,7 +368,7 @@ namespace BontoBuy.Web.Controllers
                         RedirectToAction("Retrieve");
                     }
 
-                    var profile = _repository.Get(id);
+                    var profile = _repo.Get(id);
                     if (profile == null)
                     {
                         return HttpNotFound();
@@ -414,7 +414,7 @@ namespace BontoBuy.Web.Controllers
                     {
                         RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
-                    _repository.Archive(specId);
+                    _repo.Archive(specId);
 
                     //   return RedirectToAction("Retrieve");
                     return RedirectToAction("Retrieve", new { message = ManageMessageId.ArchiveSuccess });
@@ -446,7 +446,7 @@ namespace BontoBuy.Web.Controllers
                     //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
                     //if (userInRole != null)
                     //{
-                    var records = _repository.RetrieveArchives();
+                    var records = _repo.RetrieveArchives();
                     if (records == null)
                     {
                         return HttpNotFound();
@@ -492,7 +492,7 @@ namespace BontoBuy.Web.Controllers
                         RedirectToAction("RetrieveArchives");
                     }
 
-                    var profile = _repository.Get(id);
+                    var profile = _repo.Get(id);
                     if (profile == null)
                     {
                         return HttpNotFound();
@@ -538,7 +538,7 @@ namespace BontoBuy.Web.Controllers
                         RedirectToAction("RetrieveArchives", new { message = ManageMessageId.Error });
                     }
 
-                    _repository.RevertArchive(specId);
+                    _repo.RevertArchive(specId);
 
                     //   return RedirectToAction("Retrieve");
                     return RedirectToAction("RetrieveArchives", new { message = ManageMessageId.RestoreSuccess });
@@ -605,6 +605,17 @@ namespace BontoBuy.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
+        }
+
+        public ActionResult ExportToExcel()
+        {
+            var excelData = Session["ExcelData"] as List<ModelAdminRetrieveViewModel>;
+            if (excelData != null)
+                _repo.ExportToExcel(excelData);
+
+            Session.Remove("ExcelData");
+
+            return RedirectToAction("RetrieveOrders");
         }
     }
 }

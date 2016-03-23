@@ -59,7 +59,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchOrders(DateTime fromDate, DateTime toDate, int? page)
+        public ActionResult SearchOrders(Nullable<DateTime> fromDate, Nullable<DateTime> toDate, int? page)
         {
             try
             {

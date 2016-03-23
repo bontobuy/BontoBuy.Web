@@ -134,7 +134,7 @@ namespace BontoBuy.Web.Models
 
         private DataTable ConvertToDatatable(List<ModelAdminRetrieveViewModel> records)
         {
-            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(AdminRetrieveOrdersViewModel));
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(ModelAdminRetrieveViewModel));
             DataTable table = new DataTable();
 
             foreach (PropertyDescriptor prop in properties)

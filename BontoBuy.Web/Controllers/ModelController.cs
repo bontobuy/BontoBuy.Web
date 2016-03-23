@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,10 +10,6 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using PagedList;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -33,7 +33,7 @@ namespace BontoBuy.Web.Controllers
             _repo = repo;
         }
 
-        public ActionResult RetrieveActive(string searchString, ManageMessageId? message)
+        public ActionResult RetrieveActive(string searchString, ManageMessageId? message, int? page)
         {
             try
             {
@@ -97,7 +97,12 @@ namespace BontoBuy.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-                    return View(modelList.OrderByDescending(x => x.Status));
+                    //Paging Section
+                    var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                    var pageOfProducts = modelList.OrderByDescending(x => x.Status).ToPagedList(pageNumber, 10); //set the number of records per page
+                    ViewBag.pageOfProducts = pageOfProducts;
+
+                    return View();
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -107,7 +112,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult RetrievePending(string searchString, ManageMessageId? message)
+        public ActionResult RetrievePending(string searchString, ManageMessageId? message, int? page)
         {
             try
             {
@@ -172,7 +177,12 @@ namespace BontoBuy.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-                    return View(modelList.OrderByDescending(x => x.Status));
+                    //Paging Section
+                    var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                    var pageOfProducts = modelList.OrderByDescending(x => x.Status).ToPagedList(pageNumber, 10); //set the number of records per page
+                    ViewBag.pageOfProducts = pageOfProducts;
+
+                    return View();
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -183,7 +193,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: Model
-        public ActionResult Retrieve(string searchString, ManageMessageId? message)
+        public ActionResult Retrieve(string searchString, ManageMessageId? message, int? page)
         {
             try
             {
@@ -248,7 +258,12 @@ namespace BontoBuy.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-                    return View(modelList.OrderByDescending(x => x.Status));
+                    //Paging Section
+                    var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                    var pageOfProducts = modelList.OrderByDescending(x => x.Status).ToPagedList(pageNumber, 10); //set the number of records per page
+                    ViewBag.pageOfProducts = pageOfProducts;
+
+                    return View();
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -416,7 +431,12 @@ namespace BontoBuy.Web.Controllers
                         SupplierEmail = (from s in db.Suppliers
                                          where s.SupplierId == itemToUpdate.SupplierId
                                          select s.Email).FirstOrDefault(),
-                        SupplierId = itemToUpdate.SupplierId
+                        SupplierId = itemToUpdate.SupplierId,
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == itemToUpdate.ModelId
+                                    select ph.ImageUrl).FirstOrDefault()
                     };
 
                     Session["Model"] = model;
@@ -588,7 +608,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult RetrieveArchives(ManageMessageId? message)
+        public ActionResult RetrieveArchives(ManageMessageId? message, int? page)
         {
             try
             {
@@ -618,7 +638,12 @@ namespace BontoBuy.Web.Controllers
          : message == ManageMessageId.Error ? "An error has occurred."
          : "";
 
-                    return View(records);
+                    //Paging Section
+                    var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                    var pageOfProducts = records.ToPagedList(pageNumber, 10); //set the number of records per page
+                    ViewBag.pageOfProducts = pageOfProducts;
+
+                    return View();
                 }
                 return RedirectToAction("Login", "Account");
             }

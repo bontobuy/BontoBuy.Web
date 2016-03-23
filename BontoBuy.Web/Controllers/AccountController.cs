@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -11,10 +15,6 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -93,10 +93,7 @@ namespace BontoBuy.Web.Controllers
                 return View(model);
             }
 
-            var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).FirstOrDefault();
-            if (String.IsNullOrWhiteSpace(userId))
-                return View(model);
-
+            var userId = db.Users.Where(x => x.Email == model.Email).Select(x => x.Id).Single();
             var userProfile = (from u in db.Users
                                where u.Id == userId
                                select u.ActivationCode).FirstOrDefault();
@@ -516,7 +513,7 @@ namespace BontoBuy.Web.Controllers
                     Website = model.Website,
                     Status = "Pending",
                     PhoneNumber = model.PhoneNumber,
-                    ActivationCode = activationCode
+                    ActivationCode = activationCode + model.Email
                 };
                 var result = await UserManager.CreateAsync(supplier, model.Password);
                 if (result.Succeeded)

@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using BontoBuy.Web.HelperMethods;
 
 namespace BontoBuy.Web.Models
 {
     public class SpecificationRepo : ISpecificationRepo
     {
-        private Helper helper = new Helper();
         private ApplicationDbContext db = new ApplicationDbContext();
 
         public IEnumerable<SpecificationViewModel> Retrieve()
         {
             var records = (from specs in db.Specifications
                            where specs.Status == "Active"
-                           select specs).ToList().OrderBy(x => x.Description);
+                           select specs).ToList();
 
             return records;
         }
@@ -29,22 +27,14 @@ namespace BontoBuy.Web.Models
         }
         public SpecificationViewModel Create(SpecificationViewModel item)
         {
-            string stringTitleCase = helper.ConvertToTitleCase(item.Description);
-            var existingItem = CheckForDuplicates(stringTitleCase);
-            if (existingItem == null)
+            var newRecord = new SpecificationViewModel
             {
-                var newRecord = new SpecificationViewModel
-                {
-                    Description = stringTitleCase,
-                    Status = "Active"
-                };
-
-                db.Specifications.Add(newRecord);
-                db.SaveChanges();
-                return newRecord;
-            }
-
-            return null;
+                Description = item.Description,
+                Status = "Active"
+            };
+            db.Specifications.Add(newRecord);
+            db.SaveChanges();
+            return newRecord;
         }
 
         public SpecificationViewModel Update(int id, SpecificationViewModel item)
@@ -97,16 +87,12 @@ namespace BontoBuy.Web.Models
             }
         }
 
-        private SpecificationViewModel CheckForDuplicates(string description)
-        {
-            if (String.IsNullOrEmpty(description))
-                return null;
+        //public IEnumerable<> GetList()
+        //{
+        //    var records = from r in db.Categories
+        //                  select new { r.CategoryId, r.Description };
 
-            var record = db.Specifications.Where(x => x.Description == description).FirstOrDefault();
-            if (record != null)
-                return record;
-
-            return null;
-        }
+        //    return records;
+        //}
     }
 }

@@ -1031,8 +1031,6 @@
     <Content Include="Views\Admin\OrderReturnReport.cshtml" />
     <Content Include="Views\Return\Retrieve.cshtml" />
     <Content Include="Views\Return\Edit.cshtml" />
-    <Content Include="Views\Model\RetrieveActive.cshtml" />
-    <Content Include="Views\Model\RetrievePending.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

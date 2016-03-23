@@ -12,7 +12,7 @@ namespace BontoBuy.Web.Models
         private Helper helper = new Helper();
         public IEnumerable<SpecialCategoryViewModel> Retrieve()
         {
-            var records = db.SpecialCategories.ToList().OrderBy(x => x.Description);
+            var records = db.SpecialCategories.ToList();
 
             return records;
         }

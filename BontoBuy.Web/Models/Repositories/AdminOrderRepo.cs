@@ -36,17 +36,6 @@ namespace BontoBuy.Web.Models
 
             foreach (var item in records)
             {
-                int commission = (from c in db.Commissions
-                                  join mc in db.ModelCommissions on c.CommissionId equals mc.CommissionId
-                                  join m in db.Models on mc.ModelId equals m.ModelId
-                                  join o in db.Orders on m.ModelId equals o.ModelId
-                                  where o.OrderId == item.OrderId
-                                  select c.Percentage).FirstOrDefault();
-
-                int unitPrice = (from o in db.Orders
-                                 where o.OrderId == item.OrderId
-                                 select o.UnitPrice).FirstOrDefault();
-
                 var orderItem = new AdminRetrieveOrdersViewModel()
                 {
                     OrderId = item.OrderId,
@@ -64,10 +53,7 @@ namespace BontoBuy.Web.Models
                                     where c.SupplierId == item.SupplierId
                                     select c.Name).FirstOrDefault(),
                     Status = item.Status,
-                    DtCreated = item.DtCreated,
-                    SupplierId = item.SupplierId,
-                    Price = unitPrice,
-                    SupplierCommission = Convert.ToInt32((commission / 100) * unitPrice)
+                    DtCreated = item.DtCreated
                 };
                 itemList.Add(orderItem);
             }

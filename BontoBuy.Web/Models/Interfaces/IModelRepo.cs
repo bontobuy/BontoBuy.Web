@@ -9,7 +9,7 @@ namespace BontoBuy.Web.Models
     public interface IModelRepo
     {
         IEnumerable<ModelViewModel> Retrieve();
-        ModelAdminViewModel Get(int id);
+        ModelViewModel Get(int id);
         ModelViewModel Create(ModelViewModel item);
         ModelViewModel Update(int id, ModelViewModel item);
 

@@ -76,14 +76,26 @@ namespace BontoBuy.Web.Models
 
     public class AdminRetrieveOrdersViewModel
     {
+        [Display(Name = "Supplier Id")]
+        public int SupplierId { get; set; }
+        [Display(Name = "Order Id")]
         public int OrderId { get; set; }
+        [Display(Name = "Model Id")]
         public int ModelId { get; set; }
+        [Display(Name = "Customer Id")]
         public int CustomerId { get; set; }
+        [Display(Name = "Customer Name")]
         public string CustomerName { get; set; }
+        [Display(Name = "Model Number")]
         public string ModelNumber { get; set; }
+        [Display(Name = "Supplier Name")]
         public string SupplierName { get; set; }
         public string Status { get; set; }
+        [Display(Name = "Date Created")]
         public DateTime DtCreated { get; set; }
+        [Display(Name = "Commission Due")]
+        public int SupplierCommission { get; set; }
+        public int Price { get; set; }
     }
 
     public class AdminGetOrderViewModel

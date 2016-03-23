@@ -3,6 +3,7 @@
 @model IEnumerable<BontoBuy.Web.Models.AdminRetrieveOrdersViewModel>
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewBag.Title = "Order List";
 }
 
 <div class="col-md-9">
@@ -34,19 +35,19 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ModelNumber)
+                @Html.DisplayNameFor(model => model.OrderId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SupplierName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DtCreated)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th></th>
         </tr>
@@ -55,19 +56,19 @@
         {
             <tr>
                 <td>
-                    @item.ModelNumber
+                    @item.OrderId
                 </td>
                 <td>
                     @item.SupplierName
-                </td>
-                <td>
-                    @item.CustomerName
                 </td>
                 <td>
                     @item.DtCreated
                 </td>
                 <td>
                     @item.Status
+                </td>
+                <td>
+                    @item.Price
                 </td>
 
                 <td>

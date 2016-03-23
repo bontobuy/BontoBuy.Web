@@ -1,6 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,6 +6,9 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -15,6 +16,7 @@ namespace BontoBuy.Web.Controllers
     {
         private readonly IModelRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private Helper helper = new Helper();
 
         public enum ManageMessageId
         {
@@ -30,8 +32,7 @@ namespace BontoBuy.Web.Controllers
             _repository = repo;
         }
 
-        // GET: Model
-        public ActionResult Retrieve(ManageMessageId? message)
+        public ActionResult RetrieveActive(string searchString, ManageMessageId? message)
         {
             try
             {
@@ -41,16 +42,18 @@ namespace BontoBuy.Web.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
-                //Check if the "Admin" role exists if not it returns a null value
-                //var role = db.roles.singleordefault(m => m.name == "admin");
-
                 if (User.IsInRole("Admin"))
                 {
-                    //var records = _repository.Retrieve();
-                    var records = db.Models.ToList();
+                    var records = db.Models.Where(x => x.Status == "Active").ToList();
                     var modelList = new List<ModelAdminRetrieveViewModel>();
+
                     foreach (var item in records)
                     {
+                        var commission = (((from c in db.Commissions
+                                            join mc in db.ModelCommissions on c.CommissionId equals mc.CommissionId
+                                            where mc.ModelId == item.ModelId
+                                            select c.Percentage).FirstOrDefault()));
+
                         var modelItem = new ModelAdminRetrieveViewModel()
                         {
                             ModelId = item.ModelId,
@@ -63,9 +66,21 @@ namespace BontoBuy.Web.Controllers
                                         where pm.ModelId == item.ModelId
                                         select ph.ImageUrl).FirstOrDefault(),
                             Price = item.Price,
-                            SupplierId = item.SupplierId
+                            SupplierId = item.SupplierId,
+                            SupplierCommission = Convert.ToInt32((commission * item.Price) / 100),
+                            CommissionPercentage = commission + " %",
+                            SupplierName = (from s in db.Suppliers
+                                            where s.SupplierId == item.SupplierId
+                                            select s.Name).FirstOrDefault()
                         };
-                        modelList.Add(modelItem);
+                        if (!String.IsNullOrWhiteSpace(searchString))
+                        {
+                            var properString = helper.ConvertToTitleCase(searchString);
+                            if (modelItem.SupplierName == properString)
+                                modelList.Add(modelItem);
+                        }
+                        if (String.IsNullOrWhiteSpace(searchString))
+                            modelList.Add(modelItem);
                     }
 
                     //if (records == null)
@@ -81,7 +96,158 @@ namespace BontoBuy.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-                    return View(modelList);
+                    return View(modelList.OrderByDescending(x => x.Status));
+                }
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        public ActionResult RetrievePending(string searchString, ManageMessageId? message)
+        {
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if (User.IsInRole("Admin"))
+                {
+                    //var records = _repository.Retrieve();
+                    var records = db.Models.Where(x => x.Status == "Pending").ToList();
+                    var modelList = new List<ModelAdminRetrieveViewModel>();
+
+                    foreach (var item in records)
+                    {
+                        var commission = (((from c in db.Commissions
+                                            join mc in db.ModelCommissions on c.CommissionId equals mc.CommissionId
+                                            where mc.ModelId == item.ModelId
+                                            select c.Percentage).FirstOrDefault()));
+
+                        var modelItem = new ModelAdminRetrieveViewModel()
+                        {
+                            ModelId = item.ModelId,
+                            ModelNumber = item.ModelNumber,
+                            DtCreated = item.DtCreated,
+                            Status = item.Status,
+                            ImageUrl = (from ph in db.Photos
+                                        join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                        join m in db.Models on pm.ModelId equals m.ModelId
+                                        where pm.ModelId == item.ModelId
+                                        select ph.ImageUrl).FirstOrDefault(),
+                            Price = item.Price,
+                            SupplierId = item.SupplierId,
+                            SupplierCommission = Convert.ToInt32((commission * item.Price) / 100),
+                            CommissionPercentage = commission + " %",
+                            SupplierName = (from s in db.Suppliers
+                                            where s.SupplierId == item.SupplierId
+                                            select s.Name).FirstOrDefault()
+                        };
+                        if (!String.IsNullOrWhiteSpace(searchString))
+                        {
+                            var properString = helper.ConvertToTitleCase(searchString);
+                            if (modelItem.SupplierName == properString)
+                                modelList.Add(modelItem);
+                        }
+                        if (String.IsNullOrWhiteSpace(searchString))
+                            modelList.Add(modelItem);
+                    }
+
+                    //if (records == null)
+                    //{
+                    //    return HttpNotFound();
+                    //}
+
+                    ViewBag.StatusMessage =
+                message == ManageMessageId.AddSuccess ? "You have successfully added a new Model."
+                : message == ManageMessageId.ArchiveSuccess ? "You have just archive a Model."
+                : message == ManageMessageId.UpdateSuccess ? "You have successfully activated a Model."
+                : message == ManageMessageId.RestoreSuccess ? "You have successfully restore a Model."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
+                    return View(modelList.OrderByDescending(x => x.Status));
+                }
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        // GET: Model
+        public ActionResult Retrieve(string searchString, ManageMessageId? message)
+        {
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                if (User.IsInRole("Admin"))
+                {
+                    //var records = _repository.Retrieve();
+                    var records = db.Models.ToList();
+                    var modelList = new List<ModelAdminRetrieveViewModel>();
+
+                    foreach (var item in records)
+                    {
+                        var commission = (((from c in db.Commissions
+                                            join mc in db.ModelCommissions on c.CommissionId equals mc.CommissionId
+                                            where mc.ModelId == item.ModelId
+                                            select c.Percentage).FirstOrDefault()));
+
+                        var modelItem = new ModelAdminRetrieveViewModel()
+                        {
+                            ModelId = item.ModelId,
+                            ModelNumber = item.ModelNumber,
+                            DtCreated = item.DtCreated,
+                            Status = item.Status,
+                            ImageUrl = (from ph in db.Photos
+                                        join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                        join m in db.Models on pm.ModelId equals m.ModelId
+                                        where pm.ModelId == item.ModelId
+                                        select ph.ImageUrl).FirstOrDefault(),
+                            Price = item.Price,
+                            SupplierId = item.SupplierId,
+                            SupplierCommission = Convert.ToInt32((commission * item.Price) / 100),
+                            CommissionPercentage = commission + " %",
+                            SupplierName = (from s in db.Suppliers
+                                            where s.SupplierId == item.SupplierId
+                                            select s.Name).FirstOrDefault()
+                        };
+                        if (!String.IsNullOrWhiteSpace(searchString))
+                        {
+                            var properString = helper.ConvertToTitleCase(searchString);
+                            if (modelItem.SupplierName == properString)
+                                modelList.Add(modelItem);
+                        }
+                        if (String.IsNullOrWhiteSpace(searchString))
+                            modelList.Add(modelItem);
+                    }
+
+                    //if (records == null)
+                    //{
+                    //    return HttpNotFound();
+                    //}
+
+                    ViewBag.StatusMessage =
+                message == ManageMessageId.AddSuccess ? "You have successfully added a new Model."
+                : message == ManageMessageId.ArchiveSuccess ? "You have just archive a Model."
+                : message == ManageMessageId.UpdateSuccess ? "You have successfully activated a Model."
+                : message == ManageMessageId.RestoreSuccess ? "You have successfully restore a Model."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
+                    return View(modelList.OrderByDescending(x => x.Status));
                 }
                 return RedirectToAction("Login", "Account");
             }
@@ -219,13 +385,13 @@ namespace BontoBuy.Web.Controllers
                 if (User.IsInRole("Admin"))
                 {
                     //  ViewBag.ItemId = new SelectList(db.Items.Where(x => x.Status == "Active"), "ItemId", "Description");
-                    ModelViewModel itemToUpdate = new ModelViewModel();
+
                     if (id < 1)
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid Identifier");
                     }
 
-                    itemToUpdate = _repository.Get(id);
+                    var itemToUpdate = db.Models.Where(x => x.ModelId == id).FirstOrDefault();
                     if (itemToUpdate == null)
                     {
                         return HttpNotFound();

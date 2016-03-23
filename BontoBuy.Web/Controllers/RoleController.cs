@@ -1,9 +1,4 @@
-﻿using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -12,6 +7,11 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -226,8 +226,9 @@ namespace BontoBuy.Web.Controllers
                 var roles = await UserManager.GetRolesAsync(user.Id);
                 userRole.CurrentRoles = new List<string>(roles);
                 userRole.CurrentRoles.Sort();
-                ViewBag.UserRoles = userRole.UserRoles
-                    .Select(r => new SelectListItem { Value = r.Name, Text = r.Name });
+
+                //ViewBag.UserRoles = userRole.UserRoles
+                //    .Select(r => new SelectListItem { Value = r.Name, Text = r.Name });
                 ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name");
 
                 return View(userRole);
@@ -275,7 +276,18 @@ namespace BontoBuy.Web.Controllers
                     await smtp.SendMailAsync(message);
                 }
 
-                await UserManager.AddToRoleAsync(item.UserId, roleName);
+                //  await UserManager.AddToRoleAsync(item.UserId, roleName);
+                var roles = await UserManager.GetRolesAsync(user.Id);
+                var userRole = new List<string>(roles);
+
+                var matchingValueSupplier = userRole.FirstOrDefault(stringToCompare => stringToCompare.Contains("Supplier"));
+                if (matchingValueSupplier == "Supplier")
+                    return RedirectToAction("RetrieveSuppliers");
+
+                var matchingValueCustomer = userRole.FirstOrDefault(stringToCompare => stringToCompare.Contains("Customer"));
+                if (matchingValueCustomer == "Customer")
+                    return RedirectToAction("RetrieveCustomers");
+
                 return RedirectToAction("RetrieveUsers");
             }
             return RedirectToAction("Login", "Account");

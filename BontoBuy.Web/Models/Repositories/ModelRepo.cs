@@ -16,13 +16,35 @@ namespace BontoBuy.Web.Models
             return records;
         }
 
-        public ModelViewModel Get(int id)
+        public ModelAdminViewModel Get(int id)
         {
             var record = db.Models
                 .Where(x => x.ModelId == id)
                 .FirstOrDefault();
 
-            return record;
+            var model = new ModelAdminViewModel()
+            {
+                ModelNumber = record.ModelNumber,
+                ModelId = record.ModelId,
+                DtCreated = record.DtCreated,
+                Price = record.Price,
+                Status = record.Status,
+                BrandName = (from b in db.Brands
+                             where b.BrandId == record.BrandId
+                             select b.Name).FirstOrDefault(),
+                ItemName = (from i in db.Items
+                            where i.ItemId == record.ItemId
+                            select i.Description).FirstOrDefault(),
+                SupplierName = (from s in db.Suppliers
+                                where s.SupplierId == record.SupplierId
+                                select s.Name).FirstOrDefault(),
+                SupplierEmail = (from s in db.Suppliers
+                                 where s.SupplierId == record.SupplierId
+                                 select s.Email).FirstOrDefault(),
+                SupplierId = record.SupplierId
+            };
+
+            return model;
         }
 
         public ModelViewModel Create(ModelViewModel item)

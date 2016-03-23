@@ -59,7 +59,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchOrders(DateTime fromDate, DateTime toDate)
+        public ActionResult SearchOrders(DateTime fromDate, DateTime toDate, int? page)
         {
             try
             {
@@ -103,7 +103,14 @@ namespace BontoBuy.Web.Controllers
                     return View("RetrieveOrders");
                 }
 
-                return View("RetrieveOrders", itemList);
+                //Paging Section
+                var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                var pageOfProducts = itemList.ToPagedList(pageNumber, 10); //set the number of records per page
+                ViewBag.pageOfProducts = pageOfProducts;
+
+                ViewBag.Title = "List Of Orders";
+
+                return View("RetrieveOrders");
             }
             catch (Exception ex)
             {

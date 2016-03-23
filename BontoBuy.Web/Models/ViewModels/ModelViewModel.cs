@@ -72,6 +72,7 @@ namespace BontoBuy.Web.Models
         public string BrandName { get; set; }
         [Display(Name = "Item Type")]
         public string ItemName { get; set; }
+        public string ImageUrl { get; set; }
     }
 
     public class ModelAdminRetrieveViewModel

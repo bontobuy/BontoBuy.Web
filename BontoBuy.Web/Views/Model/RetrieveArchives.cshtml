@@ -1,11 +1,13 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.ModelViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.ModelViewModel>
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
     ViewBag.Title = "Retrieve Archives";
 }
 
-<div class="col-md-9">
+<div class="col-md-11">
     <h2>@ViewBag.Title</h2>
     <p class="text-success">@ViewBag.StatusMessage</p>
     <table class="table">
@@ -19,14 +21,14 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.pageOfProducts)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ModelNumber)
+                    @item.ModelNumber
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @item.Status
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.ModelId }) |
@@ -35,6 +37,12 @@
             </tr>
         }
     </table>
+    <div class="col-md-12">
+        <div class="text-center">
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveArchives", new { page }))
+            Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Models
+        </div>
+    </div>
     <div>
         @Html.ActionLink("Back to List", "Retrieve")
     </div>

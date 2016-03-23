@@ -481,7 +481,16 @@ namespace BontoBuy.Web.Controllers
                     //}
 
                     var itemToUpdate = db.Models.Where(x => x.ModelId == item.ModelId).FirstOrDefault();
-                    itemToUpdate.Status = "Active";
+                    string itemStatus = itemToUpdate.Status.ToString();
+
+                    if (itemStatus == "Pending")
+                    {
+                        itemToUpdate.Status = "Active";
+                    }
+                    else if (itemStatus == "Active")
+                    {
+                        itemToUpdate.Status = "Inactive";
+                    }
 
                     db.SaveChanges();
 

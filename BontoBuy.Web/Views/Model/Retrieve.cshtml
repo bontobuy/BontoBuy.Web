@@ -38,6 +38,9 @@
             <input type="submit" value="Filter" /> <br/>
         </p>
     }
+    <p>
+        @Html.ActionLink("Export as Excel", "ExportToExcel")
+    </p>
     <table class="table">
         <tr>
             <th>
@@ -97,8 +100,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Update", new { id = item.ModelId }) |
-                    @Html.ActionLink("Details", "Get", new { id = item.ModelId }) |
-                    @Html.ActionLink("Archive", "Archive", new { id = item.ModelId })
+                    @Html.ActionLink("Details", "Get", new { id = item.ModelId })
+
                 </td>
             </tr>
         }

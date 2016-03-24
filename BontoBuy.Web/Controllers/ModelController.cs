@@ -1,8 +1,4 @@
-﻿using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using PagedList;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,6 +6,10 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -808,7 +808,7 @@ namespace BontoBuy.Web.Controllers
                 if (itemList == null)
                 {
                     ViewBag.Title = "No Order for in that range found.";
-                    return View("RetrieveOrders");
+                    return View("RetrieveModels");
                 }
                 Session["ExcelData"] = itemList;
 
@@ -837,7 +837,7 @@ namespace BontoBuy.Web.Controllers
 
             Session.Remove("ExcelData");
 
-            return RedirectToAction("RetrieveOrders");
+            return RedirectToAction("RetrieveModels");
         }
     }
 }

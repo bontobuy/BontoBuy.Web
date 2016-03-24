@@ -576,102 +576,102 @@ namespace BontoBuy.Web.Migrations
 
             //);
 
-            context.Orders.AddOrUpdate(
-                p => p.OrderId,
-                new OrderViewModel()
-                {
-                    DtCreated = DateTime.Now.AddDays(-15),
-                    ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
-                    RealDeliveryDate = DateTime.Now.AddDays(-10),
-                    Status = "Delivered",
-                    Total = 35600,
-                    GrandTotal = 35600,
-                    SupplierId = 7,
-                    CustomerId = 8,
-                    ModelId = 12301,
-                    CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
-                    SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
-                    Quantity = 1,
-                    UnitPrice = 29500,
-                    HasReturn = true,
-                    Notification = "Yes"
-                },
+            //context.Orders.AddOrUpdate(
+            //    p => p.OrderId,
+            //    new OrderViewModel()
+            //    {
+            //        DtCreated = DateTime.Now.AddDays(-15),
+            //        ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
+            //        RealDeliveryDate = DateTime.Now.AddDays(-10),
+            //        Status = "Delivered",
+            //        Total = 35600,
+            //        GrandTotal = 35600,
+            //        SupplierId = 7,
+            //        CustomerId = 8,
+            //        ModelId = 12303,
+            //        CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
+            //        SupplierUserId = "dfb8e1ac-9755-4b4f-8656-e456d920752a",
+            //        Quantity = 1,
+            //        UnitPrice = 29500,
+            //        HasReturn = true,
+            //        Notification = "Yes"
+            //    },
 
-                new OrderViewModel()
-                {
-                    DtCreated = DateTime.Now.AddDays(-15),
-                    ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
-                    RealDeliveryDate = DateTime.Now.AddDays(-10),
-                    Status = "Delivered",
-                    Total = 29500,
-                    GrandTotal = 29500,
-                    SupplierId = 1,
-                    CustomerId = 8,
-                    ModelId = 12301,
-                    CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
-                    SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
-                    Quantity = 1,
-                    UnitPrice = 29500,
-                    HasReturn = true,
-                    Notification = "Yes"
-                },
+            //    new OrderViewModel()
+            //    {
+            //        DtCreated = DateTime.Now.AddDays(-15),
+            //        ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
+            //        RealDeliveryDate = DateTime.Now.AddDays(-10),
+            //        Status = "Delivered",
+            //        Total = 39600,
+            //        GrandTotal = 39600,
+            //        SupplierId = 7,
+            //        CustomerId = 8,
+            //        ModelId = 12304,
+            //        CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
+            //        SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
+            //        Quantity = 1,
+            //        UnitPrice = 29500,
+            //        HasReturn = true,
+            //        Notification = "Yes"
+            //    },
 
-                new OrderViewModel()
-                {
-                    DtCreated = DateTime.Now.AddDays(-15),
-                    ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
-                    RealDeliveryDate = DateTime.Now.AddDays(-10),
-                    Status = "Delivered",
-                    Total = 29500,
-                    GrandTotal = 29500,
-                    SupplierId = 1,
-                    CustomerId = 8,
-                    ModelId = 12301,
-                    CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
-                    SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
-                    Quantity = 1,
-                    UnitPrice = 29500,
-                    HasReturn = true,
-                    Notification = "Yes"
-                },
-                new OrderViewModel()
-                {
-                    DtCreated = DateTime.Now.AddDays(-15),
-                    ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
-                    RealDeliveryDate = DateTime.Now.AddDays(-10),
-                    Status = "Delivered",
-                    Total = 29500,
-                    GrandTotal = 29500,
-                    SupplierId = 1,
-                    CustomerId = 8,
-                    ModelId = 12301,
-                    CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
-                    SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
-                    Quantity = 1,
-                    UnitPrice = 29500,
-                    HasReturn = true,
-                    Notification = "Yes"
-                },
-                new OrderViewModel()
-                {
-                    DtCreated = DateTime.Now.AddDays(-15),
-                    ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
-                    RealDeliveryDate = DateTime.Now.AddDays(-10),
-                    Status = "Delivered",
-                    Total = 29500,
-                    GrandTotal = 29500,
-                    SupplierId = 1,
-                    CustomerId = 8,
-                    ModelId = 12301,
-                    CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
-                    SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
-                    Quantity = 1,
-                    UnitPrice = 29500,
-                    HasReturn = true,
-                    Notification = "Yes"
-                }
+            //    new OrderViewModel()
+            //    {
+            //        DtCreated = DateTime.Now.AddDays(-15),
+            //        ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
+            //        RealDeliveryDate = DateTime.Now.AddDays(-10),
+            //        Status = "Delivered",
+            //        Total = 29500,
+            //        GrandTotal = 29500,
+            //        SupplierId = 1,
+            //        CustomerId = 8,
+            //        ModelId = 12301,
+            //        CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
+            //        SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
+            //        Quantity = 1,
+            //        UnitPrice = 29500,
+            //        HasReturn = true,
+            //        Notification = "Yes"
+            //    },
+            //    new OrderViewModel()
+            //    {
+            //        DtCreated = DateTime.Now.AddDays(-15),
+            //        ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
+            //        RealDeliveryDate = DateTime.Now.AddDays(-10),
+            //        Status = "Delivered",
+            //        Total = 29500,
+            //        GrandTotal = 29500,
+            //        SupplierId = 1,
+            //        CustomerId = 8,
+            //        ModelId = 12301,
+            //        CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
+            //        SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
+            //        Quantity = 1,
+            //        UnitPrice = 29500,
+            //        HasReturn = true,
+            //        Notification = "Yes"
+            //    },
+            //    new OrderViewModel()
+            //    {
+            //        DtCreated = DateTime.Now.AddDays(-15),
+            //        ExpectedDeliveryDate = DateTime.Now.AddDays(-10),
+            //        RealDeliveryDate = DateTime.Now.AddDays(-10),
+            //        Status = "Delivered",
+            //        Total = 29500,
+            //        GrandTotal = 29500,
+            //        SupplierId = 1,
+            //        CustomerId = 8,
+            //        ModelId = 12301,
+            //        CustomerUserId = "353ce547-9b5d-4536-8a37-8c2cff5339a2",
+            //        SupplierUserId = "3b819da6-11ca-4c33-8919-378ab5c87474",
+            //        Quantity = 1,
+            //        UnitPrice = 29500,
+            //        HasReturn = true,
+            //        Notification = "Yes"
+            //    }
 
-                );
+            //    );
 
             //context.Commissions.AddOrUpdate(
             //    p => p.CommissionId,

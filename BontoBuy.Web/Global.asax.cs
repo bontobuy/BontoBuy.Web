@@ -21,8 +21,8 @@ namespace BontoBuy.Web
             var initData = new InitializeData();
             initData.InitializeCommissions();
 
-            //var initRole = new InitializeRoles();
-            //initRole.InitializeAllRoles();
+            var initRole = new InitializeRoles();
+            initRole.InitializeAllRoles();
         }
     }
 }

@@ -56,5 +56,11 @@ namespace BontoBuy.Web.Controllers
 
             ViewBag.NewSupplier = usersInRole;
         }
+
+        public void GetNewModelsActivation()
+        {
+            int newModels = db.Models.Where(m => m.Status == "Pending").ToList().Count();
+            ViewBag.NewModels = newModels;
+        }
     }
 }

@@ -791,6 +791,27 @@
                                     }
                                     <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.MenCategory.ModelId })"><><img src="~/images/@Model.MenCategory.ImageUrl" a alt="" class="imgDropdown" width="200" height="200" />@Model.MenCategory.ModelNumber</a>
                                 }
+
+                                @if (category.Description == "Financial Services")
+                                {
+                                    foreach (var product in Model.ProductRecordsC10)
+                                    {
+                                        <li class="col-md-3">
+
+                                            <ul id="ProductList">
+
+                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
+
+                                                @foreach (var item in Model.ItemRecordsPFinance)
+                                                {
+                                                    <li><a href="@Url.Action(item.Action,item.Controller,new{id=item.ItemId})">@item.Description</a></li>
+                                                }
+
+                                                <li class="divider"></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                }
                             </ul>
                         </li>
                     }
@@ -1033,7 +1054,7 @@
                         <!-- Wrapper for carousel items -->
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img src="~/images/slide1.png" alt="First Slide">
+                                <img src="~/Content/Welcome.jpg" class="img-responsive" alt="First Slide">
                             </div>
                             @foreach (var item in Model.SlideShow)
                             {

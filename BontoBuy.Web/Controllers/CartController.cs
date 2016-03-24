@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -182,41 +182,39 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                string userId = User.Identity.GetUserId();
-                if (String.IsNullOrEmpty(userId))
-                    return RedirectToAction("Error404", "Home");
+                //string userId = User.Identity.GetUserId();
+                //if (String.IsNullOrEmpty(userId))
+                //    return RedirectToAction("Error404", "Home");
 
-                var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
-                if (User.IsInRole("Customer") && user.ActivationCode == null)
+                //var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+                //if (User.IsInRole("Customer") && user.ActivationCode == null)
+                //{
+                List<CartViewModel> cartList = Session["Cart"] as List<CartViewModel>;
+
+                if (cartList != null)
                 {
-                    List<CartViewModel> cartList = Session["Cart"] as List<CartViewModel>;
-
-                    if (cartList != null)
+                    foreach (var item in cartList)
                     {
-                        foreach (var item in cartList)
-                        {
-                            item.ModelName = (from m in db.Models
-                                              where m.ModelId == item.ModelId
-                                              select m.ModelNumber).FirstOrDefault();
+                        item.ModelName = (from m in db.Models
+                                          where m.ModelId == item.ModelId
+                                          select m.ModelNumber).FirstOrDefault();
 
-                            item.ImageUrl = (from p in db.Photos
-                                             join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
-                                             join m in db.Models on pm.ModelId equals m.ModelId
-                                             where m.ModelId == item.ModelId
-                                             select p.ImageUrl).FirstOrDefault();
+                        item.ImageUrl = (from p in db.Photos
+                                         join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                                         join m in db.Models on pm.ModelId equals m.ModelId
+                                         where m.ModelId == item.ModelId
+                                         select p.ImageUrl).FirstOrDefault();
 
-                            item.UnitPrice = (from m in db.Models
-                                              where m.ModelId == item.ModelId
-                                              select m.Price).FirstOrDefault();
+                        item.UnitPrice = (from m in db.Models
+                                          where m.ModelId == item.ModelId
+                                          select m.Price).FirstOrDefault();
 
-                            //item.Quantity = 1;
-                            //item.SubTotal = (item.Quantity * item.UnitPrice);
-                        }
-                        return View(cartList);
+                        //item.Quantity = 1;
+                        //item.SubTotal = (item.Quantity * item.UnitPrice);
                     }
-                    return RedirectToAction("Index", "Home");
+                    return View(cartList);
                 }
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
@@ -229,56 +227,54 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
-                string userId = User.Identity.GetUserId();
-                if (String.IsNullOrEmpty(userId))
-                    return RedirectToAction("Error404", "Home");
+                //string userId = User.Identity.GetUserId();
+                //if (String.IsNullOrEmpty(userId))
+                //    return RedirectToAction("Error404", "Home");
 
-                var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
-                if (User.IsInRole("Customer") && user.ActivationCode == null)
+                //var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+                //if (User.IsInRole("Customer") && user.ActivationCode == null)
+                //{
+                //var quantity = order.Quantity;
+                List<CartViewModel> orderList = Session["Cart"] as List<CartViewModel>;
+
+                //string userId = User.Identity.GetUserId();
+                //if (userId == null)
+                //{
+                //    string returnUrl = Request.Url.ToString();
+                //    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+                //}
+                //else { userId = User.Identity.GetUserId(); }
+                int quantity = 0;
+                int total = 0;
+                var quantityArray = collection.GetValues("item.Quantity");
+                foreach (var item in orderList)
                 {
-                    //var quantity = order.Quantity;
-                    List<CartViewModel> orderList = Session["Cart"] as List<CartViewModel>;
+                    //item.ModelName = (from m in db.Models
+                    //                  where m.ModelId == item.ModelId
+                    //                  select m.ModelNumber).FirstOrDefault();
+                    //item.ImageUrl = (from p in db.Photos
+                    //                 join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
+                    //                 join m in db.Models on pm.ModelId equals m.ModelId
+                    //                 where m.ModelId == item.ModelId
+                    //                 select p.ImageUrl).FirstOrDefault();
+                    item.UnitPrice = (from m in db.Models
+                                      where m.ModelId == item.ModelId
+                                      select m.Price).FirstOrDefault();
+                    item.Quantity = Convert.ToInt32(quantityArray[quantity]);
+                    item.SubTotal = (item.Quantity * item.UnitPrice);
 
-                    //string userId = User.Identity.GetUserId();
-                    //if (userId == null)
-                    //{
-                    //    string returnUrl = Request.Url.ToString();
-                    //    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
-                    //}
-                    //else { userId = User.Identity.GetUserId(); }
-                    int quantity = 0;
-                    int total = 0;
-                    var quantityArray = collection.GetValues("item.Quantity");
-                    foreach (var item in orderList)
-                    {
-                        //item.ModelName = (from m in db.Models
-                        //                  where m.ModelId == item.ModelId
-                        //                  select m.ModelNumber).FirstOrDefault();
-                        //item.ImageUrl = (from p in db.Photos
-                        //                 join pm in db.PhotoModels on p.PhotoId equals pm.PhotoId
-                        //                 join m in db.Models on pm.ModelId equals m.ModelId
-                        //                 where m.ModelId == item.ModelId
-                        //                 select p.ImageUrl).FirstOrDefault();
-                        item.UnitPrice = (from m in db.Models
-                                          where m.ModelId == item.ModelId
-                                          select m.Price).FirstOrDefault();
-                        item.Quantity = Convert.ToInt32(quantityArray[quantity]);
-                        item.SubTotal = (item.Quantity * item.UnitPrice);
+                    //item.GrandTotal += item.SubTotal;
+                    total += item.SubTotal;
 
-                        //item.GrandTotal += item.SubTotal;
-                        total += item.SubTotal;
+                    //item.UserId = userId;
+                    item.SupplierId = db.Models.Find(item.ModelId).SupplierId;
 
-                        //item.UserId = userId;
-                        item.SupplierId = db.Models.Find(item.ModelId).SupplierId;
-
-                        //item.Quantity = 1;
-                        quantity++;
-                    }
-                    Session["Order"] = orderList;
-
-                    return RedirectToAction("ReviewOrder", "Order", new { total = total });
+                    //item.Quantity = 1;
+                    quantity++;
                 }
-                return RedirectToAction("Login", "Account");
+                Session["Order"] = orderList;
+
+                return RedirectToAction("ReviewOrder", "Order", new { total = total });
             }
             catch (Exception ex)
             {

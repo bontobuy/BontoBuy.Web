@@ -21,6 +21,7 @@ namespace BontoBuy.Web.Controllers
             if (User.IsInRole("Admin"))
             {
                 GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View();
             }
             if (User.IsInRole("Supplier"))
@@ -39,14 +40,16 @@ namespace BontoBuy.Web.Controllers
             var pendingModels = from m in db.Models
                                 where m.Status == "Pending"
                                 select m;
-
+            GetNewSupplierActivation();
+            GetNewModelsActivation();
             return View(pendingModels);
         }
 
         public ActionResult EditModelStatus(int id)
         {
             int modelId = id;
-
+            GetNewSupplierActivation();
+            GetNewModelsActivation();
             ViewBag.StatusId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description");
             return null;
         }

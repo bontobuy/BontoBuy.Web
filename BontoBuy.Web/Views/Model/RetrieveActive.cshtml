@@ -1,11 +1,13 @@
-﻿@model IEnumerable<BontoBuy.Web.Models.ModelAdminRetrieveViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.ModelAdminRetrieveViewModel>
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
     ViewBag.Title = "Active Model List";
 }
 
-<div class="col-md-9">
+<div class="col-md-11">
     <h2>@ViewBag.Title</h2>
     <p class="text-success">@ViewBag.StatusMessage</p>
     <p>
@@ -46,33 +48,33 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.pageOfProducts)
             {
                 <tr>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.ModelNumber)
+                        @item.ModelNumber
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
+                        @item.Price
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SupplierCommission)
+                        @item.SupplierCommission
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CommissionPercentage)
+                        @item.CommissionPercentage
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SupplierId)
+                        @item.SupplierId
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SupplierName)
+                        @item.SupplierName
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Status)
+                        @item.Status
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DtCreated)
+                        @item.DtCreated
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Update", new { id = item.ModelId }) |
@@ -82,4 +84,10 @@
                 </tr>
             }
         </table>
+        <div class="col-md-12">
+            <div class="text-center">
+                @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveActive", new { page }))
+                Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Models
+            </div>
+        </div>
     </div>

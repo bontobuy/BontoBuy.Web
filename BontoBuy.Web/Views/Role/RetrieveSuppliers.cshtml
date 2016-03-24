@@ -39,7 +39,8 @@
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "EditUser", new { id = item.UserId }) |
+                            @*@Html.ActionLink("Edit", "EditUser", new { id = item.UserId }) |*@
+                            <a href="@Url.Action("EditUser", "Role", new { id= item.UserId})">Edit</a>
                         </td>
                     </tr>
                 }

@@ -46,7 +46,12 @@ namespace BontoBuy.Web.Models
                 SupplierEmail = (from s in db.Suppliers
                                  where s.SupplierId == record.SupplierId
                                  select s.Email).FirstOrDefault(),
-                SupplierId = record.SupplierId
+                SupplierId = record.SupplierId,
+                ImageUrl = (from ph in db.Photos
+                            join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                            join m in db.Models on pm.ModelId equals m.ModelId
+                            where pm.ModelId == record.ModelId
+                            select ph.ImageUrl).FirstOrDefault()
             };
 
             return model;

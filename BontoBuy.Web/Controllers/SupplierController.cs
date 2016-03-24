@@ -106,7 +106,7 @@ namespace BontoBuy.Web.Controllers
                             message == ManageMessageId.AddModelSuccess ? "You just added a model successfully."
                             : message == ManageMessageId.Error ? "An error has occurred."
                             : message == ManageMessageId.UpdateOrderStatus ? "You just updated the order status."
-                            : "";
+                             : "";
 
                         GetSupplierReturnNotification();
                         GetSupplierNotification();
@@ -215,7 +215,7 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        public ActionResult SupplierRetrieveOrders()
+        public ActionResult SupplierRetrieveOrders(ManageMessageId? message)
         {
             try
             {
@@ -257,6 +257,13 @@ namespace BontoBuy.Web.Controllers
                     GetSupplierReturnNotification();
                     GetSupplierNotification();
                     ViewBag.Title = "List of your Orders";
+
+                    ViewBag.StatusMessage =
+                           message == ManageMessageId.ConfirmationFailure ? "Your Confirmation code did not match with the Customer code."
+                           : message == ManageMessageId.Error ? "An error has occurred."
+                           : message == ManageMessageId.UpdateOrderStatus ? "You just updated the order status."
+                           : message == ManageMessageId.OrderDeliveredSuccess ? "You just confirmed that your order has been delivered."
+                            : "";
                     return View(orderList);
                 }
                 return RedirectToAction("Login", "Account");
@@ -362,7 +369,8 @@ namespace BontoBuy.Web.Controllers
                         GrandTotal = record.GrandTotal,
                         CustomerName = (from c in db.Customers
                                         where c.CustomerId == record.CustomerId
-                                        select c.Name).FirstOrDefault()
+                                        select c.Name).FirstOrDefault(),
+                        Status = record.Status
                     };
 
                     ViewBag.OrderStatusId = new SelectList(db.OrderStatuses, "OrderStatusId", "Name");
@@ -380,7 +388,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SupplierEditOrder(SupplierUpdateOrderViewModel item)
+        public ActionResult SupplierEditOrder(SupplierUpdateOrderViewModel item, string ConfirmationCode)
         {
             try
             {
@@ -395,18 +403,52 @@ namespace BontoBuy.Web.Controllers
                                  where o.OrderId == item.OrderId
                                  select o).FirstOrDefault();
 
-                    ViewBag.OrderStatusId = new SelectList(db.OrderStatuses, "OrderStatusId", "Name", item.OrderStatusId);
+                    //ViewBag.OrderStatusId = new SelectList(db.OrderStatuses, "OrderStatusId", "Name", item.OrderStatusId);
 
-                    order.Status = (from os in db.OrderStatuses
-                                    where os.OrderStatusId == item.OrderStatusId
-                                    select os.Name).FirstOrDefault();
+                    //order.Status = (from os in db.OrderStatuses
+                    //                where os.OrderStatusId == item.OrderStatusId
+                    //                select os.Name).FirstOrDefault();
+
+                    string orderStatus = order.Status.ToString();
+
+                    if (orderStatus == "Active")
+                    {
+                        order.Status = "Processing";
+                    }
+
+                    if (orderStatus == "Processing")
+                    {
+                        order.Status = "In Transit";
+                    }
+
+                    if (orderStatus == "In Transit")
+                    {
+                        string SupplierCode = ConfirmationCode.ToString();
+                        string CustomerCode = (from o in db.Orders
+                                               where o.OrderId == order.OrderId
+                                               select o.ConfirmationCode).FirstOrDefault();
+
+                        if (SupplierCode == CustomerCode)
+                        {
+                            order.Status = "Delivered";
+                            db.SaveChanges();
+                            return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.OrderDeliveredSuccess });
+                        }
+                        return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.ConfirmationFailure });
+                    }
+
                     order.Notification = "Customer";
                     db.SaveChanges();
-                }
 
-                GetSupplierReturnNotification();
-                GetSupplierNotification();
-                return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.UpdateOrderStatus });
+                    GetSupplierReturnNotification();
+                    GetSupplierNotification();
+                    return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.UpdateOrderStatus });
+                }
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                return RedirectToAction("Error404", "Home");
             }
             catch (Exception ex)
             {
@@ -641,6 +683,8 @@ namespace BontoBuy.Web.Controllers
             AddModelSuccess,
             UpdateOrderStatus,
             UpdateReturnStatus,
+            ConfirmationFailure,
+            OrderDeliveredSuccess,
             Error
         }
     }

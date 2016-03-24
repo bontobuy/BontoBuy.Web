@@ -45,7 +45,7 @@
     </table>
     <div class="col-md-12">
         <div class="text-center">
-            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveOrders", new { page }))
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("Retrieve", new { page }))
             Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Items
         </div>
     </div>

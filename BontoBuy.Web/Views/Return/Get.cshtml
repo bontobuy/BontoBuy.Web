@@ -1,0 +1,66 @@
+﻿@model BontoBuy.Web.Models.ReturnViewModel
+@{
+    ViewBag.Title = "Return #" + Model.ReturnId;
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <h2>@ViewBag.Title</h2><hr/>
+    <h4>Details</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnMethod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DtCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DtCreated)
+        </dd>
+    </dl>
+    <div>
+        @Html.ActionLink("Back to List", "Retrieve")
+    </div>
+</div>

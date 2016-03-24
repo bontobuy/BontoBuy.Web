@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace BontoBuy.Web.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : NotificationController
     {
         private readonly ICategoryRepo _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -62,6 +62,9 @@ namespace BontoBuy.Web.Controllers
                 : message == ManageMessageId.RestoreCategorySuccess ? "You have successfully restore a Category."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
+
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(records);
 
                     //}
@@ -107,6 +110,9 @@ namespace BontoBuy.Web.Controllers
                     {
                         return HttpNotFound();
                     }
+
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -142,6 +148,9 @@ namespace BontoBuy.Web.Controllers
                     var records = _repository.Retrieve();
 
                     ViewData["CategoryList"] = records;
+
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(newItem);
                 }
                 return RedirectToAction("Login", "Account");
@@ -178,6 +187,8 @@ namespace BontoBuy.Web.Controllers
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Item cannot be null!");
                     }
                     var newItem = _repository.Create(item);
+
+                    GetNewSupplierActivation();
                     return RedirectToAction("Retrieve", new { message = ManageMessageId.AddCategorySuccess });
                 }
                 return RedirectToAction("Login", "Account");
@@ -220,6 +231,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(itemToUpdate);
                 }
                 return RedirectToAction("Login", "Account");
@@ -304,6 +317,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");
@@ -386,6 +401,9 @@ namespace BontoBuy.Web.Controllers
                 message == ManageMessageId.RestoreCategorySuccess ? "You have successfully restore a Category."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
+
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -427,6 +445,8 @@ namespace BontoBuy.Web.Controllers
                         return HttpNotFound();
                     }
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(profile);
                 }
                 return RedirectToAction("Login", "Account");

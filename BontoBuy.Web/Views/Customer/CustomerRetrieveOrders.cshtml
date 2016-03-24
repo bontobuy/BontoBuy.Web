@@ -43,7 +43,7 @@
 
                 <td>
                     @Html.ActionLink("Details", "CustomerGetOrder", new { id = item.OrderId }) |
-                    @if (item.HasReturn == false)
+                    @if (item.HasReturn == false && item.Status=="Delivered")
                     {
                         @Html.ActionLink("Return Product", "CreateReturn", "CustomerReturns", new { id = item.OrderId }, null)
                     }
@@ -53,7 +53,7 @@
     </table>
     <div class="col-md-12">
         <div class="text-center">
-            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveOrders", new { page }))
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("CustomerRetrieveOrders", new { page }))
             Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Orders
         </div>
     </div>

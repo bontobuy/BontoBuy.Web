@@ -63,8 +63,8 @@
             @Html.DisplayFor(model => model.RealDeliveryDate)
         </dd>
 
-            <hr/>
-            <h4 class="text-info">Delivery Details</h4>
+        <hr/>
+        <h4 class="text-info">Delivery Details</h4>
         <dt>
             @Html.DisplayNameFor(model => model.Street)
         </dt>
@@ -87,6 +87,6 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "SupplierEditOrder", new { id = Model.OrderId }) |
-    @Html.ActionLink("View As Pdf", "SupplierViewOrderPdf") |
+    @Html.ActionLink("View As Pdf", "SupplierViewOrderPdf", null, new { target = "_blank" }) |
     @Html.ActionLink("Back to List", "SupplierRetrieveOrders")
 </p>

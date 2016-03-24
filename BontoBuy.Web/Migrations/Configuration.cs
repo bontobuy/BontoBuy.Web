@@ -1,10 +1,10 @@
 namespace BontoBuy.Web.Migrations
 {
+    using BontoBuy.Web.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using BontoBuy.Web.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<BontoBuy.Web.Models.ApplicationDbContext>
     {

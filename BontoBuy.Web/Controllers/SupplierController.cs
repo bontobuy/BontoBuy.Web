@@ -341,7 +341,8 @@ namespace BontoBuy.Web.Controllers
         public ActionResult SupplierViewOrderPdf()
         {
             var supplierOrder = Session["SupplierOrder"] as SupplierGetOrderViewModel;
-            Session.Remove("SupplierOrder");
+
+            //Session.Remove("SupplierOrder");
             return new ViewAsPdf("SupplierViewOrderPdf", supplierOrder);
         }
 

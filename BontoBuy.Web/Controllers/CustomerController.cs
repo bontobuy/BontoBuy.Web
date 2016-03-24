@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using PagedList;
+using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using PagedList;
-using Rotativa;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -29,20 +29,28 @@ namespace BontoBuy.Web.Controllers
         // GET: Customer
         public ActionResult Index(ManageMessageId? message)
         {
-            if (User.IsInRole("Supplier"))
-                return RedirectToAction("Index", "Supplier");
+            string userId = User.Identity.GetUserId();
+            if (String.IsNullOrEmpty(userId))
+                return RedirectToAction("Error404", "Home");
+            var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+            if (User.IsInRole("Customer") && user.ActivationCode == null)
+            {
+                if (User.IsInRole("Supplier"))
+                    return RedirectToAction("Index", "Supplier");
 
-            if (User.IsInRole("Admin"))
-                return RedirectToAction("Index", "Admin");
+                if (User.IsInRole("Admin"))
+                    return RedirectToAction("Index", "Admin");
 
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : "";
+                ViewBag.StatusMessage =
+                    message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                    : message == ManageMessageId.Error ? "An error has occurred."
+                    : "";
 
-            GetCustomerReturnNotification();
-            GetCustomerNotification();
-            return View();
+                GetCustomerReturnNotification();
+                GetCustomerNotification();
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         public ActionResult CustomerRetrieveOrders(int? page)

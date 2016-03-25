@@ -168,7 +168,10 @@ namespace BontoBuy.Web.Controllers
 
                         ConfirmationCode = (from o in db.Orders
                                             where o.OrderId == id
-                                            select o.ConfirmationCode).FirstOrDefault()
+                                            select o.ConfirmationCode).FirstOrDefault(),
+                        PhoneNumber = (from u in db.Users
+                                       where u.Id == userId
+                                       select u.PhoneNumber).FirstOrDefault()
                     };
                     Session["CustomerOrder"] = customerOrder;
                     ViewBag.StatusMessage =

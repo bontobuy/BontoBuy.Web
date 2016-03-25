@@ -318,7 +318,12 @@ namespace BontoBuy.Web.Controllers
 
                         Zipcode = (from d in db.Deliveries
                                    where d.OrderId == id
-                                   select d.Zipcode).FirstOrDefault()
+                                   select d.Zipcode).FirstOrDefault(),
+
+                        PhoneNumber = (from u in db.Users
+                                       join o in db.Orders on u.Id equals o.CustomerUserId
+                                       where o.OrderId == id
+                                       select u.PhoneNumber).FirstOrDefault()
                     };
                     Session["SupplierOrder"] = supplierOrder;
                     GetSupplierReturnNotification();

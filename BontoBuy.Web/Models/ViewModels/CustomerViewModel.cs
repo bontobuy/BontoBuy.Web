@@ -48,5 +48,6 @@ namespace BontoBuy.Web.Models
         public string Zipcode { get; set; }
         public int UnitPrice { get; set; }
         public string ConfirmationCode { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

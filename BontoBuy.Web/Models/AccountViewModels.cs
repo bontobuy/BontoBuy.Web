@@ -65,6 +65,7 @@ namespace BontoBuy.Web.Models
     public class RegisterViewModel
     {
         [Required]
+        [RegularExpression(@"^[5]\d{7}$", ErrorMessage = "Should start with 5 and be a total of 8 digits")]
         public string PhoneNumber { get; set; }
         [Required]
         public string City { get; set; }

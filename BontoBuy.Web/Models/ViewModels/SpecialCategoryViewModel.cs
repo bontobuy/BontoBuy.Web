@@ -17,6 +17,7 @@ namespace BontoBuy.Web.Models
         [Required(ErrorMessage = "Tag name is required")]
         public string Description { get; set; }
         public string Status { get; set; }
+        public string Position { get; set; }
         public ICollection<SpecificationViewModel> TagSpecificationNav { get; set; }
     }
 }

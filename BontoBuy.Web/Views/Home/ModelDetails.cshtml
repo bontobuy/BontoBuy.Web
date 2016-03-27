@@ -271,84 +271,94 @@
 
                             <section class="container product-info">
 
-                                <h3><b>@ViewBag.Overview</b></h3>
-                                @foreach (var spec in Model.Overview)
-                                {
+                                @*<h3><b>@ViewBag.Overview</b></h3>
+                                    @foreach (var spec in Model.Overview)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.BoxContent</b></h3>
-                                @foreach (var spec in Model.BoxContent)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.BoxContent</b></h3>
+                                    @foreach (var spec in Model.BoxContent)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.Display</b></h3>
-                                @foreach (var spec in Model.Display)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.Display</b></h3>
+                                    @foreach (var spec in Model.Display)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.Software</b></h3>
-                                @foreach (var spec in Model.Software)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.Software</b></h3>
+                                    @foreach (var spec in Model.Software)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.Camera</b></h3>
-                                @foreach (var spec in Model.Camera)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.Camera</b></h3>
+                                    @foreach (var spec in Model.Camera)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.Connectivity</b></h3>
-                                @foreach (var spec in Model.Connectivity)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.Connectivity</b></h3>
+                                    @foreach (var spec in Model.Connectivity)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.Processor</b></h3>
-                                @foreach (var spec in Model.Processor)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.Processor</b></h3>
+                                    @foreach (var spec in Model.Processor)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.MemoryStorage</b></h3>
-                                @foreach (var spec in Model.MemoryStorage)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.MemoryStorage</b></h3>
+                                    @foreach (var spec in Model.MemoryStorage)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.Hardware</b></h3>
-                                @foreach (var spec in Model.Hardware)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.Hardware</b></h3>
+                                    @foreach (var spec in Model.Hardware)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.HardwareConnectivity</b></h3>
-                                @foreach (var spec in Model.HardwareConnectivity)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.HardwareConnectivity</b></h3>
+                                    @foreach (var spec in Model.HardwareConnectivity)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.BatteryPower</b></h3>
-                                @foreach (var spec in Model.BatteryPower)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.BatteryPower</b></h3>
+                                    @foreach (var spec in Model.BatteryPower)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.Dimensions</b></h3>
-                                @foreach (var spec in Model.Dimensions)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.Dimensions</b></h3>
+                                    @foreach (var spec in Model.Dimensions)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                }
-                                <br/>
-                                <h3><b>@ViewBag.Warranty</b></h3>
-                                @foreach (var spec in Model.Warranty)
-                                {
+                                    }
+                                    <br/>
+                                    <h3><b>@ViewBag.Warranty</b></h3>
+                                    @foreach (var spec in Model.Warranty)
+                                    {
                                     <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
+                                    }
+                                    <br />*@
+                                @foreach (var item in Model.SpecificationDetails)
+                                {
+
+                                    <h3><b>@item.Key</b></h3>
+                                    foreach (var val in item.Value)
+                                    {
+                                        <li>@val.SpecificationName - @val.SpecificationValue</li>
+                                    }
+                                    <br />
                                 }
-                                <br/>
                             </section>
                         </div>
                         <div class="tab-pane fade" id="service-two">
@@ -368,7 +378,7 @@
                         @foreach (var item in Model.RelatedProducts)
                         {
                             <li class="productbox">
-                                <a href="@Url.Action("ModelDetails", "Home", new { id = item.ModelId })"><img src="~/images/@item.ImageUrl" class="img-responsive"></a>
+                                <a href="@Url.Action(" modeldetails", "Home" , new { id=item.ModelId })"><img src="~/images/@item.ImageUrl" class="img-responsive"></a>
                                 <div class="producttitle">@item.ModelNumber</div>
                                 <div class="text-primary">
                                     @item.Price <br/>

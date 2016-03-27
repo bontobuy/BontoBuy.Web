@@ -592,6 +592,10 @@
     <Compile Include="Migrations\201603251307302_Add Column Position to SpecialCategory.Designer.cs">
       <DependentUpon>201603251307302_Add Column Position to SpecialCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603272149586_Add required to ReturnVM.cs" />
+    <Compile Include="Migrations\201603272149586_Add required to ReturnVM.Designer.cs">
+      <DependentUpon>201603272149586_Add required to ReturnVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -1421,6 +1425,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603251307302_Add Column Position to SpecialCategory.resx">
       <DependentUpon>201603251307302_Add Column Position to SpecialCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603272149586_Add required to ReturnVM.resx">
+      <DependentUpon>201603272149586_Add required to ReturnVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

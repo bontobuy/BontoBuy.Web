@@ -13,8 +13,11 @@ namespace BontoBuy.Web.Models
         [Key]
         public int ReturnId { get; set; }
         public int OrderId { get; set; }
+        [Required]
         public DateTime ReturnDate { get; set; }
+        [Required]
         public string ReturnMethod { get; set; }
+        [Required]
         public string Reason { get; set; }
         public string Status { get; set; }
         public DateTime DtCreated { get; set; }

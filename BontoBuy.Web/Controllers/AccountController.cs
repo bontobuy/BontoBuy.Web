@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -11,10 +15,6 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -336,6 +336,13 @@ namespace BontoBuy.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterCustomerViewModel model)
         {
+            var emailValid = (from u in db.Users
+                              where u.Email == model.Email
+                              select u).Count();
+            if (emailValid > 0)
+            {
+                ViewBag.StatusMessage = "Email already exists.";
+            }
             if (ModelState.IsValid)
             {
                 var activationCode = CodeGenerator();
@@ -396,6 +403,7 @@ namespace BontoBuy.Web.Controllers
                     AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                     return RedirectToAction("RegistrationLogin", "Account");
                 }
+
                 AddErrors(result);
             }
 

@@ -588,6 +588,18 @@
     <Compile Include="Migrations\201603191900391_Add Column Notification to ReturnVM.Designer.cs">
       <DependentUpon>201603191900391_Add Column Notification to ReturnVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603251307302_Add Column Position to SpecialCategory.cs" />
+    <Compile Include="Migrations\201603251307302_Add Column Position to SpecialCategory.Designer.cs">
+      <DependentUpon>201603251307302_Add Column Position to SpecialCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603272149586_Add required to ReturnVM.cs" />
+    <Compile Include="Migrations\201603272149586_Add required to ReturnVM.Designer.cs">
+      <DependentUpon>201603272149586_Add required to ReturnVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603281158509_Add column DtCreatedToReviewVM.cs" />
+    <Compile Include="Migrations\201603281158509_Add column DtCreatedToReviewVM.Designer.cs">
+      <DependentUpon>201603281158509_Add column DtCreatedToReviewVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -1057,6 +1069,8 @@
     <Content Include="Views\Model\RetrieveActive.cshtml" />
     <Content Include="Views\Model\RetrievePending.cshtml" />
     <Content Include="Views\Return\Get.cshtml" />
+    <Content Include="Views\Customer\RetrieveInactiveOrders.cshtml" />
+    <Content Include="Views\CustomerReview\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1065,7 +1079,6 @@
     <Folder Include="Views\AdminRole\" />
     <Folder Include="Views\BaseNotification\" />
     <Folder Include="Views\CustomerPayment\" />
-    <Folder Include="Views\CustomerReview\" />
     <Folder Include="Views\CustomerWishlist\" />
     <Folder Include="Views\Email\" />
     <Folder Include="Views\PaymentCustomer\" />
@@ -1414,6 +1427,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603191900391_Add Column Notification to ReturnVM.resx">
       <DependentUpon>201603191900391_Add Column Notification to ReturnVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603251307302_Add Column Position to SpecialCategory.resx">
+      <DependentUpon>201603251307302_Add Column Position to SpecialCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603272149586_Add required to ReturnVM.resx">
+      <DependentUpon>201603272149586_Add required to ReturnVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603281158509_Add column DtCreatedToReviewVM.resx">
+      <DependentUpon>201603281158509_Add column DtCreatedToReviewVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

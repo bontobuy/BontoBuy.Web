@@ -16,10 +16,17 @@ namespace BontoBuy.Web.Models
         public int ModelId { get; set; }
         public string UserId { get; set; }
         public string Description { get; set; }
-
+        public DateTime DtCreated { get; set; }
         [ForeignKey("ModelId")]
         public ModelViewModel ModelNav { get; set; }
         [ForeignKey("UserId")]
         public CustomerViewModel CustomerNav { get; set; }
+    }
+
+    public class ReviewRatingViewModel
+    {
+        public string UserName { get; set; }
+        public string Description { get; set; }
+        public DateTime DtCreated { get; set; }
     }
 }

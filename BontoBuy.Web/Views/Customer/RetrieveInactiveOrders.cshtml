@@ -43,28 +43,14 @@
 
                 <td>
                     @Html.ActionLink("Details", "CustomerGetOrder", new { id = item.OrderId }) |
-                    @if (item.HasReturn == false && item.Status == "Delivered")
-                    {
-                        @Html.ActionLink("Return Product", "CreateReturn", "CustomerReturns", new { id = item.OrderId }, null)
-                    }
-
-                    @if (item.Status == "Active" || item.Status == "Processing")
-                    {
-                        <a href="@Url.Action("CancelOrder", "Customer", new { id = item.OrderId })" class="text-danger">Cancel</a>
-                    }
-
-                    @if (item.Status == "Delivered")
-                    {
-                        <span>|</span> <a href="@Url.Action("Create", "CustomerReview", new { id = item.ModelId })" class="text-success">Leave a review</a>
-                    }
                 </td>
             </tr>
         }
     </table>
     <div class="col-md-12">
         <div class="text-center">
-            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("CustomerRetrieveOrders", new { page }))
-            Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Orders
+            @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveInactiveOrders", new { page }))
+            Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Cancelled Orders
         </div>
     </div>
 </div>

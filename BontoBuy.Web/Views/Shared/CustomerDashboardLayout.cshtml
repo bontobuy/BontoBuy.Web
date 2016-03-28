@@ -186,8 +186,13 @@
                                         <td>
                                             @using (Html.BeginForm("UpdatedOrders", "Customer", FormMethod.Post, new { id = "UpdatedOrders" }))
                                             {
-                                                <a href="javascript:$('#UpdatedOrders').submit()">Updated Orders<span class="badge">@ViewBag.CustomerNotification</span></a>
+                                                <span class="glyphicon glyphicon-asterisk"></span> <a href="javascript:$('#UpdatedOrders').submit()" >Updated Orders<span class="badge">@ViewBag.CustomerNotification</span></a>
                                             }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-off"></span><a href="@Url.Action("RetrieveInactiveOrders","Customer")">Cancelled Orders</a>
                                         </td>
                                     </tr>
                                 </table>

@@ -11,7 +11,7 @@
             <p>Search by Order#:</p>
             <input class="form-control " type="number" name="SearchString" min="1" value="1" /> <br/>
             <div class="col-md-4 ">
-                <input type="submit" value="Filter" class="btn btn-details " />
+                <input type="submit" value="Filter" class="btn btn-details "/>
             </div>
         </div>
     }
@@ -58,7 +58,17 @@
 
                 <td>
                     @Html.ActionLink("Details", "SupplierGetOrder", new { id = item.OrderId }) |
-                    @Html.ActionLink("Edit", "SupplierEditOrder", new { id = item.OrderId })
+                    @Html.ActionLink("Edit", "SupplierEditOrder", new { id = item.OrderId }) |
+
+                    @if (item.Status == "Active")
+                    {
+
+                        <a href="@Url.Action("UpdateOrder", "Supplier", new { id = item.OrderId })" class="text-info">Processing</a>
+                    }
+                    @if (item.Status == "Processing")
+                    {
+                        <a href="@Url.Action("UpdateOrder", "Supplier", new { id = item.OrderId })" class="text-info">In Transit</a>
+                    }
                 </td>
             </tr>
         }

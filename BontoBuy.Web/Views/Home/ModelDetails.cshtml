@@ -176,6 +176,45 @@
         .producttitle .btn {
             background-color: #EDEEF0;
         }
+
+    .rating-block {
+        background-color: #FAFAFA;
+        border: 1px solid #EFEFEF;
+        padding: 15px 15px 20px 15px;
+        border-radius: 3px;
+    }
+
+    .review-block {
+        background-color: #FAFAFA;
+        border: 1px solid #EFEFEF;
+        padding: 15px;
+        border-radius: 3px;
+        margin-bottom: 15px;
+    }
+
+    .review-block-name {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+
+    .review-block-date {
+        font-size: 14px;
+    }
+
+    .review-block-rate {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+    .review-block-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .review-block-description {
+        font-size: 13px;
+    }
 </style>
 @section scripts{
     <script type="text/javascript">
@@ -237,8 +276,8 @@
                     <div class="col-md-6">
                         <div class="badge">@Model.Info.BrandName</div>
                         <div class="product-title">@Model.Info.ModelNumber</div>
-                        <div class="product-desc">Description</div>
-                        <div class="product-rating"><i class="glyphicon glyphicon-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+                        <div class="product-desc"></div>
+                        @*<div class="product-rating"><i class="glyphicon glyphicon-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>*@
                         <hr>
                         <div class="product-price">Rs @Model.Info.Price</div>
                         <div class="product-stock">In Stock</div>
@@ -252,8 +291,17 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-4 border col-md-offset-2">
-                        <div class="product-title"><span class="text-info">Supplier: </span> @Model.Info.Supplier</div>
+                    <div class="row">
+                        <div class="col-md-4 border col-md-offset-2">
+                            <div class="product-title"><span class="text-info">Supplier: </span> @Model.Info.Supplier</div>
+                        </div>
+                        <hr/>
+                        <div class="col-md-3 col-md-offset-2">
+                            <div class="rating-block">
+                                <h4>Average user rating</h4>
+                                <h2 class="bold padding-bottom-7">@ViewBag.AverageRating <small>/ 5</small></h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -270,85 +318,6 @@
                         <div class="tab-pane fade in active" id="service-one">
 
                             <section class="container product-info">
-
-                                @*<h3><b>@ViewBag.Overview</b></h3>
-                                    @foreach (var spec in Model.Overview)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.BoxContent</b></h3>
-                                    @foreach (var spec in Model.BoxContent)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.Display</b></h3>
-                                    @foreach (var spec in Model.Display)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.Software</b></h3>
-                                    @foreach (var spec in Model.Software)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.Camera</b></h3>
-                                    @foreach (var spec in Model.Camera)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.Connectivity</b></h3>
-                                    @foreach (var spec in Model.Connectivity)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.Processor</b></h3>
-                                    @foreach (var spec in Model.Processor)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.MemoryStorage</b></h3>
-                                    @foreach (var spec in Model.MemoryStorage)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.Hardware</b></h3>
-                                    @foreach (var spec in Model.Hardware)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.HardwareConnectivity</b></h3>
-                                    @foreach (var spec in Model.HardwareConnectivity)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.BatteryPower</b></h3>
-                                    @foreach (var spec in Model.BatteryPower)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.Dimensions</b></h3>
-                                    @foreach (var spec in Model.Dimensions)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br/>
-                                    <h3><b>@ViewBag.Warranty</b></h3>
-                                    @foreach (var spec in Model.Warranty)
-                                    {
-                                    <li>@spec.SpecificationDescription - @spec.SpecificationValue</li>
-                                    }
-                                    <br />*@
                                 @foreach (var item in Model.SpecificationDetails)
                                 {
 
@@ -357,13 +326,53 @@
                                     {
                                         <li>@val.SpecificationName - @val.SpecificationValue</li>
                                     }
-                                    <br />
+                                    <br/>
                                 }
                             </section>
                         </div>
                         <div class="tab-pane fade" id="service-two">
 
-                            <section class="container"></section>
+                            <section class="container">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <hr/>
+                                        <div class="review-block">
+                                            @foreach (var item in ViewBag.Reviews)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <img src="" class="fa fa-user">
+                                                        <div class="review-block-name"><span class="fa fa-user"></span><a href="#">@item.UserName</a></div>
+                                                        <div class="review-block-date">@item.DtCreated</div>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        @*<div class="review-block-rate">
+                                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                                </button>
+                                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                                </button>
+                                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                                </button>
+                                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                                </button>
+                                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                                </button>
+                                                            </div>*@
+                                                        <div class="review-block-title"></div>
+                                                        <div class="review-block-description">@item.Description</div>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                     </div>
                     <hr>

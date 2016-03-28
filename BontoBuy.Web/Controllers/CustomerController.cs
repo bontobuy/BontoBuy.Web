@@ -24,6 +24,8 @@ namespace BontoBuy.Web.Controllers
             AddDeliveryAddressSuccess,
             AddOrderSuccess,
             CancelOrderSuccess,
+            ReviewSuccess,
+            ReviewFailure,
             Error
         }
 
@@ -103,6 +105,8 @@ namespace BontoBuy.Web.Controllers
 
                     ViewBag.CustomerOrderStatus =
                message == ManageMessageId.CancelOrderSuccess ? "Your Order has been cancelled."
+               : message == ManageMessageId.ReviewSuccess ? "Your review has been successfully saved."
+               : message == ManageMessageId.ReviewFailure ? "You have already reviewed this model."
                : message == ManageMessageId.Error ? "An error has occurred."
                : "";
                     return View();

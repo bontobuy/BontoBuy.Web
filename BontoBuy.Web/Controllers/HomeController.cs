@@ -135,6 +135,7 @@ namespace BontoBuy.Web.Controllers
             var ratingSum = db.RatingModels.Where(r => r.ModelId == id).ToList().Sum(r => r.RatingId);
             var ratingCount = db.RatingModels.Where(r => r.ModelId == id).ToList().Count();
             int averageRating = ratingSum / ratingCount;
+            ViewBag.ratingCount = ratingCount;
             ViewBag.AverageRating = averageRating;
 
             var reviewRecords = db.Reviews.Where(r => r.ModelId == id).ToList();

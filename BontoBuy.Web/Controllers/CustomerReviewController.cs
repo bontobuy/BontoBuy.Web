@@ -98,7 +98,8 @@ namespace BontoBuy.Web.Controllers
                     {
                         Description = item.Description,
                         UserId = reviewDetails.UserId,
-                        ModelId = reviewDetails.ModelId
+                        ModelId = reviewDetails.ModelId,
+                        DtCreated = DateTime.UtcNow
                     };
                     db.Reviews.Add(newRecord);
                     db.SaveChanges();

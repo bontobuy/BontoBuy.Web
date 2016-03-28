@@ -134,6 +134,7 @@ namespace BontoBuy.Web.Controllers
 
             var ratingSum = db.RatingModels.Where(r => r.ModelId == id).ToList().Sum(r => r.RatingId);
             var ratingCount = db.RatingModels.Where(r => r.ModelId == id).ToList().Count();
+
             if (ratingSum <= 0 || ratingCount <= 0)
             {
                 ratingSum = 1;
@@ -1251,6 +1252,10 @@ namespace BontoBuy.Web.Controllers
             var records = (from m in db.Models
                            where m.ItemId == id && m.Status == "Active"
                            select m).ToList();
+            var itemName = (from i in db.Items
+                            where i.ItemId == id
+                            select i.Description).FirstOrDefault();
+            ViewBag.ItemTitle = itemName;
 
             var CatalogList = new List<HomeCatalogViewModel>();
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");

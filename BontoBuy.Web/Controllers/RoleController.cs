@@ -1,9 +1,4 @@
-﻿using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -12,6 +7,11 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -251,7 +251,7 @@ namespace BontoBuy.Web.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                int statusId = 1;
+                //int statusId = 1;
 
                 //ViewBag.StatusId = new SelectList(db.Statuses, "StatusId", "Name", statusId);
                 //string status = (from s in db.Statuses

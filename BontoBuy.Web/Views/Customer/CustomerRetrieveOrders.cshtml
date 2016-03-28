@@ -52,6 +52,11 @@
                     {
                         <a href="@Url.Action("CancelOrder", "Customer", new { id = item.OrderId })" class="text-danger">Cancel</a>
                     }
+
+                    @if (item.Status == "Delivered")
+                    {
+                        <span>|</span> <a href="@Url.Action("Create", "CustomerReview", new { id = item.ModelId })" class="text-success">Leave a review</a>
+                    }
                 </td>
             </tr>
         }

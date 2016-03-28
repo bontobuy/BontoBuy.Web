@@ -62,7 +62,7 @@
                                     <h6 class="text-right">Added items?</h6>
                                 </div>
                                 <div class="col-xs-3">
-                                    <button type="button" class="btn btn-default btn-sm btn-block">
+                                    <button type="button" class="btn btn-default btn-sm btn-block" id="Reset">
                                         Update cart
                                     </button>
                                 </div>
@@ -127,6 +127,10 @@
                         $('#cartRemoveAlert').fadeIn(400).delay(3000).fadeOut(1000);
                     }
                 });
+            });
+
+            $('#Reset').click(function () {
+                window.location.reload();
             });
         });
     </script>

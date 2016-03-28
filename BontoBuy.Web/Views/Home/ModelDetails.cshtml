@@ -219,6 +219,8 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#cartAlert').hide();
+
             $('.AddToCart').click(function () {
                 var modelId = $(this).attr('data-id');
 
@@ -231,6 +233,9 @@
                     success: function (data) {
                         $(".cart").text(data.carCount);
                         $('#viewCart').removeClass('hide');
+
+                        $('#cartAlert').fadeIn(400);
+                        setTimeout(function () { $('#cartAlert').fadeOut(1000) }, 3000);
                     }
                 });
                 $('#cardSideBar').slideDown(1000);
@@ -254,7 +259,7 @@
                 <div class="col-md-12">
                     <div class="product col-md-3 service-image-left">
                         <center>
-                            <a><img id="@Model.Info.ModelId" class="img-responsive" src="~/images/@Model.Info.ImageUrl" alt="@Model.Info.ModelNumber"></a>
+                            <a><img id="@Model.Info.ModelId" class="img-responsive" data-toggle="magnify" src="~/images/@Model.Info.ImageUrl" alt="@Model.Info.ModelNumber"></a>
                         </center>
                     </div>
                     @*<div class="container service1-items col-sm-2 col-md-2 pull-left">
@@ -286,10 +291,10 @@
                             <a href="" class="btn btn-success AddToCart" data-id="@Model.Info.ModelId">AddToCart</a>@*@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { @class = "btn btn-success AddToCart" })*@
                         </div>
                         @*<div class="btn-group wishlist">
-                            <button type="button" class="btn btn-danger">
-                                Add to wishlist
-                            </button>
-                        </div>*@
+                                <button type="button" class="btn btn-danger">
+                                    Add to wishlist
+                                </button>
+                            </div>*@
                     </div>
                     <div class="row">
                         <div class="col-md-4 border col-md-offset-2">
@@ -388,7 +393,7 @@
                         @foreach (var item in Model.RelatedProducts)
                         {
                             <li class="productbox">
-                                <a href="@Url.Action(" modeldetails", "Home" , new { id=item.ModelId })"><img src="~/images/@item.ImageUrl" class="img-responsive"></a>
+                                <a href="@Url.Action("ModelDetails", "Home" , new { id=item.ModelId })"><img src="~/images/@item.ImageUrl" class="img-responsive"></a>
                                 <div class="producttitle">@item.ModelNumber</div>
                                 <div class="text-primary">
                                     @item.Price <br/>

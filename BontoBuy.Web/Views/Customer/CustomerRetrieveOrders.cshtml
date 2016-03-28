@@ -43,9 +43,14 @@
 
                 <td>
                     @Html.ActionLink("Details", "CustomerGetOrder", new { id = item.OrderId }) |
-                    @if (item.HasReturn == false && item.Status=="Delivered")
+                    @if (item.HasReturn == false && item.Status == "Delivered")
                     {
                         @Html.ActionLink("Return Product", "CreateReturn", "CustomerReturns", new { id = item.OrderId }, null)
+                    }
+
+                    @if (item.Status == "Active" || item.Status == "Processing")
+                    {
+                        <a href="@Url.Action("CancelOrder", "Customer", new { id = item.OrderId })" class="text-danger">Cancel</a>
                     }
                 </td>
             </tr>

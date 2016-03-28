@@ -684,6 +684,44 @@ namespace BontoBuy.Web.Controllers
             return View("SupplierRetrieveOrders", orderList);
         }
 
+        public ActionResult UpdateOrder(int id)
+        {
+            string userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (User.IsInRole("Supplier"))
+            {
+                var order = (from o in db.Orders
+                             where o.OrderId == id
+                             select o).FirstOrDefault();
+
+                string orderStatus = order.Status.ToString();
+
+                if (orderStatus == "Active")
+                {
+                    order.Status = "Processing";
+                }
+                else if (orderStatus == "Processing")
+                {
+                    order.Status = "In Transit";
+                }
+
+                order.Notification = "Customer";
+                db.SaveChanges();
+
+                GetSupplierReturnNotification();
+                GetSupplierNotification();
+                return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.UpdateOrderStatus });
+            }
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            return RedirectToAction("Error404", "Home");
+        }
+
         public enum ManageMessageId
         {
             AddModelSuccess,

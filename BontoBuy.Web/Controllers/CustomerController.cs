@@ -23,6 +23,7 @@ namespace BontoBuy.Web.Controllers
             ChangePasswordSuccess,
             AddDeliveryAddressSuccess,
             AddOrderSuccess,
+            CancelOrderSuccess,
             Error
         }
 
@@ -53,7 +54,7 @@ namespace BontoBuy.Web.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult CustomerRetrieveOrders(int? page)
+        public ActionResult CustomerRetrieveOrders(int? page, ManageMessageId? message)
         {
             try
             {
@@ -71,7 +72,7 @@ namespace BontoBuy.Web.Controllers
                 {
                     var orderList = new List<CustomerRetrieveOrdersViewModel>();
                     var records = from o in db.Orders
-                                  where o.CustomerUserId == userId
+                                  where o.CustomerUserId == userId && o.Status != "Inactive"
                                   select o;
                     foreach (var item in records)
                     {
@@ -97,9 +98,13 @@ namespace BontoBuy.Web.Controllers
                     GetCustomerNotification();
 
                     var pageNumber = page ?? 1;
-                    var pageOfProducts = orderList.ToPagedList(pageNumber, 10);
+                    var pageOfProducts = orderList.OrderBy(o => o.Status).ToPagedList(pageNumber, 10);
                     ViewBag.pageOfProducts = pageOfProducts;
 
+                    ViewBag.CustomerOrderStatus =
+               message == ManageMessageId.CancelOrderSuccess ? "Your Order has been cancelled."
+               : message == ManageMessageId.Error ? "An error has occurred."
+               : "";
                     return View();
                 }
                 return RedirectToAction("Login", "Account");
@@ -514,6 +519,80 @@ namespace BontoBuy.Web.Controllers
             var pageOfProducts = updatedOrderList.ToPagedList(pageNumber, 10);
             ViewBag.pageOfProducts = pageOfProducts;
             return View("CustomerRetrieveOrders");
+        }
+
+        public ActionResult CancelOrder(int id)
+        {
+            if (id <= 0)
+            {
+                return RedirectToAction("Index", "Customer");
+            }
+            var orderRecord = db.Orders.Where(o => o.OrderId == id).FirstOrDefault();
+            if (orderRecord == null)
+            {
+                return RedirectToAction("CustomerRetrieveOrders", "Customer");
+            }
+            orderRecord.Status = "Inactive";
+            db.SaveChanges();
+            return RedirectToAction("RetrieveInactiveOrders", "Customer", new { message = ManageMessageId.CancelOrderSuccess });
+        }
+
+        public ActionResult RetrieveInactiveOrders(int? page, ManageMessageId? message)
+        {
+            string userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (User.IsInRole("Customer"))
+            {
+                var inactiveOrders = db.Orders.Where(o => o.CustomerUserId == userId && o.Status == "Inactive");
+                var orderList = new List<CustomerRetrieveOrdersViewModel>();
+                foreach (var item in inactiveOrders)
+                {
+                    var orderItem = new CustomerRetrieveOrdersViewModel()
+                    {
+                        OrderId = item.OrderId,
+                        ModelId = item.ModelId,
+                        ModelNumber = (from m in db.Models
+                                       where m.ModelId == item.ModelId
+                                       select m.ModelNumber).FirstOrDefault(),
+                        SupplierName = (from c in db.Suppliers
+                                        where c.SupplierId == item.SupplierId
+                                        select c.Name).FirstOrDefault(),
+                        Status = item.Status,
+                        DtCreated = item.DtCreated,
+                        HasReturn = item.HasReturn
+                    };
+                    orderList.Add(orderItem);
+                }
+
+                ViewBag.Title = "List of your Cancelled Orders";
+                GetCustomerReturnNotification();
+                GetCustomerNotification();
+
+                var pageNumber = page ?? 1;
+                var pageOfProducts = orderList.ToPagedList(pageNumber, 10);
+                ViewBag.pageOfProducts = pageOfProducts;
+
+                ViewBag.CustomerOrderStatus =
+           message == ManageMessageId.CancelOrderSuccess ? "Your Order has been cancelled."
+           : message == ManageMessageId.Error ? "An error has occurred."
+           : "";
+
+                return View();
+            }
+            if (User.IsInRole("Supplier"))
+            {
+                return RedirectToAction("Index", "Supplier");
+            }
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

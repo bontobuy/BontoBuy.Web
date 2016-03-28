@@ -1,12 +1,12 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using PagedList;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -191,6 +191,8 @@ namespace BontoBuy.Web.Controllers
                         item.AdminStatus = "Active";
                         item.Action = "Catalog";
                         item.Controller = "Home";
+                        item.DtCreated = DateTime.UtcNow;
+                        item.DtUpdated = DateTime.UtcNow;
                         db.Items.Add(item);
                         db.SaveChanges();
 

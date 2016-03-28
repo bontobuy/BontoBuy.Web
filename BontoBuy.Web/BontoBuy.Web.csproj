@@ -1065,6 +1065,7 @@
     <Content Include="Views\Model\RetrieveActive.cshtml" />
     <Content Include="Views\Model\RetrievePending.cshtml" />
     <Content Include="Views\Return\Get.cshtml" />
+    <Content Include="Views\Customer\RetrieveInactiveOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

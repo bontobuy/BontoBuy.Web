@@ -285,21 +285,22 @@
                         <div class="btn-group cart">
                             <a href="" class="btn btn-success AddToCart" data-id="@Model.Info.ModelId">AddToCart</a>@*@Html.ActionLink("AddToCart", "NavigateToCart", "Cart", new { @class = "btn btn-success AddToCart" })*@
                         </div>
-                        <div class="btn-group wishlist">
+                        @*<div class="btn-group wishlist">
                             <button type="button" class="btn btn-danger">
                                 Add to wishlist
                             </button>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="row">
                         <div class="col-md-4 border col-md-offset-2">
                             <div class="product-title"><span class="text-info">Supplier: </span> @Model.Info.Supplier</div>
                         </div>
                         <hr/>
-                        <div class="col-md-3 col-md-offset-2">
-                            <div class="rating-block">
-                                <h4>Average user rating</h4>
+                        <div class="col-md-4 col-md-offset-2 border">
+                            <div class="rating-block ">
+                                <h4 class="text-info">Average user rating</h4>
                                 <h2 class="bold padding-bottom-7">@ViewBag.AverageRating <small>/ 5</small></h2>
+                                <p>Based on <b>@ViewBag.ratingCount</b> Ratings</p>
                             </div>
                         </div>
                     </div>

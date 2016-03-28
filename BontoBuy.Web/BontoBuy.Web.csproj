@@ -1066,6 +1066,7 @@
     <Content Include="Views\Model\RetrievePending.cshtml" />
     <Content Include="Views\Return\Get.cshtml" />
     <Content Include="Views\Customer\RetrieveInactiveOrders.cshtml" />
+    <Content Include="Views\CustomerReview\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1074,7 +1075,6 @@
     <Folder Include="Views\AdminRole\" />
     <Folder Include="Views\BaseNotification\" />
     <Folder Include="Views\CustomerPayment\" />
-    <Folder Include="Views\CustomerReview\" />
     <Folder Include="Views\CustomerWishlist\" />
     <Folder Include="Views\Email\" />
     <Folder Include="Views\PaymentCustomer\" />

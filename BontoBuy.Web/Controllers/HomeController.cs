@@ -132,6 +132,28 @@ namespace BontoBuy.Web.Controllers
             }
             model.RelatedProducts = relatedList;
 
+            var ratingSum = db.RatingModels.Where(r => r.ModelId == id).ToList().Sum(r => r.RatingId);
+            var ratingCount = db.RatingModels.Where(r => r.ModelId == id).ToList().Count();
+            int averageRating = ratingSum / ratingCount;
+            ViewBag.AverageRating = averageRating;
+
+            var reviewRecords = db.Reviews.Where(r => r.ModelId == id).ToList();
+            var reviewList = new List<ReviewRatingViewModel>();
+            foreach (var item in reviewRecords)
+            {
+                var reviewItem = new ReviewRatingViewModel()
+                {
+                    UserName = (from u in db.Users
+                                where u.Id == item.UserId
+                                select u.Name).FirstOrDefault(),
+                    Description = item.Description,
+                    DtCreated = item.DtCreated
+                };
+                reviewList.Add(reviewItem);
+            }
+
+            ViewBag.Reviews = reviewList.OrderByDescending(r => r.DtCreated);
+
             return View(model);
         }
 

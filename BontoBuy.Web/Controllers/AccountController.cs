@@ -122,7 +122,7 @@ namespace BontoBuy.Web.Controllers
                             {
                                 return RedirectToAction("ActivateAccount");
                             }
-                            if (String.IsNullOrWhiteSpace(requestedUrl))
+                            if (String.IsNullOrWhiteSpace(returnUrl))
                             {
                                 return RedirectToAction("Index", "Supplier");
                             }

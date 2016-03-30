@@ -47,7 +47,11 @@
 
                 <td>
                     @Html.ActionLink("Details", "SupplierGetReturn", new { id = item.ReturnId }) |
-                    @Html.ActionLink("Edit", "SupplierEditReturn", new { id = item.ReturnId })
+                    @if (item.ReturnMethod == null)
+                    {
+                        @Html.ActionLink("Edit", "SupplierEditReturn", new { id = item.ReturnId })
+                    }
+
                 </td>
             </tr>
         }

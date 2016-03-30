@@ -30,6 +30,7 @@ namespace BontoBuy.Web.Models
         public string PhotoName { get; set; }
         public string ImageUrl { get; set; }
         public string PhysicalPath { get; set; }
+        public string Status { get; set; }
     }
 
     public class SupplierGetModelSpecViewModel

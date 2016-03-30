@@ -96,7 +96,8 @@ namespace BontoBuy.Web.Controllers
                                             join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
                                             join m in db.Models on pm.ModelId equals m.ModelId
                                             where pm.ModelId == obj.ModelId
-                                            select ph.ImageUrl).FirstOrDefault()
+                                            select ph.ImageUrl).FirstOrDefault(),
+                                Status = obj.Status
                             };
 
                             modelList.Add(model);
@@ -143,7 +144,8 @@ namespace BontoBuy.Web.Controllers
                                             join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
                                             join m in db.Models on pm.ModelId equals m.ModelId
                                             where pm.ModelId == obj.ModelId
-                                            select ph.ImageUrl).FirstOrDefault()
+                                            select ph.ImageUrl).FirstOrDefault(),
+                                Status = obj.Status
                             };
 
                             modelList.Add(model);
@@ -151,7 +153,7 @@ namespace BontoBuy.Web.Controllers
 
                         GetSupplierReturnNotification();
                         GetSupplierNotification();
-                        return View(modelList);
+                        return View(modelList.OrderBy(m => m.Status));
                     }
                 }
                 return RedirectToAction("Login", "Account");

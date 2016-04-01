@@ -34,6 +34,42 @@ namespace BontoBuy.Web.Controllers
                     //var userInRole = db.Users.Where(m => m.Roles.Any(r => r.UserId == userId)).FirstOrDefault();
                     //if (userInRole != null)
                     //{
+                    int cancelledOrders = db.Orders.Where(o => o.Status == "Inactive" && o.SupplierUserId == userId).ToList().Count();
+                    ViewBag.CancelledOrdersCount = cancelledOrders;
+
+                    var orderList = new List<SupplierRetrieveOrdersViewModel>();
+                    var orderRecords = from o in db.Orders
+                                       where o.SupplierUserId == userId
+                                       select o;
+                    foreach (var item in orderRecords.Take(10))
+                    {
+                        var orderItem = new SupplierRetrieveOrdersViewModel()
+                        {
+                            OrderId = item.OrderId,
+                            ModelId = item.ModelId,
+                            ModelNumber = (from m in db.Models
+                                           where m.ModelId == item.ModelId
+                                           select m.ModelNumber).FirstOrDefault(),
+                            CustomerName = (from c in db.Customers
+                                            where c.CustomerId == item.CustomerId
+                                            select c.Name).FirstOrDefault(),
+                            Status = item.Status,
+                            DtCreated = item.DtCreated
+                        };
+                        orderList.Add(orderItem);
+                    }
+
+                    ViewBag.OrderTransactions = orderList.OrderByDescending(o => o.DtCreated);
+
+                    var returnRecords = from r in db.Returns
+                                        join o in db.Orders on r.OrderId equals o.OrderId
+                                        where o.SupplierUserId == userId
+                                        select r;
+                    if (returnRecords == null)
+                        return RedirectToAction("Index", "Error404");
+
+                    ViewBag.ReturnTransactions = returnRecords.Take(10);
+
                     GetSupplierNotification();
                     GetSupplierReturnNotification();
                     return View();
@@ -593,6 +629,45 @@ namespace BontoBuy.Web.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult CancelledOrders()
+        {
+            var userId = User.Identity.GetUserId();
+            var cancelledOrders = db.Orders.Where(o => o.SupplierUserId == userId && o.Status == "Inactive").ToList();
+            if (cancelledOrders == null)
+            {
+                return RedirectToAction("Index");
+            }
+            foreach (var item in cancelledOrders)
+            {
+                item.Notification = null;
+            }
+            db.SaveChanges();
+
+            var cancelledOrderList = new List<SupplierRetrieveOrdersViewModel>();
+
+            foreach (var item in cancelledOrders)
+            {
+                var orderItem = new SupplierRetrieveOrdersViewModel()
+                {
+                    OrderId = item.OrderId,
+                    ModelId = item.ModelId,
+                    ModelNumber = (from m in db.Models
+                                   where m.ModelId == item.ModelId
+                                   select m.ModelNumber).FirstOrDefault(),
+                    CustomerName = (from c in db.Customers
+                                    where c.CustomerId == item.CustomerId
+                                    select c.Name).FirstOrDefault(),
+                    Status = item.Status,
+                    DtCreated = item.DtCreated
+                };
+                cancelledOrderList.Add(orderItem);
+            }
+            GetSupplierReturnNotification();
+            GetSupplierNotification();
+            ViewBag.Title = "List of your Cancelled Orders";
+            return View("SupplierRetrieveOrders", cancelledOrderList.OrderByDescending(o => o.DtCreated));
         }
 
         [HttpPost]

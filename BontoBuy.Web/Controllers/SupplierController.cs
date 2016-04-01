@@ -41,7 +41,7 @@ namespace BontoBuy.Web.Controllers
                     var orderRecords = from o in db.Orders
                                        where o.SupplierUserId == userId
                                        select o;
-                    foreach (var item in orderRecords.Take(10))
+                    foreach (var item in orderRecords.OrderByDescending(r => r.DtCreated).Take(10))
                     {
                         var orderItem = new SupplierRetrieveOrdersViewModel()
                         {
@@ -59,7 +59,7 @@ namespace BontoBuy.Web.Controllers
                         orderList.Add(orderItem);
                     }
 
-                    ViewBag.OrderTransactions = orderList.OrderByDescending(o => o.DtCreated);
+                    ViewBag.OrderTransactions = orderList;
 
                     var returnRecords = from r in db.Returns
                                         join o in db.Orders on r.OrderId equals o.OrderId
@@ -68,7 +68,7 @@ namespace BontoBuy.Web.Controllers
                     if (returnRecords == null)
                         return RedirectToAction("Index", "Error404");
 
-                    ViewBag.ReturnTransactions = returnRecords.Take(10);
+                    ViewBag.ReturnTransactions = returnRecords.OrderByDescending(r => r.DtCreated).Take(10);
 
                     GetSupplierNotification();
                     GetSupplierReturnNotification();
@@ -147,7 +147,7 @@ namespace BontoBuy.Web.Controllers
 
                         GetSupplierReturnNotification();
                         GetSupplierNotification();
-                        return View(modelList);
+                        return View(modelList.OrderBy(o => o.Status));
                     }
                     if (String.IsNullOrEmpty(searchString))
                     {
@@ -363,6 +363,7 @@ namespace BontoBuy.Web.Controllers
                                        where o.OrderId == id
                                        select u.PhoneNumber).FirstOrDefault()
                     };
+
                     Session["SupplierOrder"] = supplierOrder;
                     GetSupplierReturnNotification();
                     GetSupplierNotification();

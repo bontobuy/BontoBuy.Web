@@ -14,7 +14,9 @@ namespace BontoBuy.Web.Models
         public int DeliveryAddressId { get; set; }
         public string UserId { get; set; }
         public int CustomerId { get; set; }
+        [Required]
         public string Street { get; set; }
+        [Required]
         public string City { get; set; }
         public string Zipcode { get; set; }
         public string Status { get; set; }
@@ -28,7 +30,9 @@ namespace BontoBuy.Web.Models
         public int DeliveryAddressId { get; set; }
         public string UserId { get; set; }
         public int CustomerId { get; set; }
+        [Required]
         public string Street { get; set; }
+        [Required]
         public string City { get; set; }
         public string Zipcode { get; set; }
         public string Status { get; set; }

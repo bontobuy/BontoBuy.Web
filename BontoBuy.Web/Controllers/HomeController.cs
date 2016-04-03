@@ -164,7 +164,7 @@ namespace BontoBuy.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(ManageMessageId? message)
         {
             if (User.IsInRole("Supplier"))
                 return RedirectToAction("Index", "Supplier");
@@ -1075,6 +1075,10 @@ namespace BontoBuy.Web.Controllers
 
             model.NewLaunchList2 = NewLaunchesList2;
 
+            ViewBag.StatusMessage =
+               message == ManageMessageId.ActivationSuccess ? "Your account has been successfully activated."
+               : message == ManageMessageId.Error ? "An error has occurred."
+               : "";
             return View(model);
         }
 
@@ -1397,6 +1401,12 @@ namespace BontoBuy.Web.Controllers
             ViewBag.pageOfProducts = pageOfProducts;
 
             return View("Catalog");
+        }
+
+        public enum ManageMessageId
+        {
+            ActivationSuccess,
+            Error
         }
     }
 }

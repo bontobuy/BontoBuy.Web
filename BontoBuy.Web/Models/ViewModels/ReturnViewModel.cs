@@ -15,7 +15,6 @@ namespace BontoBuy.Web.Models
         public int OrderId { get; set; }
         [Required]
         public DateTime ReturnDate { get; set; }
-        [Required]
         public string ReturnMethod { get; set; }
         [Required]
         public string Reason { get; set; }

@@ -1286,7 +1286,7 @@ namespace BontoBuy.Web.Controllers
 
             //Paging Section
             var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
-            var pageOfProducts = CatalogList.ToPagedList(pageNumber, 10); //set the number of records per page
+            var pageOfProducts = CatalogList.OrderByDescending(c => c.DtCreated).ToPagedList(pageNumber, 10); //set the number of records per page
             ViewBag.pageOfProducts = pageOfProducts;
 
             return View();
@@ -1347,7 +1347,7 @@ namespace BontoBuy.Web.Controllers
             }
 
             var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
-            var pageOfProducts = CatalogList.ToPagedList(pageNumber, 10); //set the number of records per page
+            var pageOfProducts = CatalogList.OrderByDescending(c => c.DtCreated).ToPagedList(pageNumber, 10); //set the number of records per page
             ViewBag.pageOfProducts = pageOfProducts;
 
             return View("Catalog");
@@ -1393,7 +1393,7 @@ namespace BontoBuy.Web.Controllers
             }
 
             var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
-            var pageOfProducts = CatalogList.ToPagedList(pageNumber, 10); //set the number of records per page
+            var pageOfProducts = CatalogList.OrderByDescending(c => c.DtCreated).ToPagedList(pageNumber, 10); //set the number of records per page
             ViewBag.pageOfProducts = pageOfProducts;
 
             return View("Catalog");

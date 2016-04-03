@@ -66,10 +66,10 @@ namespace BontoBuy.Web.Controllers
             Session.Remove("SearchCriteria");
 
             var pageNumber = page ?? 1;
-            var pageOfProducts = searchList.ToPagedList(pageNumber, 10);
+            var pageOfProducts = searchList.OrderByDescending(s => s.DtCreated).ToPagedList(pageNumber, 10);
             ViewBag.pageOfProducts = pageOfProducts;
 
-            return View(searchList);
+            return View(searchList.OrderByDescending(s => s.DtCreated));
         }
 
         public ActionResult AdvancedSearch()

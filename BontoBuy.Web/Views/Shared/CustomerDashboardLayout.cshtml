@@ -11,6 +11,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/css/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/FontAwesome")
     <style type="text/css">
         .glyphicon {
             margin-right: 10px;
@@ -142,17 +143,17 @@
                                 <table class="table">
                                     <tr>
                                         <td>
-                                            <a href="@Url.Action("ChangePassword","Manage")">Change Password</a>
+                                           <span class="fa fa-edit"></span> <a href="@Url.Action("ChangePassword","Manage")">Change Password</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="@Url.Action("CustomerCreateDeliveryAddress", "Customer")">Add new Delivery Address</a>
+                                            <span class="fa fa-plus-square"></span> <a href="@Url.Action("CustomerCreateDeliveryAddress", "Customer")">Add new Delivery Address</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="@Url.Action("CustomerRetrieveDeliveryAddress", "Customer")">View Delivery Address List</a>
+                                            <span class="fa fa-book"></span> <a href="@Url.Action("CustomerRetrieveDeliveryAddress", "Customer")">View Delivery Address List</a>
                                         </td>
                                     </tr>
                                     @*<tr>
@@ -213,14 +214,14 @@
                                 <table class="table">
                                     <tr>
                                         <td>
-                                            <span class="glyphicon glyphicon-usd"></span><a href="@Url.Action("RetrieveReturns","CustomerReturns")">Return History</a>
+                                            <span class="glyphicon glyphicon-eject"></span><a href="@Url.Action("RetrieveReturns","CustomerReturns")">Return History</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             @using (Html.BeginForm("UpdatedReturns", "CustomerReturns", FormMethod.Post, new { id = "UpdatedReturns" }))
                                             {
-                                                <a href="javascript:$('#UpdatedReturns').submit()"><span class="fa fa-backward"></span>Updated Returns<span class="badge">@ViewBag.CustomerReturnNotification</span></a>
+                                                <span class="fa fa-backward"></span> <a href="javascript:$('#UpdatedReturns').submit()">Updated Returns<span class="badge">@ViewBag.CustomerReturnNotification</span></a>
                                             }
                                         </td>
                                     </tr>

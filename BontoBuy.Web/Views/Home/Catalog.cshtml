@@ -34,8 +34,8 @@
         }
 
     .catalogImage {
-        height: 250px;
-        width: 400px;
+        height: 30%;
+        width: 30%;
     }
 
     .item.list-group-item .thumbnail {
@@ -116,13 +116,13 @@
                 {
                     <div class="item  col-xs-4 col-md-4">
                         <div class="thumbnail">
-                            <a href="@Url.Action("ModelDetails", "Home", new { id = item.ModelId })" title="@item.ModelNumber"><img src="~/images/@item.ImageUrl" height="250" width="400" class="group list-group-image img-responsive catalogImage" alt="@item.ModelNumber" /></a>@*<img class=" img-responsive" src="~/images/@item.ImageUrl" alt="@item.ModelNumber"/>*@
+                            <a href="@Url.Action("ModelDetails", "Home", new { id = item.ModelId })" title="@item.ModelNumber"><img src="~/images/@item.ImageUrl" height="250" width="400" class="group list-group-image img-thumbnail img-responsive catalogImage" alt="@item.ModelNumber" /></a>@*<img class=" img-responsive" src="~/images/@item.ImageUrl" alt="@item.ModelNumber"/>*@
                             <div class="caption">
                                 <h4 class="group inner list-group-item-heading">
                                     @item.ModelNumber
                                 </h4>
                                 <p class="group inner list-group-item-text">
-                                    Description
+                                    @*Description*@
                                 </p>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">

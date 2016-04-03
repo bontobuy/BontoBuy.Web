@@ -18,3 +18,28 @@
         Welcome @name
     </h2>
 </div>
+
+    @if (ViewBag.CustomerNotification > 0)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="modal-body">
+                    <div class="modal-content">
+                        <p class="text-info">You have <span class="text-danger">@ViewBag.CustomerNotification </span> notification for Orders.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (ViewBag.CustomerReturnNotification > 0)
+    {
+        <div class="row">
+            <div class="col-md-5">
+                <div class="modal-body">
+                    <div class="modal-content">
+                        <p class="text-info">You have <span class="text-danger">@ViewBag.CustomerNotification </span> notification for Returns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }

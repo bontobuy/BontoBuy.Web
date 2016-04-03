@@ -600,6 +600,10 @@
     <Compile Include="Migrations\201603281158509_Add column DtCreatedToReviewVM.Designer.cs">
       <DependentUpon>201603281158509_Add column DtCreatedToReviewVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603301627375_Remove Required from ReturnVM.cs" />
+    <Compile Include="Migrations\201603301627375_Remove Required from ReturnVM.Designer.cs">
+      <DependentUpon>201603301627375_Remove Required from ReturnVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -1443,6 +1447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603281158509_Add column DtCreatedToReviewVM.resx">
       <DependentUpon>201603281158509_Add column DtCreatedToReviewVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603301627375_Remove Required from ReturnVM.resx">
+      <DependentUpon>201603301627375_Remove Required from ReturnVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

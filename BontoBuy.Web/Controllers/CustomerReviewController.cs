@@ -83,17 +83,16 @@ namespace BontoBuy.Web.Controllers
 
         // POST: CustomerReview/Create
         [HttpPost]
-        public ActionResult Create(ReviewViewModel item, int rating)
+        public ActionResult Create(ReviewViewModel item, int? rating)
         {
             try
             {
-                var reviewDetails = Session["Review"] as ReviewViewModel;
-                var test = rating;
                 if (User.IsInRole("Customer"))
                 {
                     if (item == null)
                         return RedirectToAction("Error404", "Home");
 
+                    var reviewDetails = Session["Review"] as ReviewViewModel;
                     var newRecord = new ReviewViewModel
                     {
                         Description = item.Description,
@@ -104,8 +103,10 @@ namespace BontoBuy.Web.Controllers
                     db.Reviews.Add(newRecord);
                     db.SaveChanges();
 
+                    int ratingNumber = rating ?? 1;
+
                     int ratingId = (from r in db.Ratings
-                                    where r.RatingNumber == rating
+                                    where r.RatingNumber == ratingNumber
                                     select r.RatingId).FirstOrDefault();
                     var newRating = new RatingModelViewModel()
                     {

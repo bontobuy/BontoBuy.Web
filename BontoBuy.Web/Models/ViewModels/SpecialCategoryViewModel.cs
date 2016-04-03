@@ -13,8 +13,8 @@ namespace BontoBuy.Web.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SpecialCatId { get; set; }
-        [Display(Name = "Tag Name")]
-        [Required(ErrorMessage = "Tag name is required")]
+        [Display(Name = "Special Category")]
+        [Required(ErrorMessage = "Special Category name is required")]
         public string Description { get; set; }
         public string Status { get; set; }
         public string Position { get; set; }

@@ -44,6 +44,30 @@ namespace BontoBuy.Web.Controllers
                 if (User.IsInRole("Admin"))
                     return RedirectToAction("Index", "Admin");
 
+                var orderList = new List<CustomerRetrieveOrdersViewModel>();
+                var records = from o in db.Orders
+                              where o.CustomerUserId == userId && o.Status != "Inactive"
+                              select o;
+                foreach (var item in records.OrderByDescending(o => o.DtCreated).Take(5))
+                {
+                    var orderItem = new CustomerRetrieveOrdersViewModel()
+                    {
+                        OrderId = item.OrderId,
+                        ModelId = item.ModelId,
+                        ModelNumber = (from m in db.Models
+                                       where m.ModelId == item.ModelId
+                                       select m.ModelNumber).FirstOrDefault(),
+                        SupplierName = (from c in db.Suppliers
+                                        where c.SupplierId == item.SupplierId
+                                        select c.Name).FirstOrDefault(),
+                        Status = item.Status,
+                        DtCreated = item.DtCreated,
+                        HasReturn = item.HasReturn
+                    };
+                    orderList.Add(orderItem);
+                }
+                ViewBag.Orders = orderList;
+
                 ViewBag.StatusMessage =
                     message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                     : message == ManageMessageId.Error ? "An error has occurred."

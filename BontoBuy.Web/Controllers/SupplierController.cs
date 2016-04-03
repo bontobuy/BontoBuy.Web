@@ -444,6 +444,8 @@ namespace BontoBuy.Web.Controllers
                 }
                 if (User.IsInRole("Supplier"))
                 {
+                    //Retrieve the Order details from database
+                    //Store it in variable Order
                     var order = (from o in db.Orders
                                  where o.OrderId == item.OrderId
                                  select o).FirstOrDefault();
@@ -454,32 +456,53 @@ namespace BontoBuy.Web.Controllers
                     //                where os.OrderStatusId == item.OrderStatusId
                     //                select os.Name).FirstOrDefault();
 
+                    //Store the orderStatus in variable orderStatus
                     string orderStatus = order.Status.ToString();
 
+                    //Verify if Order has status Active
                     if (orderStatus == "Active")
                     {
+                        //Set Order Status to Processing
                         order.Status = "Processing";
                     }
 
+                    //Verify if Order has status Processing
                     if (orderStatus == "Processing")
                     {
+                        //Set Order Status to Processing
                         order.Status = "In Transit";
                     }
 
+                    //Verify if Order has status In Transit
                     if (orderStatus == "In Transit")
                     {
+                        //Retrieve code from form
+                        //Store it in variable SupplierCode
                         string SupplierCode = ConfirmationCode.ToString();
+
+                        //Retrieve the actual Confirmation Code from database
+                        //Store it in variable CustomerCode
                         string CustomerCode = (from o in db.Orders
                                                where o.OrderId == order.OrderId
                                                select o.ConfirmationCode).FirstOrDefault();
 
+                        //Verify if SupplierCode matches with CustomerCode
                         if (SupplierCode == CustomerCode)
                         {
+                            //Set Order Status to Processing
                             order.Status = "Delivered";
+
+                            //Set Order Notification to Customer
+                            //so that Customer gets notified about the Update
+                            order.Notification = "Customer";
+
+                            //Save changes made to the database
                             db.SaveChanges();
+
+                            //Redirect to SupplierRetrieveOrders View with a route value
                             return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.OrderDeliveredSuccess });
                         }
-                        return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.ConfirmationFailure });
+                        else return RedirectToAction("SupplierRetrieveOrders", "Supplier", new { message = ManageMessageId.ConfirmationFailure });
                     }
 
                     order.Notification = "Customer";

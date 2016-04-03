@@ -75,8 +75,12 @@ namespace BontoBuy.Web.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, ManageMessageId? message)
         {
+            ViewBag.StatusMessage =
+               message == ManageMessageId.ActivationFailure ? "You have entered a wrong Activation Code."
+               : message == ManageMessageId.Error ? "An error has occurred."
+               : "";
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -192,9 +196,9 @@ namespace BontoBuy.Web.Controllers
 
                 currentUser.ActivationCode = null;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new { message = ManageMessageId.ActivationSuccess });
             }
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Account", new { message = ManageMessageId.ActivationFailure });
         }
 
         // GET: /Account/LoginAdmin
@@ -960,5 +964,12 @@ namespace BontoBuy.Web.Controllers
         }
 
         #endregion Helpers
+
+        public enum ManageMessageId
+        {
+            ActivationSuccess,
+            ActivationFailure,
+            Error
+        }
     }
 }

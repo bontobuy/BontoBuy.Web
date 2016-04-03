@@ -78,10 +78,14 @@ namespace BontoBuy.Web.Controllers
                         {
                             var properString = helper.ConvertToTitleCase(searchString);
                             if (modelItem.SupplierName == properString)
+                            {
                                 modelList.Add(modelItem);
+                            }
                         }
                         if (String.IsNullOrWhiteSpace(searchString))
+                        {
                             modelList.Add(modelItem);
+                        }
                     }
 
                     //if (records == null)
@@ -243,10 +247,14 @@ namespace BontoBuy.Web.Controllers
                         {
                             var properString = helper.ConvertToTitleCase(searchString);
                             if (modelItem.SupplierName == properString)
+                            {
                                 modelList.Add(modelItem);
+                            }
                         }
                         if (String.IsNullOrWhiteSpace(searchString))
+                        {
                             modelList.Add(modelItem);
+                        }
                     }
 
                     //if (records == null)
@@ -836,6 +844,43 @@ namespace BontoBuy.Web.Controllers
                 _repo.ExportToExcel(excelData);
 
             Session.Remove("ExcelData");
+
+            if (excelData == null)
+            {
+                var queryList = db.Models.Where(x => x.Status == "Active").ToList();
+                var modelList = new List<ModelAdminRetrieveViewModel>();
+
+                foreach (var item in queryList)
+                {
+                    var commission = (((from c in db.Commissions
+                                        join mc in db.ModelCommissions on c.CommissionId equals mc.CommissionId
+                                        where mc.ModelId == item.ModelId
+                                        select c.Percentage).FirstOrDefault()));
+
+                    var modelItem = new ModelAdminRetrieveViewModel()
+                    {
+                        ModelId = item.ModelId,
+                        ModelNumber = item.ModelNumber,
+                        DtCreated = item.DtCreated,
+                        Status = item.Status,
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == item.ModelId
+                                    select ph.ImageUrl).FirstOrDefault(),
+                        Price = item.Price,
+                        SupplierId = item.SupplierId,
+                        SupplierCommission = Convert.ToInt32((commission * item.Price) / 100),
+                        CommissionPercentage = commission + " %",
+                        SupplierName = (from s in db.Suppliers
+                                        where s.SupplierId == item.SupplierId
+                                        select s.Name).FirstOrDefault()
+                    };
+
+                    modelList.Add(modelItem);
+                }
+                _repo.ExportToExcel(modelList);
+            }
 
             return RedirectToAction("RetrieveModels");
         }

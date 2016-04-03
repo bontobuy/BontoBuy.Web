@@ -1,13 +1,13 @@
-﻿using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -340,6 +340,7 @@ namespace BontoBuy.Web.Controllers
                                      where b.Name == item.BrandName
                                      select b).FirstOrDefault();
 
+                        //If the brand does not exist create a new one
                         if (brand == null)
                         {
                             var newBrand = new BrandViewModel()
@@ -350,11 +351,14 @@ namespace BontoBuy.Web.Controllers
                             db.SaveChanges();
                             brandId = newBrand.BrandId;
                         }
+
+                        //if the brand does exist assign the existing brandId to the brandId of the new model
                         if (brand != null)
                         {
                             brandId = brand.BrandId;
                         }
 
+                        //Create a new instance of ModelViewModel and assign it to the model variable
                         var model = new ModelViewModel();
 
                         model.Price = item.Price;
@@ -367,6 +371,8 @@ namespace BontoBuy.Web.Controllers
                         model.DtCreated = DateTime.UtcNow;
                         model.NumberDaysToAdvert = item.NumberDaysToAdvert;
                         model.DeliveryInDays = item.DeliveryInDays;
+
+                        //Add a new model to the table model and save changes into the database
                         db.Models.Add(model);
                         db.SaveChanges();
 
@@ -489,21 +495,36 @@ namespace BontoBuy.Web.Controllers
                     int supplierId = getSupplierId;
                     if (ModelState.IsValid)
                     {
+                        //All the specifications that are displayed are stored in the array specIdArray
                         var specIdArray = collection.GetValues("item.SpecificationId");
+
+                        //All the values of the specifications are stored in the array value valueArray
                         var valueArray = collection.GetValues("item.Value");
 
+                        //Use a for loop to add a new Model Specificaiton record into the ModelSpecification table
                         for (item = 0; item < valueArray.Count(); item++)
                         {
                             ModelSpecViewModel modelSpec = new ModelSpecViewModel();
+
+                            //if the supplier does not fill the one of the fields
                             if (String.IsNullOrWhiteSpace(valueArray[item]))
                             {
+                                //The value of that field is automatically assigned the string n/a (not available)
                                 valueArray[item] = "n/a";
                             }
+
+                            //Assing the value of the current field to the property of the modelSpec value
                             modelSpec.Value = valueArray[item];
+
+                            //Assign the specificationId of the specification displayed to the property of modelSpec SpecificationId
                             modelSpec.SpecificationId = Convert.ToInt32(specIdArray[item]);
+
+                            //Assing the modelId of the current model to the property of modelSpecification ModelId
                             modelSpec.ModelId = model.ModelId;
                             modelSpec.SupplierId = supplierId;
                             modelSpec.UserId = userId;
+
+                            //Add a new modelspec record and save changes in the database
                             db.ModelSpecs.Add(modelSpec);
                             db.SaveChanges();
                         }

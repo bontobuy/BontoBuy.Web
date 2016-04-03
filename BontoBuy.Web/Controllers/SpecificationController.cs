@@ -1,12 +1,12 @@
-﻿using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -156,6 +156,7 @@ namespace BontoBuy.Web.Controllers
         {
             try
             {
+                bool specificationExist = true;
                 string userId = User.Identity.GetUserId();
                 if (userId == null)
                 {
@@ -176,9 +177,15 @@ namespace BontoBuy.Web.Controllers
                         return RedirectToAction("Retrieve", new { message = ManageMessageId.Error });
                     }
 
-                    item.Description = helper.ConvertToTitleCase(item.Description);
-                    var existingSpec = CheckForDuplicates(item.Description);
-                    if (existingSpec == null)
+                    if (!String.IsNullOrEmpty(item.Description))
+                    {
+                        item.Description = helper.ConvertToTitleCase(item.Description);
+                        var existingSpec = CheckForDuplicates(item.Description);
+                        if (existingSpec == null)
+                            specificationExist = false;
+                    }
+
+                    if (specificationExist == false)
                     {
                         var spec = new SpecificationViewModel()
                         {

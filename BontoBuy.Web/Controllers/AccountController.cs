@@ -1,8 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -15,6 +11,10 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -180,22 +180,38 @@ namespace BontoBuy.Web.Controllers
         [HttpPost]
         public ActionResult ActivateAccount(AccountViewModel item)
         {
+            //Assign the current userId of the current user to variable userId
             var userId = Session["AccountInfo"] as string;
+
+            //Remove the session variable
             Session.Remove("AccountInfo");
 
+            //Check if variable userId is null
             if (String.IsNullOrEmpty(userId))
+
+                //Redirect to Login form if it is null
                 return RedirectToAction("Login", "Account");
 
+            //Search and assing user the user which corresponds to the userId to variable requestedUser
             var requestedUser = db.Users.Where(x => x.Id == userId).FirstOrDefault();
 
+            //Verify if the activation code entered and that of the account matches
             if (requestedUser.ActivationCode == item.ActivationCode)
             {
+                //Search and assing user the user which corresponds to the userId to variable currentUser
                 var currentUser = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+
+                //If currentUser is null. Display error page
                 if (String.IsNullOrEmpty(currentUser.Id))
                     return RedirectToAction("Error404", "Home");
 
+                //If the current user is not null assing null update the ActivationCode column of the current user
                 currentUser.ActivationCode = null;
+
+                //Save the changes into the database
                 db.SaveChanges();
+
+                //Redirect to the homepage
                 return RedirectToAction("Index", "Home", new { message = ManageMessageId.ActivationSuccess });
             }
             return RedirectToAction("Login", "Account", new { message = ManageMessageId.ActivationFailure });
@@ -340,34 +356,50 @@ namespace BontoBuy.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterCustomerViewModel model)
         {
+            //Verify if the email address is in use on the system
             var emailValid = (from u in db.Users
                               where u.Email == model.Email
                               select u).Count();
+
+            //If the email is already in use the user receives an error message
             if (emailValid > 0)
             {
                 ViewBag.StatusMessage = "Email already exists.";
             }
+
+            //Verify if the model is valid
+            //if the model is valid then proceed
             if (ModelState.IsValid)
             {
+                //Generate activation code and store it in the variable activationCode
                 var activationCode = CodeGenerator();
+
+                //Create a new instance of CustomerViewModel and store it in object customer
                 var customer = new CustomerViewModel()
                 {
                     UserName = model.Email,
                     Email = model.Email,
+
+                    //Assign value of activationCode to the property ActivationCode of customer
                     ActivationCode = activationCode,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Name = model.FirstName + " " + model.LastName,
                     Status = "Pending",
                     DtCreated = DateTime.UtcNow,
-
                     PhoneNumber = model.PhoneNumber
                 };
+
+                //Async method to create a new customer
                 var result = await UserManager.CreateAsync(customer, model.Password);
+
+                //If the method property succeeds
                 if (result.Succeeded)
                 {
+                    //Signin the new customer in the application
                     await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
 
+                    //Create an instance of DeliveryAddressViewModel and store it variable customerAddress
                     var customerAddress = new DeliveryAddressViewModel()
                     {
                         Street = model.Street,
@@ -378,18 +410,32 @@ namespace BontoBuy.Web.Controllers
                         Status = "Default"
                     };
                     db.DeliveryAddresses.Add(customerAddress);
+
+                    //Save changes into the database
                     db.SaveChanges();
 
-                    var body = "<p>Dear Valued Customer,</p><p>This is the activation code that has been sent to you in order to validate your registration on BontoBuy</p><p>Your activation code: {0}</p>";
+                    //It the body of the email that will be sent to the user after the registration process
+                    var body = "<p>Dear Valued Customer,</p><p>This is the activation code that has been sent to you in order to validate your registration on BontoBuy</p>" +
+                        "<p>Your activation code: {0}</p>";
+
                     var message = new MailMessage();
+
+                    //It contains the recipient of the email
                     message.To.Add(new MailAddress(model.Email));
+
+                    //It contains the email address of BontoBuy
                     message.From = new MailAddress("bontobuy@gmail.com");
+
+                    //Subject of the mail
                     message.Subject = "Register on BontoBuy";
+
+                    //Using formatted string the activation code is then added to the body of the email
                     message.Body = string.Format(body, activationCode);
                     message.IsBodyHtml = true;
 
                     var smtp = new SmtpClient();
 
+                    //Use credential of BontoBuy email
                     var credential = new NetworkCredential()
                     {
                         UserName = "bontobuy@gmail.com",

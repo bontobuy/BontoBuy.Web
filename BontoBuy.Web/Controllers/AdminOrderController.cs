@@ -133,6 +133,15 @@ namespace BontoBuy.Web.Controllers
 
             Session.Remove("ExcelData");
 
+            if (excelData == null)
+            {
+                var records = _repo.AdminRetrieveOrders().ToList();
+                if (records == null)
+                    return RedirectToAction("Home", "Error404");
+
+                _repo.ExportToExcel(records);
+            }
+
             return RedirectToAction("RetrieveOrders");
         }
 

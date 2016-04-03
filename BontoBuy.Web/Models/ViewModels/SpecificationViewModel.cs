@@ -57,6 +57,7 @@ namespace BontoBuy.Web.Models
     {
         public int SpecialCatId { get; set; }
         public int ProductId { get; set; }
+        [Required(ErrorMessage = "Specification name is required")]
         public string Description { get; set; }
     }
 

@@ -130,6 +130,7 @@
             $('#PhoneNumber').keyup(function () {
                 var phoneNumber = $(this);
                 var pattern = /^[5]\d{7}$/;
+                var passLabel = "Phone Number";
                 var requiredPhone = "Phone number must starts with 5 with a total of 8 digits."
                 var strength = 'Weak';
                 var pclass = 'danger';
@@ -185,7 +186,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-3 control-label" })
             <div class="col-md-5">
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "PhoneNumber", @data_toggle = "popover", @title = "Password Strength", @data_content = "Enter Phone Number..." })
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "PhoneNumber", @data_toggle = "popover", @title = "Phone number", @data_content = "Enter Phone Number..." })
                 @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>

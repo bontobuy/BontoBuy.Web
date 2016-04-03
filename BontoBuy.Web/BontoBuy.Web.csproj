@@ -604,6 +604,14 @@
     <Compile Include="Migrations\201603301627375_Remove Required from ReturnVM.Designer.cs">
       <DependentUpon>201603301627375_Remove Required from ReturnVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604011808285_Add Required to Street, City in DeliveryVM.cs" />
+    <Compile Include="Migrations\201604011808285_Add Required to Street, City in DeliveryVM.Designer.cs">
+      <DependentUpon>201604011808285_Add Required to Street, City in DeliveryVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604011840063_Add Required to Description In reviewViewModel.cs" />
+    <Compile Include="Migrations\201604011840063_Add Required to Description In reviewViewModel.Designer.cs">
+      <DependentUpon>201604011840063_Add Required to Description In reviewViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -1447,6 +1455,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603301627375_Remove Required from ReturnVM.resx">
       <DependentUpon>201603301627375_Remove Required from ReturnVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604011808285_Add Required to Street, City in DeliveryVM.resx">
+      <DependentUpon>201604011808285_Add Required to Street, City in DeliveryVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604011840063_Add Required to Description In reviewViewModel.resx">
+      <DependentUpon>201604011840063_Add Required to Description In reviewViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

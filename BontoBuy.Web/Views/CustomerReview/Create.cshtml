@@ -18,7 +18,7 @@
 
 <div class="container">
     <div class="row" style="margin-top:40px;">
-        <h2>Enter your Review for:<span class="text-info"> @ViewBag.ModelName</span> </h2>
+        <h2>Enter your Review for:<br /> <span class="text-info"> @ViewBag.ModelName</span> </h2>
         <div class="col-md-8">
             <div class="well well-sm">
                 @*<div class="text-right">
@@ -31,7 +31,7 @@
                             <input id="ratings-hidden" name="rating" type="hidden">
                             @*<textarea class="form-control animated" cols="50" id="new-review" name="review" placeholder="Enter your review here..." rows="5"></textarea>*@
                             @Html.TextAreaFor(model => model.Description, new { @class = "form-control animated", @id = "new-review", @placeholder = "Enter your review here...", @rows = "5", @cols = "50" })
-
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             <div class="text-right">
                                 <div class="stars starrr" data-rating="0"></div>
                                 <a class="btn btn-danger btn-sm" href="@Url.Action("CustomerRetrieveOrders","Customer")" id="close-review-box" style="display:none; margin-right: 10px;">
@@ -87,4 +87,6 @@
             });
         });
     </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
 }

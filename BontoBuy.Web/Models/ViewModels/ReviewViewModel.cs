@@ -15,6 +15,7 @@ namespace BontoBuy.Web.Models
         public int ReviewId { get; set; }
         public int ModelId { get; set; }
         public string UserId { get; set; }
+        [Required]
         public string Description { get; set; }
         public DateTime DtCreated { get; set; }
         [ForeignKey("ModelId")]

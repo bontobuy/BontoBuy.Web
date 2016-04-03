@@ -86,11 +86,15 @@
 
     #myCarousel .item img {
         margin: 0 auto;
-        width: 600px;
-        height: 250px;
+        width: 50%;
+        height: 50%;
     }
 
-    
+    #WelcomePage{
+        width:600px;
+        height:250px;
+    }
+
 .slideshow {
     margin: 20px;
 }

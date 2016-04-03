@@ -833,6 +833,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Supplier\Site.css" />
     <Content Include="Content\Welcome.jpg" />
+    <Content Include="Content\Welcome2.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

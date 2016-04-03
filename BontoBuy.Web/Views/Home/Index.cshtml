@@ -1066,7 +1066,7 @@
                         <!-- Wrapper for carousel items -->
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img src="~/Content/Welcome.jpg" class="img-responsive" alt="First Slide">
+                                <img src="~/Content/Welcome2.jpg" id="WelcomePage" alt="First Slide">
                             </div>
                             @foreach (var item in Model.SlideShow)
                             {
@@ -1118,10 +1118,10 @@
                     <p style="text-align: left;">
                         Rs @item.Price
                     </p>
-                    <p style="text-align: left;">
-                        <span class="glyphicon glyphicon-calendar "></span>
-                        Some concatenated specifications go here.
-                    </p>
+                    @*<p style="text-align: left;">
+                            <span class="glyphicon glyphicon-calendar "></span>
+                            Some concatenated specifications go here.
+                        </p>*@
                     @Html.ActionLink("Details »", "ModelDetails", new { id = item.ModelId }, new { @class = "btn btn-info" })
                 </div>
             </div>

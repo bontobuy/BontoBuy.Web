@@ -221,6 +221,7 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SpecificationController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\SupplierCommissionController.cs" />
     <Compile Include="Controllers\SupplierOrderController.cs" />
     <Compile Include="Controllers\SupplierSpecialCategoryController.cs" />
     <Compile Include="Controllers\SupplierSpecificationController.cs" />
@@ -611,6 +612,10 @@
     <Compile Include="Migrations\201604011840063_Add Required to Description In reviewViewModel.cs" />
     <Compile Include="Migrations\201604011840063_Add Required to Description In reviewViewModel.Designer.cs">
       <DependentUpon>201604011840063_Add Required to Description In reviewViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604041747503_Add CommissionFKToSupplier.cs" />
+    <Compile Include="Migrations\201604041747503_Add CommissionFKToSupplier.Designer.cs">
+      <DependentUpon>201604041747503_Add CommissionFKToSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
@@ -1104,6 +1109,7 @@
     <Folder Include="Views\PaymentCustomer\" />
     <Folder Include="Views\PaymentSupplier\" />
     <Folder Include="Views\Payment\" />
+    <Folder Include="Views\SupplierCommission\" />
     <Folder Include="Views\SupplierNotification\" />
     <Folder Include="Views\SupplierOrder\" />
     <Folder Include="Views\SupplierPayment\" />
@@ -1465,6 +1471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604011840063_Add Required to Description In reviewViewModel.resx">
       <DependentUpon>201604011840063_Add Required to Description In reviewViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604041747503_Add CommissionFKToSupplier.resx">
+      <DependentUpon>201604041747503_Add CommissionFKToSupplier.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

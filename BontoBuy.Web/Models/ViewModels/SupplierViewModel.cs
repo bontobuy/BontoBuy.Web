@@ -14,7 +14,9 @@ namespace BontoBuy.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SupplierId { get; set; }
         public string Website { get; set; }
-
+        public int CommissionId { get; set; }
+        [ForeignKey("CommissionId")]
+        public CommissionViewModel CommissionNav { get; set; }
         public IEnumerable<ModelSpecViewModel> ModelSpecNav { get; set; }
         public IEnumerable<OrderViewModel> OrderNav { get; set; }
         public IEnumerable<PaymentViewModel> PaymentNav { get; set; }

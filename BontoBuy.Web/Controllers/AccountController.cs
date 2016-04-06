@@ -573,7 +573,10 @@ namespace BontoBuy.Web.Controllers
                     Website = model.Website,
                     Status = "Pending",
                     PhoneNumber = model.PhoneNumber,
-                    ActivationCode = activationCode
+                    ActivationCode = activationCode,
+                    CommissionId = (from c in db.Commissions
+                                    where c.Name == "Tier1"
+                                    select c.Percentage).FirstOrDefault()
                 };
                 var result = await UserManager.CreateAsync(supplier, model.Password);
                 if (result.Succeeded)

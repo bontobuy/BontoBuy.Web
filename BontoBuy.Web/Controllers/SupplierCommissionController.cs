@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.Models;
 
 namespace BontoBuy.Web.Controllers
 {
     public class SupplierCommissionController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: SupplierCommission
-        public ActionResult Index()
+        public ActionResult Retrieve()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                var records = db.Suppliers.Where(x => x.Status == "Active").ToList();
+                return View(records);
+            }
+
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: SupplierCommission/Details/5
@@ -43,24 +53,42 @@ namespace BontoBuy.Web.Controllers
         }
 
         // GET: SupplierCommission/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            try
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    var recordToUpdate = db.Suppliers.Where(x => x.Id == id).FirstOrDefault();
+                    if (recordToUpdate.SupplierId < 1)
+                        return RedirectToAction("Error404", "Home");
+
+                    return View(recordToUpdate);
+                }
+
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
 
         // POST: SupplierCommission/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(SupplierViewModel item)
         {
             try
             {
-                // TODO: Add update logic here
+                //if (User.IsInRole("Admin"))
+                //{
+                //}
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Login", "Account");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
 

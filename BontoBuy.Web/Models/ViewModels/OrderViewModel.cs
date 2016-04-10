@@ -28,6 +28,7 @@ namespace BontoBuy.Web.Models
         public string ConfirmationCode { get; set; }
         public bool HasReturn { get; set; }
         public string Notification { get; set; }
+        public bool CommissionPaid { get; set; }
         public IEnumerable<DeliveryViewModel> DeliveryNav { get; set; }
         public IEnumerable<PaymentViewModel> PaymentNav { get; set; }
         [ForeignKey("SupplierUserId")]

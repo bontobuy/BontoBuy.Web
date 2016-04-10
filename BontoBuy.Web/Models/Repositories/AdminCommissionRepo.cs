@@ -41,5 +41,33 @@ namespace BontoBuy.Web.Models
 
             return itemToUpdate;
         }
+
+        public IEnumerable<OrderViewModel> RetrieveDeliveredOrders()
+        {
+            var records = db.Orders.Where(x => x.Status == "Delivered" &&
+                x.CommissionPaid == false).ToList();
+
+            return records;
+        }
+
+        public IEnumerable<OrderViewModel> RetrievePaidOrders()
+        {
+            var records = db.Orders.Where(x => x.Status == "Delivered" &&
+                x.CommissionPaid == true).ToList();
+
+            return records;
+        }
+
+        public OrderViewModel UpdateCommissionOwnedFromOrders(int id)
+        {
+            if (id < 1)
+                return null;
+
+            var recordToUpdate = db.Orders.Where(x => x.OrderId == id).FirstOrDefault();
+            if (recordToUpdate.CustomerId < 1)
+                return null;
+
+            return recordToUpdate;
+        }
     }
 }

@@ -124,5 +124,70 @@ namespace BontoBuy.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        public ActionResult RetrieveDeliveredOrders()
+        {
+            try
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    var records = _repo.RetrieveDeliveredOrders();
+                    if (records == null)
+                        return RedirectToAction("Error404", "Home");
+
+                    return View(records);
+                }
+
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        public ActionResult RetrievePaidOrders()
+        {
+            try
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    var records = _repo.RetrievePaidOrders();
+
+                    if (records == null)
+                        return RedirectToAction("Error404", "Home");
+
+                    return View(records);
+                }
+
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        public ActionResult UpdateCommissionOwnedFromOrders(int id)
+        {
+            try
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    var record = _repo.UpdateCommissionOwnedFromOrders(id);
+
+                    if (record == null)
+                        return RedirectToAction("Error404", "Home");
+
+                    return View(record);
+                }
+
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
     }
 }

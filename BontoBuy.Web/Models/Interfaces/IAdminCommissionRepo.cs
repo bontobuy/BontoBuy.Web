@@ -12,5 +12,9 @@ namespace BontoBuy.Web.Models
         CommissionViewModel Get(int id);
         CommissionViewModel Create(CommissionViewModel item);
         CommissionViewModel Update(CommissionViewModel item);
+
+        IEnumerable<OrderViewModel> RetrieveDeliveredOrders();
+        IEnumerable<OrderViewModel> RetrievePaidOrders();
+        OrderViewModel UpdateCommissionOwnedFromOrders(int id);
     }
 }

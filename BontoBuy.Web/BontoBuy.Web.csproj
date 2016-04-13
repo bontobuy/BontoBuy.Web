@@ -617,6 +617,10 @@
     <Compile Include="Migrations\201604041747503_Add CommissionFKToSupplier.Designer.cs">
       <DependentUpon>201604041747503_Add CommissionFKToSupplier.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604100828000_AddCommissionPaidToOrder.cs" />
+    <Compile Include="Migrations\201604100828000_AddCommissionPaidToOrder.Designer.cs">
+      <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -1474,6 +1478,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604041747503_Add CommissionFKToSupplier.resx">
       <DependentUpon>201604041747503_Add CommissionFKToSupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604100828000_AddCommissionPaidToOrder.resx">
+      <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

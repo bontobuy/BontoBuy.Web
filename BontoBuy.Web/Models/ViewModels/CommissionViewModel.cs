@@ -25,7 +25,7 @@ namespace BontoBuy.Web.Models
         public int SupplierId { get; set; }
         public string SupplierName { get; set; }
         public DateTime OrderDate { get; set; }
-        public int Amount { get; set; }
+        public int OrderAmount { get; set; }
         public int Commission { get; set; }
         public bool Paid { get; set; }
     }

@@ -1,0 +1,107 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<BontoBuy.Web.Models.CommissionOrderViewModel>
+@{
+    ViewBag.Title = "Unpaid Commission for " + ViewBag.searchString;
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <h2>@ViewBag.Title</h2>
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <div class="col-md-6">
+        @using (Html.BeginForm("SearchByDate", "AdminCommission", FormMethod.Get, new { id = "SearchModels" }))
+        {
+
+            <div class="form-group">
+                <p>Search By Date</p><br/>
+                @Html.Label("From: ")
+                <div class='input-group date'>
+                    <input type='date' name="fromDate" class="form-control" id='datepickerFromDate' required/>
+                </div>&nbsp;
+                @Html.Label("To: ")
+                <div class='input-group date'>
+                    <input type='date' name="toDate" class="form-control" id='datepickerToDate' required/>
+                </div>
+            </div>
+            <div class="input-group">
+                <input type="submit" value="Search" class="form-control btn btn-info test"/>
+            </div>
+        }
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paid)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.pageOfProducts)
+        {
+            <tr>
+
+                <td>
+                    @item.OrderId
+                </td>
+                <td>
+                    @item.SupplierId
+                </td>
+                <td>
+                    @item.ModelName
+                </td>
+                <td>
+                    @item.OrderDate
+                </td>
+                <td>
+                    @item.OrderAmount
+                </td>
+                <td>
+                    @item.Commission
+                </td>
+                <td>
+                    @item.Paid
+                </td>
+                <td>
+                    @if (!item.Paid)
+                    {
+                        @Html.ActionLink("Edit", "UpdateOrderCommission", new { id = item.OrderId })
+                    }
+
+                    @*@using (Html.BeginForm("UpdateOrderCommission", "AdminCommission", FormMethod.Post, new { id = "Paid" }))
+                        {
+                            <a href="javascript:$('#Paid').submit()" class="text-info">Paid</a>
+                        }*@
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<hr class="border"/>
+
+<div class="col-md-12">
+    <div class="text-center">
+        @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveDeliveredOrders", new { page }))
+        Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Unpaid Commission
+    </div>
+    @Html.ActionLink("Back to List", "RetrieveDeliveredOrders")
+</div>

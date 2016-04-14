@@ -495,6 +495,7 @@ namespace BontoBuy.Web.Controllers
                             //Set Order Notification to Customer
                             //so that Customer gets notified about the Update
                             order.Notification = "Customer";
+                            order.CommissionPaid = false;
 
                             //Save changes made to the database
                             db.SaveChanges();

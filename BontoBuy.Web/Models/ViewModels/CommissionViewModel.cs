@@ -17,4 +17,16 @@ namespace BontoBuy.Web.Models
         public DateTime DtCreated { get; set; }
         public DateTime DtUpdated { get; set; }
     }
+
+    public class CommissionOrderViewModel
+    {
+        public int OrderId { get; set; }
+        public string ModelName { get; set; }
+        public int SupplierId { get; set; }
+        public string SupplierName { get; set; }
+        public DateTime OrderDate { get; set; }
+        public int OrderAmount { get; set; }
+        public int Commission { get; set; }
+        public bool Paid { get; set; }
+    }
 }

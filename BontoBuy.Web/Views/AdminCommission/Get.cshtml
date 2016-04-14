@@ -1,7 +1,10 @@
 ﻿@model BontoBuy.Web.Models.CommissionViewModel
-
-<div>
-    <h4>CommissionViewModel</h4>
+@{
+    ViewBag.Title = Model.Name + " Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<div class="col-md-11">
+    <h4>@ViewBag.Title</h4>
     <hr/>
     <dl class="dl-horizontal">
         <dt>
@@ -35,8 +38,8 @@
             @Html.DisplayFor(model => model.DtUpdated)
         </dd>
     </dl>
+    <p>
+        @Html.ActionLink("Edit", "Update", new { id = Model.CommissionId }) |
+        @Html.ActionLink("Back to List", "Retrieve")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Update", new { id = Model.CommissionId }) |
-    @Html.ActionLink("Back to List", "Retrieve")
-</p>

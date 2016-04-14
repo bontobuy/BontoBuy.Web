@@ -1098,6 +1098,9 @@
     <Content Include="Views\Customer\RetrieveInactiveOrders.cshtml" />
     <Content Include="Views\CustomerReview\Create.cshtml" />
     <Content Include="Views\Model\ExportToExcel.cshtml" />
+    <Content Include="Views\AdminCommission\RetrieveDeliveredOrders.cshtml" />
+    <Content Include="Views\AdminCommission\UpdateOrderCommission.cshtml" />
+    <Content Include="Views\AdminCommission\SearchUnpaidOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

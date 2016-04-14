@@ -226,6 +226,7 @@
     <Compile Include="Controllers\SupplierSpecialCategoryController.cs" />
     <Compile Include="Controllers\SupplierSpecificationController.cs" />
     <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Controllers\TestingController.cs" />
     <Compile Include="HelperMethods\Helper.cs" />
     <Compile Include="Migrations\201601281501503_Remove Brand From Item.cs" />
     <Compile Include="Migrations\201601281501503_Remove Brand From Item.Designer.cs">
@@ -617,6 +618,10 @@
     <Compile Include="Migrations\201604041747503_Add CommissionFKToSupplier.Designer.cs">
       <DependentUpon>201604041747503_Add CommissionFKToSupplier.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604100828000_AddCommissionPaidToOrder.cs" />
+    <Compile Include="Migrations\201604100828000_AddCommissionPaidToOrder.Designer.cs">
+      <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -844,13 +849,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\006eff.png" />
     <Content Include="Images\Acer E15 E5-573G-380S.jpg" />
     <Content Include="Images\Acer-Aspire-17.jpg" />
     <Content Include="Images\Dell-Inspiron-15-5000-.jpg" />
-    <Content Include="Images\dell.jpg" />
     <Content Include="Images\Diesel shirt.jpg" />
-    <Content Include="Images\Galaxy S5.jpg" />
     <Content Include="Images\HP-Pavilion-14.jpg" />
     <Content Include="Images\HTC One A9.jpg" />
     <Content Include="Images\huawei mate8.png" />
@@ -869,7 +871,6 @@
     <Content Include="Images\Omega seamaster.jpg" />
     <Content Include="Images\One million paco rabane.jpg" />
     <Content Include="Images\pavillion 17.jpg" />
-    <Content Include="Images\S5.png" />
     <Content Include="Images\samsung-galaxy-s7.jpg" />
     <Content Include="Images\samsung-galaxy-tab4.jpg" />
     <Content Include="Images\sony-xperia-m.jpg" />
@@ -899,6 +900,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\bontobuy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
     <Content Include="Scripts\eModal.js" />
@@ -1115,6 +1117,7 @@
     <Folder Include="Views\SupplierPayment\" />
     <Folder Include="Views\SupplierSpecialCategory\" />
     <Folder Include="Views\SupplierSpecification\" />
+    <Folder Include="Views\Testing\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1474,6 +1477,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604041747503_Add CommissionFKToSupplier.resx">
       <DependentUpon>201604041747503_Add CommissionFKToSupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604100828000_AddCommissionPaidToOrder.resx">
+      <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

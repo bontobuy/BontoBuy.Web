@@ -22,7 +22,7 @@
         @foreach (var head in ViewBag.pageOfProducts)
         {<div class="border">
             <h2>@head.Key</h2>
-            <table class="table">
+            <table class="table table-bordered">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.OrderId)

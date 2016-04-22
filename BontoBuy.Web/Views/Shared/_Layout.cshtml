@@ -15,11 +15,11 @@
     @Styles.Render("~/Content/FontAwesome")
     @Styles.Render("~/Content/bootstrapMagnify")
     <style type="text/css">
-         #cartAlert {
-        position: fixed;
-        z-index: 1030;
-        display:none;
-    }
+        #cartAlert {
+            position: fixed;
+            z-index: 1030;
+            display: none;
+        }
     </style>
 
     @*<script type="text/javascript">
@@ -51,7 +51,16 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-
+                @using (Html.BeginForm("Index", "Home"))
+                {
+                    <div class="navbar-form navbar-left ">
+                        <div class="col-md-8 form-group ">
+                            <input type="text" name="searchCriteria" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+                        <a class="text-info" href="@Url.Action("AdvancedSearch","Search")">Advanced</a>
+                    </div>
+                }
                 <ul class="nav navbar-nav navbar-right">
                     @Html.Partial("_LoginPartial")
                     <li class="dropdown">

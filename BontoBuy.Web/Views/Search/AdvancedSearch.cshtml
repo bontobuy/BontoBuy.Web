@@ -72,54 +72,73 @@
                     <h4><strong>Models</strong></h4>
                     <div class="panel-body border">
                         <div class="panel-group">
-                            <a href="#" class="panel-info">Find Models</a><br>
-                            <a href="#">By Seller</a><br>
-                            <a href="#">By ModelNumber</a>
+                            <a href="#service-one" class="panel-info" data-toggle="tab">Find Models</a><br>
+                            <a href="#service-two" data-toggle="tab">By Seller</a><br>
+                            @*<a href="#">By ModelNumber</a>*@
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-8 border">
-                <form class="form-horizontal" role="form">
-                    <h4><strong>Find Models</strong> </h4>
-                    <div class="form-group">
-                        @Html.Label("Enter keywords or item number")
-                        @*<input type="text" class="form-control keywords"/>*@
-                        @Html.EditorFor(model => model.ModelName, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="service-one">
+                        <form class="form-horizontal" role="form">
+                            <h4><strong>Find Models</strong> </h4>
                             <div class="form-group">
-                                @Html.Label("In this Category:")
+                                @Html.Label("Enter keywords or item number")
+                                @*<input type="text" class="form-control keywords"/>*@
+                                @Html.EditorFor(model => model.ModelName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("In this Category:")
 
-                                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("In this Brand:")
+                                        @Html.DropDownList("BrandId", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Minimum Price")
+                                        @Html.EditorFor(model => model.MinPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Maximum Price")
+                                        @Html.EditorFor(model => model.MaxPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </form>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.Label("In this Brand:")
-                                @Html.DropDownList("BrandId", null, htmlAttributes: new { @class = "form-control" })
+                    <div class="tab-pane fade" id="service-two">
+                        @using (Html.BeginForm("ModelBySupplier", "Search", FormMethod.Get))
+                        {
+                            <h4><strong>Find Models</strong> </h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Select Supplier")
+                                        @Html.DropDownList("SupplierId", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        }
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.Label("Minimum Price")
-                                @Html.EditorFor(model => model.MinPrice, new { htmlAttributes = new { @class = "form-control" } })
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.Label("Maximum Price")
-                                @Html.EditorFor(model => model.MaxPrice, new { htmlAttributes = new { @class = "form-control" } })
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                </form>
+                </div>
             </div>
         </div>
     </div>

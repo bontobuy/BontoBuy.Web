@@ -61,6 +61,10 @@
         </dd>
     </dl>
     <div>
-        @Html.ActionLink("Back to List", "SupplierRetrieveReturns") | @Html.ActionLink("Edit", "SupplierEditReturn", new {id= Model.ReturnId })
+        @Html.ActionLink("Back to List", "SupplierRetrieveReturns") | @if (Model.Status == "Pending")
+        {
+            @Html.ActionLink("Edit", "SupplierEditReturn", new { id = Model.ReturnId })
+        }
+        | @Html.ActionLink("View Order Details", "SupplierGetOrderDetailsForReturn",  new { target = "_blank", id = Model.OrderId })
     </div>
 </div>

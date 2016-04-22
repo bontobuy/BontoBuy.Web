@@ -97,11 +97,11 @@
                 <hr class="divider"/>
                 <div class="row">
                     <div class="col-md-8">
-                        @using (Html.BeginForm("CatalogByPrice", "Home"))
+                        @using (Html.BeginForm("CatalogByPrice", "Home", new { id = "PriceForm" }))
                         {
                             <h5><strong>Price</strong></h5>
                             <div class="form-group">
-                                <input id="minPrice" type="number" class="form-control" placeholder="Min Price" name="minPrice" min="0" value="0" /> to <input id="maxPrice" type="number" min="0" value="0" class="form-control" placeholder="Max Price" name="maxPrice"/>
+                                <input id="minPrice" type="number" class="form-control" placeholder="Minimum Price" name="minPrice" min="0" /> to <input id="maxPrice" type="number" min="0" class="form-control" placeholder="Maximum Price" name="maxPrice"/>
 
                                 <input type="submit" id="btnPrice" class="btn btn-primary form-control" value=">>"/>
                             </div>
@@ -181,6 +181,18 @@
                     }
                 });
 
+            });
+
+            $('#btnPrice').click(function (e) {
+                var minPrice = $('#minPrice').val();
+                var maxPrice = $('#maxPrice').val();
+
+                if (minPrice >= maxPrice) {
+                    $('#minPrice').focus();
+                    alert("Minimum Price " + minPrice + " should be lesser than Maximum Price " + maxPrice + " !");
+                    e.preventDefault();
+                }
+                else { $('#PriceForm').submit(); }
             });
 
         });

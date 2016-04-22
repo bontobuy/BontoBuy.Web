@@ -20,7 +20,7 @@ namespace BontoBuy.Web.Controllers
             var searchCriteria = Session["SearchCriteria"] as string;
             if (searchCriteria == null)
                 return RedirectToAction("Error404", "Home");
-            var records = db.Models.Where(x => x.ModelNumber.Contains(searchCriteria)).ToList();
+            var records = db.Models.Where(x => x.ModelNumber.Contains(searchCriteria) && x.Status == "Active").ToList();
 
             var searchList = new List<SearchResultViewModel>();
             foreach (var item in records)

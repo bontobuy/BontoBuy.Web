@@ -824,6 +824,80 @@ namespace BontoBuy.Web.Controllers
             return RedirectToAction("Error404", "Home");
         }
 
+        public ActionResult SupplierGetOrderDetailsForReturn(int id)
+        {
+            if (User.IsInRole("Supplier"))
+            {
+                var record = db.Orders.Where(o => o.OrderId == id).FirstOrDefault();
+                SupplierGetOrderViewModel orderDetails = new SupplierGetOrderViewModel()
+                {
+                    OrderId = record.OrderId,
+                    CustomerName = (from c in db.Customers
+                                    where c.CustomerId == record.CustomerId
+                                    select c.Name).FirstOrDefault(),
+                    ModelNumber = (from m in db.Models
+                                   where m.ModelId == record.ModelId
+                                   select m.ModelNumber).FirstOrDefault(),
+                    Status = record.Status,
+                    Total = record.Total,
+                    Quantity = record.Quantity,
+                    GrandTotal = record.Total,
+                    DtCreated = record.DtCreated,
+                    ExpectedDeliveryDate = record.ExpectedDeliveryDate,
+                    RealDeliveryDate = record.RealDeliveryDate,
+
+                    Street = (from d in db.Deliveries
+                              where d.OrderId == id
+                              select d.Street).FirstOrDefault(),
+
+                    City = (from d in db.Deliveries
+                            where d.OrderId == id
+                            select d.City).FirstOrDefault(),
+
+                    Zipcode = (from d in db.Deliveries
+                               where d.OrderId == id
+                               select d.Zipcode).FirstOrDefault(),
+
+                    PhoneNumber = (from u in db.Users
+                                   join o in db.Orders on u.Id equals o.CustomerUserId
+                                   where o.OrderId == id
+                                   select u.PhoneNumber).FirstOrDefault()
+                };
+
+                int modelId = record.ModelId;
+                var specGeneral = (from spCat in db.SpecialCategories
+                                   join sp in db.Specifications on spCat.SpecialCatId equals sp.SpecialCatId
+                                   where spCat.Description == "General"
+                                   select sp).ToList();
+
+                var specList = new List<ModelSpecificationDetails>();
+                foreach (var item in specGeneral)
+                {
+                    var spec = new ModelSpecificationDetails()
+                    {
+                        SpecificationName = item.Description,
+                        SpecificationValue = (from ms in db.ModelSpecs
+                                              join sp in db.Specifications on ms.SpecificationId equals sp.SpecificationId
+                                              where ms.SpecificationId == item.SpecificationId
+                                              select ms.Value).FirstOrDefault()
+                    };
+                    specList.Add(spec);
+                }
+
+                ViewBag.Specification = specList;
+                return View(orderDetails);
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                return RedirectToAction("Index", "Customer");
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
         public enum ManageMessageId
         {
             AddModelSuccess,

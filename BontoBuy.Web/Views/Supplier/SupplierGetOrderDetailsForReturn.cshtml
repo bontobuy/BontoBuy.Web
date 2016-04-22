@@ -1,0 +1,99 @@
+﻿@model BontoBuy.Web.Models.SupplierGetOrderViewModel
+
+@{
+    Layout = "~/Views/Shared/SupplierLayout.cshtml";
+    ViewBag.Title = "Order #" + Model.OrderId;
+}
+<div class="row">
+    <div class="col-md-7">
+        <h4 class=" text-info">@ViewBag.Title</h4>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OrderId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CustomerName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ModelNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ModelNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Total)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Total)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GrandTotal)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GrandTotal)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpectedDeliveryDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ExpectedDeliveryDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.RealDeliveryDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.RealDeliveryDate)
+            </dd>
+
+            <hr/>
+            <h4 class="text-info">Delivery Details</h4>
+            <dt>
+                @Html.DisplayNameFor(model => model.Street)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Street)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Zipcode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Zipcode)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-5 border">
+        <h4 class="text-info">General Specifications</h4>
+        @foreach (var item in ViewBag.Specification)
+        {
+            <li>@item.SpecificationName - @item.SpecificationValue</li>
+        }
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "SupplierRetrieveReturns")
+</p>

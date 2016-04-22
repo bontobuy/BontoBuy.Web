@@ -76,6 +76,12 @@ namespace BontoBuy.Web.Controllers
         {
             ViewBag.CategoryId = new SelectList(db.Categories.Where(x => x.Status == "Active"), "CategoryId", "Description");
             ViewBag.BrandId = new SelectList(db.Brands.Where(b => b.Status == "Active"), "BrandId", "Name");
+
+            var roleIdSupplier = (from r in db.Roles
+                                  where r.Name == "Supplier"
+                                  select r.Id).FirstOrDefault();
+            var supplier = db.Users.Where(u => u.Roles.Any(r => r.RoleId.Equals(roleIdSupplier)) && u.Status == "Active").ToList();
+            ViewBag.SupplierId = new SelectList(supplier, "Id", "Name");
             var searchCriteria = new SearchFilter();
 
             return View(searchCriteria);
@@ -114,6 +120,7 @@ namespace BontoBuy.Web.Controllers
                            && c.CategoryId == filter.CategoryId
                            && m.Price >= filter.MinPrice
                            && m.Price <= filter.MaxPrice
+                           && m.Status == "Active"
                            select m).ToList();
 
             var searchList = new List<SearchResultViewModel>();
@@ -158,6 +165,62 @@ namespace BontoBuy.Web.Controllers
             int count = records.Count();
             ViewBag.Count = count;
             ViewBag.Model = filter.ModelName;
+
+            //You need to change the View in order to display it
+            //You can also put it in a Session and use it elsewhere
+
+            var pageNumber = page ?? 1;
+            var pageOfProducts = searchList.ToPagedList(pageNumber, 10);
+            ViewBag.pageOfProducts = pageOfProducts;
+
+            return View("SearchResult", searchList);
+        }
+
+        public ActionResult ModelBySupplier(SearchFilter filter, int? page)
+        {
+            var records = db.Models.Where(m => m.UserId == filter.SupplierId && m.Status == "Active").ToList();
+            var searchList = new List<SearchResultViewModel>();
+            foreach (var item in records)
+            {
+                var searchItem = new SearchResultViewModel()
+                {
+                    ModelId = item.ModelId,
+                    ModelName = item.ModelNumber,
+                    Price = item.Price,
+                    ImageUrl = (from ph in db.Photos
+                                join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                join m in db.Models on pm.ModelId equals m.ModelId
+                                where pm.ModelId == item.ModelId
+                                select ph.ImageUrl).FirstOrDefault(),
+
+                    DtCreated = item.DtCreated,
+                    CategoryName = (from c in db.Categories
+                                    join p in db.Products on c.CategoryId equals p.CategoryId
+                                    join i in db.Items on p.ProductId equals i.ProductId
+                                    join m in db.Models on i.ItemId equals m.ItemId
+                                    where m.ItemId == item.ItemId
+                                    select c.Description).FirstOrDefault(),
+
+                    ProductName = (from c in db.Categories
+                                   join p in db.Products on c.CategoryId equals p.CategoryId
+                                   join i in db.Items on p.ProductId equals i.ProductId
+                                   join m in db.Models on i.ItemId equals m.ItemId
+                                   where m.ItemId == item.ItemId
+                                   select p.Description).FirstOrDefault(),
+
+                    ItemName = (from c in db.Categories
+                                join p in db.Products on c.CategoryId equals p.CategoryId
+                                join i in db.Items on p.ProductId equals i.ProductId
+                                join m in db.Models on i.ItemId equals m.ItemId
+                                where m.ItemId == item.ItemId
+                                select i.Description).FirstOrDefault()
+                };
+                searchList.Add(searchItem);
+            }
+
+            int count = records.Count();
+            ViewBag.Count = count;
+            ViewBag.Model = db.Users.Where(u => u.Id == filter.SupplierId).FirstOrDefault().Name;
 
             //You need to change the View in order to display it
             //You can also put it in a Session and use it elsewhere

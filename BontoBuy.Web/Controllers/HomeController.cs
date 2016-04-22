@@ -1358,7 +1358,7 @@ namespace BontoBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CatalogByPrice(int minPrice, int maxPrice, int? page)
+        public ActionResult CatalogByPrice(int? minPrice, int? maxPrice, int? page)
         {
             if (User.IsInRole("Supplier"))
                 return RedirectToAction("Index", "Supplier");
@@ -1370,7 +1370,9 @@ namespace BontoBuy.Web.Controllers
             int ItemId = Convert.ToInt32(ItemIdInString);
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
 
-            var records = db.Models.Where(m => m.Price >= minPrice && m.Price <= maxPrice && m.Status == "Active" && m.ItemId == ItemId).ToList();
+            var minPriceVal = minPrice ?? 0;
+            var maxPriceVal = maxPrice ?? 0;
+            var records = db.Models.Where(m => m.Price >= minPriceVal && m.Price <= maxPriceVal && m.Status == "Active" && m.ItemId == ItemId).ToList();
             var CatalogList = new List<HomeCatalogViewModel>();
             foreach (var item in records)
             {

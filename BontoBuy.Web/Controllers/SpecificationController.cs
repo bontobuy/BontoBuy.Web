@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -182,7 +182,26 @@ namespace BontoBuy.Web.Controllers
                         item.Description = helper.ConvertToTitleCase(item.Description);
                         var existingSpec = CheckForDuplicates(item.Description);
                         if (existingSpec == null)
+                        {
                             specificationExist = false;
+                        }
+                        else
+                        {
+                            var specificationId = db.Specifications.Where(s => s.Description == item.Description).FirstOrDefault().SpecificationId;
+                            var recordInProducSpec = db.ProductSpecs.Where(p => p.ProductId == item.ProductId && p.SpecificationId == specificationId).FirstOrDefault();
+
+                            if (recordInProducSpec == null)
+                            {
+                                var newProductSpecRecord = new ProductSpecViewModel()
+                                {
+                                    ProductId = item.ProductId,
+                                    SpecificationId = specificationId
+                                };
+                                db.ProductSpecs.Add(newProductSpecRecord);
+                                db.SaveChanges();
+                            }
+                            specificationExist = true;
+                        }
                     }
 
                     if (specificationExist == false)

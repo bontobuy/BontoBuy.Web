@@ -207,6 +207,7 @@
     <Compile Include="Controllers\CustomerWishlistController.cs" />
     <Compile Include="Controllers\DeliveryAddressController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -622,6 +623,7 @@
     <Compile Include="Migrations\201604100828000_AddCommissionPaidToOrder.Designer.cs">
       <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Script.cs" />
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -824,6 +826,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\FontConvergence.css" />
+    <Content Include="Content\InternetError.png" />
     <Content Include="Content\jAlert-v3.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
@@ -1102,6 +1105,7 @@
     <Content Include="Views\AdminCommission\UpdateOrderCommission.cshtml" />
     <Content Include="Views\AdminCommission\SearchUnpaidOrders.cshtml" />
     <Content Include="Views\Supplier\SupplierGetOrderDetailsForReturn.cshtml" />
+    <Content Include="Views\Error\InternetConnectionError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

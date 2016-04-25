@@ -1,0 +1,119 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "401: Internet Connection Error";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style type="text/css">
+        body {
+            background: #F1F3F5;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        hr {
+            width: 80px;
+            height: 1px;
+            color: #A0A3A6;
+            border-top: 1px solid #8c8b8b;
+        }
+
+        h1 {
+            letter-spacing: 6px;
+            margin: 50px 0 32px 0;
+            font-weight: 500;
+            text-align: center;
+            font-size: 14px;
+            color: #303336;
+        }
+
+        h2 {
+            font-size: 30px;
+            text-align: center;
+            color: #303336;
+            font-weight: 300;
+        }
+
+        .logo-container {
+            position: relative;
+            margin-top: -100px;
+            margin-bottom:25px;
+
+
+        }
+
+        a {
+            text-decoration: none;
+            color: #0077B5;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer {
+            position: relative;
+            text-align: center;
+            padding: 0 0 0 5px;
+        }
+
+        .primary-footer {
+            list-style: none;
+        }
+
+        .space {
+            color: #A0A3A6;
+            font-weight: 600;
+        }
+
+        .primary-footer li > a:hover,
+        .primary-footer li > a:focus {
+            text-decoration: underline;
+            color: #00A0DC;
+        }
+
+        .primary-footer > li {
+            display: inline-block;
+        }
+
+        p {
+            color: #A0A3A6;
+            font-weight: 600;
+        }
+
+        #Image {
+            height:70%;
+            width:70%;
+            margin-bottom:-70px;
+            margin-left:90px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>401 INTERNET CONNECTION ERROR</h1>
+        <hr>
+        <h2></h2>
+        <div class="col-md-12 logo-container text-center">
+            <img src="~/Content/InternetError.png" alt="401" id="Image"/>
+            <div class="text-center" id="Home">
+                <span class="glyphicon glyphicon-home"><a href="@Url.Action("Index","Home")">Return To Home</a></span>
+            </div>
+        </div>
+        <div class="footer">
+            <ul class="primary-footer text-center">
+                <li><span class="space">BontoBuy © 2016 | </span></li>
+                <li><a saprocessedanchor="true" href="#">About</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

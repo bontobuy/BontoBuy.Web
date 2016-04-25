@@ -623,6 +623,7 @@
     <Compile Include="Migrations\201604100828000_AddCommissionPaidToOrder.Designer.cs">
       <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Script.cs" />
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />

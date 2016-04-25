@@ -1,10 +1,10 @@
 namespace BontoBuy.Web.Migrations
 {
-    using BontoBuy.Web.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using BontoBuy.Web.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<BontoBuy.Web.Models.ApplicationDbContext>
     {
@@ -33,7 +33,7 @@ namespace BontoBuy.Web.Migrations
             //Do one table at a time!!!
             //Codes are placed in region for convenience
 
-            //#region Category
+            #region Category
 
             //context.Categories.AddOrUpdate(
             //    p => p.CategoryId,
@@ -48,97 +48,106 @@ namespace BontoBuy.Web.Migrations
             //    new CategoryViewModel { Description = "Sport, Fitness & Outdoor", Status = "Active" }
             //    );
 
-            //#endregion Category
+            #endregion Category
 
-            //#region Product
+            #region Product
 
             //context.Products.AddOrUpdate(
             //    p => p.ProductId,
-            //    new ProductViewModel() { CategoryId = 1, Description = "Mobile Phones", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Mobile Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Mobile Case & Covers", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Power Banks", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Mobile Memory Cards", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Tablets", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 1, Description = "Tablet Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Laptops", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Desktops", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Computer Components", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Printers & Inks", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Storage", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Routers & Data Cards", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Monitors", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Software", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Computer Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 2, Description = "Office Equipment", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 3, Description = "Gaming Equipment", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Televisions", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Audio & Video", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Large Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Home Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Grooming Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Cameras", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 4, Description = "Kitchen Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Western Wear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Footwear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Handbags", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Eyewear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Watches", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Precious Jewellery", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Fashion Jewellery", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Perfumes", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 5, Description = "Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Footwear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Bags & Luggages", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Clothing", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Watches", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Men's Grooming", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Men's Jewellery", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 6, Description = "Eyewear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (2-8 Yrs.)", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 7, Description = "Boys Clothing (2-8 Yrs.)", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 7, Description = "Boys Clothing (8-14 Yrs.)", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 7, Description = "Baby Clothing", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 7, Description = "Kids Footwear", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 7, Description = "Watches & Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 8, Description = "Kitchen Appliances", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 8, Description = "Kitchenware", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 8, Description = "Home Furnishing", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 8, Description = "Home Décor", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 8, Description = "Home Improvement", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 8, Description = "Tools & Hardware", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 8, Description = "Pet Supplies", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 9, Description = "Sports", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 9, Description = "Fitness Equipment", Status = "Active" },
 
-            //    new ProductViewModel() { CategoryId = 9, Description = "Fitness Accessories", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 9, Description = "Fitness Gadgets", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 9, Description = "Nutrition & Supplements", Status = "Active" },
-            //    new ProductViewModel() { CategoryId = 9, Description = "Bags & Luggages", Status = "Active" }
-            //    );
+            //new ProductViewModel() { CategoryId = 1, Description = "Mobile Phones", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 1, Description = "Mobile Accessories", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 1, Description = "Mobile Case & Covers", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 1, Description = "Power Banks", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 1, Description = "Mobile Memory Cards", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 1, Description = "Tablets", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 1, Description = "Tablet Accessories", Status = "Active" },
 
-            //#endregion Product
+            //new ProductViewModel() { CategoryId = 2, Description = "Laptops", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Desktops", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Computer Components", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Printers & Inks", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Storage", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Routers & Data Cards", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Monitors", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Software", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Computer Accessories", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 2, Description = "Office Equipment", Status = "Active" },
+
+            //new ProductViewModel() { CategoryId = 3, Description = "Gaming Equipment", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 4, Description = "Televisions", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 4, Description = "Audio & Video", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 4, Description = "Large Appliances", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 4, Description = "Home Appliances", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 4, Description = "Grooming Appliances", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 4, Description = "Cameras", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 4, Description = "Kitchen Appliances", Status = "Active" },
+
+            //new ProductViewModel() { CategoryId = 5, Description = "Western Wear", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 5, Description = "Footwear", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 5, Description = "Handbags", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 5, Description = "Eyewear", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 5, Description = "Watches", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 5, Description = "Precious Jewellery", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 5, Description = "Fashion Jewellery", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 5, Description = "Perfumes", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 5, Description = "Accessories", Status = "Active" },
+
+            //new ProductViewModel() { CategoryId = 6, Description = "Footwear", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 6, Description = "Bags & Luggages", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 6, Description = "Clothing", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 6, Description = "Watches", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 6, Description = "Accessories", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 6, Description = "Men's Grooming", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 6, Description = "Men's Jewellery", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 6, Description = "Eyewear", Status = "Active" }
+
+            //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (2-8 Yrs.)", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 7, Description = "Boys Clothing (2-8 Yrs.)", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 7, Description = "Boys Clothing (8-14 Yrs.)", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 7, Description = "Girls Clothing (8-14 Yrs.)", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 7, Description = "Baby Clothing", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 7, Description = "Kids Footwear", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 7, Description = "Watches & Accessories", Status = "Active" },
+
+            //new ProductViewModel() { CategoryId = 8, Description = "Kitchen Appliances", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 8, Description = "Kitchenware", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 8, Description = "Home Furnishing", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 8, Description = "Home Décor", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 8, Description = "Home Improvement", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 8, Description = "Tools & Hardware", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 8, Description = "Pet Supplies", Status = "Active" },
+
+            //new ProductViewModel() { CategoryId = 9, Description = "Sports", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 9, Description = "Fitness Equipment", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 9, Description = "Fitness Accessories", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 9, Description = "Fitness Gadgets", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 9, Description = "Nutrition & Supplements", Status = "Active" },
+            //new ProductViewModel() { CategoryId = 9, Description = "Bags & Luggages", Status = "Active" }
+            //);
+
+            #endregion Product
 
             //context.Items.AddOrUpdate(
             //    p => p.ItemId,
-            //    new ItemViewModel() { ProductId = 1, Description = "Smartphones", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 1, Description = "Feature Phones", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 1, Description = "4G Phones", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 2, Description = "Screen Guards", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 2, Description = "Cables & Chargers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 2, Description = "Insurance & Warranty", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 2, Description = "Selfie Sticks and Stands", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 3, Description = "Printed Back Covers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 3, Description = "Flip Covers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 3, Description = "Plain Back Covers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 4, Description = "Above 9000mAh", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 4, Description = "5000 - 9000mAh", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 4, Description = "2000 - 5000mAh", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 4, Description = "Above 9000mAh", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 5, Description = "Up to 16 GB", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+
+            //new ItemViewModel() { ProductId = 1, Description = "Smartphones", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 1, Description = "Feature Phones", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 1, Description = "4G Phones", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 2, Description = "Screen Guards", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 2, Description = "Cables & Chargers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 2, Description = "Insurance & Warranty", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 2, Description = "Selfie Sticks and Stands", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 3, Description = "Printed Back Covers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 3, Description = "Flip Covers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 3, Description = "Plain Back Covers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 4, Description = "Above 9000mAh", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 4, Description = "5000 - 9000mAh", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 4, Description = "2000 - 5000mAh", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 4, Description = "Above 9000mAh", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+
+            //new ItemViewModel() { ProductId = 5, Description = "Up to 16 GB", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 5, Description = "32 GB & Above", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 6, Description = "Wifi Tablets", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 6, Description = "2G Calling", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
@@ -213,51 +222,51 @@ namespace BontoBuy.Web.Migrations
             //    new ItemViewModel() { ProductId = 21, Description = "Hair Stylers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 21, Description = "Facial Care", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 22, Description = "Digital Cameras", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 22, Description = "Digital Cameras", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 22, Description = "Carmcorders", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 22, Description = "Camera Lenses", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 22, Description = "Camera Accessories", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 22, Description = "Selfie Sticks", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 22, Description = "Binoculars and Telescope", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 22, Description = "Digital Photo Frames", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 24, Description = "Tops & Tunics", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 24, Description = "Tees & Polos", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 24, Description = "Shirts", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 24, Description = "Dresses", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 24, Description = "Jeans", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 24, Description = "Jeggings & Palazzos", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 24, Description = "Innerwear & Nightwear", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 24, Description = "Winterwear", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 25, Description = "Sport shoes", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 25, Description = "Heels", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 25, Description = "Wedges", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 25, Description = "Stilettos", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 25, Description = "Casual Shoes", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 25, Description = "Sandals", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 25, Description = "Balerinas", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 25, Description = "Boots", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 26, Description = "Handbags", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 26, Description = "Clutches", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 26, Description = "Wallets", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 27, Description = "Sunglasses", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 27, Description = "Spectacle Frames", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 29, Description = "Rings", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 29, Description = "Earrings", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 29, Description = "Gold Coins", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 29, Description = "Silver Jewellery", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 30, Description = "Necklaces", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 30, Description = "Earrings", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 30, Description = "Bracelets", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 30, Description = "Pendants", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 31, Description = "Perfume", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 31, Description = "Deodorants", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 32, Description = "Belts", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 32, Description = "Socks & Stokings", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 32, Description = "Scarves", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 33, Description = "Sport Shoes", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+
+            //new ItemViewModel() { ProductId = 24, Description = "Tops & Tunics", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 24, Description = "Tees & Polos", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 24, Description = "Shirts", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 24, Description = "Dresses", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 24, Description = "Jeans", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 24, Description = "Jeggings & Palazzos", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 24, Description = "Innerwear & Nightwear", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 24, Description = "Winterwear", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 25, Description = "Sport shoes", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 25, Description = "Heels", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 25, Description = "Wedges", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 25, Description = "Stilettos", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 25, Description = "Casual Shoes", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 25, Description = "Sandals", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 25, Description = "Balerinas", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 25, Description = "Boots", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 26, Description = "Handbags", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 26, Description = "Clutches", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 26, Description = "Wallets", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 27, Description = "Sunglasses", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 27, Description = "Spectacle Frames", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 29, Description = "Rings", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 29, Description = "Earrings", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 29, Description = "Gold Coins", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 29, Description = "Silver Jewellery", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 30, Description = "Necklaces", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 30, Description = "Earrings", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 30, Description = "Bracelets", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 30, Description = "Pendants", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 31, Description = "Perfume", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 31, Description = "Deodorants", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 32, Description = "Belts", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 32, Description = "Socks & Stokings", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 32, Description = "Scarves", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+            //new ItemViewModel() { ProductId = 33, Description = "Sport Shoes", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
+
             //    new ItemViewModel() { ProductId = 33, Description = "Running Shoes", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 33, Description = "Casual Shoes", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
-            //    new ItemViewModel() { ProductId = 33, Description = "Boots", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 33, Description = "Sandals", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 33, Description = "Loafers", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 33, Description = "Socks", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
@@ -276,10 +285,12 @@ namespace BontoBuy.Web.Migrations
             //    new ItemViewModel() { ProductId = 38, Description = "Shaving Cream", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 39, Description = "Necklaces", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now },
             //    new ItemViewModel() { ProductId = 40, Description = "Sunglasses", AdminStatus = "Active", Action = "Catalog", Controller = "Home", DtCreated = DateTime.Now, DtUpdated = DateTime.Now }
-            //    );
+            //);
 
             //context.SpecialCategories.AddOrUpdate(
             //    p => p.SpecialCatId,
+
+            //    //Mobile Phones
             //    new SpecialCategoryViewModel() { Description = "Box Content", Status = "Active" },
             //    new SpecialCategoryViewModel() { Description = "General", Status = "Active" },
             //    new SpecialCategoryViewModel() { Description = "Display", Status = "Active" },
@@ -292,7 +303,35 @@ namespace BontoBuy.Web.Migrations
             //    new SpecialCategoryViewModel() { Description = "Hardware Connectivity", Status = "Active" },
             //    new SpecialCategoryViewModel() { Description = "Battery & Power", Status = "Active" },
             //    new SpecialCategoryViewModel() { Description = "Dimensions", Status = "Active" },
-            //    new SpecialCategoryViewModel() { Description = "Warranty", Status = "Active" }
+            //    new SpecialCategoryViewModel() { Description = "Warranty", Status = "Active" },
+
+            //    //Mobile Accessories
+            //    //Mobile cases and cover
+            //    //Powerbanks
+            //    //Tablet Accessories
+            //    new SpecialCategoryViewModel() { Description = "Highlights", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Technical Specification", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Description", Status = "Active" },
+            //    new SpecialCategoryViewModel() { Description = "Terms and Conditions", Status = "Active" },
+
+            //       //Laptops
+            //     new SpecialCategoryViewModel() { Description = "In the Box", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Overview", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Optical Disk Drive", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Graphics", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Keyboard Input", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Audio", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Ports/Slots", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Security", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Size and Weight", Status = "Active" },
+
+            //    //Printers
+            //     new SpecialCategoryViewModel() { Description = "Print", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Copy", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Scan", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Paper Handling", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Connectivity", Status = "Active" },
+            //     new SpecialCategoryViewModel() { Description = "Other Specifications", Status = "Active" }
 
             //    );
 

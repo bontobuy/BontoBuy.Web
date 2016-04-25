@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BontoBuy.Web.HelperMethods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using BontoBuy.Web.HelperMethods;
 
 namespace BontoBuy.Web.Models
 {
@@ -37,7 +37,8 @@ namespace BontoBuy.Web.Models
             {
                 var newRecord = new SpecialCategoryViewModel
                 {
-                    Description = descriptionTitleCase
+                    Description = descriptionTitleCase,
+                    Position = item.Position
                 };
 
                 db.SpecialCategories.Add(newRecord);

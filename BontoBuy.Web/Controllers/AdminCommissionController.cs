@@ -32,6 +32,8 @@ namespace BontoBuy.Web.Controllers
                     if (records == null)
                         return RedirectToAction("Home", "Error404");
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(records);
                 }
                 return RedirectToAction("Login", "Account");
@@ -56,6 +58,8 @@ namespace BontoBuy.Web.Controllers
                     if (record == null)
                         return RedirectToAction("Home", "Error404");
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(record);
                 }
                 return RedirectToAction("Login", "Account");
@@ -93,6 +97,8 @@ namespace BontoBuy.Web.Controllers
                     if (record == null)
                         return RedirectToAction("Home", "Error404");
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(record);
                 }
                 return RedirectToAction("Login", "Account");
@@ -240,6 +246,8 @@ namespace BontoBuy.Web.Controllers
                         Paid = record.CommissionPaid
                     };
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(orderItem);
                 }
             }
@@ -311,6 +319,9 @@ namespace BontoBuy.Web.Controllers
                         Commission = Convert.ToInt32((commission * item.UnitPrice) / 100),
                         Paid = item.CommissionPaid
                     };
+
+                    var supplierId = db.Users.Where(u => u.Name == properString).FirstOrDefault().Id;
+                    Session["SupplierId"] = supplierId;
                     recordList.Add(orderItem);
                 }
 
@@ -319,6 +330,8 @@ namespace BontoBuy.Web.Controllers
                 var pageOfProducts = recordList.ToPagedList(pageNumber, 10); //set the number of records per page
                 ViewBag.pageOfProducts = pageOfProducts;
 
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View();
             }
             if (String.IsNullOrWhiteSpace(searchString))
@@ -333,10 +346,11 @@ namespace BontoBuy.Web.Controllers
         {
             if (User.IsInRole("Admin"))
             {
+                string supplierId = Session["supplierId"] as string;
                 ViewBag.searchString = "Unpaid Commission from " + fromDate + " to " + toDate;
 
                 var record = (from o in db.Orders
-                              where o.DtCreated <= toDate && o.DtCreated >= fromDate && o.Status == "Delivered" && o.CommissionPaid == false
+                              where o.DtCreated <= toDate && o.DtCreated >= fromDate && o.Status == "Delivered" && o.CommissionPaid == false && o.SupplierUserId == supplierId
                               select o).ToList();
 
                 if (record == null)
@@ -376,6 +390,8 @@ namespace BontoBuy.Web.Controllers
                 var pageOfProducts = recordList.ToPagedList(pageNumber, 10); //set the number of records per page
                 ViewBag.pageOfProducts = pageOfProducts;
 
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
                 return View("SearchUnpaidOrders", recordList);
             }
 
@@ -464,6 +480,8 @@ namespace BontoBuy.Web.Controllers
                     if (record == null)
                         return RedirectToAction("Error404", "Home");
 
+                    GetNewSupplierActivation();
+                    GetNewModelsActivation();
                     return View(record);
                 }
 

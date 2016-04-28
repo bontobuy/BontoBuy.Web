@@ -639,38 +639,45 @@ namespace BontoBuy.Web.Controllers
             user.PasswordHash = hashedNewPassword;
             db.SaveChanges();
 
-            //It the body of the email that will be sent to the user after the registration process
-            var body = "<p>Dear Valued Customer,</p><p>This is the password that has been sent to you in order to validate your registration on BontoBuy</p>" +
-                "<p>Your activation code: {0}</p>";
-
-            var message = new MailMessage();
-
-            //It contains the recipient of the email
-            message.To.Add(new MailAddress(model.Email));
-
-            //It contains the email address of BontoBuy
-            message.From = new MailAddress("bontobuy@gmail.com");
-
-            //Subject of the mail
-            message.Subject = "Register on BontoBuy";
-
-            //Using formatted string the activation code is then added to the body of the email
-            message.Body = string.Format(body, code);
-            message.IsBodyHtml = true;
-
-            var smtp = new SmtpClient();
-
-            //Use credential of BontoBuy email
-            var credential = new NetworkCredential()
+            try
             {
-                UserName = "bontobuy@gmail.com",
-                Password = "b0nt0@dmin"
-            };
-            smtp.Credentials = credential;
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.EnableSsl = true;
-            await smtp.SendMailAsync(message);
+                //It the body of the email that will be sent to the user after the registration process
+                var body = "<p>Dear Valued Customer,</p><p>This is the password that has been sent to you in order to validate your registration on BontoBuy</p>" +
+                    "<p>Your activation code: {0}</p>";
+
+                var message = new MailMessage();
+
+                //It contains the recipient of the email
+                message.To.Add(new MailAddress(model.Email));
+
+                //It contains the email address of BontoBuy
+                message.From = new MailAddress("bontobuy@gmail.com");
+
+                //Subject of the mail
+                message.Subject = "Register on BontoBuy";
+
+                //Using formatted string the activation code is then added to the body of the email
+                message.Body = string.Format(body, code);
+                message.IsBodyHtml = true;
+
+                var smtp = new SmtpClient();
+
+                //Use credential of BontoBuy email
+                var credential = new NetworkCredential()
+                {
+                    UserName = "bontobuy@gmail.com",
+                    Password = "b0nt0@dmin"
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(message);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             //var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), user.p, newPassword);
             //if (result.Succeeded)

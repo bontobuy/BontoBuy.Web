@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -11,10 +15,6 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
-using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -576,7 +576,7 @@ namespace BontoBuy.Web.Controllers
                     ActivationCode = activationCode,
                     CommissionId = (from c in db.Commissions
                                     where c.Name == "Tier1"
-                                    select c.Percentage).FirstOrDefault()
+                                    select c.CommissionId).FirstOrDefault()
                 };
                 var result = await UserManager.CreateAsync(supplier, model.Password);
                 if (result.Succeeded)

@@ -1,12 +1,12 @@
-﻿using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using PagedList;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using PagedList;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -474,6 +474,26 @@ namespace BontoBuy.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        //public ActionResult ExportToExcel()
+        //{
+        //    //var excelData = Session["ExcelData"] as List<AdminRetrieveOrdersViewModel>;
+        //    //if (excelData != null)
+        //    //    _repo.ExportToExcel(excelData);
+
+        //    //Session.Remove("ExcelData");
+
+        //    //if (excelData == null)
+        //    //{
+        //    //    var records = _repo.AdminRetrieveOrders().ToList();
+        //    //    if (records == null)
+        //    //        return RedirectToAction("Home", "Error404");
+
+        //    //    _repo.ExportToExcel(records);
+        //    //}
+
+        //    //return RedirectToAction("RetrieveOrders");
+        //}
 
         public enum ManageMessageId
         {

@@ -623,7 +623,6 @@
     <Compile Include="Migrations\201604100828000_AddCommissionPaidToOrder.Designer.cs">
       <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Script.cs" />
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -852,12 +851,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\404.jpg" />
+    <Content Include="Images\6467047-create-mobile-apps-for-tablets-and-mobile-phones-tablet-computer-and-mobile-phone-on-a-white-background-close-up.jpg" />
     <Content Include="Images\Acer E15 E5-573G-380S.jpg" />
     <Content Include="Images\Acer-Aspire-17.jpg" />
     <Content Include="Images\Dell-Inspiron-15-5000-.jpg" />
     <Content Include="Images\Diesel shirt.jpg" />
     <Content Include="Images\HP-Pavilion-14.jpg" />
     <Content Include="Images\HTC One A9.jpg" />
+    <Content Include="Images\HTC-DESIRE-728G-16GB-White-SDL492045417-1-33aad.jpg" />
     <Content Include="Images\huawei mate8.png" />
     <Content Include="Images\Ideapad G50-70.jpg" />
     <Content Include="Images\Inspiron 15 3521-TS.jpg" />
@@ -871,12 +873,19 @@
     <Content Include="Images\lenovo x1.jpg" />
     <Content Include="Images\lg_g5.png" />
     <Content Include="Images\Life insurance.jpg" />
+    <Content Include="Images\mobile-123.jpg" />
+    <Content Include="Images\mobile-phones-tablets.png" />
     <Content Include="Images\Omega seamaster.jpg" />
     <Content Include="Images\One million paco rabane.jpg" />
     <Content Include="Images\pavillion 17.jpg" />
+    <Content Include="Images\qwerty.png" />
+    <Content Include="Images\Redmi-2-8-GB-Grey-SDL516251022-1-2bd8c.jpg" />
     <Content Include="Images\samsung-galaxy-s7.jpg" />
     <Content Include="Images\samsung-galaxy-tab4.jpg" />
+    <Content Include="Images\Samsung-J5-8GB-Espresso-Brown-SDL848531361-1-4642d.jpg" />
     <Content Include="Images\sony-xperia-m.jpg" />
+    <Content Include="Images\Tablet-and-Phones.png" />
+    <Content Include="Images\tablets-montage.jpg" />
     <Content Include="Images\under armour shirt.jpg" />
     <Content Include="Images\xiaomi_redmi_note_3_pro.jpg" />
     <Content Include="Images\Xperia T3.jpg" />

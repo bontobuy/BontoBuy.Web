@@ -80,6 +80,8 @@ namespace BontoBuy.Web.Controllers
             ViewBag.StatusMessage =
                message == ManageMessageId.ActivationCustomerFailure ? "You have entered a wrong Activation Code."
                : message == ManageMessageId.Error ? "An error has occurred."
+               : message == ManageMessageId.ForgetPasswordFailure ? "Invalid email address provided for Forgot Password."
+               : message == ManageMessageId.ForgetPasswordSuccess ? "A recovery email with a new password has been sent to your email. Please check your email."
                : message == ManageMessageId.ActivationSupplierSuccess ? "Please be patient. Our team will be activating your account in a moment. Then you can log in to your account by providing the required activation code."
                : "";
             ViewBag.ReturnUrl = returnUrl;
@@ -636,88 +638,94 @@ namespace BontoBuy.Web.Controllers
             int randomNumber = random.Next(1, 9);
             code = code + randomNumber.ToString() + "#" + "A";
             var user = db.Users.Where(x => x.Email == model.Email).FirstOrDefault();
-            if (String.IsNullOrEmpty(user.Id))
-                RedirectToAction("Index", "Home");
-
-            string hashedNewPassword = UserManager.PasswordHasher.HashPassword(code);
-            user.PasswordHash = hashedNewPassword;
-            db.SaveChanges();
-
-            try
+            if (user == null)
             {
-                //It the body of the email that will be sent to the user after the registration process
-                var body = "<p>Dear Valued Customer,</p><p>This is the password that has been sent to you in order to validate your registration on BontoBuy</p>" +
-                    "<p>Your activation code: {0}</p>";
+                return RedirectToAction("Login", "Account", new { message = ManageMessageId.ForgetPasswordFailure });
+            }
+            else
+            {
+                string hashedNewPassword = UserManager.PasswordHasher.HashPassword(code);
+                user.PasswordHash = hashedNewPassword;
+                db.SaveChanges();
 
-                var message = new MailMessage();
-
-                //It contains the recipient of the email
-                message.To.Add(new MailAddress(model.Email));
-
-                //It contains the email address of BontoBuy
-                message.From = new MailAddress("bontobuy@gmail.com");
-
-                //Subject of the mail
-                message.Subject = "Register on BontoBuy";
-
-                //Using formatted string the activation code is then added to the body of the email
-                message.Body = string.Format(body, code);
-                message.IsBodyHtml = true;
-
-                var smtp = new SmtpClient();
-
-                //Use credential of BontoBuy email
-                var credential = new NetworkCredential()
+                try
                 {
-                    UserName = "bontobuy@gmail.com",
-                    Password = "b0nt0@dmin"
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(message);
+                    //It the body of the email that will be sent to the user after the registration process
+                    var body = "<p>Dear Valued Customer,</p><p>This is the password that has been sent to you in order to validate your registration on BontoBuy</p>" +
+                        "<p>Your activation code: {0}</p>";
+
+                    var message = new MailMessage();
+
+                    //It contains the recipient of the email
+                    message.To.Add(new MailAddress(model.Email));
+
+                    //It contains the email address of BontoBuy
+                    message.From = new MailAddress("bontobuy@gmail.com");
+
+                    //Subject of the mail
+                    message.Subject = "Register on BontoBuy";
+
+                    //Using formatted string the activation code is then added to the body of the email
+                    message.Body = string.Format(body, code);
+                    message.IsBodyHtml = true;
+
+                    var smtp = new SmtpClient();
+
+                    //Use credential of BontoBuy email
+                    var credential = new NetworkCredential()
+                    {
+                        UserName = "bontobuy@gmail.com",
+                        Password = "b0nt0@dmin"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                //var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), user.p, newPassword);
+                //if (result.Succeeded)
+                //{
+                //    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                //    if (user != null)
+                //    {
+                //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //    }
+                //    return RedirectToAction("Index", "Customer", new { Message = ManageMessageId.ChangePasswordSuccess });
+                //}
+                //AddErrors(result);
+
+                //return View(model);
+
+                //if (ModelState.IsValid)
+                //{
+                //    var user = await UserManager.FindByNameAsync(model.Email);
+                //    if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                //    {
+                //        // Don't reveal that the user does not exist or is not confirmed
+                //        return View("ForgotPasswordConfirmation");
+                //    }
+
+                //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                //    // Send an email with this link
+                //    // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                //    // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //    // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                //    // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                //}
+
+                //// If we got this far, something failed, redisplay form
+                //return View(model);
+
+                return RedirectToAction("Login", "Account", new { message = ManageMessageId.ForgetPasswordSuccess });
             }
-            catch (Exception)
-            {
-                return RedirectToAction("Login", "Account");
-            }
 
-            //var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), user.p, newPassword);
-            //if (result.Succeeded)
-            //{
-            //    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            //    if (user != null)
-            //    {
-            //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            //    }
-            //    return RedirectToAction("Index", "Customer", new { Message = ManageMessageId.ChangePasswordSuccess });
-            //}
-            //AddErrors(result);
-
-            //return View(model);
-
-            //if (ModelState.IsValid)
-            //{
-            //    var user = await UserManager.FindByNameAsync(model.Email);
-            //    if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-            //    {
-            //        // Don't reveal that the user does not exist or is not confirmed
-            //        return View("ForgotPasswordConfirmation");
-            //    }
-
-            //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-            //    // Send an email with this link
-            //    // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-            //    // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-            //    // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-            //    // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-            //}
-
-            //// If we got this far, something failed, redisplay form
-            //return View(model);
-
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account", new { message = ManageMessageId.Error });
         }
 
         //
@@ -1092,6 +1100,8 @@ namespace BontoBuy.Web.Controllers
             ActivationCustomerFailure,
             ActivationSupplierSuccess,
             ActivationSupplierFailure,
+            ForgetPasswordSuccess,
+            ForgetPasswordFailure,
             Error
         }
     }

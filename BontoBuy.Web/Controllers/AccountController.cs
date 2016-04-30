@@ -1,8 +1,4 @@
-﻿using BontoBuy.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -15,6 +11,10 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
+using BontoBuy.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -651,8 +651,8 @@ namespace BontoBuy.Web.Controllers
                 try
                 {
                     //It the body of the email that will be sent to the user after the registration process
-                    var body = "<p>Dear Valued Customer,</p><p>This is the password that has been sent to you in order to validate your registration on BontoBuy</p>" +
-                        "<p>Your activation code: {0}</p>";
+                    var body = "<p>Dear Valued Customer,</p><p>Your password has undergone a reset. Please use the new password below</p>" +
+                        "<p>Your new password: {0}</p>";
 
                     var message = new MailMessage();
 

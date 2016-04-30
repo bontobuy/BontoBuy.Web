@@ -57,6 +57,7 @@
         -webkit-box-shadow: none;
         left: 158px;
         top: -3px;
+        height:180%;
     }
 
         .mega-sidebar-menu > li > ul {
@@ -804,7 +805,7 @@
                                     <a href="@Url.Action("ModelDetails", "Home", new { id = @Model.MenCategory.ModelId })"><><img src="~/images/@Model.MenCategory.ImageUrl" a alt="" class="imgDropdown" width="200" height="200" />@Model.MenCategory.ModelNumber</a>
                                 }
 
-                                @if (category.Description == "Financial Services")
+                                @if (category.CategoryId == 10)
                                 {
                                     foreach (var product in Model.ProductRecordsC10)
                                     {
@@ -814,11 +815,50 @@
 
                                                 <li class="sidebar-header"><a href="#">@product.Description</a></li>
 
-                                                @foreach (var item in Model.ItemRecordsPFinance)
+                                                @if (product.ProductId == 64)
                                                 {
-                                                    <li><a href="@Url.Action(item.Action,item.Controller,new{id=item.ItemId})">@item.Description</a></li>
+                                                    foreach (var item in Model.ItemRecordsP64)
+                                                    {
+                                                        <li><a href="@Url.Action(item.Action,item.Controller,new{id=item.ItemId})">@item.Description</a></li>
+                                                    }
                                                 }
+                                                @if (product.ProductId == 65)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP65)
+                                                    {
+                                                        <li><a href="@Url.Action(item.Action,item.Controller,new{id=item.ItemId})">@item.Description</a></li>
+                                                    }
+                                                }
+                                                <li class="divider"></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                }
 
+                                @if (category.CategoryId == 11)
+                                {
+                                    foreach (var product in Model.ProductRecordsC11)
+                                    {
+                                        <li class="col-md-3">
+
+                                            <ul id="ProductList">
+
+                                                <li class="sidebar-header"><a href="#">@product.Description</a></li>
+
+                                                @if (product.ProductId == 66)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP66)
+                                                    {
+                                                        <li><a href="@Url.Action(item.Action,item.Controller,new{id=item.ItemId})">@item.Description</a></li>
+                                                    }
+                                                }
+                                                @if (product.ProductId == 67)
+                                                {
+                                                    foreach (var item in Model.ItemRecordsP67)
+                                                    {
+                                                        <li><a href="@Url.Action(item.Action,item.Controller,new{id=item.ItemId})">@item.Description</a></li>
+                                                    }
+                                                }
                                                 <li class="divider"></li>
                                             </ul>
                                         </li>

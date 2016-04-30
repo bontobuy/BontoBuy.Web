@@ -131,6 +131,29 @@
                 trigger: 'focus'
             });
 
+            $('#PhoneNumber').keyup(function () {
+                var phoneNumber = $(this);
+                var pattern = /^[5]\d{7}$/;
+                var passLabel = "Phone Number";
+                var requiredPhone = "Phone number must starts with 5 with a total of 8 digits."
+                var strength = 'Weak';
+                var pclass = 'danger';
+                var number = $(this).val();
+                if (pattern.test(number) == true) {
+                    strength = 'Good';
+                    pclass = 'success';
+                }
+                else {
+                    strength = requiredPhone;
+                    pclass = 'warning';
+                    $('.register').su
+                }
+
+                var popover = phoneNumber.attr('data-content', strength).data('bs.popover');
+                popover.setContent();
+                popover.$tip.addClass(popover.options.placement).removeClass('danger success info warning primary').addClass(pclass);
+            });
+
         })
     </script>
 </head>
@@ -186,7 +209,7 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-3 control-label" })
                     <div class="col-md-6">
-                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "PhoneNumber", @data_toggle = "popover", @title = "Phone number", @data_content = "Enter Phone Number..." })
                     </div>
                 </div>
                 <div class="form-group">

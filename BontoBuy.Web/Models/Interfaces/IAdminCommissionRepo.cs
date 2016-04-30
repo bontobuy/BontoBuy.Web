@@ -16,5 +16,6 @@ namespace BontoBuy.Web.Models
         IEnumerable<OrderViewModel> RetrieveDeliveredOrders();
         IEnumerable<OrderViewModel> RetrievePaidOrders();
         OrderViewModel UpdateCommissionOwnedFromOrders(int id);
+        void ExportToExcel(List<CommissionOrderViewModel> items);
     }
 }

@@ -251,7 +251,7 @@ namespace BontoBuy.Web.Controllers
                     return View(orderItem);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View("RetrieveDeliveredOrders");
             }
@@ -383,6 +383,7 @@ namespace BontoBuy.Web.Controllers
                         Paid = item.CommissionPaid
                     };
                     recordList.Add(orderItem);
+                    Session["UnpaidOrderRecords"] = recordList;
                 }
 
                 //Paging Section
@@ -392,6 +393,10 @@ namespace BontoBuy.Web.Controllers
 
                 GetNewSupplierActivation();
                 GetNewModelsActivation();
+                var firstElement = recordList.First();
+                if (firstElement.Paid == false)
+                    return View("SearchUnpaidOrders", recordList);
+
                 return View("SearchUnpaidOrders", recordList);
             }
 
@@ -493,25 +498,16 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
-        //public ActionResult ExportToExcel()
-        //{
-        //    //var excelData = Session["ExcelData"] as List<AdminRetrieveOrdersViewModel>;
-        //    //if (excelData != null)
-        //    //    _repo.ExportToExcel(excelData);
+        public ActionResult ExportToExcel()
+        {
+            var excelData = Session["UnpaidOrderRecords"] as List<CommissionOrderViewModel>;
+            if (excelData != null)
+                _repo.ExportToExcel(excelData);
 
-        //    //Session.Remove("ExcelData");
+            Session.Remove("ExcelData");
 
-        //    //if (excelData == null)
-        //    //{
-        //    //    var records = _repo.AdminRetrieveOrders().ToList();
-        //    //    if (records == null)
-        //    //        return RedirectToAction("Home", "Error404");
-
-        //    //    _repo.ExportToExcel(records);
-        //    //}
-
-        //    //return RedirectToAction("RetrieveOrders");
-        //}
+            return RedirectToAction("SearchUnpaidOrders");
+        }
 
         public enum ManageMessageId
         {

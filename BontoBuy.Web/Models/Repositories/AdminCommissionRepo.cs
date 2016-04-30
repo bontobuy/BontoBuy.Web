@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace BontoBuy.Web.Models
 {
@@ -68,6 +73,62 @@ namespace BontoBuy.Web.Models
                 return null;
 
             return recordToUpdate;
+        }
+
+        public void ExportToExcel(List<CommissionOrderViewModel> records)
+        {
+            var dataTable = ConvertToDatatable(records);
+            DataSet dataSet = new DataSet();
+            dataSet.Tables.Add(dataTable);
+            ExcelConversion(dataSet);
+        }
+
+        private void ExcelConversion(DataSet dataSet)
+        {
+            HttpResponse response = System.Web.HttpContext.Current.Response;
+
+            // first let's clean up the response.object
+            response.Clear();
+            response.Charset = "";
+
+            // set the response mime type for excel
+            response.ContentType = "application/vnd.ms-excel";
+            response.AddHeader("Content-Disposition", "attachment;filename=\"" + DateTime.UtcNow.ToString("F") + "\"" + ".xls");
+
+            // create a string writer
+            using (StringWriter sw = new StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    // instantiate a datagrid
+                    DataGrid dg = new DataGrid();
+                    dg.DataSource = dataSet.Tables[0];
+                    dg.DataBind();
+                    dg.RenderControl(htw);
+                    response.Write(sw.ToString());
+                    response.End();
+                }
+            }
+        }
+
+        private DataTable ConvertToDatatable(List<CommissionOrderViewModel> records)
+        {
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(CommissionOrderViewModel));
+            DataTable table = new DataTable();
+
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+
+            foreach (var item in records)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+
+                table.Rows.Add(row);
+            }
+
+            return table;
         }
     }
 }

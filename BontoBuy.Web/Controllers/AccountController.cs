@@ -78,8 +78,9 @@ namespace BontoBuy.Web.Controllers
         public ActionResult Login(string returnUrl, ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-               message == ManageMessageId.ActivationFailure ? "You have entered a wrong Activation Code."
+               message == ManageMessageId.ActivationCustomerFailure ? "You have entered a wrong Activation Code."
                : message == ManageMessageId.Error ? "An error has occurred."
+               : message == ManageMessageId.ActivationSupplierSuccess ? "Please be patient. Our team will be activating your account in a moment. Then you can log in to your account by providing the required activation code."
                : "";
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -212,9 +213,9 @@ namespace BontoBuy.Web.Controllers
                 db.SaveChanges();
 
                 //Redirect to the homepage
-                return RedirectToAction("Index", "Home", new { message = ManageMessageId.ActivationSuccess });
+                return RedirectToAction("Index", "Home", new { message = ManageMessageId.ActivationCustomerSuccess });
             }
-            return RedirectToAction("Login", "Account", new { message = ManageMessageId.ActivationFailure });
+            return RedirectToAction("Login", "Account", new { message = ManageMessageId.ActivationCustomerFailure });
         }
 
         // GET: /Account/LoginAdmin
@@ -592,9 +593,12 @@ namespace BontoBuy.Web.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Supplier");
+                    return RedirectToAction("Login", "Account", new { message = ManageMessageId.ActivationSupplierSuccess });
                 }
-                AddErrors(result);
+
+                return RedirectToAction("Login", "Account", new { message = ManageMessageId.Error });
+
+                //AddErrors(result);
             }
             return View(model);
         }
@@ -1084,8 +1088,10 @@ namespace BontoBuy.Web.Controllers
 
         public enum ManageMessageId
         {
-            ActivationSuccess,
-            ActivationFailure,
+            ActivationCustomerSuccess,
+            ActivationCustomerFailure,
+            ActivationSupplierSuccess,
+            ActivationSupplierFailure,
             Error
         }
     }

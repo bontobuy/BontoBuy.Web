@@ -661,11 +661,75 @@ namespace BontoBuy.Web.Controllers
 
             model.ItemRecordsP42 = itemList42;
 
+            //Products for CategoryId = 10
+            var productRecordsC10 = (from prod in db.Products
+                                     join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                     where cat.CategoryId == 10
+                                     where prod.Status == "Active"
+                                     select prod).ToList();
+
+            if (productRecordsC10 == null)
+            {
+                return null;
+            }
+            model.ProductRecordsC10 = productRecordsC10;
+
+            //Items for ProductId = 64
+            var itemListP64 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 64
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP64 = itemListP64;
+
+            //Items for ProductId = 65
+            var itemListP65 = (from i in db.Items
+                               join p in db.Products on i.ProductId equals p.ProductId
+                               join c in db.Categories on p.CategoryId equals c.CategoryId
+                               where i.ProductId == 65
+                               where i.AdminStatus == "Active"
+                               select i).ToList();
+
+            model.ItemRecordsP65 = itemListP65;
+
+            //Products for CategoryId = 11
+            var productRecordsC11 = (from prod in db.Products
+                                     join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+                                     where cat.CategoryId == 11
+                                     where prod.Status == "Active"
+                                     select prod).ToList();
+
+            if (productRecordsC11 == null)
+            {
+                return null;
+            }
+            model.ProductRecordsC11 = productRecordsC11;
+
+            //Items for ProductId = 66
+            var itemList66 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 66
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP66 = itemList66;
+
+            //Items for ProductId = 67
+            var itemList67 = (from i in db.Items
+                              join p in db.Products on i.ProductId equals p.ProductId
+                              where i.ProductId == 67
+                              where i.AdminStatus == "Active"
+                              select i).ToList();
+
+            model.ItemRecordsP38 = itemList38;
+
             var MobileCategoryRecords = (from m in db.Models
                                          join i in db.Items on m.ItemId equals i.ItemId
                                          join p in db.Products on i.ProductId equals p.ProductId
                                          join c in db.Categories on p.CategoryId equals c.CategoryId
-                                         where c.Description == "Mobiles & Tablets" && i.AdminStatus == "Active"
+                                         where c.Description == "Mobiles & Tablets" && i.AdminStatus == "Active" && m.Status == "Active"
                                          select m).ToList();
 
             var MobileCategoryDisplay = new HomeCatalogViewModel();
@@ -697,7 +761,7 @@ namespace BontoBuy.Web.Controllers
                                            join i in db.Items on m.ItemId equals i.ItemId
                                            join p in db.Products on i.ProductId equals p.ProductId
                                            join c in db.Categories on p.CategoryId equals c.CategoryId
-                                           where c.Description == "Computers" && i.AdminStatus == "Active"
+                                           where c.Description == "Computers" && i.AdminStatus == "Active" && m.Status == "Active"
                                            select m).ToList();
 
             var ComputerCategoryDisplay = new HomeCatalogViewModel();
@@ -729,7 +793,7 @@ namespace BontoBuy.Web.Controllers
                                          join i in db.Items on m.ItemId equals i.ItemId
                                          join p in db.Products on i.ProductId equals p.ProductId
                                          join c in db.Categories on p.CategoryId equals c.CategoryId
-                                         where c.Description == "Gaming" && i.AdminStatus == "Active"
+                                         where c.Description == "Gaming" && i.AdminStatus == "Active" && m.Status == "Active"
                                          select m).ToList();
 
             var GamingCategoryDisplay = new HomeCatalogViewModel();
@@ -761,7 +825,7 @@ namespace BontoBuy.Web.Controllers
                                               join i in db.Items on m.ItemId equals i.ItemId
                                               join p in db.Products on i.ProductId equals p.ProductId
                                               join c in db.Categories on p.CategoryId equals c.CategoryId
-                                              where c.Description == "Electronics" && i.AdminStatus == "Active"
+                                              where c.Description == "Electronics" && i.AdminStatus == "Active" && m.Status == "Active"
                                               select m).ToList();
 
             var ElectronicsCategoryDisplay = new HomeCatalogViewModel();
@@ -793,7 +857,7 @@ namespace BontoBuy.Web.Controllers
                                         join i in db.Items on m.ItemId equals i.ItemId
                                         join p in db.Products on i.ProductId equals p.ProductId
                                         join c in db.Categories on p.CategoryId equals c.CategoryId
-                                        where c.Description == "Women's Fashion" && i.AdminStatus == "Active"
+                                        where c.Description == "Women's Fashion" && i.AdminStatus == "Active" && m.Status == "Active"
                                         select m).ToList();
 
             var WomenCategoryDisplay = new HomeCatalogViewModel();
@@ -825,7 +889,7 @@ namespace BontoBuy.Web.Controllers
                                       join i in db.Items on m.ItemId equals i.ItemId
                                       join p in db.Products on i.ProductId equals p.ProductId
                                       join c in db.Categories on p.CategoryId equals c.CategoryId
-                                      where c.Description == "Men's Fashion" && i.AdminStatus == "Active"
+                                      where c.Description == "Men's Fashion" && i.AdminStatus == "Active" && m.Status == "Active"
                                       select m).ToList();
 
             var MenCategoryDisplay = new HomeCatalogViewModel();
@@ -857,7 +921,7 @@ namespace BontoBuy.Web.Controllers
                                        join i in db.Items on m.ItemId equals i.ItemId
                                        join p in db.Products on i.ProductId equals p.ProductId
                                        join c in db.Categories on p.CategoryId equals c.CategoryId
-                                       where c.Description == "Kids' Fashion" && i.AdminStatus == "Active"
+                                       where c.Description == "Kids' Fashion" && i.AdminStatus == "Active" && m.Status == "Active"
                                        select m).ToList();
 
             var KidsCategoryDisplay = new HomeCatalogViewModel();
@@ -889,7 +953,7 @@ namespace BontoBuy.Web.Controllers
                                        join i in db.Items on m.ItemId equals i.ItemId
                                        join p in db.Products on i.ProductId equals p.ProductId
                                        join c in db.Categories on p.CategoryId equals c.CategoryId
-                                       where c.Description == "Home & Kitchen" && i.AdminStatus == "Active"
+                                       where c.Description == "Home & Kitchen" && i.AdminStatus == "Active" && m.Status == "Active"
                                        select m).ToList();
 
             var HomeCategoryDisplay = new HomeCatalogViewModel();
@@ -921,7 +985,7 @@ namespace BontoBuy.Web.Controllers
                                         join i in db.Items on m.ItemId equals i.ItemId
                                         join p in db.Products on i.ProductId equals p.ProductId
                                         join c in db.Categories on p.CategoryId equals c.CategoryId
-                                        where c.Description == "Sport, Fitness & Outdoor" && i.AdminStatus == "Active"
+                                        where c.Description == "Sport, Fitness & Outdoor" && i.AdminStatus == "Active" && m.Status == "Active"
                                         select m).ToList();
 
             var SportCategoryDisplay = new HomeCatalogViewModel();
@@ -949,28 +1013,28 @@ namespace BontoBuy.Web.Controllers
             }
             model.SportCategory = SportCategoryDisplay;
 
-            //Products for CategoryId = Financial
-            var productRecordsC10 = (from prod in db.Products
-                                     join cat in db.Categories on prod.CategoryId equals cat.CategoryId
-                                     where cat.Description == "Financial Services"
-                                     where prod.Status == "Active"
-                                     select prod).ToList();
+            ////Products for CategoryId = Financial
+            //var productRecordsC10 = (from prod in db.Products
+            //                         join cat in db.Categories on prod.CategoryId equals cat.CategoryId
+            //                         where cat.Description == "Financial Services"
+            //                         where prod.Status == "Active"
+            //                         select prod).ToList();
 
-            if (productRecordsC10 == null)
-            {
-                return View("Index");
-            }
-            model.ProductRecordsC10 = productRecordsC10;
+            //if (productRecordsC10 == null)
+            //{
+            //    return View("Index");
+            //}
+            //model.ProductRecordsC10 = productRecordsC10;
 
-            //Items for ProductName = Financial Services
-            var itemListPFinance = (from i in db.Items
-                                    join p in db.Products on i.ProductId equals p.ProductId
-                                    join c in db.Categories on p.CategoryId equals c.CategoryId
-                                    where p.Description == "Insurance"
-                                    where i.AdminStatus == "Active"
-                                    select i).ToList();
+            ////Items for ProductName = Financial Services
+            //var itemListPFinance = (from i in db.Items
+            //                        join p in db.Products on i.ProductId equals p.ProductId
+            //                        join c in db.Categories on p.CategoryId equals c.CategoryId
+            //                        where p.Description == "Insurance"
+            //                        where i.AdminStatus == "Active"
+            //                        select i).ToList();
 
-            model.ItemRecordsPFinance = itemListPFinance;
+            //model.ItemRecordsPFinance = itemListPFinance;
 
             var modelRecords = _modelRepository.Retrieve();
             var FeaturedList = new List<HomeCatalogViewModel>();

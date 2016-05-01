@@ -1139,6 +1139,150 @@ namespace BontoBuy.Web.Controllers
 
             model.NewLaunchList2 = NewLaunchesList2;
 
+            var mobilesRecord = (from m in db.Models
+                                 join i in db.Items on m.ItemId equals i.ItemId
+                                 join p in db.Products on i.ProductId equals p.ProductId
+                                 join c in db.Categories on p.CategoryId equals c.CategoryId
+                                 where m.Status == "Active" && p.Description == "Mobile Phones"
+                                 select m).ToList();
+            var mobilesList = new List<HomeCatalogViewModel>();
+
+            foreach (var item in mobilesRecord.OrderByDescending(x => Guid.NewGuid()).Take(3))
+            {
+                if (item.Status == "Active")
+                {
+                    var modelItem = new HomeCatalogViewModel()
+                    {
+                        ModelId = item.ModelId,
+                        ModelNumber = item.ModelNumber,
+                        Price = item.Price,
+                        BrandName = (from m in db.Models
+                                     join b in db.Brands on m.BrandId equals b.BrandId
+                                     where m.ModelId == item.ModelId
+                                     select b.Name).FirstOrDefault(),
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == item.ModelId
+                                    select ph.ImageUrl).FirstOrDefault(),
+
+                        DtCreated = (from m in db.Models
+                                     where m.ModelId == item.ModelId
+                                     select m.DtCreated).FirstOrDefault()
+                    };
+                    mobilesList.Add(modelItem);
+                }
+            }
+            model.Mobiles = mobilesList.OrderByDescending(m => m.DtCreated);
+
+            var computersRecord = (from m in db.Models
+                                   join i in db.Items on m.ItemId equals i.ItemId
+                                   join p in db.Products on i.ProductId equals p.ProductId
+                                   join c in db.Categories on p.CategoryId equals c.CategoryId
+                                   where m.Status == "Active" && c.Description == "Computers"
+                                   select m).ToList();
+            var computersList = new List<HomeCatalogViewModel>();
+
+            foreach (var item in computersRecord.OrderByDescending(x => Guid.NewGuid()).Take(3))
+            {
+                if (item.Status == "Active")
+                {
+                    var modelItem = new HomeCatalogViewModel()
+                    {
+                        ModelId = item.ModelId,
+                        ModelNumber = item.ModelNumber,
+                        Price = item.Price,
+                        BrandName = (from m in db.Models
+                                     join b in db.Brands on m.BrandId equals b.BrandId
+                                     where m.ModelId == item.ModelId
+                                     select b.Name).FirstOrDefault(),
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == item.ModelId
+                                    select ph.ImageUrl).FirstOrDefault(),
+
+                        DtCreated = (from m in db.Models
+                                     where m.ModelId == item.ModelId
+                                     select m.DtCreated).FirstOrDefault()
+                    };
+                    computersList.Add(modelItem);
+                }
+            }
+            model.Computers = computersList.OrderByDescending(m => m.DtCreated);
+
+            var GamingRecord = (from m in db.Models
+                                join i in db.Items on m.ItemId equals i.ItemId
+                                join p in db.Products on i.ProductId equals p.ProductId
+                                join c in db.Categories on p.CategoryId equals c.CategoryId
+                                where m.Status == "Active" && c.Description == "Gaming"
+                                select m).ToList();
+            var GamingList = new List<HomeCatalogViewModel>();
+
+            foreach (var item in GamingRecord.OrderByDescending(x => Guid.NewGuid()).Take(3))
+            {
+                if (item.Status == "Active")
+                {
+                    var modelItem = new HomeCatalogViewModel()
+                    {
+                        ModelId = item.ModelId,
+                        ModelNumber = item.ModelNumber,
+                        Price = item.Price,
+                        BrandName = (from m in db.Models
+                                     join b in db.Brands on m.BrandId equals b.BrandId
+                                     where m.ModelId == item.ModelId
+                                     select b.Name).FirstOrDefault(),
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == item.ModelId
+                                    select ph.ImageUrl).FirstOrDefault(),
+
+                        DtCreated = (from m in db.Models
+                                     where m.ModelId == item.ModelId
+                                     select m.DtCreated).FirstOrDefault()
+                    };
+                    GamingList.Add(modelItem);
+                }
+            }
+            model.Gaming = GamingList.OrderByDescending(m => m.DtCreated);
+
+            var WomenFashionRecord = (from m in db.Models
+                                      join i in db.Items on m.ItemId equals i.ItemId
+                                      join p in db.Products on i.ProductId equals p.ProductId
+                                      join c in db.Categories on p.CategoryId equals c.CategoryId
+                                      where m.Status == "Active" && c.Description == "Women's Fashion"
+                                      select m).ToList();
+            var WomenFashionList = new List<HomeCatalogViewModel>();
+
+            foreach (var item in WomenFashionRecord.OrderByDescending(x => Guid.NewGuid()).Take(3))
+            {
+                if (item.Status == "Active")
+                {
+                    var modelItem = new HomeCatalogViewModel()
+                    {
+                        ModelId = item.ModelId,
+                        ModelNumber = item.ModelNumber,
+                        Price = item.Price,
+                        BrandName = (from m in db.Models
+                                     join b in db.Brands on m.BrandId equals b.BrandId
+                                     where m.ModelId == item.ModelId
+                                     select b.Name).FirstOrDefault(),
+                        ImageUrl = (from ph in db.Photos
+                                    join pm in db.PhotoModels on ph.PhotoId equals pm.PhotoId
+                                    join m in db.Models on pm.ModelId equals m.ModelId
+                                    where pm.ModelId == item.ModelId
+                                    select ph.ImageUrl).FirstOrDefault(),
+
+                        DtCreated = (from m in db.Models
+                                     where m.ModelId == item.ModelId
+                                     select m.DtCreated).FirstOrDefault()
+                    };
+                    WomenFashionList.Add(modelItem);
+                }
+            }
+            ViewBag.WomenFashion = WomenFashionList.OrderByDescending(m => m.DtCreated);
+
             ViewBag.StatusMessage =
                message == ManageMessageId.ActivationSuccess ? "Your account has been successfully activated."
                : message == ManageMessageId.Error ? "An error has occurred."

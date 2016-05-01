@@ -57,7 +57,7 @@
         -webkit-box-shadow: none;
         left: 158px;
         top: -3px;
-        height:180%;
+        height: 180%;
     }
 
         .mega-sidebar-menu > li > ul {
@@ -196,11 +196,26 @@
     .NewLaunchImg {
         height: 20%;
         width: 20%;
+        margin-left: 95px;
     }
 
     .photo {
         width: 360px;
         height: 100px;
+    }
+
+    .firstGallery {
+        width: 30%;
+        height: 35%;
+        margin-left: 115px;
+    }
+
+    .secondGallery {
+        /*width: 30%;
+        height: 35%;*/
+        width: 190px;
+        height: 150px;
+        margin-left: 80px;
     }
 </style>
 
@@ -1192,11 +1207,11 @@
                                 <div class="col-item">
                                     <div class="info">
                                         <div class="row">
-                                            <div class="price col-md-6">
+                                            <div class="price col-md-8">
                                                 <h5>@item.ModelNumber</h5>
                                                 <h5 class="price-text-color">Rs @item.Price</h5>
                                             </div>
-                                            <div class="rating hidden-sm col-md-6">
+                                            <div class="rating hidden-sm col-md-4">
                                                 <i class="price-text-color glyphicon glyphicon-star"></i>
                                                 <i class="price-text-color glyphicon glyphicon-star"></i>
                                             </div>
@@ -1230,11 +1245,11 @@
                                 <div class="col-item">
                                     <div class="info">
                                         <div class="row">
-                                            <div class="price col-md-10">
+                                            <div class="price col-md-8">
                                                 <h5>@item.ModelNumber</h5>
                                                 <h5 class="price-text-color">@item.Price</h5>
                                             </div>
-                                            <div class="rating hidden-sm col-md-2">
+                                            <div class="rating hidden-sm col-md-4">
                                                 <i class="price-text-color glyphicon glyphicon-star"></i>
                                                 <i class="price-text-color glyphicon glyphicon-star"></i>
                                             </div>
@@ -1263,88 +1278,144 @@
             </div>
         </div>
     </div>
+    <br/>
     <hr/>
-    @*<div class="row" id="row-eq-height">
+    <div class="row border" id="row-eq-height">
+        <h3 class="text-info">Latest Smartphones</h3>
+        @foreach (var item in Model.Mobiles)
+        {
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <h4 class="text-center"><span class="label label-info">Samsung</span></h4>
-                    <img src="650*450" class="img-responsive">
+                    <h4 class="text-center"><span class="label label-info">@item.BrandName</span></h4>
+                    <a href="@Url.Action("ModelDetails", "Home", new { id=item.ModelId})" title="@item.ModelNumber"><img src="~/images/@item.ImageUrl" class="img-responsive firstGallery" alt="@item.ModelNumber"></a>
                     <div class="caption">
                         <div class="row">
                             <div class="col-md-6 col-xs-6">
-                                <h3>Galaxy S6</h3>
+                                <h3>@item.ModelNumber</h3>
                             </div>
                             <div class="col-md-6 col-xs-6 price">
                                 <h3>
-                                    <label>Rs34,700</label>
+                                    <label>Rs @item.Price</label>
                                 </h3>
                             </div>
                         </div>
-                        <p>32GB, 2GB Ram, 1080HD, 5.1 inches, Android</p>
+                        @*<p>32GB, 2GB Ram, 1080HD, 5.1 inches, Android</p>*@
                         <div class="row">
                             <div class="col-md-6">
-                                <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
+                                <a href="@Url.Action("ModelDetails", "Home", new { id= item.ModelId })" class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
                             </div>
                             <div class="col-md-6">
-                                <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                                <a class="btn btn-success btn-product AddToCart" data-id="@item.ModelId"><span class="glyphicon glyphicon-shopping-cart"></span> AddToCart</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        }
+    </div>
+    <br/>
+    <hr/>
+    <div class="row border" id="row-eq-height">
+        <h3 class="text-info">Computers</h3>
+        @foreach (var item in Model.Computers)
+        {
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <h4 class="text-center"><span class="label label-info">Apple</span></h4>
-                    <img src="650*450" class="img-responsive">
+                    <h4 class="text-center"><span class="label label-info">@item.BrandName</span></h4>
+                    <a href="@Url.Action("ModelDetails", "Home", new { id=item.ModelId})" title="@item.ModelNumber"><img src="~/images/@item.ImageUrl" class="img-responsive secondGallery" alt="@item.ModelNumber"></a>
                     <div class="caption">
                         <div class="row">
                             <div class="col-md-6 col-xs-6">
-                                <h3>iPhone 6</h3>
+                                <h3>@item.ModelNumber</h3>
                             </div>
                             <div class="col-md-6 col-xs-6 price">
                                 <h3>
-                                    <label>Rs36,500</label>
+                                    <label>Rs @item.Price</label>
                                 </h3>
                             </div>
                         </div>
-                        <p>32GB, 64Bit, 1080HD, 4.7 inches, iOS 8</p>
+                        @*<p>32GB, 2GB Ram, 1080HD, 5.1 inches, Android</p>*@
                         <div class="row">
                             <div class="col-md-6">
-                                <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
+                                <a href="@Url.Action("ModelDetails", "Home", new { id= item.ModelId })" class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
                             </div>
                             <div class="col-md-6">
-                                <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                                <a class="btn btn-success btn-product AddToCart" data-id="@item.ModelId"><span class="glyphicon glyphicon-shopping-cart"></span> AddToCart</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        }
+    </div>
+    <br/>
+    <hr/>
+    <div class="row border" id="row-eq-height">
+        <h3 class="text-info">Gaming</h3>
+        @foreach (var item in Model.Gaming)
+        {
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <h4 class="text-center"><span class="label label-info">Nokia</span></h4>
-                    <img src="650*450" class="img-responsive">
+                    <h4 class="text-center"><span class="label label-info">@item.BrandName</span></h4>
+                    <a href="@Url.Action("ModelDetails", "Home", new { id=item.ModelId})" title="@item.ModelNumber"><img src="~/images/@item.ImageUrl" class="img-responsive secondGallery" alt="@item.ModelNumber"></a>
                     <div class="caption">
                         <div class="row">
                             <div class="col-md-6 col-xs-6">
-                                <h3>Lumia 1520</h3>
+                                <h3>@item.ModelNumber</h3>
                             </div>
                             <div class="col-md-6 col-xs-6 price">
                                 <h3>
-                                    <label>Rs12,250</label>
+                                    <label>Rs @item.Price</label>
                                 </h3>
                             </div>
                         </div>
-                        <p>32GB, 4GB Ram, 1080HD, 6.3 inches, WP 8</p>
+                        @*<p>32GB, 2GB Ram, 1080HD, 5.1 inches, Android</p>*@
                         <div class="row">
                             <div class="col-md-6">
-                                <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
+                                <a href="@Url.Action("ModelDetails", "Home", new { id= item.ModelId })" class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
                             </div>
                             <div class="col-md-6">
-                                <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                                <a class="btn btn-success btn-product AddToCart" data-id="@item.ModelId"><span class="glyphicon glyphicon-shopping-cart"></span> AddToCart</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>*@
+        }
+    </div>
+    <br/>
+    <hr/>
+    <div class="row border" id="row-eq-height">
+        <h3 class="text-info">Women's Fashion</h3>
+        @foreach (var item in ViewBag.WomenFashion)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <h4 class="text-center"><span class="label label-info">@item.BrandName</span></h4>
+                    <a href="@Url.Action("ModelDetails", "Home", new { id=item.ModelId})" title="@item.ModelNumber"><img src="~/images/@item.ImageUrl" class="img-responsive secondGallery" alt="@item.ModelNumber"></a>
+                    <div class="caption">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <h3>@item.ModelNumber</h3>
+                            </div>
+                            <div class="col-md-6 col-xs-6 price">
+                                <h3>
+                                    <label>Rs @item.Price</label>
+                                </h3>
+                            </div>
+                        </div>
+                        @*<p>32GB, 2GB Ram, 1080HD, 5.1 inches, Android</p>*@
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="@Url.Action("ModelDetails", "Home", new { id= item.ModelId })" class="btn btn-primary btn-product"><span class="glyphicon glyphicon-info-sign"></span> View Details</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a class="btn btn-success btn-product AddToCart" data-id="@item.ModelId"><span class="glyphicon glyphicon-shopping-cart"></span> AddToCart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

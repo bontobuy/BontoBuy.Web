@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 @model IEnumerable<BontoBuy.Web.Models.CommissionOrderViewModel>
 @{
-    ViewBag.Title = ViewBag.searchString;
+    ViewBag.Title = "Paid Commission for " + ViewBag.searchString;
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
@@ -10,7 +10,7 @@
     <h2>@ViewBag.Title</h2>
     <p class="text-success">@ViewBag.StatusMessage</p>
     <div class="col-md-6">
-        @using (Html.BeginForm("SearchByDate", "AdminCommission", FormMethod.Get, new { id = "SearchModels" }))
+        @using (Html.BeginForm("SearchByDatePaidCommission", "AdminCommission", FormMethod.Get, new { id = "SearchModels" }))
         {
 
             <div class="form-group">
@@ -86,10 +86,10 @@
                     @item.Paid
                 </td>
                 <td>
-                    @if (!item.Paid)
-                    {
-                        @Html.ActionLink("Edit", "UpdateOrderCommission", new { id = item.OrderId })
-                    }
+                    @*@if (!item.Paid)
+                        {
+                            @Html.ActionLink("Edit", "UpdateOrderCommission", new { id = item.OrderId })
+                        }*@
 
                     @*@using (Html.BeginForm("UpdateOrderCommission", "AdminCommission", FormMethod.Post, new { id = "Paid" }))
                         {
@@ -105,7 +105,7 @@
 <div class="col-md-12">
     <div class="text-center">
         @Html.PagedListPager((IPagedList)ViewBag.pageOfProducts, page => Url.Action("RetrieveDeliveredOrders", new { page }))
-        Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Unpaid Commission
+        Showing @ViewBag.pageOfProducts.FirstItemOnPage to @ViewBag.pageOfProducts.LastItemOnPage of @ViewBag.pageOfProducts.TotalItemCount Paid Commission
     </div>
-    @Html.ActionLink("Back to List", "RetrieveDeliveredOrders")
+    @Html.ActionLink("Back to List", "RetrievePaidOrders")
 </div>

@@ -1120,6 +1120,8 @@
     <Content Include="Views\AdminCommission\SearchUnpaidOrders.cshtml" />
     <Content Include="Views\Supplier\SupplierGetOrderDetailsForReturn.cshtml" />
     <Content Include="Views\Error\InternetConnectionError.cshtml" />
+    <Content Include="Views\AdminCommission\RetrievePaidOrders.cshtml" />
+    <Content Include="Views\AdminCommission\SearchPaidOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

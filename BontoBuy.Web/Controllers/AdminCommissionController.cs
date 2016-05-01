@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BontoBuy.Web.HelperMethods;
+using BontoBuy.Web.Models;
+using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BontoBuy.Web.HelperMethods;
-using BontoBuy.Web.Models;
-using PagedList;
 
 namespace BontoBuy.Web.Controllers
 {
@@ -393,9 +393,10 @@ namespace BontoBuy.Web.Controllers
 
                 GetNewSupplierActivation();
                 GetNewModelsActivation();
-                var firstElement = recordList.First();
-                if (firstElement.Paid == false)
-                    return View("SearchUnpaidOrders", recordList);
+
+                //var firstElement = recordList.First();
+                //if (firstElement.Paid == false)
+                //    return View("SearchUnpaidOrders", recordList);
 
                 return View("SearchUnpaidOrders", recordList);
             }
@@ -463,7 +464,7 @@ namespace BontoBuy.Web.Controllers
                     GetNewModelsActivation();
 
                     ViewBag.Title = "List of Commission Paid on Orders";
-                    return View("RetrieveDeliveredOrders");
+                    return View();
                 }
 
                 return RedirectToAction("Login", "Account");
@@ -474,6 +475,131 @@ namespace BontoBuy.Web.Controllers
             }
         }
 
+        public ActionResult SearchPaidOrders(string searchString, int? page)
+        {
+            if (!String.IsNullOrWhiteSpace(searchString))
+            {
+                var properString = helper.ConvertToTitleCase(searchString);
+                ViewBag.searchString = properString;
+
+                var record = (from o in db.Orders
+                              join m in db.Users on o.SupplierUserId equals m.Id
+                              where m.Name == properString && o.Status == "Delivered" && o.CommissionPaid == true
+                              select o).ToList();
+
+                if (record == null)
+                    return RedirectToAction("RetrievePaidOrders");
+
+                var recordList = new List<CommissionOrderViewModel>();
+                foreach (var item in record)
+                {
+                    var commission = (((from c in db.Commissions
+                                        join mc in db.ModelCommissions on c.CommissionId equals mc.CommissionId
+                                        where mc.ModelId == item.ModelId
+                                        select c.Percentage).FirstOrDefault()));
+
+                    var orderItem = new CommissionOrderViewModel()
+                    {
+                        OrderId = item.OrderId,
+                        ModelName = (from m in db.Models
+                                     where m.ModelId == item.ModelId
+                                     select m.ModelNumber).FirstOrDefault(),
+
+                        SupplierId = item.SupplierId,
+
+                        SupplierName = (from u in db.Users
+                                        where u.Id == item.SupplierUserId
+                                        select u.Name).FirstOrDefault(),
+
+                        OrderDate = item.DtCreated,
+                        OrderAmount = item.UnitPrice,
+                        Commission = Convert.ToInt32((commission * item.UnitPrice) / 100),
+                        Paid = item.CommissionPaid
+                    };
+
+                    var supplierId = db.Users.Where(u => u.Name == properString).FirstOrDefault().Id;
+                    Session["SupplierId"] = supplierId;
+                    recordList.Add(orderItem);
+                }
+
+                //Paging Section
+                var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                var pageOfProducts = recordList.ToPagedList(pageNumber, 10); //set the number of records per page
+                ViewBag.pageOfProducts = pageOfProducts;
+
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
+                return View();
+            }
+            if (String.IsNullOrWhiteSpace(searchString))
+            {
+                return RedirectToAction("RetrievePaidOrders");
+            }
+
+            return RedirectToAction("Error404", "Home");
+        }
+
+        public ActionResult SearchByDatePaidCommission(Nullable<DateTime> fromDate, Nullable<DateTime> toDate, int? page)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                string supplierId = Session["supplierId"] as string;
+                ViewBag.searchString = "from " + fromDate + " to " + toDate;
+
+                var record = (from o in db.Orders
+                              where o.DtCreated <= toDate && o.DtCreated >= fromDate && o.Status == "Delivered" && o.CommissionPaid == true && o.SupplierUserId == supplierId
+                              select o).ToList();
+
+                if (record == null)
+                    return RedirectToAction("RetrievePaidOrders");
+
+                var recordList = new List<CommissionOrderViewModel>();
+                foreach (var item in record)
+                {
+                    var commission = (((from c in db.Commissions
+                                        join mc in db.ModelCommissions on c.CommissionId equals mc.CommissionId
+                                        where mc.ModelId == item.ModelId
+                                        select c.Percentage).FirstOrDefault()));
+
+                    var orderItem = new CommissionOrderViewModel()
+                    {
+                        OrderId = item.OrderId,
+                        ModelName = (from m in db.Models
+                                     where m.ModelId == item.ModelId
+                                     select m.ModelNumber).FirstOrDefault(),
+
+                        SupplierId = item.SupplierId,
+
+                        SupplierName = (from u in db.Users
+                                        where u.Id == item.SupplierUserId
+                                        select u.Name).FirstOrDefault(),
+
+                        OrderDate = item.DtCreated,
+                        OrderAmount = item.UnitPrice,
+                        Commission = Convert.ToInt32((commission * item.UnitPrice) / 100),
+                        Paid = item.CommissionPaid
+                    };
+                    recordList.Add(orderItem);
+                    Session["PaidOrderRecords"] = recordList;
+                }
+
+                //Paging Section
+                var pageNumber = page ?? 1; // if no pagenumber is specified in the querystring, it will assign pageNumber to 1 by default
+                var pageOfProducts = recordList.ToPagedList(pageNumber, 10); //set the number of records per page
+                ViewBag.pageOfProducts = pageOfProducts;
+
+                GetNewSupplierActivation();
+                GetNewModelsActivation();
+
+                //var firstElement = recordList.First();
+                //if (firstElement.Paid == true)
+                //    return View("SearchPaidOrders", recordList);
+
+                return View("SearchPaidOrders", recordList);
+            }
+
+            return RedirectToAction("RetrievePaidOrders");
+        }
         public ActionResult UpdateCommissionOwnedFromOrders(int id)
         {
             try

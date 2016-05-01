@@ -58,6 +58,12 @@
     top: -35px;
 }
 
+.slideControls {
+    width: 30px;
+    height: 30px;
+    top: -35px;
+}
+
 .left.carousel-control {
     right: 30px;
     left: inherit;
@@ -73,6 +79,20 @@
     border: 1px solid #ddd;
 }
 
+.carousel-control.left {
+    background-image: -webkit-gradient(linear, 0 top, 100% top, from(rgba(255, 255, 255, 0.60)), to(rgba(255, 255, 255, 0.00)));
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+
+.carousel-control.right {
+    right: 0;
+    left: auto;
+    background-image: -webkit-gradient(linear, 0 top, 100% top, from(rgba(255, 255, 255, 0.60)), to(rgba(255, 255, 255, 0.60)));
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+
 /*CSS For Index*/
 .btn-product {
     width: 100%;
@@ -81,7 +101,7 @@
 #myCarousel {
     background: transparent;
     margin-top: 20px;
-    height:115%;
+    height: 115%;
 }
 
     #myCarousel .item img {
@@ -90,10 +110,10 @@
         height: 50%;
     }
 
-    #WelcomePage{
-        width:600px;
-        height:250px;
-    }
+#WelcomePage {
+    width: 600px;
+    height: 250px;
+}
 
 .slideshow {
     margin: 20px;
@@ -438,6 +458,6 @@
     font-size: 1.5em;
 }
 
-        .border {
-            border: 1px solid #ddd;
-        }
+.border {
+    border: 1px solid #ddd;
+}

@@ -1,6 +1,7 @@
 ﻿using BontoBuy.Web.Models;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,7 @@ namespace BontoBuy.Web.Controllers
                           where o.CustomerUserId == userId &&
                           r.ReturnId == id
                           select r).FirstOrDefault();
+            Session["CustomerReturn"] = record;
 
             if (record == null)
                 return RedirectToAction("Home", "Error404");
@@ -108,7 +110,8 @@ namespace BontoBuy.Web.Controllers
                 DtCreated = DateTime.UtcNow,
                 ReturnDate = DateTime.UtcNow,
                 DtUpdated = DateTime.UtcNow,
-                Notification = "Supplier"
+                Notification = "Supplier",
+                HasApproved = false
             };
             db.Returns.Add(newReturn);
             db.SaveChanges();
@@ -148,6 +151,12 @@ namespace BontoBuy.Web.Controllers
             ViewBag.pageOfProducts = pageOfProducts;
 
             return View("RetrieveReturns");
+        }
+
+        public ActionResult ViewReturnPdf()
+        {
+            var customerReturn = Session["CustomerReturn"] as ReturnViewModel;
+            return new ViewAsPdf("ViewReturnPdf", customerReturn);
         }
     }
 }

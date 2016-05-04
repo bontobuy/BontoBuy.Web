@@ -22,6 +22,7 @@ namespace BontoBuy.Web.Models
         public DateTime DtCreated { get; set; }
         public DateTime DtUpdated { get; set; }
         public string Notification { get; set; }
+        public bool HasApproved { get; set; }
         [ForeignKey("OrderId")]
         public OrderViewModel OrderNav { get; set; }
     }

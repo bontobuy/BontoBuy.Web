@@ -164,6 +164,7 @@ namespace BontoBuy.Web.Controllers
             {
                 //Refer to Product Controller for View
                 ViewBag.ReturnStatusId = new SelectList(db.ReturnStatuses, "ReturnStatusId", "Status", item.ReturnStatusId);
+
                 var itemToUpdate = new ReturnViewModel()
                 {
                     ReturnId = item.ReturnId,
@@ -177,6 +178,11 @@ namespace BontoBuy.Web.Controllers
                     DtCreated = item.DtCreated,
                     DtUpdated = item.DtUpdated
                 };
+                if (item.ReturnStatusId == 1)
+                {
+                    itemToUpdate.HasApproved = true;
+                }
+                else { itemToUpdate.HasApproved = false; }
                 db.SaveChanges();
                 return RedirectToAction("Retrieve", "Return", new { message = ManageMessageId.UpdateSuccess });
             }

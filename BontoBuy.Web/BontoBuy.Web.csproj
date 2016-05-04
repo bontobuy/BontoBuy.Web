@@ -623,6 +623,14 @@
     <Compile Include="Migrations\201604100828000_AddCommissionPaidToOrder.Designer.cs">
       <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605041752434_Add Column HasApproved To Table Return.cs" />
+    <Compile Include="Migrations\201605041752434_Add Column HasApproved To Table Return.Designer.cs">
+      <DependentUpon>201605041752434_Add Column HasApproved To Table Return.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605041758543_Column HasApproved To Table Return.cs" />
+    <Compile Include="Migrations\201605041758543_Column HasApproved To Table Return.Designer.cs">
+      <DependentUpon>201605041758543_Column HasApproved To Table Return.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interfaces\IAdminCommissionRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminOrderRepo.cs" />
     <Compile Include="Models\Interfaces\IAdminRoleRepo.cs" />
@@ -1504,6 +1512,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604100828000_AddCommissionPaidToOrder.resx">
       <DependentUpon>201604100828000_AddCommissionPaidToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605041752434_Add Column HasApproved To Table Return.resx">
+      <DependentUpon>201605041752434_Add Column HasApproved To Table Return.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605041758543_Column HasApproved To Table Return.resx">
+      <DependentUpon>201605041758543_Column HasApproved To Table Return.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
